@@ -1,8 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>電資類資源分享</title>
+    <url>/personal/sources-share/</url>
+    <content><![CDATA[<p>內容準備中</p>
+]]></content>
+      <categories>
+        <category>資源分享</category>
+      </categories>
+  </entry>
+  <entry>
     <title>APCS-2024/01/07</title>
-    <url>/APCS20240107/</url>
+    <url>/personal/APCS20240107/</url>
     <content><![CDATA[<h1 id="第一題"><a href="#第一題" class="headerlink" title="第一題"></a>第一題</h1><p><a href="https://zerojudge.tw/ShowProblem?problemid=m931">https://zerojudge.tw/ShowProblem?problemid=m931</a></p>
 <hr>
 <details>
@@ -467,22 +476,13 @@ ABaB
   </entry>
   <entry>
     <title>日常刷題</title>
-    <url>/zj-code/</url>
+    <url>/personal/zj-code/</url>
     <content><![CDATA[  <summary><span style="font-weight:bold;font-size:24px">m931</span><span style="color:green;font-weight:bold; font-size:24px"> AC(2ms, 364KB)</span></summary>
   
 <figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    ios::<span class="built_in">sync_with_stdio</span>(<span class="number">0</span>);cin.<span class="built_in">tie</span>(<span class="number">0</span>);</span><br><span class="line">    <span class="type">int</span> n,mx=<span class="number">0</span>,tmp=<span class="number">0</span>;</span><br><span class="line">    vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; v;</span><br><span class="line">    cin&gt;&gt;n;</span><br><span class="line">    v.<span class="built_in">resize</span>(<span class="number">3</span>,<span class="built_in">vector</span>&lt;<span class="type">int</span>&gt;(n));</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;n;i++)&#123;</span><br><span class="line">        cin&gt;&gt;v[<span class="number">0</span>][i]&gt;&gt;v[<span class="number">1</span>][i];</span><br><span class="line">        v[<span class="number">2</span>][i]=(v[<span class="number">0</span>][i])*(v[<span class="number">0</span>][i])+(v[<span class="number">1</span>][i])*(v[<span class="number">1</span>][i]);</span><br><span class="line">        <span class="keyword">if</span>(v[<span class="number">2</span>][i]&gt;mx) mx=v[<span class="number">2</span>][i],tmp=i;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    v[<span class="number">2</span>][tmp]=<span class="number">0</span>,mx=<span class="number">0</span>,tmp=<span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;n;i++)&#123;</span><br><span class="line">        <span class="keyword">if</span>(v[<span class="number">2</span>][i]&gt;mx) mx=v[<span class="number">2</span>][i],tmp=i;</span><br><span class="line">    &#125;</span><br><span class="line">    cout&lt;&lt;v[<span class="number">0</span>][tmp]&lt;&lt;<span class="string">&quot; &quot;</span>&lt;&lt;v[<span class="number">1</span>][tmp];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 ]]></content>
       <categories>
         <category>zerojudge</category>
-      </categories>
-  </entry>
-  <entry>
-    <title>電資類資源分享</title>
-    <url>/sources-share/</url>
-    <content><![CDATA[<p>內容準備中</p>
-]]></content>
-      <categories>
-        <category>資源分享</category>
       </categories>
   </entry>
 </search>
