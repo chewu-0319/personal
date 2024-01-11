@@ -2,25 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://chewu-0319.github.io/personal/about/index.html</loc>
-    
-    <lastmod>2024-01-11</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://chewu-0319.github.io/personal/interview/</loc>
-    
-    <lastmod>2024-01-11</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://chewu-0319.github.io/personal/zj-code/</loc>
+    <loc>https://chewu-0319.github.io/personal/APCS20240107/</loc>
     
     <lastmod>2024-01-11</lastmod>
     
@@ -38,9 +20,27 @@
   </url>
   
   <url>
-    <loc>https://chewu-0319.github.io/personal/APCS20240107/</loc>
+    <loc>https://chewu-0319.github.io/personal/zj-code/</loc>
     
-    <lastmod>2024-01-10</lastmod>
+    <lastmod>2024-01-11</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://chewu-0319.github.io/personal/about/index.html</loc>
+    
+    <lastmod>2024-01-11</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://chewu-0319.github.io/personal/interview/</loc>
+    
+    <lastmod>2024-01-11</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -81,14 +81,14 @@
   </url>
   
   <url>
-    <loc>https://chewu-0319.github.io/personal/categories/zerojudge/</loc>
+    <loc>https://chewu-0319.github.io/personal/categories/%E8%B3%87%E6%BA%90%E5%88%86%E4%BA%AB/</loc>
     <lastmod>2024-01-11</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://chewu-0319.github.io/personal/categories/%E8%B3%87%E6%BA%90%E5%88%86%E4%BA%AB/</loc>
+    <loc>https://chewu-0319.github.io/personal/categories/zerojudge/</loc>
     <lastmod>2024-01-11</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>

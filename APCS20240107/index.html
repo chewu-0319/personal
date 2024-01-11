@@ -27,11 +27,13 @@
 <meta property="og:site_name" content="che的blog">
 <meta property="og:description" content="2024&#x2F;1&#x2F;7 考題解析">
 <meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://www.cutercounter.com/hits.php?id=huxocodd&nd=6&style=11">
 <meta property="article:published_time" content="2024-01-08T15:00:00.000Z">
-<meta property="article:modified_time" content="2024-01-10T06:21:33.022Z">
+<meta property="article:modified_time" content="2024-01-11T17:31:44.218Z">
 <meta property="article:author" content="che_wu">
 <meta property="article:tag" content="資訊, 研究, 高中, 社團, 程式, code, 大學, 資工,資訊,資訊社,光復,高中,社團,光復高中,資訊研究社,新北光復,吳昕哲,昕哲,高中資訊,吳○哲,光復資訊研究社">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://www.cutercounter.com/hits.php?id=huxocodd&nd=6&style=11">
 
 <link rel="canonical" href="https://chewu-0319.github.io/personal/APCS20240107/">
 
@@ -214,7 +216,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新於</span>
-                <time title="修改時間：2024-01-10 14:21:33" itemprop="dateModified" datetime="2024-01-10T14:21:33+08:00">2024-01-10</time>
+                <time title="修改時間：2024-01-12 01:31:44" itemprop="dateModified" datetime="2024-01-12T01:31:44+08:00">2024-01-12</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -232,7 +234,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">文章字數：</span>
-              <span>1.2k</span>
+              <span>1.3k</span>
             </span>
             <span class="post-meta-item" title="所需閱讀時間">
               <span class="post-meta-item-icon">
@@ -709,6 +711,13 @@ ABaB
   <summary><span style="font-weight:bold;font-size:24px">m932解答</span><span style="color:green;font-weight:bold; font-size:24px">AC(2ms, 368KB)</span></summary>
   
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    ios::<span class="built_in">sync_with_stdio</span>(<span class="number">0</span>);cin.<span class="built_in">tie</span>(<span class="number">0</span>); <span class="comment">//IO優化</span></span><br><span class="line">    vector&lt;vector&lt;<span class="type">char</span>&gt;&gt; v; </span><br><span class="line">    <span class="type">bool</span> t[<span class="number">123</span>]=&#123;<span class="number">0</span>&#125;;    <span class="comment">//統計用陣列 (輸出第二行時用的到)</span></span><br><span class="line">    <span class="type">int</span> m,n,k,d;        <span class="comment">//m,n,k為題目敘述 d代表的是input最後一行的整數</span></span><br><span class="line">    string s;</span><br><span class="line">    cin&gt;&gt;m&gt;&gt;n&gt;&gt;k;</span><br><span class="line">    <span class="type">int</span> nowx=m<span class="number">-1</span>,nowy=<span class="number">0</span>,cnt=<span class="number">0</span>;      <span class="comment">//nowx,nowy記錄現在位置的x和y cnt記錄種類</span></span><br><span class="line">    v.<span class="built_in">resize</span>(m,<span class="built_in">vector</span>&lt;<span class="type">char</span>&gt;(n));    <span class="comment">//動態開記憶體</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;m;i++)&#123;           <span class="comment">//把string丟進char陣列裡</span></span><br><span class="line">        cin&gt;&gt;s;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> j=<span class="number">0</span>;j&lt;n;j++)&#123;</span><br><span class="line">            v[i][j]=s[j];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">                              </span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;k;i++)&#123;    <span class="comment">//先判斷現在往哪個方向 再判斷if(沒超過邊界)就更新現在位置;</span></span><br><span class="line">        cin&gt;&gt;d;</span><br><span class="line">        <span class="keyword">if</span>(d==<span class="number">0</span>)&#123;</span><br><span class="line">            <span class="keyword">if</span>((nowx<span class="number">-1</span>)&gt;=<span class="number">0</span>) nowx--; </span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(d==<span class="number">1</span>)&#123;</span><br><span class="line">            <span class="keyword">if</span>((nowy+<span class="number">1</span>)&lt;n) nowy++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(d==<span class="number">2</span>)&#123;</span><br><span class="line">            <span class="keyword">if</span>((nowx+<span class="number">1</span>)&lt;m&amp;&amp;(nowy+<span class="number">1</span>)&lt;n) nowx++,nowy++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(d==<span class="number">3</span>)&#123;</span><br><span class="line">            <span class="keyword">if</span>((nowx+<span class="number">1</span>)&lt;m) nowx++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(d==<span class="number">4</span>)&#123;</span><br><span class="line">            <span class="keyword">if</span>((nowy<span class="number">-1</span>)&gt;=<span class="number">0</span>) nowy--;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(d==<span class="number">5</span>)&#123;</span><br><span class="line">            <span class="keyword">if</span>((nowx<span class="number">-1</span>)&gt;=<span class="number">0</span>&amp;&amp;(nowy<span class="number">-1</span>)&gt;=<span class="number">0</span>) nowx--,nowy--;</span><br><span class="line">        &#125;</span><br><span class="line">        cout&lt;&lt;v[nowx][nowy]; </span><br><span class="line">        t[(<span class="type">int</span>)(v[nowx][nowy])]=<span class="number">1</span>;     <span class="comment">//這邊使用ASCII 轉成int 丟到陣列</span></span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="string">&#x27;A&#x27;</span>;i&lt;=<span class="string">&#x27;Z&#x27;</span>;i++)&#123;         <span class="comment">//跑陣列 統計多少種類</span></span><br><span class="line">        <span class="keyword">if</span>(t[i]==<span class="number">1</span>) cnt++;        </span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="string">&#x27;a&#x27;</span>;i&lt;=<span class="string">&#x27;z&#x27;</span>;i++)&#123;</span><br><span class="line">        <span class="keyword">if</span>(t[i]==<span class="number">1</span>) cnt++;        </span><br><span class="line">    &#125;</span><br><span class="line">    cout&lt;&lt;<span class="string">&quot;\n&quot;</span>&lt;&lt;cnt;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<hr>
+<!-- Start of CuterCounter Code -->
+<p><a href="https://www.cutercounter.com/traditional-chinese-nn/" target="_blank" style="pointer-events: none;"><img src="https://www.cutercounter.com/hits.php?id=huxocodd&nd=6&style=11" border="0" alt="網站計數器"></a></p>
+<!-- End of CuterCounter Code -->
+
+
+
 
     </div>
 
@@ -741,8 +750,8 @@ ABaB
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/personal/zj-code/" rel="prev" title="日常刷題">
-      <i class="fa fa-chevron-left"></i> 日常刷題
+    <a href="/personal/sources-share/" rel="prev" title="電資類競賽分享">
+      <i class="fa fa-chevron-left"></i> 電資類競賽分享
     </a></div>
       <div class="post-nav-item">
     <a href="/personal/interview/" rel="next" title="特殊選才">
@@ -891,7 +900,7 @@ ABaB
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">所需總閱讀時間 &asymp;</span>
-    <span title="所需總閱讀時間">12 分鐘</span>
+    <span title="所需總閱讀時間">13 分鐘</span>
 </div>
 
 
