@@ -1,15 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>電資類資源分享</title>
-    <url>/personal/sources-share/</url>
-    <content><![CDATA[<p>內容準備中</p>
-]]></content>
-      <categories>
-        <category>資源分享</category>
-      </categories>
-  </entry>
-  <entry>
     <title>APCS-2024/01/07</title>
     <url>/personal/APCS20240107/</url>
     <content><![CDATA[<h1 id="第一題"><a href="#第一題" class="headerlink" title="第一題"></a>第一題</h1><p><a href="https://zerojudge.tw/ShowProblem?problemid=m931">https://zerojudge.tw/ShowProblem?problemid=m931</a></p>
@@ -475,14 +466,303 @@ ABaB
       </categories>
   </entry>
   <entry>
-    <title>日常刷題</title>
-    <url>/personal/zj-code/</url>
-    <content><![CDATA[  <summary><span style="font-weight:bold;font-size:24px">m931</span><span style="color:green;font-weight:bold; font-size:24px"> AC(2ms, 364KB)</span></summary>
-  
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    ios::<span class="built_in">sync_with_stdio</span>(<span class="number">0</span>);cin.<span class="built_in">tie</span>(<span class="number">0</span>);</span><br><span class="line">    <span class="type">int</span> n,mx=<span class="number">0</span>,tmp=<span class="number">0</span>;</span><br><span class="line">    vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; v;</span><br><span class="line">    cin&gt;&gt;n;</span><br><span class="line">    v.<span class="built_in">resize</span>(<span class="number">3</span>,<span class="built_in">vector</span>&lt;<span class="type">int</span>&gt;(n));</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;n;i++)&#123;</span><br><span class="line">        cin&gt;&gt;v[<span class="number">0</span>][i]&gt;&gt;v[<span class="number">1</span>][i];</span><br><span class="line">        v[<span class="number">2</span>][i]=(v[<span class="number">0</span>][i])*(v[<span class="number">0</span>][i])+(v[<span class="number">1</span>][i])*(v[<span class="number">1</span>][i]);</span><br><span class="line">        <span class="keyword">if</span>(v[<span class="number">2</span>][i]&gt;mx) mx=v[<span class="number">2</span>][i],tmp=i;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    v[<span class="number">2</span>][tmp]=<span class="number">0</span>,mx=<span class="number">0</span>,tmp=<span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;n;i++)&#123;</span><br><span class="line">        <span class="keyword">if</span>(v[<span class="number">2</span>][i]&gt;mx) mx=v[<span class="number">2</span>][i],tmp=i;</span><br><span class="line">    &#125;</span><br><span class="line">    cout&lt;&lt;v[<span class="number">0</span>][tmp]&lt;&lt;<span class="string">&quot; &quot;</span>&lt;&lt;v[<span class="number">1</span>][tmp];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+    <title>特殊選才</title>
+    <url>/personal/interview/</url>
+    <content><![CDATA[<h1 id="最終成績"><a href="#最終成績" class="headerlink" title="最終成績"></a>最終成績</h1><table>
+<thead>
+<tr>
+<th>大學</th>
+<th>書審成績</th>
+<th>面試成績</th>
+<th>總成績</th>
+<th>排名</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>輔仁資工</td>
+<td>83.33</td>
+<td>90</td>
+<td>173.33</td>
+<td>備2(已備上</td>
+</tr>
+<tr>
+<td>中原資工</td>
+<td>84.2</td>
+<td>83.75</td>
+<td>167.95</td>
+<td>備7</td>
+</tr>
+<tr>
+<td>元智資工</td>
+<td>84.67</td>
+<td>N&#x2F;A</td>
+<td>84.67</td>
+<td>備7</td>
+</tr>
+<tr>
+<td>逢甲資工</td>
+<td>84.67</td>
+<td>89.63</td>
+<td>175.292</td>
+<td>備13</td>
+</tr>
+<tr>
+<td>國立屏東電科</td>
+<td>85.48</td>
+<td>N&#x2F;A</td>
+<td>85.48</td>
+<td>備2(已備上</td>
+</tr>
+<tr>
+<td>國立中教資工</td>
+<td>83.75</td>
+<td>85.25</td>
+<td>169</td>
+<td>備1(已備上</td>
+</tr>
+<tr>
+<td>國立高師軟工</td>
+<td>84.33</td>
+<td>80.67</td>
+<td>165</td>
+<td>備6</td>
+</tr>
+<tr>
+<td>國立高雄資工</td>
+<td>84</td>
+<td>83.33</td>
+<td>167.33</td>
+<td>備26</td>
+</tr>
+<tr>
+<td>國立暨南資工</td>
+<td>83.56</td>
+<td>88</td>
+<td>171.56</td>
+<td>備2</td>
+</tr>
+<tr>
+<td>國立嘉義資工</td>
+<td></td>
+<td></td>
+<td></td>
+<td>備11</td>
+</tr>
+<tr>
+<td>台北市立資科</td>
+<td>73.5</td>
+<td>N&#x2F;A</td>
+<td>73.5</td>
+<td>備12</td>
+</tr>
+</tbody></table>
+<h1 id="面試題目紀錄"><a href="#面試題目紀錄" class="headerlink" title="面試題目紀錄"></a>面試題目紀錄</h1><h2 id="輔仁大學-資訊工程學系"><a href="#輔仁大學-資訊工程學系" class="headerlink" title="輔仁大學 資訊工程學系"></a>輔仁大學 資訊工程學系</h2><p>面試10分鐘</p>
+<ul>
+<li>自我介紹</li>
+<li>動態記憶體配置的配置方法</li>
+<li>class是什麼</li>
+<li>動態規劃題目 試問可切割還是不可切割</li>
+<li>這次apcs有用到哪些資料結構</li>
+<li>為何想參加SITCON</li>
+<li>vector跟array差在哪</li>
+<li>學到DFS有用嗎 但apcs只有三級應該用不到</li>
+<li>apcs考幾次 幾分 為什麼實作沒進步</li>
+<li>你認為你的專長是什麼</li>
+</ul>
+<hr>
+<h2 id="台中教育大學-資訊工程學系"><a href="#台中教育大學-資訊工程學系" class="headerlink" title="台中教育大學 資訊工程學系"></a>台中教育大學 資訊工程學系</h2><p>面試8分鐘*2間</p>
+<p>第一間</p>
+<ul>
+<li>自我介紹</li>
+<li>最熟的程式語言</li>
+<li>用過什麼演算法</li>
+<li>排序? 如何挑?</li>
+<li>for迴圈跟while迴圈差在哪</li>
+<li>tree? binary search 二元樹 balance tree (我說balance tree沒實做過 他說沒關係 高中這樣就夠了)</li>
+<li>學校資訊課程如何 教什麼?</li>
+<li>如何準備apcs? zerojudge?</li>
+<li>為什麼想考cpe?</li>
+<li>英文題目可以嗎</li>
+<li>日常生活中聽過新的資訊科技?(我答機器學習 生成式AI </li>
+<li>chatGPT用來做什麼? 我答解題</li>
+<li>資訊成績 最弱科目 數學成績?</li>
+<li>程式得意的作品或題目</li>
+</ul>
+<p>第二間</p>
+<ul>
+<li>自我介紹</li>
+<li>特殊經歷中 哪個最值得講?</li>
+<li>APCS實作為什麼只有兩題? 為什麼第二題答不出來</li>
+<li>ITSA創立單位? 中文題目?</li>
+<li>資訊學科能力競賽 新北區 多少人 幾個佳作 幾個全國賽 </li>
+<li>為什麼參加資安14個小時</li>
+<li>AI cup是什麼樣的活動 雲端運算 優等獎?</li>
+<li>額外問 百米12秒2蠻特別的 解釋一下</li>
+</ul>
+<hr>
+<h2 id="中原大學-資訊工程學系"><a href="#中原大學-資訊工程學系" class="headerlink" title="中原大學 資訊工程學系"></a>中原大學 資訊工程學系</h2><p>面試10分鐘</p>
+<ul>
+<li>自我介紹</li>
+<li>社團教學教什麼</li>
+<li>為什麼你認為你適合資工</li>
+<li>個人特色</li>
+<li>大學肯接受熬夜嗎?</li>
+<li>熬夜到天亮ok嗎?</li>
+<li>結婚後日夜顛倒也沒關係?</li>
+<li>競賽中遇到的困難?</li>
+<li>雲端運算競賽在幹嘛？(我有提到race condition 然後他有問過程和怎麼解決</li>
+<li>理論和實作你認為哪個重要？</li>
+</ul>
+<hr>
+<h2 id="高雄大學-資訊工程學系"><a href="#高雄大學-資訊工程學系" class="headerlink" title="高雄大學 資訊工程學系"></a>高雄大學 資訊工程學系</h2><p>面試5分鐘</p>
+<ul>
+<li>自我介紹 家庭背景 </li>
+<li>得獎部分 全校第一參加資訊學科能力競賽是幹嘛?</li>
+<li>除了C++ 還會什麼程式語言 網站怎麼架設的 有接資料庫嗎</li>
+<li>APCS怎麼準備的 遇到問題怎麼解決</li>
+<li>骰子迴圈題…</li>
+</ul>
+<hr>
+<h2 id="逢甲大學-資訊工程學系"><a href="#逢甲大學-資訊工程學系" class="headerlink" title="逢甲大學 資訊工程學系"></a>逢甲大學 資訊工程學系</h2><p>面試5分鐘</p>
+<ul>
+<li>自我介紹</li>
+<li>雲端運算競賽是幹嘛的</li>
+<li>那你有聽過…. 分散式</li>
+<li>只有server跟使用者的關係</li>
+<li>運算思維競賽為什麼當初想去報?</li>
+<li>APCS考幾次</li>
+<li>參加什麼C++課程</li>
+<li>什麼時候發現自己跑這麼快：）</li>
+</ul>
+<hr>
+<h2 id="暨南大學-資訊工程學系"><a href="#暨南大學-資訊工程學系" class="headerlink" title="暨南大學 資訊工程學系"></a>暨南大學 資訊工程學系</h2><p>面試10分鐘<br>需要用簡報</p>
+<ul>
+<li>為什麼來報暨南</li>
+<li>還報哪間學校?</li>
+<li>雲端運算競賽用到的演算法</li>
+<li>進階程式設計課程在上什麼</li>
+<li>開始教我分治法：）</li>
+</ul>
+<hr>
+<h2 id="高雄師範大學-軟體工程與管理學系"><a href="#高雄師範大學-軟體工程與管理學系" class="headerlink" title="高雄師範大學 軟體工程與管理學系"></a>高雄師範大學 軟體工程與管理學系</h2><p>4人團體面試 共20分鐘</p>
+<ul>
+<li>自我介紹</li>
+<li>為什麼要選擇資安組</li>
+<li>進資安組想要往什麼方面？未來工作想做什麼？</li>
+<li>和資安相關的程式經驗？</li>
+<li>為什麼網路詐騙那麼廣泛？如何加強？</li>
+<li>使用ChatGPT的相關經驗？</li>
+</ul>
+<hr>
+<h2 id="嘉義大學-資訊工程學系"><a href="#嘉義大學-資訊工程學系" class="headerlink" title="嘉義大學 資訊工程學系"></a>嘉義大學 資訊工程學系</h2><p>1間10分鐘*2</p>
+<p>第一間</p>
+<ul>
+<li>自我介紹</li>
+<li>全校第一資訊學科能力競賽 解釋為什麼拿到第一</li>
+<li>新北區資訊學科能力競賽</li>
+<li>APCS實作為什麼只有2級</li>
+<li>寫程式遇到錯誤 怎麼找出問題</li>
+<li>我回答每執行一步</li>
+<li>你這樣的作法 有什麼缺點</li>
+<li>花時間 花在什麼地方</li>
+<li>(叫我學習使用IDE的debugger</li>
+<li>如果範例測資過了但隱形測資沒過 你會怎麼解決</li>
+<li>對於貴校有什麼資訊想要了解的嗎 我講專題或競程培訓</li>
+</ul>
+<p>第二間</p>
+<ul>
+<li>專業問題</li>
+<li>解釋數學歸納法</li>
+<li>解釋動態規劃</li>
+<li>解釋遞迴</li>
+<li>為什麼學C++不學其他程式</li>
+<li>都上哪個網站刷題?</li>
+<li>你都集中刷哪類的題目</li>
+<li>APCS刷的如何</li>
+<li>雲端運算競賽在幹嘛</li>
+<li>:知道race condition不錯 這應該大3以上或學完資料庫才會學到</li>
+<li>動態規劃跟遞迴的優缺點跟比較</li>
+<li>還有什麼是我沒問到你的嗎</li>
+<li>有想了解我們學校什麼嗎</li>
+</ul>
 ]]></content>
       <categories>
+        <category>特殊選才</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>日常刷題</title>
+    <url>/personal/zj-code/</url>
+    <content><![CDATA[<h2 id="m931"><a href="#m931" class="headerlink" title="m931"></a>m931</h2><details>
+  <summary>
+    <span style="font-weight:bold;font-size:22px">code</span>
+    <span style="color:green;font-weight:bold; font-size:22px"> AC(2ms, 364KB)</span>
+  </summary>
+  
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    ios::<span class="built_in">sync_with_stdio</span>(<span class="number">0</span>);cin.<span class="built_in">tie</span>(<span class="number">0</span>);</span><br><span class="line">    <span class="type">int</span> n,mx=<span class="number">0</span>,tmp=<span class="number">0</span>;</span><br><span class="line">    vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; v;</span><br><span class="line">    cin&gt;&gt;n;</span><br><span class="line">    v.<span class="built_in">resize</span>(<span class="number">3</span>,<span class="built_in">vector</span>&lt;<span class="type">int</span>&gt;(n));</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;n;i++)&#123;</span><br><span class="line">        cin&gt;&gt;v[<span class="number">0</span>][i]&gt;&gt;v[<span class="number">1</span>][i];</span><br><span class="line">        v[<span class="number">2</span>][i]=(v[<span class="number">0</span>][i])*(v[<span class="number">0</span>][i])+(v[<span class="number">1</span>][i])*(v[<span class="number">1</span>][i]);</span><br><span class="line">        <span class="keyword">if</span>(v[<span class="number">2</span>][i]&gt;mx) mx=v[<span class="number">2</span>][i],tmp=i;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    v[<span class="number">2</span>][tmp]=<span class="number">0</span>,mx=<span class="number">0</span>,tmp=<span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;n;i++)&#123;</span><br><span class="line">        <span class="keyword">if</span>(v[<span class="number">2</span>][i]&gt;mx) mx=v[<span class="number">2</span>][i],tmp=i;</span><br><span class="line">    &#125;</span><br><span class="line">    cout&lt;&lt;v[<span class="number">0</span>][tmp]&lt;&lt;<span class="string">&quot; &quot;</span>&lt;&lt;v[<span class="number">1</span>][tmp];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</details>
+
+<hr>
+<h2 id="m932"><a href="#m932" class="headerlink" title="m932"></a>m932</h2><details>
+  <summary>
+    <span style="font-weight:bold;font-size:22px">code</span>
+    <span style="color:green;font-weight:bold; font-size:22px"> AC(2ms, 368KB)</span>
+  </summary>
+  
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    ios::<span class="built_in">sync_with_stdio</span>(<span class="number">0</span>);cin.<span class="built_in">tie</span>(<span class="number">0</span>); <span class="comment">//IO優化</span></span><br><span class="line">    vector&lt;vector&lt;<span class="type">char</span>&gt;&gt; v; </span><br><span class="line">    <span class="type">bool</span> t[<span class="number">123</span>]=&#123;<span class="number">0</span>&#125;;    <span class="comment">//統計用陣列 (輸出第二行時用的到)</span></span><br><span class="line">    <span class="type">int</span> m,n,k,d;        <span class="comment">//m,n,k為題目敘述 d代表的是input最後一行的整數</span></span><br><span class="line">    string s;</span><br><span class="line">    cin&gt;&gt;m&gt;&gt;n&gt;&gt;k;</span><br><span class="line">    <span class="type">int</span> nowx=m<span class="number">-1</span>,nowy=<span class="number">0</span>,cnt=<span class="number">0</span>;      <span class="comment">//nowx,nowy記錄現在位置的x和y cnt記錄種類</span></span><br><span class="line">    v.<span class="built_in">resize</span>(m,<span class="built_in">vector</span>&lt;<span class="type">char</span>&gt;(n));    <span class="comment">//動態開記憶體</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;m;i++)&#123;           <span class="comment">//把string丟進char陣列裡</span></span><br><span class="line">        cin&gt;&gt;s;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> j=<span class="number">0</span>;j&lt;n;j++)&#123;</span><br><span class="line">            v[i][j]=s[j];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">                              </span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;k;i++)&#123;    <span class="comment">//先判斷現在往哪個方向 再判斷if(沒超過邊界)就更新現在位置;</span></span><br><span class="line">        cin&gt;&gt;d;</span><br><span class="line">        <span class="keyword">if</span>(d==<span class="number">0</span>)&#123;</span><br><span class="line">            <span class="keyword">if</span>((nowx<span class="number">-1</span>)&gt;=<span class="number">0</span>) nowx--; </span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(d==<span class="number">1</span>)&#123;</span><br><span class="line">            <span class="keyword">if</span>((nowy+<span class="number">1</span>)&lt;n) nowy++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(d==<span class="number">2</span>)&#123;</span><br><span class="line">            <span class="keyword">if</span>((nowx+<span class="number">1</span>)&lt;m&amp;&amp;(nowy+<span class="number">1</span>)&lt;n) nowx++,nowy++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(d==<span class="number">3</span>)&#123;</span><br><span class="line">            <span class="keyword">if</span>((nowx+<span class="number">1</span>)&lt;m) nowx++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(d==<span class="number">4</span>)&#123;</span><br><span class="line">            <span class="keyword">if</span>((nowy<span class="number">-1</span>)&gt;=<span class="number">0</span>) nowy--;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(d==<span class="number">5</span>)&#123;</span><br><span class="line">            <span class="keyword">if</span>((nowx<span class="number">-1</span>)&gt;=<span class="number">0</span>&amp;&amp;(nowy<span class="number">-1</span>)&gt;=<span class="number">0</span>) nowx--,nowy--;</span><br><span class="line">        &#125;</span><br><span class="line">        cout&lt;&lt;v[nowx][nowy]; </span><br><span class="line">        t[(<span class="type">int</span>)(v[nowx][nowy])]=<span class="number">1</span>;     <span class="comment">//這邊使用ASCII 轉成int 丟到陣列</span></span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="string">&#x27;A&#x27;</span>;i&lt;=<span class="string">&#x27;Z&#x27;</span>;i++)&#123;         <span class="comment">//跑陣列 統計多少種類</span></span><br><span class="line">        <span class="keyword">if</span>(t[i]==<span class="number">1</span>) cnt++;        </span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="string">&#x27;a&#x27;</span>;i&lt;=<span class="string">&#x27;z&#x27;</span>;i++)&#123;</span><br><span class="line">        <span class="keyword">if</span>(t[i]==<span class="number">1</span>) cnt++;        </span><br><span class="line">    &#125;</span><br><span class="line">    cout&lt;&lt;<span class="string">&quot;\n&quot;</span>&lt;&lt;cnt;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</details>]]></content>
+      <categories>
         <category>zerojudge</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>電資類競賽分享</title>
+    <url>/personal/sources-share/</url>
+    <content><![CDATA[<h2 id="主要競賽-具指標性"><a href="#主要競賽-具指標性" class="headerlink" title="主要競賽(具指標性):"></a>主要競賽(具指標性):</h2><p>競程類</p>
+<ul>
+<li><a href="https://apcs.csie.ntnu.edu.tw/" style="color: #0066CC;">APCS</a></li>
+<li><a href="https://tpmso.org/toi/" style="color: #0066CC;">TOI</a></li>
+<li><a href="https://contest.cc.ntu.edu.tw/npsc2023/index.html" style="color: #0066CC;">NPSC</a></li>
+<li><a href="https://cpe.cse.nsysu.edu.tw/" style="color: #0066CC;">CPE</a></li>
+<li><a href="https://www.tw-ytp.org/" style="color: #0066CC;">YTP</a></li>
+<li>資訊學科能力競賽<ul>
+<li>校內初賽前2名可參加複賽</li>
+<li>複賽前幾名可參加全國賽(決賽)</li>
+<li>(新北區有拿佳作基本國立地名大學沒問題)</li>
+</ul>
+</li>
+</ul>
+<p>資安類</p>
+<ul>
+<li><a href="https://csc.nics.nat.gov.tw/" style="color: #0066CC;">金盾獎</a></li>
+<li><a href="https://tcat2023.twisc.ncku.edu.tw/" style="color: #0066CC;">T貓盃</a></li>
+<li><a href="https://ais3.org/eof/" style="color: #0066CC;">AIS3 EOF</a></li>
+<li><a href="https://gics.tw/" style="color: #0066CC;">尋找資安女婕思</a></li>
+</ul>
+<p>其他</p>
+<ul>
+<li><a href="https://www.aicup.tw/" style="color: #0066CC;">AI CUP</a></li>
+</ul>
+<h2 id="次要競賽"><a href="#次要競賽" class="headerlink" title="次要競賽:"></a>次要競賽:</h2><p>競程類</p>
+<ul>
+<li><a href="https://e-tutor.itsa.org.tw/e-Tutor/" style="color: #0066CC;">ITSA</a></li>
+<li><a href="https://issc.csroc.org.tw/" style="color: #0066CC;">ISSC</a></li>
+<li><a href="https://www.hpcodewars.com.tw/" style="color: #0066CC;">HP CodeWars</a></li>
+</ul>
+<p>資安類</p>
+<ul>
+<li><a href="https://ais3.org/mfctf/" style="color: #0066CC;">MyFirstCTF</a></li>
+</ul>
+<h2 id="參考資料"><a href="#參考資料" class="headerlink" title="參考資料:"></a>參考資料:</h2><ul>
+<li><a href="https://hackmd.io/@cube/rJ3o-G1mF" style="color: #0066CC;">程式設計競賽網路資源</a></li>
+<li><a href="https://github.com/goodjack/awesome-cs-training" style="color: #0066CC;">資訊培訓相關資源彙整</a></li>
+<li><a href="https://hackmd.io/@nehs-iced-7th/Skut4WffY" style="color: #0066CC;">實中資研整理</a></li>
+<li><a href="https://hackmd.io/@yuan-tw/SJHj8Xano" style="color: #0066CC;">電資資源整理(不定期更新)</a></li>
+<li><a href="https://github.com/Ice1187/TW-Security-and-CTF-Resource" style="color: #0066CC;">台灣資安 &#x2F; CTF 學習資源整理</a></li>
+</ul>
+]]></content>
+      <categories>
+        <category>資源分享</category>
       </categories>
   </entry>
 </search>
