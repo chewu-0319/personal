@@ -473,59 +473,6 @@ ABaB
       </categories>
   </entry>
   <entry>
-    <title>電資類競賽分享</title>
-    <url>/personal/sources-share/</url>
-    <content><![CDATA[<h2 id="主要競賽-具指標性"><a href="#主要競賽-具指標性" class="headerlink" title="主要競賽(具指標性):"></a>主要競賽(具指標性):</h2><p>競程類</p>
-<ul>
-<li><a href="https://apcs.csie.ntnu.edu.tw/" style="color: #0066CC;">APCS</a></li>
-<li><a href="https://tpmso.org/toi/" style="color: #0066CC;">TOI</a></li>
-<li><a href="https://contest.cc.ntu.edu.tw/npsc2023/index.html" style="color: #0066CC;">NPSC</a></li>
-<li><a href="https://cpe.cse.nsysu.edu.tw/" style="color: #0066CC;">CPE</a></li>
-<li><a href="https://www.tw-ytp.org/" style="color: #0066CC;">YTP</a></li>
-<li>資訊學科能力競賽<ul>
-<li>校內初賽前2名可參加複賽</li>
-<li>複賽前幾名可參加全國賽(決賽)</li>
-<li>(新北區有拿佳作基本國立地名大學沒問題)</li>
-</ul>
-</li>
-</ul>
-<p>資安類</p>
-<ul>
-<li><a href="https://csc.nics.nat.gov.tw/" style="color: #0066CC;">金盾獎</a></li>
-<li><a href="https://tcat2023.twisc.ncku.edu.tw/" style="color: #0066CC;">T貓盃</a></li>
-<li><a href="https://ais3.org/eof/" style="color: #0066CC;">AIS3 EOF</a></li>
-<li><a href="https://gics.tw/" style="color: #0066CC;">尋找資安女婕思</a></li>
-</ul>
-<p>其他</p>
-<ul>
-<li><a href="https://www.aicup.tw/" style="color: #0066CC;">AI CUP</a></li>
-</ul>
-<h2 id="次要競賽"><a href="#次要競賽" class="headerlink" title="次要競賽:"></a>次要競賽:</h2><p>競程類</p>
-<ul>
-<li><a href="https://e-tutor.itsa.org.tw/e-Tutor/" style="color: #0066CC;">ITSA</a></li>
-<li><a href="https://issc.csroc.org.tw/" style="color: #0066CC;">ISSC</a></li>
-<li><a href="https://www.hpcodewars.com.tw/" style="color: #0066CC;">HP CodeWars</a></li>
-</ul>
-<p>資安類</p>
-<ul>
-<li><a href="https://ais3.org/mfctf/" style="color: #0066CC;">MyFirstCTF</a></li>
-</ul>
-<h2 id="參考資料"><a href="#參考資料" class="headerlink" title="參考資料:"></a>參考資料:</h2><ul>
-<li><a href="https://hackmd.io/@cube/rJ3o-G1mF" style="color: #0066CC;">程式設計競賽網路資源</a></li>
-<li><a href="https://github.com/goodjack/awesome-cs-training" style="color: #0066CC;">資訊培訓相關資源彙整</a></li>
-<li><a href="https://hackmd.io/@nehs-iced-7th/Skut4WffY" style="color: #0066CC;">實中資研整理</a></li>
-<li><a href="https://hackmd.io/@yuan-tw/SJHj8Xano" style="color: #0066CC;">電資資源整理(不定期更新)</a></li>
-<li><a href="https://github.com/Ice1187/TW-Security-and-CTF-Resource" style="color: #0066CC;">台灣資安 &#x2F; CTF 學習資源整理</a></li>
-</ul>
-<hr>
-<!-- Start of CuterCounter Code -->
-<p><a href="https://www.cutercounter.com/traditional-chinese-nn/" target="_blank" style="pointer-events: none;"><img src="https://www.cutercounter.com/hits.php?id=hrvxocncc&nd=6&style=11" border="0" alt="免費網站計數器"></a></p>
-<!-- End of CuterCounter Code -->]]></content>
-      <categories>
-        <category>資源分享</category>
-      </categories>
-  </entry>
-  <entry>
     <title>特殊選才</title>
     <url>/personal/interview/</url>
     <content><![CDATA[<h1 id="最終成績"><a href="#最終成績" class="headerlink" title="最終成績"></a>最終成績</h1><table>
@@ -753,6 +700,59 @@ ABaB
 <!-- End of CuterCounter Code -->]]></content>
       <categories>
         <category>特殊選才</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>電資類競賽分享</title>
+    <url>/personal/sources-share/</url>
+    <content><![CDATA[<h2 id="主要競賽-具指標性"><a href="#主要競賽-具指標性" class="headerlink" title="主要競賽(具指標性):"></a>主要競賽(具指標性):</h2><p>競程類</p>
+<ul>
+<li><a href="https://apcs.csie.ntnu.edu.tw/" style="color: #0066CC;">APCS</a></li>
+<li><a href="https://tpmso.org/toi/" style="color: #0066CC;">TOI</a></li>
+<li><a href="https://contest.cc.ntu.edu.tw/npsc2023/index.html" style="color: #0066CC;">NPSC</a></li>
+<li><a href="https://cpe.cse.nsysu.edu.tw/" style="color: #0066CC;">CPE</a></li>
+<li><a href="https://www.tw-ytp.org/" style="color: #0066CC;">YTP</a></li>
+<li>資訊學科能力競賽<ul>
+<li>校內初賽前2名可參加複賽</li>
+<li>複賽前幾名可參加全國賽(決賽)</li>
+<li>(新北區有拿佳作基本國立地名大學沒問題)</li>
+</ul>
+</li>
+</ul>
+<p>資安類</p>
+<ul>
+<li><a href="https://csc.nics.nat.gov.tw/" style="color: #0066CC;">金盾獎</a></li>
+<li><a href="https://tcat2023.twisc.ncku.edu.tw/" style="color: #0066CC;">T貓盃</a></li>
+<li><a href="https://ais3.org/eof/" style="color: #0066CC;">AIS3 EOF</a></li>
+<li><a href="https://gics.tw/" style="color: #0066CC;">尋找資安女婕思</a></li>
+</ul>
+<p>其他</p>
+<ul>
+<li><a href="https://www.aicup.tw/" style="color: #0066CC;">AI CUP</a></li>
+</ul>
+<h2 id="次要競賽"><a href="#次要競賽" class="headerlink" title="次要競賽:"></a>次要競賽:</h2><p>競程類</p>
+<ul>
+<li><a href="https://e-tutor.itsa.org.tw/e-Tutor/" style="color: #0066CC;">ITSA</a></li>
+<li><a href="https://issc.csroc.org.tw/" style="color: #0066CC;">ISSC</a></li>
+<li><a href="https://www.hpcodewars.com.tw/" style="color: #0066CC;">HP CodeWars</a></li>
+</ul>
+<p>資安類</p>
+<ul>
+<li><a href="https://ais3.org/mfctf/" style="color: #0066CC;">MyFirstCTF</a></li>
+</ul>
+<h2 id="參考資料"><a href="#參考資料" class="headerlink" title="參考資料:"></a>參考資料:</h2><ul>
+<li><a href="https://hackmd.io/@cube/rJ3o-G1mF" style="color: #0066CC;">程式設計競賽網路資源</a></li>
+<li><a href="https://github.com/goodjack/awesome-cs-training" style="color: #0066CC;">資訊培訓相關資源彙整</a></li>
+<li><a href="https://hackmd.io/@nehs-iced-7th/Skut4WffY" style="color: #0066CC;">實中資研整理</a></li>
+<li><a href="https://hackmd.io/@yuan-tw/SJHj8Xano" style="color: #0066CC;">電資資源整理(不定期更新)</a></li>
+<li><a href="https://github.com/Ice1187/TW-Security-and-CTF-Resource" style="color: #0066CC;">台灣資安 &#x2F; CTF 學習資源整理</a></li>
+</ul>
+<hr>
+<!-- Start of CuterCounter Code -->
+<p><a href="https://www.cutercounter.com/traditional-chinese-nn/" target="_blank" style="pointer-events: none;"><img src="https://www.cutercounter.com/hits.php?id=hrvxocncc&nd=6&style=11" border="0" alt="免費網站計數器"></a></p>
+<!-- End of CuterCounter Code -->]]></content>
+      <categories>
+        <category>資源分享</category>
       </categories>
   </entry>
   <entry>
