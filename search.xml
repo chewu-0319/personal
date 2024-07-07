@@ -1,229 +1,140 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>程式週記</title>
-    <url>/personal/weekly-diary/</url>
-    <content><![CDATA[<h1 id="Week-1-3-17-3-23"><a href="#Week-1-3-17-3-23" class="headerlink" title="Week 1 (3&#x2F;17~3&#x2F;23)"></a>Week 1 (3&#x2F;17~3&#x2F;23)</h1><ul>
-<li>APP (week1)<ul>
-<li>Still searching for a reasonable UI&#x2F;UX</li>
+    <title>g0v summit 2024</title>
+    <url>/personal/g0vsummit/</url>
+    <content><![CDATA[<h1 id="g0v-summit"><a href="#g0v-summit" class="headerlink" title="g0v summit"></a>g0v summit</h1><h2 id="我都在幹嘛"><a href="#我都在幹嘛" class="headerlink" title="我都在幹嘛?"></a>我都在幹嘛?</h2><ul>
+<li>工作人員<ul>
+<li>搬椅子</li>
+<li>搬桌子</li>
+<li>場佈</li>
+<li>動線規劃</li>
+<li>拆</li>
+<li>坐在電梯前指引</li>
+<li>被外國人問路</li>
 </ul>
 </li>
-<li>Programming language<ul>
-<li>Learn Dart syntax <ul>
-<li>so mind-twisting@@</li>
+<li>福利<ul>
+<li>吃吃吃吃吃吃吃吃…</li>
+<li>喝喝喝喝喝喝喝喝…</li>
+<li>免費住宿 中研院活動中心</li>
+<li>仙草茶 (呵</li>
 </ul>
 </li>
 </ul>
-</li>
-<li>Web<ul>
-<li>週記ing</li>
-<li>Encryption algorithm <ul>
-<li>html</li>
+<h2 id="Day-0-場佈"><a href="#Day-0-場佈" class="headerlink" title="Day 0(場佈)"></a>Day 0(場佈)</h2><ul>
+<li>搬椅子</li>
+<li>搬桌子</li>
+<li>動線規劃</li>
+<li>吃便當</li>
+<li>晚上去饒河夜市</li>
+</ul>
+<h2 id="Day-1"><a href="#Day-1" class="headerlink" title="Day 1"></a>Day 1</h2><ul>
+<li>早餐三明治+紅茶</li>
+<li>坐在電梯前好幾個小時</li>
+<li>R0搬椅子</li>
+<li>閒逛</li>
+<li>吃漢堡 吃撈麵</li>
+<li>聽南韓講者超酷</li>
+<li>有夠累</li>
+<li>睡在VIP room</li>
+<li>房間看西甲</li>
+<li>還以為有夜唱</li>
+</ul>
+<h2 id="Day-2"><a href="#Day-2" class="headerlink" title="Day 2"></a>Day 2</h2><ul>
+<li>繼續吃</li>
+<li>聽台灣爬蟲開源資料講者 超幽默</li>
+<li>仙草茶</li>
+<li>有個阿北專門來吃東西的</li>
+<li>收桌子</li>
+<li>拆東西</li>
+<li>在閉幕簡報上看到自己 很感動</li>
+<li>慶功宴 佛跳牆 龍蝦 雞佛 啤酒好欸</li>
+<li>才知道現場很多都是資工大佬 頂大好電</li>
+<li>大家都很好聊 一堆E人</li>
+<li>CPY有問題找他就對了 兆翌超好聊 喬不會喝酒笑死 柚子講者超電 賴彥江超幽默 </li>
+<li>口譯大哥說他18歲 pm5光頭超好認 攝影大哥敬酒*n次 室友林雨辰居然是文組的</li>
+<li>有人喝醉超好笑 啤酒而已欸</li>
+<li>搭高鐵 好不捨</li>
+<li>整個g0v氣氛好好 好喜歡 2026再來!</li>
+</ul>
+<h1 id="總結"><a href="#總結" class="headerlink" title="總結"></a>總結</h1><p>我愛g0v summit，氣氛好讚，工人福利給過，認識好多新朋友，以後參加g0v大松!<br>g0v summit 2026見!</p>
+<hr>
+<!-- Start of CuterCounter Code -->
+<p><a href="https://www.cutercounter.com/traditional-chinese-nn/" target="_blank" style="pointer-events: none;"><img src="https://www.cutercounter.com/hits.php?id=huxpnnqf&nd=6&style=11" border="0" alt="網頁計數器"></a></p>
+<!-- End of CuterCounter Code -->
+]]></content>
+      <categories>
+        <category>紀錄</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>電資類競賽分享</title>
+    <url>/personal/sources-share/</url>
+    <content><![CDATA[<h2 id="主要競賽-具指標性"><a href="#主要競賽-具指標性" class="headerlink" title="主要競賽(具指標性):"></a>主要競賽(具指標性):</h2><p>競程類</p>
+<ul>
+<li><a href="https://apcs.csie.ntnu.edu.tw/" style="color: #0066CC;">⭐APCS</a></li>
+<li><a href="https://tpmso.org/toi/" style="color: #0066CC;">⭐TOI</a></li>
+<li><a href="https://contest.cc.ntu.edu.tw/npsc2023/index.html" style="color: #0066CC;">NPSC</a></li>
+<li><a href="https://cpe.cse.nsysu.edu.tw/" style="color: #0066CC;">⭐CPE</a></li>
+<li><a href="https://www.tw-ytp.org/" style="color: #0066CC;">YTP</a></li>
+<li>⭐資訊學科能力競賽<ul>
+<li>校內初賽前2名可參加複賽</li>
+<li>複賽前幾名可參加全國賽(決賽)</li>
 </ul>
 </li>
+<li><a href="https://e-tutor.itsa.org.tw/e-Tutor/" style="color: #0066CC;">ITSA</a></li>
+<li><a href="https://issc.csroc.org.tw/" style="color: #0066CC;">ISSC</a></li>
+<li><a href="https://www.hpcodewars.com.tw/" style="color: #0066CC;">HP CodeWars</a></li>
+<li><a href="https://hspc.csie.ncku.edu.tw/" style="color: #0066CC;">HSPC(成大暑期程式邀請賽)</a></li>
 </ul>
-</li>
+<p>資安類</p>
+<ul>
+<li><a href="https://csc.nics.nat.gov.tw/" style="color: #0066CC;">⭐金盾獎</a></li>
+<li><a href="https://tcat2023.twisc.ncku.edu.tw/" style="color: #0066CC;">T貓盃</a></li>
+<li><a href="https://ais3.org/eof/" style="color: #0066CC;">⭐AIS3 EOF</a></li>
+<li><a href="https://gics.tw/" style="color: #0066CC;">尋找資安女婕思</a></li>
+<li><a href="https://ais3.org/mfctf/" style="color: #0066CC;">MyFirstCTF</a></li>
+<li><a href="https://ais3.org/" style="color: #0066CC;">⭐AIS3</a></li>
+</ul>
+<p>AI類</p>
+<ul>
+<li><a href="https://www.aicup.tw/" style="color: #0066CC;">AI CUP</a></li>
 </ul>
 <hr>
-<h1 id="Week-2-3-24-3-30"><a href="#Week-2-3-24-3-30" class="headerlink" title="Week 2(3&#x2F;24~3&#x2F;30)"></a>Week 2(3&#x2F;24~3&#x2F;30)</h1><ul>
-<li><em>School midterm exam</em></li>
-<li>Programming Contest<ul>
-<li>CPE</li>
-</ul>
+<p>年會</p>
+<ul>
+<li><p><a href="https://sitcon.org/2024/" style="color: #0066CC;">SITCON 學生計算機年會</a></p>
 </li>
-<li>Programming language<ul>
-<li>C++ <ul>
-<li>Proficient in bit operations</li>
-</ul>
+<li><p><a href="https://hitcon.org/2024/CMT/" style="color: #0066CC;">HITCON 台灣駭客年會</a></p>
+</li>
+<li><p><a href="https://coscup.org/2024/zh-TW/landing" style="color: #0066CC;">COSCUP 開源人年會</a></p>
+</li>
+<li><p><a href="https://summit.g0v.tw/2024/" style="color: #0066CC;">g0v summit 零時政府雙年會</a></p>
+</li>
+<li><p><a href="https://summit.g0v.tw/2024/" style="color: #0066CC;">g0v summit 零時政府雙年會</a></p>
 </li>
 </ul>
-</li>
+<p>社群</p>
+<ul>
+<li><a href="https://discord.gg/3fah53Bj46" style="color: #0066CC;">SCINT 北台灣學生資訊社群(北電)</a></li>
+<li><a href="https://discord.gg/R7uguV73tC" style="color: #0066CC;">SCAICT 中電會(中電)</a></li>
+<li><a href="https://discord.gg/g6qfD4Wk9j" style="color: #0066CC;">SCIST (南電)</a></li>
 </ul>
 <hr>
-<h1 id="Week-3-3-31-4-6"><a href="#Week-3-3-31-4-6" class="headerlink" title="Week 3(3&#x2F;31~4&#x2F;6)"></a>Week 3(3&#x2F;31~4&#x2F;6)</h1><ul>
-<li><em>Earthquake</em></li>
-<li>Programming Contest<ul>
-<li>AI CUP</li>
-</ul>
-</li>
-<li>Programming language<ul>
-<li>C++ (CSES)</li>
-</ul>
-</li>
-</ul>
-<hr>
-<h1 id="Week-4-4-7-4-13"><a href="#Week-4-4-7-4-13" class="headerlink" title="Week 4(4&#x2F;7~4&#x2F;13)"></a>Week 4(4&#x2F;7~4&#x2F;13)</h1><ul>
-<li>Programming Contest<ul>
-<li>AI CUP <ul>
-<li>big problem@@</li>
-</ul>
-</li>
-<li>HSPC 2024<ul>
-<li>rk 54&#x2F;180 30%</li>
-<li>grade 348&#x2F;900</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>Programming language<ul>
-<li>C++ (CSES)</li>
-</ul>
-</li>
-<li>Read<ul>
-<li>Murphy’s Law</li>
-</ul>
-</li>
-</ul>
-<hr>
-<h1 id="Week-5-4-14-4-20"><a href="#Week-5-4-14-4-20" class="headerlink" title="Week 5(4&#x2F;14~4&#x2F;20)"></a>Week 5(4&#x2F;14~4&#x2F;20)</h1><ul>
-<li>Programming Contest<ul>
-<li>AI CUP</li>
-</ul>
-</li>
-<li>Programming language<ul>
-<li>C++ (CSES)</li>
-</ul>
-</li>
-<li>Read</li>
-<li>Study <ul>
-<li>Machine Learning</li>
-<li>Calculus</li>
-</ul>
-</li>
-</ul>
-<hr>
-<h1 id="Week-6-4-21-4-27"><a href="#Week-6-4-21-4-27" class="headerlink" title="Week 6(4&#x2F;21~4&#x2F;27)"></a>Week 6(4&#x2F;21~4&#x2F;27)</h1><ul>
-<li><em>School final exam</em></li>
-<li>Programming Contest<ul>
-<li>CPE<ul>
-<li>rk 595&#x2F;2667 22%</li>
-<li>grade 2&#x2F;7</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>Read</li>
-<li>Study <ul>
-<li>CH, EN</li>
-<li>Calculus, Complex number</li>
-</ul>
-</li>
-<li>CTF<ul>
-<li>THJCC CTF<ul>
-<li>rk 145&#x2F;328 42%</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<hr>
-<h1 id="Week-7-4-28-5-4"><a href="#Week-7-4-28-5-4" class="headerlink" title="Week 7(4&#x2F;28~5&#x2F;4)"></a>Week 7(4&#x2F;28~5&#x2F;4)</h1><ul>
-<li><em>g0v Summit 2024 😍😍</em><ul>
-<li>交超多朋友 好愛</li>
-<li><a href="https://chewu-0319.github.io/personal/g0vsummit/" style="color: #0066CC;">心得+內容</a></li>
-</ul>
-</li>
-<li>Programming language<ul>
-<li>C++ (CSES)</li>
-</ul>
-</li>
-<li>Programming Contest<ul>
-<li>Codeforces</li>
-</ul>
-</li>
-<li>AITC(~5&#x2F;5)</li>
-<li>YTP 找隊友</li>
-</ul>
-<hr>
-<h1 id="Week-8-5-5-5-11"><a href="#Week-8-5-5-5-11" class="headerlink" title="Week 8(5&#x2F;5~5&#x2F;11)"></a>Week 8(5&#x2F;5~5&#x2F;11)</h1><ul>
-<li>Programming Contest<ul>
-<li>Codeforces</li>
-</ul>
-</li>
-<li>YTP 找到隊友了!</li>
-<li>Prepare CTF<ul>
-<li>AIS3 pre-exam</li>
-</ul>
-</li>
-<li>Social Designer<ul>
-<li>survey</li>
-</ul>
-</li>
-</ul>
-<hr>
-<h1 id="Week-9-5-12-5-18"><a href="#Week-9-5-12-5-18" class="headerlink" title="Week 9(5&#x2F;12~5&#x2F;18)"></a>Week 9(5&#x2F;12~5&#x2F;18)</h1><ul>
-<li><em>2024 CYBERSEC臺灣資安大會</em></li>
-<li>Prepare CTF<ul>
-<li>AIS3 pre-exam</li>
-<li>Take information security class</li>
-</ul>
-</li>
-<li>Social Designer<ul>
-<li>Analyze and write plans</li>
-</ul>
-</li>
-</ul>
-<hr>
-<h1 id="Week-10-5-19-5-25"><a href="#Week-10-5-19-5-25" class="headerlink" title="Week 10(5&#x2F;19~5&#x2F;25)"></a>Week 10(5&#x2F;19~5&#x2F;25)</h1><ul>
-<li><em>AIS3 pre-exam</em></li>
-<li>Get exposed to <em>cryptocurrencies</em></li>
-<li>Programming Contest<ul>
-<li>CPE</li>
-</ul>
-</li>
-<li>AIS3 pre-exam <ul>
-<li>rk 145&#x2F;328 44%</li>
-</ul>
-</li>
-</ul>
-<hr>
-<h1 id="Week-11-5-26-6-1"><a href="#Week-11-5-26-6-1" class="headerlink" title="Week 11(5&#x2F;26~6&#x2F;1)"></a>Week 11(5&#x2F;26~6&#x2F;1)</h1><ul>
-<li><em>畢業晚會</em></li>
-<li>cryptocurrencies API BOT</li>
-<li>Relax</li>
-<li>Programming language<ul>
-<li>C++</li>
-</ul>
-</li>
-</ul>
-<hr>
-<h1 id="Week-12-6-2-6-8"><a href="#Week-12-6-2-6-8" class="headerlink" title="Week 12(6&#x2F;2~6&#x2F;8)"></a>Week 12(6&#x2F;2~6&#x2F;8)</h1><ul>
-<li><em>畢業典禮</em> &#x2F; <em>E7play+KTV喝酒</em> &#x2F; <em>拿到駕照</em> &#x2F; <em>六福村+喝酒</em> &#x2F; <em>錄取AI人才培育計畫</em></li>
-<li>Relax</li>
-</ul>
-<hr>
-<h1 id="Week-13-6-9-6-15"><a href="#Week-13-6-9-6-15" class="headerlink" title="Week 13(6&#x2F;9~6&#x2F;15)"></a>Week 13(6&#x2F;9~6&#x2F;15)</h1><ul>
-<li><em>機車(白沙灣)</em> &#x2F; <em>讀高中生論文</em></li>
-<li>Prepare APCS </li>
-<li>APP (week2)<ul>
-<li>Still searching for a reasonable UI&#x2F;UX</li>
-</ul>
-</li>
-<li>Programming language<ul>
-<li>C++</li>
-</ul>
-</li>
-<li>Relax</li>
-</ul>
-<hr>
-<h1 id="Goal-for-next-week"><a href="#Goal-for-next-week" class="headerlink" title="Goal for next week"></a>Goal for next week</h1><ul>
-<li>騎機車:D</li>
-<li>Prepare natural language proccessing</li>
-<li>APP (week3)<ul>
-<li>Still searching for a reasonable UI&#x2F;UX</li>
-</ul>
-</li>
-<li>Programming language<ul>
-<li>C++</li>
-</ul>
-</li>
+<h2 id="其他資料"><a href="#其他資料" class="headerlink" title="其他資料:"></a>其他資料:</h2><ul>
+<li><a href="https://hackmd.io/@cube/rJ3o-G1mF" style="color: #0066CC;">程式設計競賽網路資源</a></li>
+<li><a href="https://github.com/goodjack/awesome-cs-training" style="color: #0066CC;">資訊培訓相關資源彙整</a></li>
+<li><a href="https://hackmd.io/@nehs-iced-7th/Skut4WffY" style="color: #0066CC;">實中資研整理</a></li>
+<li><a href="https://hackmd.io/@yuan-tw/SJHj8Xano" style="color: #0066CC;">電資資源整理(不定期更新)</a></li>
+<li><a href="https://github.com/Ice1187/TW-Security-and-CTF-Resource" style="color: #0066CC;">台灣資安 &#x2F; CTF 學習資源整理</a></li>
 </ul>
 <hr>
 <!-- Start of CuterCounter Code -->
-<p><a href="https://www.cutercounter.com/traditional-chinese-nn/" target="_blank" style="pointer-events: none;"><img src="https://www.cutercounter.com/hits.php?id=hmxpacfo&nd=6&style=11" border="0" alt="網站計數器"></a></p>
+<p><a href="https://www.cutercounter.com/traditional-chinese-nn/" target="_blank" style="pointer-events: none;"><img src="https://www.cutercounter.com/hits.php?id=hrvxocncc&nd=6&style=11" border="0" alt="免費網站計數器"></a></p>
 <!-- End of CuterCounter Code -->]]></content>
       <categories>
-        <category>紀錄</category>
+        <category>資源分享</category>
       </categories>
   </entry>
   <entry>
@@ -698,143 +609,6 @@ ABaB
       </categories>
   </entry>
   <entry>
-    <title>g0v summit 2024</title>
-    <url>/personal/g0vsummit/</url>
-    <content><![CDATA[<h1 id="g0v-summit"><a href="#g0v-summit" class="headerlink" title="g0v summit"></a>g0v summit</h1><h2 id="我都在幹嘛"><a href="#我都在幹嘛" class="headerlink" title="我都在幹嘛?"></a>我都在幹嘛?</h2><ul>
-<li>工作人員<ul>
-<li>搬椅子</li>
-<li>搬桌子</li>
-<li>場佈</li>
-<li>動線規劃</li>
-<li>拆</li>
-<li>坐在電梯前指引</li>
-<li>被外國人問路</li>
-</ul>
-</li>
-<li>福利<ul>
-<li>吃吃吃吃吃吃吃吃…</li>
-<li>喝喝喝喝喝喝喝喝…</li>
-<li>免費住宿 中研院活動中心</li>
-<li>仙草茶 (呵</li>
-</ul>
-</li>
-</ul>
-<h2 id="Day-0-場佈"><a href="#Day-0-場佈" class="headerlink" title="Day 0(場佈)"></a>Day 0(場佈)</h2><ul>
-<li>搬椅子</li>
-<li>搬桌子</li>
-<li>動線規劃</li>
-<li>吃便當</li>
-<li>晚上去饒河夜市</li>
-</ul>
-<h2 id="Day-1"><a href="#Day-1" class="headerlink" title="Day 1"></a>Day 1</h2><ul>
-<li>早餐三明治+紅茶</li>
-<li>坐在電梯前好幾個小時</li>
-<li>R0搬椅子</li>
-<li>閒逛</li>
-<li>吃漢堡 吃撈麵</li>
-<li>聽南韓講者超酷</li>
-<li>有夠累</li>
-<li>睡在VIP room</li>
-<li>房間看西甲</li>
-<li>還以為有夜唱</li>
-</ul>
-<h2 id="Day-2"><a href="#Day-2" class="headerlink" title="Day 2"></a>Day 2</h2><ul>
-<li>繼續吃</li>
-<li>聽台灣爬蟲開源資料講者 超幽默</li>
-<li>仙草茶</li>
-<li>有個阿北專門來吃東西的</li>
-<li>收桌子</li>
-<li>拆東西</li>
-<li>在閉幕簡報上看到自己 很感動</li>
-<li>慶功宴 佛跳牆 龍蝦 雞佛 啤酒好欸</li>
-<li>才知道現場很多都是資工大佬 頂大好電</li>
-<li>大家都很好聊 一堆E人</li>
-<li>CPY有問題找他就對了 兆翌超好聊 喬不會喝酒笑死 柚子講者超電 賴彥江超幽默 </li>
-<li>口譯大哥說他18歲 pm5光頭超好認 攝影大哥敬酒*n次 室友林雨辰居然是文組的</li>
-<li>有人喝醉超好笑 啤酒而已欸</li>
-<li>搭高鐵 好不捨</li>
-<li>整個g0v氣氛好好 好喜歡 2026再來!</li>
-</ul>
-<h1 id="總結"><a href="#總結" class="headerlink" title="總結"></a>總結</h1><p>我愛g0v summit，氣氛好讚，工人福利給過，認識好多新朋友，以後參加g0v大松!<br>g0v summit 2026見!</p>
-<hr>
-<!-- Start of CuterCounter Code -->
-<p><a href="https://www.cutercounter.com/traditional-chinese-nn/" target="_blank" style="pointer-events: none;"><img src="https://www.cutercounter.com/hits.php?id=huxpnnqf&nd=6&style=11" border="0" alt="網頁計數器"></a></p>
-<!-- End of CuterCounter Code -->
-]]></content>
-      <categories>
-        <category>紀錄</category>
-      </categories>
-  </entry>
-  <entry>
-    <title>電資類競賽分享</title>
-    <url>/personal/sources-share/</url>
-    <content><![CDATA[<h2 id="主要競賽-具指標性"><a href="#主要競賽-具指標性" class="headerlink" title="主要競賽(具指標性):"></a>主要競賽(具指標性):</h2><p>競程類</p>
-<ul>
-<li><a href="https://apcs.csie.ntnu.edu.tw/" style="color: #0066CC;">⭐APCS</a></li>
-<li><a href="https://tpmso.org/toi/" style="color: #0066CC;">⭐TOI</a></li>
-<li><a href="https://contest.cc.ntu.edu.tw/npsc2023/index.html" style="color: #0066CC;">NPSC</a></li>
-<li><a href="https://cpe.cse.nsysu.edu.tw/" style="color: #0066CC;">⭐CPE</a></li>
-<li><a href="https://www.tw-ytp.org/" style="color: #0066CC;">YTP</a></li>
-<li>⭐資訊學科能力競賽<ul>
-<li>校內初賽前2名可參加複賽</li>
-<li>複賽前幾名可參加全國賽(決賽)</li>
-</ul>
-</li>
-<li><a href="https://e-tutor.itsa.org.tw/e-Tutor/" style="color: #0066CC;">ITSA</a></li>
-<li><a href="https://issc.csroc.org.tw/" style="color: #0066CC;">ISSC</a></li>
-<li><a href="https://www.hpcodewars.com.tw/" style="color: #0066CC;">HP CodeWars</a></li>
-<li><a href="https://hspc.csie.ncku.edu.tw/" style="color: #0066CC;">HSPC(成大暑期程式邀請賽)</a></li>
-</ul>
-<p>資安類</p>
-<ul>
-<li><a href="https://csc.nics.nat.gov.tw/" style="color: #0066CC;">⭐金盾獎</a></li>
-<li><a href="https://tcat2023.twisc.ncku.edu.tw/" style="color: #0066CC;">T貓盃</a></li>
-<li><a href="https://ais3.org/eof/" style="color: #0066CC;">⭐AIS3 EOF</a></li>
-<li><a href="https://gics.tw/" style="color: #0066CC;">尋找資安女婕思</a></li>
-<li><a href="https://ais3.org/mfctf/" style="color: #0066CC;">MyFirstCTF</a></li>
-<li><a href="https://ais3.org/" style="color: #0066CC;">⭐AIS3</a></li>
-</ul>
-<p>AI類</p>
-<ul>
-<li><a href="https://www.aicup.tw/" style="color: #0066CC;">AI CUP</a></li>
-</ul>
-<hr>
-<p>年會</p>
-<ul>
-<li><p><a href="https://sitcon.org/2024/" style="color: #0066CC;">SITCON 學生計算機年會</a></p>
-</li>
-<li><p><a href="https://hitcon.org/2024/CMT/" style="color: #0066CC;">HITCON 台灣駭客年會</a></p>
-</li>
-<li><p><a href="https://coscup.org/2024/zh-TW/landing" style="color: #0066CC;">COSCUP 開源人年會</a></p>
-</li>
-<li><p><a href="https://summit.g0v.tw/2024/" style="color: #0066CC;">g0v summit 零時政府雙年會</a></p>
-</li>
-<li><p><a href="https://summit.g0v.tw/2024/" style="color: #0066CC;">g0v summit 零時政府雙年會</a></p>
-</li>
-</ul>
-<p>社群</p>
-<ul>
-<li><a href="https://discord.gg/3fah53Bj46" style="color: #0066CC;">SCINT 北台灣學生資訊社群(北電)</a></li>
-<li><a href="https://discord.gg/R7uguV73tC" style="color: #0066CC;">SCAICT 中電會(中電)</a></li>
-<li><a href="https://discord.gg/g6qfD4Wk9j" style="color: #0066CC;">SCIST (南電)</a></li>
-</ul>
-<hr>
-<h2 id="其他資料"><a href="#其他資料" class="headerlink" title="其他資料:"></a>其他資料:</h2><ul>
-<li><a href="https://hackmd.io/@cube/rJ3o-G1mF" style="color: #0066CC;">程式設計競賽網路資源</a></li>
-<li><a href="https://github.com/goodjack/awesome-cs-training" style="color: #0066CC;">資訊培訓相關資源彙整</a></li>
-<li><a href="https://hackmd.io/@nehs-iced-7th/Skut4WffY" style="color: #0066CC;">實中資研整理</a></li>
-<li><a href="https://hackmd.io/@yuan-tw/SJHj8Xano" style="color: #0066CC;">電資資源整理(不定期更新)</a></li>
-<li><a href="https://github.com/Ice1187/TW-Security-and-CTF-Resource" style="color: #0066CC;">台灣資安 &#x2F; CTF 學習資源整理</a></li>
-</ul>
-<hr>
-<!-- Start of CuterCounter Code -->
-<p><a href="https://www.cutercounter.com/traditional-chinese-nn/" target="_blank" style="pointer-events: none;"><img src="https://www.cutercounter.com/hits.php?id=hrvxocncc&nd=6&style=11" border="0" alt="免費網站計數器"></a></p>
-<!-- End of CuterCounter Code -->]]></content>
-      <categories>
-        <category>資源分享</category>
-      </categories>
-  </entry>
-  <entry>
     <title>特殊選才</title>
     <url>/personal/interview/</url>
     <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>嗨嗨 我是che，成功用特殊選材上岸啦!! <a href="https://chewu-0319.github.io/personal/about/">這裡</a> 有較詳細的個人經歷。</p>
@@ -1145,6 +919,232 @@ ABaB
 <!-- End of CuterCounter Code -->]]></content>
       <categories>
         <category>zerojudge</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>程式週記</title>
+    <url>/personal/weekly-diary/</url>
+    <content><![CDATA[<h1 id="Week-1-3-17-3-23"><a href="#Week-1-3-17-3-23" class="headerlink" title="Week 1 (3&#x2F;17~3&#x2F;23)"></a>Week 1 (3&#x2F;17~3&#x2F;23)</h1><ul>
+<li>APP (week1)<ul>
+<li>Still searching for a reasonable UI&#x2F;UX</li>
+</ul>
+</li>
+<li>Programming language<ul>
+<li>Learn Dart syntax <ul>
+<li>so mind-twisting@@</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Web<ul>
+<li>週記ing</li>
+<li>Encryption algorithm <ul>
+<li>html</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="Week-2-3-24-3-30"><a href="#Week-2-3-24-3-30" class="headerlink" title="Week 2(3&#x2F;24~3&#x2F;30)"></a>Week 2(3&#x2F;24~3&#x2F;30)</h1><ul>
+<li><em>School midterm exam</em></li>
+<li>Programming Contest<ul>
+<li>CPE</li>
+</ul>
+</li>
+<li>Programming language<ul>
+<li>C++ <ul>
+<li>Proficient in bit operations</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="Week-3-3-31-4-6"><a href="#Week-3-3-31-4-6" class="headerlink" title="Week 3(3&#x2F;31~4&#x2F;6)"></a>Week 3(3&#x2F;31~4&#x2F;6)</h1><ul>
+<li><em>Earthquake</em></li>
+<li>Programming Contest<ul>
+<li>AI CUP</li>
+</ul>
+</li>
+<li>Programming language<ul>
+<li>C++ (CSES)</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="Week-4-4-7-4-13"><a href="#Week-4-4-7-4-13" class="headerlink" title="Week 4(4&#x2F;7~4&#x2F;13)"></a>Week 4(4&#x2F;7~4&#x2F;13)</h1><ul>
+<li>Programming Contest<ul>
+<li>AI CUP <ul>
+<li>big problem@@</li>
+</ul>
+</li>
+<li>HSPC 2024<ul>
+<li>rk 54&#x2F;180 30%</li>
+<li>grade 348&#x2F;900</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Programming language<ul>
+<li>C++ (CSES)</li>
+</ul>
+</li>
+<li>Read<ul>
+<li>Murphy’s Law</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="Week-5-4-14-4-20"><a href="#Week-5-4-14-4-20" class="headerlink" title="Week 5(4&#x2F;14~4&#x2F;20)"></a>Week 5(4&#x2F;14~4&#x2F;20)</h1><ul>
+<li>Programming Contest<ul>
+<li>AI CUP</li>
+</ul>
+</li>
+<li>Programming language<ul>
+<li>C++ (CSES)</li>
+</ul>
+</li>
+<li>Read</li>
+<li>Study <ul>
+<li>Machine Learning</li>
+<li>Calculus</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="Week-6-4-21-4-27"><a href="#Week-6-4-21-4-27" class="headerlink" title="Week 6(4&#x2F;21~4&#x2F;27)"></a>Week 6(4&#x2F;21~4&#x2F;27)</h1><ul>
+<li><em>School final exam</em></li>
+<li>Programming Contest<ul>
+<li>CPE<ul>
+<li>rk 595&#x2F;2667 22%</li>
+<li>grade 2&#x2F;7</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Read</li>
+<li>Study <ul>
+<li>CH, EN</li>
+<li>Calculus, Complex number</li>
+</ul>
+</li>
+<li>CTF<ul>
+<li>THJCC CTF<ul>
+<li>rk 145&#x2F;328 42%</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="Week-7-4-28-5-4"><a href="#Week-7-4-28-5-4" class="headerlink" title="Week 7(4&#x2F;28~5&#x2F;4)"></a>Week 7(4&#x2F;28~5&#x2F;4)</h1><ul>
+<li><em>g0v Summit 2024 😍😍</em><ul>
+<li>交超多朋友 好愛</li>
+<li><a href="https://chewu-0319.github.io/personal/g0vsummit/" style="color: #0066CC;">心得+內容</a></li>
+</ul>
+</li>
+<li>Programming language<ul>
+<li>C++ (CSES)</li>
+</ul>
+</li>
+<li>Programming Contest<ul>
+<li>Codeforces</li>
+</ul>
+</li>
+<li>AITC(~5&#x2F;5)</li>
+<li>YTP 找隊友</li>
+</ul>
+<hr>
+<h1 id="Week-8-5-5-5-11"><a href="#Week-8-5-5-5-11" class="headerlink" title="Week 8(5&#x2F;5~5&#x2F;11)"></a>Week 8(5&#x2F;5~5&#x2F;11)</h1><ul>
+<li>Programming Contest<ul>
+<li>Codeforces</li>
+</ul>
+</li>
+<li>YTP 找到隊友了!</li>
+<li>Prepare CTF<ul>
+<li>AIS3 pre-exam</li>
+</ul>
+</li>
+<li>Social Designer<ul>
+<li>survey</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="Week-9-5-12-5-18"><a href="#Week-9-5-12-5-18" class="headerlink" title="Week 9(5&#x2F;12~5&#x2F;18)"></a>Week 9(5&#x2F;12~5&#x2F;18)</h1><ul>
+<li><em>2024 CYBERSEC臺灣資安大會</em></li>
+<li>Prepare CTF<ul>
+<li>AIS3 pre-exam</li>
+<li>Take information security class</li>
+</ul>
+</li>
+<li>Social Designer<ul>
+<li>Analyze and write plans</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="Week-10-5-19-5-25"><a href="#Week-10-5-19-5-25" class="headerlink" title="Week 10(5&#x2F;19~5&#x2F;25)"></a>Week 10(5&#x2F;19~5&#x2F;25)</h1><ul>
+<li><em>AIS3 pre-exam</em></li>
+<li>Get exposed to <em>cryptocurrencies</em></li>
+<li>Programming Contest<ul>
+<li>CPE</li>
+</ul>
+</li>
+<li>AIS3 pre-exam <ul>
+<li>rk 145&#x2F;328 44%</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="Week-11-5-26-6-1"><a href="#Week-11-5-26-6-1" class="headerlink" title="Week 11(5&#x2F;26~6&#x2F;1)"></a>Week 11(5&#x2F;26~6&#x2F;1)</h1><ul>
+<li><em>畢業晚會</em></li>
+<li>cryptocurrencies API BOT</li>
+<li>Relax</li>
+<li>Programming language<ul>
+<li>C++</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="Week-12-6-2-6-8"><a href="#Week-12-6-2-6-8" class="headerlink" title="Week 12(6&#x2F;2~6&#x2F;8)"></a>Week 12(6&#x2F;2~6&#x2F;8)</h1><ul>
+<li><em>畢業典禮</em> &#x2F; <em>E7play+KTV喝酒</em> &#x2F; <em>拿到駕照</em> &#x2F; <em>六福村+喝酒</em> &#x2F; <em>錄取AI人才培育計畫</em></li>
+<li>Relax</li>
+</ul>
+<hr>
+<h1 id="Week-13-6-9-6-15"><a href="#Week-13-6-9-6-15" class="headerlink" title="Week 13(6&#x2F;9~6&#x2F;15)"></a>Week 13(6&#x2F;9~6&#x2F;15)</h1><ul>
+<li><em>機車(白沙灣)</em> &#x2F; <em>讀高中生論文</em></li>
+<li>Prepare APCS </li>
+<li>APP (week2)<ul>
+<li>Still searching for a reasonable UI&#x2F;UX</li>
+</ul>
+</li>
+<li>Programming language<ul>
+<li>C++</li>
+</ul>
+</li>
+<li>Relax</li>
+</ul>
+<hr>
+<h1 id="Goal-for-next-week"><a href="#Goal-for-next-week" class="headerlink" title="Goal for next week"></a>Goal for next week</h1><ul>
+<li>騎機車:D</li>
+<li>Prepare natural language proccessing</li>
+<li>APP (week3)<ul>
+<li>Still searching for a reasonable UI&#x2F;UX</li>
+</ul>
+</li>
+<li>Programming language<ul>
+<li>C++</li>
+</ul>
+</li>
+</ul>
+<hr>
+<!-- Start of CuterCounter Code -->
+<p><a href="https://www.cutercounter.com/traditional-chinese-nn/" target="_blank" style="pointer-events: none;"><img src="https://www.cutercounter.com/hits.php?id=hmxpacfo&nd=6&style=11" border="0" alt="網站計數器"></a></p>
+<!-- End of CuterCounter Code -->]]></content>
+      <categories>
+        <category>紀錄</category>
       </categories>
   </entry>
 </search>
