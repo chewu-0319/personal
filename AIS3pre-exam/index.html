@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.0.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/personal/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/personal/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/personal/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/personal/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/personal/css/main.css">
+
+
+<link rel="stylesheet" href="/personal/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"chewu-0319.github.io","root":"/personal/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="pre-exam write up">
+<meta property="og:type" content="article">
+<meta property="og:title" content="AIS3 2024 pre-exam">
+<meta property="og:url" content="https://chewu-0319.github.io/personal/AIS3pre-exam/index.html">
+<meta property="og:site_name" content="che的blog">
+<meta property="og:description" content="pre-exam write up">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://chewu-0319.github.io/personal/images/p9.png">
+<meta property="og:image" content="https://chewu-0319.github.io/personal/images/p10.png">
+<meta property="og:image" content="https://chewu-0319.github.io/personal/images/p11.png">
+<meta property="og:image" content="https://chewu-0319.github.io/personal/images/p12.png">
+<meta property="article:published_time" content="2024-09-16T17:48:54.647Z">
+<meta property="article:modified_time" content="2024-09-16T18:06:18.486Z">
+<meta property="article:author" content="che_wu">
+<meta property="article:tag" content="資訊, 研究, 高中, 社團, 程式, code, 大學, 資工, 資訊, 資訊社, 光復, 高中, 社團, 光復高中, 資訊研究社, 新北光復, 吳昕哲, 昕哲, 高中資訊, 吳○哲, 光復資訊研究社, 資安, AI, NLP">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://chewu-0319.github.io/personal/images/p9.png">
+
+<link rel="canonical" href="https://chewu-0319.github.io/personal/AIS3pre-exam/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-TW'
+  };
+</script>
+
+  <title>AIS3 2024 pre-exam | che的blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導航欄">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/personal/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">che的blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/personal/" rel="section"><i class="fa fa-home fa-fw"></i>首頁</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/personal/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分類</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/personal/about/" rel="section"><i class="fa fa-user fa-fw"></i>關於</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜尋
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜尋..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="https://chewu-0319.github.io/personal/AIS3pre-exam/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/personal/images/avatar.jpg">
+      <meta itemprop="name" content="che_wu">
+      <meta itemprop="description" content="準大一好欸">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="che的blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          AIS3 2024 pre-exam
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">發表於</span>
+              
+
+              <time title="創建時間：2024-09-17 01:48:54 / 修改時間：02:06:18" itemprop="dateCreated datePublished" datetime="2024-09-17T01:48:54+08:00">2024-09-17</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分類於</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/personal/categories/%E8%B3%87%E5%AE%89/" itemprop="url" rel="index"><span itemprop="name">資安</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="文章字數">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">文章字數：</span>
+              <span>647</span>
+            </span>
+            <span class="post-meta-item" title="所需閱讀時間">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
+              <span>2 分鐘</span>
+            </span>
+            <div class="post-description">pre-exam write up</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="AIS3-2024-pre-exam-write-up"><a href="#AIS3-2024-pre-exam-write-up" class="headerlink" title="AIS3 2024 pre-exam write up"></a>AIS3 2024 pre-exam write up</h1><p>第一次寫write up :D</p>
+<h1 id="misc"><a href="#misc" class="headerlink" title="misc"></a>misc</h1><h2 id="welcome-100"><a href="#welcome-100" class="headerlink" title="welcome[100]"></a>welcome[100]</h2><p>略</p>
+<h2 id="Quantum-Nim-Heist-100"><a href="#Quantum-Nim-Heist-100" class="headerlink" title="Quantum Nim Heist[100]"></a>Quantum Nim Heist[100]</h2><p>一開始看code看很久都沒找到破綻，花超多時間在程式裡大海撈針，沒想到意外發現小漏洞，<br>反正就是讓值超出預期，但我其實不確定這做法的專有名詞(?<br>當他問which pile do you choose?的時候，<br>正常應該要回答是第幾pile，但如果什麼都不回答直接按enter或輸入-1，會發現可以直接跳過一回合，<br>直到最後一回合再記得把最後一個stones remove掉。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line"></span><br><span class="line">it&#x27;s your turn to move! what do you choose?</span><br><span class="line">+--------------------- moved ---------------------+</span><br><span class="line">| you removed 2 stones from pile 1                |</span><br><span class="line">+---+-------------- stones info ------------------+</span><br><span class="line">| 0 | oo                                          |</span><br><span class="line">| 1 | oo                                          |</span><br><span class="line">+--------------------- moved ---------------------+</span><br><span class="line">| i removed 1 stones from pile 1                  |</span><br><span class="line">+---+-------------- stones info ------------------+</span><br><span class="line">| 0 | oo                                          |</span><br><span class="line">| 1 | o                                           |</span><br><span class="line">+---+--------------- game menu -------------------+</span><br><span class="line">| 0 | make a move                                 |</span><br><span class="line">| 1 | save the current game and leave             |</span><br><span class="line">| 2 | resign the game                             |</span><br><span class="line">+---+---------------------------------------------+</span><br><span class="line">it&#x27;s your turn to move! what do you choose?        </span><br><span class="line">+--------------------- moved ---------------------+</span><br><span class="line">| you removed 1 stones from pile 1                |</span><br><span class="line">+---+-------------- stones info ------------------+</span><br><span class="line">| 0 | oo                                          | </span><br><span class="line">| 1 | o                                           |</span><br><span class="line">+--------------------- moved ---------------------+</span><br><span class="line">| i removed 1 stones from pile 0                  | </span><br><span class="line">+---+-------------- stones info ------------------+</span><br><span class="line">| 0 | o                                           |</span><br><span class="line">| 1 | o                                           | </span><br><span class="line">+---+--------------- game menu -------------------+  </span><br><span class="line">| 0 | make a move                                 |   </span><br><span class="line">| 1 | save the current game and leave             |   </span><br><span class="line">| 2 | resign the game                             |   </span><br><span class="line">+---+---------------------------------------------+   </span><br><span class="line">it&#x27;s your turn to move! what do you choose?           </span><br><span class="line">+--------------------- moved ---------------------+   </span><br><span class="line">| you removed 1 stones from pile 0                |   </span><br><span class="line">+---+-------------- stones info ------------------+   </span><br><span class="line">| 0 | o                                           |    </span><br><span class="line">| 1 | o                                           |   </span><br><span class="line">+--------------------- moved ---------------------+   </span><br><span class="line">| i removed 1 stones from pile 0                  |   </span><br><span class="line">+---+-------------- stones info ------------------+   </span><br><span class="line">| 0 | o                                           |   </span><br><span class="line">+---+--------------- game menu -------------------+   </span><br><span class="line">| 0 | make a move                                 |   </span><br><span class="line">| 1 | save the current game and leave             |   </span><br><span class="line">| 2 | resign the game                             |  </span><br><span class="line">+---+---------------------------------------------+  </span><br><span class="line">it&#x27;s your turn to move! what do you choose? 0         </span><br><span class="line">which pile do you choose? 0                           </span><br><span class="line">how many stones do you remove? 1                      </span><br><span class="line">+---------------- congratulations ----------------+   </span><br><span class="line">| you are a true grandmaster of chess! here is    |   </span><br><span class="line">| the flag for you:                               |   </span><br><span class="line">| AIS3&#123;Ar3_y0u_a_N1m_ma57er_0r_a_Crypt0_ma57er?&#125;  |   </span><br><span class="line">+-------------------------------------------------+ </span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h2 id="Three-Dimensional-Secret"><a href="#Three-Dimensional-Secret" class="headerlink" title="Three Dimensional Secret"></a>Three Dimensional Secret</h2><p>打開封包檔<br>看到很多Protocol&#x3D;TCP，隨機點一個<br><img src="/personal/images/p9.png"></p>
+<p>選follow -&gt; TCP Stream<br><img src="/personal/images/p10.png"></p>
+<p>打開後會出現很多同一格式的程式碼<br>拿去問chatgpt，得知這是G code<br><img src="/personal/images/p11.png"></p>
+<p>上網找預覽器，找到<a target="_blank" rel="noopener" href="https://nraynaud.github.io/webgcode/">https://nraynaud.github.io/webgcode/</a><br><img src="/personal/images/p12.png"></p>
+<p>貼上code就看到flag了</p>
+<h1 id="crypto"><a href="#crypto" class="headerlink" title="crypto"></a>crypto</h1><h2 id="zkp"><a href="#zkp" class="headerlink" title="zkp"></a>zkp</h2><p>原本想說開暴力解，吃完飯發現還是沒結果，<br>上網找資料找到這個酷酷的函式庫叫sympy，大數字也可以快速解，<br>用sympy去計算離散對數r，再去算sk，<br>求得sk後丟long_to_bytes求回flag</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">!pip install sympy</span><br><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> inverse</span><br><span class="line"><span class="keyword">from</span> sympy.ntheory <span class="keyword">import</span> discrete_log</span><br><span class="line"></span><br><span class="line"><span class="comment"># 已知參數</span></span><br><span class="line">p = <span class="number">912963562570713895762123712634341582363191342435924527885311975797578046400116904692505817547350929619596093083745446525856149291591598712142696114753807416455553636357128701771057485027781550780145668058332461392878693207262984011086549089459904749465167095482671894984474035487400352761994560452501497000487</span></span><br><span class="line">g = <span class="number">5</span></span><br><span class="line">y = <span class="number">826538666839613533825164219540577914201103248283631882579415248247469603672292332561005185045449294103457059566058782307774879654805356212117148864755019033392691510181464751398765490686084806155442759849410837406192708511190585484331707794669398717997173649869228717077858848442336016926370038781486833717341</span></span><br><span class="line">a = <span class="number">837391429146716246298265649828833926553703307768263532882119633652369160923460038502759864396719595556822579283450060054716753545203402598089323793321805639129260667950080636462204135426887388899955615207806039627983773534304007953073586374003734715079722274887416433453079445822219423995951703135829496007286</span>        </span><br><span class="line">c = <span class="number">1</span> <span class="comment"># 這邊用1可以節省運算時間</span></span><br><span class="line">w = <span class="number">394811387946114683904252174454710537206578693342055809178279464013047561646863743919996435695718914181044539464633729592712968512748007403695056092396246866848389859706990642501065525104839776919236901735230456614618350145301893017979866181624159788935390202502224091369603614245766192646548573130781044536668</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 用sympy計算離散對數r</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">compute_r</span>(<span class="params">g, a, p</span>):</span><br><span class="line">    <span class="keyword">return</span> discrete_log(p, a, g)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 算sk</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">compute_sk</span>(<span class="params">p, g, y, a, w, c</span>):</span><br><span class="line">    r = compute_r(g, a, p)</span><br><span class="line">    p_minus_1 = p - <span class="number">1</span></span><br><span class="line">    c_inv = inverse(c, p_minus_1)</span><br><span class="line">    sk = (w - r) * c_inv % p_minus_1</span><br><span class="line">    <span class="keyword">return</span> sk</span><br><span class="line"></span><br><span class="line"><span class="comment"># 計算 輸出sk</span></span><br><span class="line">sk = compute_sk(p, g, y, a, w, c)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;Computed sk:&quot;</span>, sk)</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Requirement already satisfied: sympy in /usr/local/lib/python3.10/dist-packages (1.12)</span><br><span class="line">Requirement already satisfied: mpmath&gt;=0.19 in /usr/local/lib/python3.10/dist-packages (from sympy) (1.3.0)</span><br><span class="line">Computed sk: 796124238634205301132370159483254378466188675876173490569851599404569838177493188146821283009169954596409601313555455638014751336770403395328637</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> long_to_bytes</span><br><span class="line"></span><br><span class="line"><span class="comment"># 已知參數</span></span><br><span class="line">sk = <span class="number">796124238634205301132370159483254378466188675876173490569851599404569838177493188146821283009169954596409601313555455638014751336770403395328637</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 私鑰轉flag</span></span><br><span class="line">flag = long_to_bytes(sk)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;Flag:&quot;</span>, flag)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Flag: b&#x27;AIS3&#123;ToSolveADiscreteLogProblemWhithSmoothPIsSoEZZZZZZZZZZZ&#125;&#x27;</span><br></pre></td></tr></table></figure>
+
+<hr>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>作者： </strong>che_wu
+  </li>
+  <li class="post-copyright-link">
+    <strong>文章連結：</strong>
+    <a href="https://chewu-0319.github.io/personal/AIS3pre-exam/" title="AIS3 2024 pre-exam">https://chewu-0319.github.io/personal/AIS3pre-exam/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版權聲明： </strong>本網站均採用 <a href="https://creativecommons.org/licenses/by-nc/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC</a> 許可協議。可轉載，禁止營利。
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/personal/g0vsummit/" rel="prev" title="g0v summit 2024">
+      <i class="fa fa-chevron-left"></i> g0v summit 2024
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目錄
+        </li>
+        <li class="sidebar-nav-overview">
+          本站概要
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#AIS3-2024-pre-exam-write-up"><span class="nav-number">1.</span> <span class="nav-text">AIS3 2024 pre-exam write up</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#misc"><span class="nav-number">2.</span> <span class="nav-text">misc</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#welcome-100"><span class="nav-number">2.1.</span> <span class="nav-text">welcome[100]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Quantum-Nim-Heist-100"><span class="nav-number">2.2.</span> <span class="nav-text">Quantum Nim Heist[100]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Three-Dimensional-Secret"><span class="nav-number">2.3.</span> <span class="nav-text">Three Dimensional Secret</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#crypto"><span class="nav-number">3.</span> <span class="nav-text">crypto</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#zkp"><span class="nav-number">3.1.</span> <span class="nav-text">zkp</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="che_wu"
+      src="/personal/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">che_wu</p>
+  <div class="site-description" itemprop="description">準大一好欸</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/personal/archives">
+          <span class="site-state-item-count">7</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/personal/categories/">
+          
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">分類</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://chewu-0319.github.io/personal" title="回主頁 → https:&#x2F;&#x2F;chewu-0319.github.io&#x2F;personal"><i class=" fa-fw"></i>回主頁</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://github.com/chewu-0319" title="Github → https:&#x2F;&#x2F;github.com&#x2F;chewu-0319" rel="noopener" target="_blank"><i class="Github fa-fw"></i>Github</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:dylan.jc2222@gmail.com" title="Email → mailto:dylan.jc2222@gmail.com" rel="noopener" target="_blank"><i class="Email fa-fw"></i>Email</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.instagram.com/che._.wu/" title="Instagram → https:&#x2F;&#x2F;www.instagram.com&#x2F;che._.wu&#x2F;" rel="noopener" target="_blank"><i class="instagram fa-fw"></i>Instagram</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://discordapp.com/users/768889520280043561" title="discord → https:&#x2F;&#x2F;discordapp.com&#x2F;users&#x2F;768889520280043561" rel="noopener" target="_blank"><i class="discord fa-fw"></i>discord</a>
+      </span>
+  </div>
+  <div class="cc-license motion-element" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="/personal/images/cc-by-nc.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">che_wu</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">總字數：</span>
+    <span title="總字數">7k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">所需總閱讀時間 &asymp;</span>
+    <span title="所需總閱讀時間">27 分鐘</span>
+</div>
+
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/personal/lib/anime.min.js"></script>
+
+<script src="/personal/js/utils.js"></script>
+
+
+<script src="/personal/js/schemes/muse.js"></script>
+
+
+<script src="/personal/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/personal/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+</body>
+</html>

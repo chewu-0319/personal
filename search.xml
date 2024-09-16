@@ -1,6 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>AIS3 2024 pre-exam</title>
+    <url>/personal/AIS3pre-exam/</url>
+    <content><![CDATA[<h1 id="AIS3-2024-pre-exam-write-up"><a href="#AIS3-2024-pre-exam-write-up" class="headerlink" title="AIS3 2024 pre-exam write up"></a>AIS3 2024 pre-exam write up</h1><p>第一次寫write up :D</p>
+<h1 id="misc"><a href="#misc" class="headerlink" title="misc"></a>misc</h1><h2 id="welcome-100"><a href="#welcome-100" class="headerlink" title="welcome[100]"></a>welcome[100]</h2><p>略</p>
+<h2 id="Quantum-Nim-Heist-100"><a href="#Quantum-Nim-Heist-100" class="headerlink" title="Quantum Nim Heist[100]"></a>Quantum Nim Heist[100]</h2><p>一開始看code看很久都沒找到破綻，花超多時間在程式裡大海撈針，沒想到意外發現小漏洞，<br>反正就是讓值超出預期，但我其實不確定這做法的專有名詞(?<br>當他問which pile do you choose?的時候，<br>正常應該要回答是第幾pile，但如果什麼都不回答直接按enter或輸入-1，會發現可以直接跳過一回合，<br>直到最後一回合再記得把最後一個stones remove掉。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">...</span><br><span class="line"></span><br><span class="line">it&#x27;s your turn to move! what do you choose?</span><br><span class="line">+--------------------- moved ---------------------+</span><br><span class="line">| you removed 2 stones from pile 1                |</span><br><span class="line">+---+-------------- stones info ------------------+</span><br><span class="line">| 0 | oo                                          |</span><br><span class="line">| 1 | oo                                          |</span><br><span class="line">+--------------------- moved ---------------------+</span><br><span class="line">| i removed 1 stones from pile 1                  |</span><br><span class="line">+---+-------------- stones info ------------------+</span><br><span class="line">| 0 | oo                                          |</span><br><span class="line">| 1 | o                                           |</span><br><span class="line">+---+--------------- game menu -------------------+</span><br><span class="line">| 0 | make a move                                 |</span><br><span class="line">| 1 | save the current game and leave             |</span><br><span class="line">| 2 | resign the game                             |</span><br><span class="line">+---+---------------------------------------------+</span><br><span class="line">it&#x27;s your turn to move! what do you choose?        </span><br><span class="line">+--------------------- moved ---------------------+</span><br><span class="line">| you removed 1 stones from pile 1                |</span><br><span class="line">+---+-------------- stones info ------------------+</span><br><span class="line">| 0 | oo                                          | </span><br><span class="line">| 1 | o                                           |</span><br><span class="line">+--------------------- moved ---------------------+</span><br><span class="line">| i removed 1 stones from pile 0                  | </span><br><span class="line">+---+-------------- stones info ------------------+</span><br><span class="line">| 0 | o                                           |</span><br><span class="line">| 1 | o                                           | </span><br><span class="line">+---+--------------- game menu -------------------+  </span><br><span class="line">| 0 | make a move                                 |   </span><br><span class="line">| 1 | save the current game and leave             |   </span><br><span class="line">| 2 | resign the game                             |   </span><br><span class="line">+---+---------------------------------------------+   </span><br><span class="line">it&#x27;s your turn to move! what do you choose?           </span><br><span class="line">+--------------------- moved ---------------------+   </span><br><span class="line">| you removed 1 stones from pile 0                |   </span><br><span class="line">+---+-------------- stones info ------------------+   </span><br><span class="line">| 0 | o                                           |    </span><br><span class="line">| 1 | o                                           |   </span><br><span class="line">+--------------------- moved ---------------------+   </span><br><span class="line">| i removed 1 stones from pile 0                  |   </span><br><span class="line">+---+-------------- stones info ------------------+   </span><br><span class="line">| 0 | o                                           |   </span><br><span class="line">+---+--------------- game menu -------------------+   </span><br><span class="line">| 0 | make a move                                 |   </span><br><span class="line">| 1 | save the current game and leave             |   </span><br><span class="line">| 2 | resign the game                             |  </span><br><span class="line">+---+---------------------------------------------+  </span><br><span class="line">it&#x27;s your turn to move! what do you choose? 0         </span><br><span class="line">which pile do you choose? 0                           </span><br><span class="line">how many stones do you remove? 1                      </span><br><span class="line">+---------------- congratulations ----------------+   </span><br><span class="line">| you are a true grandmaster of chess! here is    |   </span><br><span class="line">| the flag for you:                               |   </span><br><span class="line">| AIS3&#123;Ar3_y0u_a_N1m_ma57er_0r_a_Crypt0_ma57er?&#125;  |   </span><br><span class="line">+-------------------------------------------------+ </span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h2 id="Three-Dimensional-Secret"><a href="#Three-Dimensional-Secret" class="headerlink" title="Three Dimensional Secret"></a>Three Dimensional Secret</h2><p>打開封包檔<br>看到很多Protocol&#x3D;TCP，隨機點一個<br><img src="/personal/images/p9.png"></p>
+<p>選follow -&gt; TCP Stream<br><img src="/personal/images/p10.png"></p>
+<p>打開後會出現很多同一格式的程式碼<br>拿去問chatgpt，得知這是G code<br><img src="/personal/images/p11.png"></p>
+<p>上網找預覽器，找到<a href="https://nraynaud.github.io/webgcode/">https://nraynaud.github.io/webgcode/</a><br><img src="/personal/images/p12.png"></p>
+<p>貼上code就看到flag了</p>
+<h1 id="crypto"><a href="#crypto" class="headerlink" title="crypto"></a>crypto</h1><h2 id="zkp"><a href="#zkp" class="headerlink" title="zkp"></a>zkp</h2><p>原本想說開暴力解，吃完飯發現還是沒結果，<br>上網找資料找到這個酷酷的函式庫叫sympy，大數字也可以快速解，<br>用sympy去計算離散對數r，再去算sk，<br>求得sk後丟long_to_bytes求回flag</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">!pip install sympy</span><br><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> inverse</span><br><span class="line"><span class="keyword">from</span> sympy.ntheory <span class="keyword">import</span> discrete_log</span><br><span class="line"></span><br><span class="line"><span class="comment"># 已知參數</span></span><br><span class="line">p = <span class="number">912963562570713895762123712634341582363191342435924527885311975797578046400116904692505817547350929619596093083745446525856149291591598712142696114753807416455553636357128701771057485027781550780145668058332461392878693207262984011086549089459904749465167095482671894984474035487400352761994560452501497000487</span></span><br><span class="line">g = <span class="number">5</span></span><br><span class="line">y = <span class="number">826538666839613533825164219540577914201103248283631882579415248247469603672292332561005185045449294103457059566058782307774879654805356212117148864755019033392691510181464751398765490686084806155442759849410837406192708511190585484331707794669398717997173649869228717077858848442336016926370038781486833717341</span></span><br><span class="line">a = <span class="number">837391429146716246298265649828833926553703307768263532882119633652369160923460038502759864396719595556822579283450060054716753545203402598089323793321805639129260667950080636462204135426887388899955615207806039627983773534304007953073586374003734715079722274887416433453079445822219423995951703135829496007286</span>        </span><br><span class="line">c = <span class="number">1</span> <span class="comment"># 這邊用1可以節省運算時間</span></span><br><span class="line">w = <span class="number">394811387946114683904252174454710537206578693342055809178279464013047561646863743919996435695718914181044539464633729592712968512748007403695056092396246866848389859706990642501065525104839776919236901735230456614618350145301893017979866181624159788935390202502224091369603614245766192646548573130781044536668</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 用sympy計算離散對數r</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">compute_r</span>(<span class="params">g, a, p</span>):</span><br><span class="line">    <span class="keyword">return</span> discrete_log(p, a, g)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 算sk</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">compute_sk</span>(<span class="params">p, g, y, a, w, c</span>):</span><br><span class="line">    r = compute_r(g, a, p)</span><br><span class="line">    p_minus_1 = p - <span class="number">1</span></span><br><span class="line">    c_inv = inverse(c, p_minus_1)</span><br><span class="line">    sk = (w - r) * c_inv % p_minus_1</span><br><span class="line">    <span class="keyword">return</span> sk</span><br><span class="line"></span><br><span class="line"><span class="comment"># 計算 輸出sk</span></span><br><span class="line">sk = compute_sk(p, g, y, a, w, c)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;Computed sk:&quot;</span>, sk)</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Requirement already satisfied: sympy in /usr/local/lib/python3.10/dist-packages (1.12)</span><br><span class="line">Requirement already satisfied: mpmath&gt;=0.19 in /usr/local/lib/python3.10/dist-packages (from sympy) (1.3.0)</span><br><span class="line">Computed sk: 796124238634205301132370159483254378466188675876173490569851599404569838177493188146821283009169954596409601313555455638014751336770403395328637</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> long_to_bytes</span><br><span class="line"></span><br><span class="line"><span class="comment"># 已知參數</span></span><br><span class="line">sk = <span class="number">796124238634205301132370159483254378466188675876173490569851599404569838177493188146821283009169954596409601313555455638014751336770403395328637</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 私鑰轉flag</span></span><br><span class="line">flag = long_to_bytes(sk)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;Flag:&quot;</span>, flag)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Flag: b&#x27;AIS3&#123;ToSolveADiscreteLogProblemWhithSmoothPIsSoEZZZZZZZZZZZ&#125;&#x27;</span><br></pre></td></tr></table></figure>
+
+<hr>
+]]></content>
+      <categories>
+        <category>資安</category>
+      </categories>
+  </entry>
+  <entry>
     <title>APCS-2024/01/07</title>
     <url>/personal/APCS20240107/</url>
     <content><![CDATA[<h1 id="第一題"><a href="#第一題" class="headerlink" title="第一題"></a>第一題</h1><p><a href="https://zerojudge.tw/ShowProblem?problemid=m931">https://zerojudge.tw/ShowProblem?problemid=m931</a></p>
@@ -472,74 +497,6 @@ ABaB
       </categories>
   </entry>
   <entry>
-    <title>g0v summit 2024</title>
-    <url>/personal/g0vsummit/</url>
-    <content><![CDATA[<h1 id="g0v-summit"><a href="#g0v-summit" class="headerlink" title="g0v summit"></a>g0v summit</h1><h2 id="我都在幹嘛"><a href="#我都在幹嘛" class="headerlink" title="我都在幹嘛?"></a>我都在幹嘛?</h2><ul>
-<li>工作人員<ul>
-<li>搬椅子</li>
-<li>搬桌子</li>
-<li>場佈</li>
-<li>動線規劃</li>
-<li>拆</li>
-<li>坐在電梯前指引</li>
-<li>被外國人問路</li>
-</ul>
-</li>
-<li>福利<ul>
-<li>吃吃吃吃吃吃吃吃…</li>
-<li>喝喝喝喝喝喝喝喝…</li>
-<li>免費住宿 中研院活動中心</li>
-<li>仙草茶 (呵</li>
-</ul>
-</li>
-</ul>
-<h2 id="Day-0-場佈"><a href="#Day-0-場佈" class="headerlink" title="Day 0(場佈)"></a>Day 0(場佈)</h2><ul>
-<li>搬椅子</li>
-<li>搬桌子</li>
-<li>動線規劃</li>
-<li>吃便當</li>
-<li>晚上去饒河夜市</li>
-</ul>
-<h2 id="Day-1"><a href="#Day-1" class="headerlink" title="Day 1"></a>Day 1</h2><ul>
-<li>早餐三明治+紅茶</li>
-<li>坐在電梯前好幾個小時</li>
-<li>R0搬椅子</li>
-<li>閒逛</li>
-<li>吃漢堡 吃撈麵</li>
-<li>聽南韓講者超酷</li>
-<li>有夠累</li>
-<li>睡在VIP room</li>
-<li>房間看西甲</li>
-<li>還以為有夜唱</li>
-</ul>
-<h2 id="Day-2"><a href="#Day-2" class="headerlink" title="Day 2"></a>Day 2</h2><ul>
-<li>繼續吃</li>
-<li>聽台灣爬蟲開源資料講者 超幽默</li>
-<li>仙草茶</li>
-<li>有個阿北專門來吃東西的</li>
-<li>收桌子</li>
-<li>拆東西</li>
-<li>在閉幕簡報上看到自己 很感動</li>
-<li>慶功宴 佛跳牆 龍蝦 雞佛 啤酒好欸</li>
-<li>才知道現場很多都是資工大佬 頂大好電</li>
-<li>大家都很好聊 一堆E人</li>
-<li>CPY有問題找他就對了 兆翌超好聊 喬不會喝酒笑死 柚子講者超電 賴彥江超幽默 </li>
-<li>口譯大哥說他18歲 pm5光頭超好認 攝影大哥敬酒*n次 室友林雨辰居然是文組的</li>
-<li>有人喝醉超好笑 啤酒而已欸</li>
-<li>搭高鐵 好不捨</li>
-<li>整個g0v氣氛好好 好喜歡 2026再來!</li>
-</ul>
-<h1 id="總結"><a href="#總結" class="headerlink" title="總結"></a>總結</h1><p>我愛g0v summit，氣氛好讚，工人福利給過，認識好多新朋友，以後參加g0v大松!<br>g0v summit 2026見!</p>
-<hr>
-<!-- Start of CuterCounter Code -->
-<p><a href="https://www.cutercounter.com/traditional-chinese-nn/" target="_blank" style="pointer-events: none;"><img src="https://www.cutercounter.com/hits.php?id=huxpnnqf&nd=6&style=11" border="0" alt="網頁計數器"></a></p>
-<!-- End of CuterCounter Code -->
-]]></content>
-      <categories>
-        <category>紀錄</category>
-      </categories>
-  </entry>
-  <entry>
     <title>特殊選才</title>
     <url>/personal/interview/</url>
     <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>嗨嗨 我是che，成功用特殊選材上岸啦!! <a href="https://chewu-0319.github.io/personal/about/">這裡</a> 有較詳細的個人經歷。</p>
@@ -812,6 +769,75 @@ ABaB
       </categories>
   </entry>
   <entry>
+    <title>電資類競賽分享</title>
+    <url>/personal/sources-share/</url>
+    <content><![CDATA[<h2 id="主要競賽-具指標性"><a href="#主要競賽-具指標性" class="headerlink" title="主要競賽(具指標性):"></a>主要競賽(具指標性):</h2><p>競程類</p>
+<ul>
+<li><a href="https://apcs.csie.ntnu.edu.tw/" style="color: #0066CC;">⭐APCS</a></li>
+<li><a href="https://tpmso.org/toi/" style="color: #0066CC;">⭐TOI</a></li>
+<li><a href="https://contest.cc.ntu.edu.tw/npsc2023/index.html" style="color: #0066CC;">NPSC</a></li>
+<li><a href="https://cpe.cse.nsysu.edu.tw/" style="color: #0066CC;">⭐CPE</a></li>
+<li><a href="https://www.tw-ytp.org/" style="color: #0066CC;">YTP</a></li>
+<li>⭐資訊學科能力競賽<ul>
+<li>校內初賽前2名可參加複賽</li>
+<li>複賽前幾名可參加全國賽(決賽)</li>
+</ul>
+</li>
+<li><a href="https://e-tutor.itsa.org.tw/e-Tutor/" style="color: #0066CC;">ITSA</a></li>
+<li><a href="https://issc.csroc.org.tw/" style="color: #0066CC;">ISSC</a></li>
+<li><a href="https://www.hpcodewars.com.tw/" style="color: #0066CC;">HP CodeWars</a></li>
+<li><a href="https://hspc.csie.ncku.edu.tw/" style="color: #0066CC;">HSPC(成大暑期程式邀請賽)</a></li>
+</ul>
+<p>資安類</p>
+<ul>
+<li><a href="https://csc.nics.nat.gov.tw/" style="color: #0066CC;">⭐金盾獎</a></li>
+<li><a href="https://tcat2023.twisc.ncku.edu.tw/" style="color: #0066CC;">T貓盃</a></li>
+<li><a href="https://ais3.org/eof/" style="color: #0066CC;">⭐AIS3 EOF</a></li>
+<li><a href="https://gics.tw/" style="color: #0066CC;">尋找資安女婕思</a></li>
+<li><a href="https://ais3.org/mfctf/" style="color: #0066CC;">MyFirstCTF</a></li>
+<li><a href="https://ais3.org/" style="color: #0066CC;">⭐AIS3</a></li>
+</ul>
+<p>AI類</p>
+<ul>
+<li><a href="https://www.aicup.tw/" style="color: #0066CC;">AI CUP</a></li>
+</ul>
+<hr>
+<p>年會</p>
+<ul>
+<li><p><a href="https://sitcon.org/2024/" style="color: #0066CC;">SITCON 學生計算機年會</a></p>
+</li>
+<li><p><a href="https://hitcon.org/2024/CMT/" style="color: #0066CC;">HITCON 台灣駭客年會</a></p>
+</li>
+<li><p><a href="https://coscup.org/2024/zh-TW/landing" style="color: #0066CC;">COSCUP 開源人年會</a></p>
+</li>
+<li><p><a href="https://summit.g0v.tw/2024/" style="color: #0066CC;">g0v summit 零時政府雙年會</a></p>
+</li>
+<li><p><a href="https://summit.g0v.tw/2024/" style="color: #0066CC;">g0v summit 零時政府雙年會</a></p>
+</li>
+</ul>
+<p>社群</p>
+<ul>
+<li><a href="https://discord.gg/3fah53Bj46" style="color: #0066CC;">SCINT 北台灣學生資訊社群(北電)</a></li>
+<li><a href="https://discord.gg/R7uguV73tC" style="color: #0066CC;">SCAICT 中電會(中電)</a></li>
+<li><a href="https://discord.gg/g6qfD4Wk9j" style="color: #0066CC;">SCIST (南電)</a></li>
+</ul>
+<hr>
+<h2 id="其他資料"><a href="#其他資料" class="headerlink" title="其他資料:"></a>其他資料:</h2><ul>
+<li><a href="https://hackmd.io/@cube/rJ3o-G1mF" style="color: #0066CC;">程式設計競賽網路資源</a></li>
+<li><a href="https://github.com/goodjack/awesome-cs-training" style="color: #0066CC;">資訊培訓相關資源彙整</a></li>
+<li><a href="https://hackmd.io/@nehs-iced-7th/Skut4WffY" style="color: #0066CC;">實中資研整理</a></li>
+<li><a href="https://hackmd.io/@yuan-tw/SJHj8Xano" style="color: #0066CC;">電資資源整理(不定期更新)</a></li>
+<li><a href="https://github.com/Ice1187/TW-Security-and-CTF-Resource" style="color: #0066CC;">台灣資安 &#x2F; CTF 學習資源整理</a></li>
+</ul>
+<hr>
+<!-- Start of CuterCounter Code -->
+<p><a href="https://www.cutercounter.com/traditional-chinese-nn/" target="_blank" style="pointer-events: none;"><img src="https://www.cutercounter.com/hits.php?id=hrvxocncc&nd=6&style=11" border="0" alt="免費網站計數器"></a></p>
+<!-- End of CuterCounter Code -->]]></content>
+      <categories>
+        <category>資源分享</category>
+      </categories>
+  </entry>
+  <entry>
     <title>程式週記</title>
     <url>/personal/weekly-diary/</url>
     <content><![CDATA[<h1 id="Week-1-3-17-3-23"><a href="#Week-1-3-17-3-23" class="headerlink" title="Week 1 (3&#x2F;17~3&#x2F;23)"></a>Week 1 (3&#x2F;17~3&#x2F;23)</h1><ul>
@@ -1060,6 +1086,74 @@ ABaB
       </categories>
   </entry>
   <entry>
+    <title>g0v summit 2024</title>
+    <url>/personal/g0vsummit/</url>
+    <content><![CDATA[<h1 id="g0v-summit"><a href="#g0v-summit" class="headerlink" title="g0v summit"></a>g0v summit</h1><h2 id="我都在幹嘛"><a href="#我都在幹嘛" class="headerlink" title="我都在幹嘛?"></a>我都在幹嘛?</h2><ul>
+<li>工作人員<ul>
+<li>搬椅子</li>
+<li>搬桌子</li>
+<li>場佈</li>
+<li>動線規劃</li>
+<li>拆</li>
+<li>坐在電梯前指引</li>
+<li>被外國人問路</li>
+</ul>
+</li>
+<li>福利<ul>
+<li>吃吃吃吃吃吃吃吃…</li>
+<li>喝喝喝喝喝喝喝喝…</li>
+<li>免費住宿 中研院活動中心</li>
+<li>仙草茶 (呵</li>
+</ul>
+</li>
+</ul>
+<h2 id="Day-0-場佈"><a href="#Day-0-場佈" class="headerlink" title="Day 0(場佈)"></a>Day 0(場佈)</h2><ul>
+<li>搬椅子</li>
+<li>搬桌子</li>
+<li>動線規劃</li>
+<li>吃便當</li>
+<li>晚上去饒河夜市</li>
+</ul>
+<h2 id="Day-1"><a href="#Day-1" class="headerlink" title="Day 1"></a>Day 1</h2><ul>
+<li>早餐三明治+紅茶</li>
+<li>坐在電梯前好幾個小時</li>
+<li>R0搬椅子</li>
+<li>閒逛</li>
+<li>吃漢堡 吃撈麵</li>
+<li>聽南韓講者超酷</li>
+<li>有夠累</li>
+<li>睡在VIP room</li>
+<li>房間看西甲</li>
+<li>還以為有夜唱</li>
+</ul>
+<h2 id="Day-2"><a href="#Day-2" class="headerlink" title="Day 2"></a>Day 2</h2><ul>
+<li>繼續吃</li>
+<li>聽台灣爬蟲開源資料講者 超幽默</li>
+<li>仙草茶</li>
+<li>有個阿北專門來吃東西的</li>
+<li>收桌子</li>
+<li>拆東西</li>
+<li>在閉幕簡報上看到自己 很感動</li>
+<li>慶功宴 佛跳牆 龍蝦 雞佛 啤酒好欸</li>
+<li>才知道現場很多都是資工大佬 頂大好電</li>
+<li>大家都很好聊 一堆E人</li>
+<li>CPY有問題找他就對了 兆翌超好聊 喬不會喝酒笑死 柚子講者超電 賴彥江超幽默 </li>
+<li>口譯大哥說他18歲 pm5光頭超好認 攝影大哥敬酒*n次 室友雨辰居然是文組的</li>
+<li>有人喝醉超好笑 啤酒而已欸</li>
+<li>搭高鐵 好不捨</li>
+<li>整個g0v氣氛好好 好喜歡 2026再來!</li>
+</ul>
+<h1 id="總結"><a href="#總結" class="headerlink" title="總結"></a>總結</h1><p>我愛g0v summit，氣氛好讚，工人福利給過，認識好多新朋友，g0v summit 2026見!</p>
+<hr>
+<!-- Start of CuterCounter Code -->
+<p><a href="https://www.cutercounter.com/traditional-chinese-nn/" target="_blank" style="pointer-events: none;"><img src="https://www.cutercounter.com/hits.php?id=huxpnnqf&nd=6&style=11" border="0" alt="網頁計數器"></a></p>
+<!-- End of CuterCounter Code -->
+]]></content>
+      <categories>
+        <category>紀錄</category>
+      </categories>
+  </entry>
+  <entry>
     <title>日常刷題</title>
     <url>/personal/zj-code/</url>
     <content><![CDATA[<p>有空再更新</p>
@@ -1098,75 +1192,6 @@ ABaB
 <!-- End of CuterCounter Code -->]]></content>
       <categories>
         <category>zerojudge</category>
-      </categories>
-  </entry>
-  <entry>
-    <title>電資類競賽分享</title>
-    <url>/personal/sources-share/</url>
-    <content><![CDATA[<h2 id="主要競賽-具指標性"><a href="#主要競賽-具指標性" class="headerlink" title="主要競賽(具指標性):"></a>主要競賽(具指標性):</h2><p>競程類</p>
-<ul>
-<li><a href="https://apcs.csie.ntnu.edu.tw/" style="color: #0066CC;">⭐APCS</a></li>
-<li><a href="https://tpmso.org/toi/" style="color: #0066CC;">⭐TOI</a></li>
-<li><a href="https://contest.cc.ntu.edu.tw/npsc2023/index.html" style="color: #0066CC;">NPSC</a></li>
-<li><a href="https://cpe.cse.nsysu.edu.tw/" style="color: #0066CC;">⭐CPE</a></li>
-<li><a href="https://www.tw-ytp.org/" style="color: #0066CC;">YTP</a></li>
-<li>⭐資訊學科能力競賽<ul>
-<li>校內初賽前2名可參加複賽</li>
-<li>複賽前幾名可參加全國賽(決賽)</li>
-</ul>
-</li>
-<li><a href="https://e-tutor.itsa.org.tw/e-Tutor/" style="color: #0066CC;">ITSA</a></li>
-<li><a href="https://issc.csroc.org.tw/" style="color: #0066CC;">ISSC</a></li>
-<li><a href="https://www.hpcodewars.com.tw/" style="color: #0066CC;">HP CodeWars</a></li>
-<li><a href="https://hspc.csie.ncku.edu.tw/" style="color: #0066CC;">HSPC(成大暑期程式邀請賽)</a></li>
-</ul>
-<p>資安類</p>
-<ul>
-<li><a href="https://csc.nics.nat.gov.tw/" style="color: #0066CC;">⭐金盾獎</a></li>
-<li><a href="https://tcat2023.twisc.ncku.edu.tw/" style="color: #0066CC;">T貓盃</a></li>
-<li><a href="https://ais3.org/eof/" style="color: #0066CC;">⭐AIS3 EOF</a></li>
-<li><a href="https://gics.tw/" style="color: #0066CC;">尋找資安女婕思</a></li>
-<li><a href="https://ais3.org/mfctf/" style="color: #0066CC;">MyFirstCTF</a></li>
-<li><a href="https://ais3.org/" style="color: #0066CC;">⭐AIS3</a></li>
-</ul>
-<p>AI類</p>
-<ul>
-<li><a href="https://www.aicup.tw/" style="color: #0066CC;">AI CUP</a></li>
-</ul>
-<hr>
-<p>年會</p>
-<ul>
-<li><p><a href="https://sitcon.org/2024/" style="color: #0066CC;">SITCON 學生計算機年會</a></p>
-</li>
-<li><p><a href="https://hitcon.org/2024/CMT/" style="color: #0066CC;">HITCON 台灣駭客年會</a></p>
-</li>
-<li><p><a href="https://coscup.org/2024/zh-TW/landing" style="color: #0066CC;">COSCUP 開源人年會</a></p>
-</li>
-<li><p><a href="https://summit.g0v.tw/2024/" style="color: #0066CC;">g0v summit 零時政府雙年會</a></p>
-</li>
-<li><p><a href="https://summit.g0v.tw/2024/" style="color: #0066CC;">g0v summit 零時政府雙年會</a></p>
-</li>
-</ul>
-<p>社群</p>
-<ul>
-<li><a href="https://discord.gg/3fah53Bj46" style="color: #0066CC;">SCINT 北台灣學生資訊社群(北電)</a></li>
-<li><a href="https://discord.gg/R7uguV73tC" style="color: #0066CC;">SCAICT 中電會(中電)</a></li>
-<li><a href="https://discord.gg/g6qfD4Wk9j" style="color: #0066CC;">SCIST (南電)</a></li>
-</ul>
-<hr>
-<h2 id="其他資料"><a href="#其他資料" class="headerlink" title="其他資料:"></a>其他資料:</h2><ul>
-<li><a href="https://hackmd.io/@cube/rJ3o-G1mF" style="color: #0066CC;">程式設計競賽網路資源</a></li>
-<li><a href="https://github.com/goodjack/awesome-cs-training" style="color: #0066CC;">資訊培訓相關資源彙整</a></li>
-<li><a href="https://hackmd.io/@nehs-iced-7th/Skut4WffY" style="color: #0066CC;">實中資研整理</a></li>
-<li><a href="https://hackmd.io/@yuan-tw/SJHj8Xano" style="color: #0066CC;">電資資源整理(不定期更新)</a></li>
-<li><a href="https://github.com/Ice1187/TW-Security-and-CTF-Resource" style="color: #0066CC;">台灣資安 &#x2F; CTF 學習資源整理</a></li>
-</ul>
-<hr>
-<!-- Start of CuterCounter Code -->
-<p><a href="https://www.cutercounter.com/traditional-chinese-nn/" target="_blank" style="pointer-events: none;"><img src="https://www.cutercounter.com/hits.php?id=hrvxocncc&nd=6&style=11" border="0" alt="免費網站計數器"></a></p>
-<!-- End of CuterCounter Code -->]]></content>
-      <categories>
-        <category>資源分享</category>
       </categories>
   </entry>
 </search>
