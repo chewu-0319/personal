@@ -911,7 +911,7 @@ ABaB
   <entry>
     <title>個人時間表</title>
     <url>/personal/personal_schedule/</url>
-    <content><![CDATA[<iframe src="/excelfolder/1131003.html" width="100%" height="600" frameborder="0"></iframe>
+    <content><![CDATA[<iframe src="/personal/excelfolder/1131003.html" width="100%" height="600" frameborder="0"></iframe>
 
 <hr>
 <!-- Start of CuterCounter Code -->
