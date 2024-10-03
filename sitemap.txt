@@ -10,9 +10,9 @@ https://chewu-0319.github.io/personal/APCS20240107/
 https://chewu-0319.github.io/personal/zj-code/
 https://chewu-0319.github.io/personal
 https://chewu-0319.github.io/personal/categories/%E8%B3%87%E5%AE%89/
+https://chewu-0319.github.io/personal/categories/APCS/
 https://chewu-0319.github.io/personal/categories/%E7%B4%80%E9%8C%84/
 https://chewu-0319.github.io/personal/categories/%E7%89%B9%E6%AE%8A%E9%81%B8%E6%89%8D/
-https://chewu-0319.github.io/personal/categories/APCS/
-https://chewu-0319.github.io/personal/categories/%E8%B3%87%E6%BA%90%E5%88%86%E4%BA%AB/
 https://chewu-0319.github.io/personal/categories/%E5%80%8B%E4%BA%BA%E6%99%82%E9%96%93%E8%A1%A8/
+https://chewu-0319.github.io/personal/categories/%E8%B3%87%E6%BA%90%E5%88%86%E4%BA%AB/
 https://chewu-0319.github.io/personal/categories/zerojudge/
