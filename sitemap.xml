@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://chewu-0319.github.io/personal/personal_schedule/</loc>
+    <loc>https://chewu-0319.github.io/personal/about/index.html</loc>
     
     <lastmod>2024-10-03</lastmod>
     
@@ -11,9 +11,9 @@
   </url>
   
   <url>
-    <loc>https://chewu-0319.github.io/personal/about/index.html</loc>
+    <loc>https://chewu-0319.github.io/personal/personal_schedule/</loc>
     
-    <lastmod>2024-10-02</lastmod>
+    <lastmod>2024-10-03</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -110,7 +110,7 @@
   </url>
   
   <url>
-    <loc>https://chewu-0319.github.io/personal/categories/APCS/</loc>
+    <loc>https://chewu-0319.github.io/personal/categories/%E7%B4%80%E9%8C%84/</loc>
     <lastmod>2024-10-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -124,7 +124,7 @@
   </url>
   
   <url>
-    <loc>https://chewu-0319.github.io/personal/categories/%E7%B4%80%E9%8C%84/</loc>
+    <loc>https://chewu-0319.github.io/personal/categories/APCS/</loc>
     <lastmod>2024-10-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
