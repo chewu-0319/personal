@@ -302,9 +302,24 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">發表於</span>
-              
 
-              <time title="創建時間：2024-10-11 23:22:12 / 修改時間：23:26:45" itemprop="dateCreated datePublished" datetime="2024-10-11T23:22:12+08:00">2024-10-11</time>
+              <time title="創建時間：2024-10-11 23:22:12" itemprop="dateCreated datePublished" datetime="2024-10-11T23:22:12+08:00">2024-10-11</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新於</span>
+                <time title="修改時間：2024-10-12 02:01:14" itemprop="dateModified" datetime="2024-10-12T02:01:14+08:00">2024-10-12</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分類於</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/personal/categories/%E8%B3%87%E5%AE%89/" itemprop="url" rel="index"><span itemprop="name">資安</span></a>
+                </span>
             </span>
 
           <br>
@@ -332,99 +347,15 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <ol>
-<li>常見應用層服務與端口</li>
-</ol>
-<ul>
-<li>20&#x2F;21 (FTP)：File Transfer Protocol (檔案傳輸協定)</li>
-<li>22 (SSH)：Secure Shell (安全外殼協定)</li>
-<li>23 (Telnet)：Telnet 遠程登入 (不安全)</li>
-<li>25 (SMTP)：Simple Mail Transfer Protocol (簡單郵件傳輸協定)</li>
-<li>53 (DNS)：Domain Name System (域名系統)</li>
-<li>80 (HTTP)：Hypertext Transfer Protocol (超文本傳輸協定)</li>
-<li>110 (POP3)：Post Office Protocol version 3 (郵局協定版本 3)</li>
-<li>143 (IMAP)：Internet Message Access Protocol (網際訊息存取協定)</li>
-<li>443 (HTTPS)：HTTP Secure (加密的超文本傳輸協定)</li>
-<li>993 (IMAPS)：IMAP over SSL (加密的 IMAP)</li>
-<li>995 (POP3S)：POP3 over SSL (加密的 POP3)</li>
-<li>3389 (RDP)：Remote Desktop Protocol (遠端桌面協定)</li>
-<li>3306 (MySQL)：MySQL 資料庫預設端口</li>
-<li>5432 (PostgreSQL)：PostgreSQL 資料庫預設端口</li>
-<li>8080 (HTTP Alt)：HTTP 替代端口，常用於代理伺服器或 Web 應用。</li>
-</ul>
-<ol start="2">
-<li>安全協定與遠程管理</li>
-</ol>
-<ul>
-<li>67&#x2F;68 (DHCP)：Dynamic Host Configuration Protocol (動態主機配置協定)</li>
-<li>161&#x2F;162 (SNMP)：Simple Network Management Protocol (簡單網路管理協定)</li>
-<li>500 (ISAKMP&#x2F;IKE)：Internet Security Association and Key Management Protocol (安全協會與金鑰管理協定，用於 IPsec)</li>
-<li>1701 (L2TP)：Layer 2 Tunneling Protocol (第二層隧道協定)</li>
-<li>1723 (PPTP)：Point-to-Point Tunneling Protocol (點對點隧道協定)</li>
-<li>4500 (IPsec NAT)：Network Address Translation traversal (用於 IPsec 的 NAT 穿透)</li>
-</ul>
-<ol start="3">
-<li>VPN 與安全通信</li>
-</ol>
-<ul>
-<li>1194 (OpenVPN)：用於 OpenVPN 的預設端口</li>
-<li>1701 (L2TP)：用於 L2TP VPN 服務</li>
-<li>1723 (PPTP)：PPTP VPN 服務</li>
-<li>443 (OpenVPN over SSL)：一些 VPN 服務會將流量包裝在 HTTPS 內，以便於通過防火牆。</li>
-</ul>
-<ol start="4">
-<li>文件共享與遠程協定</li>
-</ol>
-<ul>
-<li>137-139 (NetBIOS)：NetBIOS 用於局域網內的名稱解析和文件共享。</li>
-<li>445 (SMB&#x2F;CIFS)：Server Message Block (伺服訊息區塊，用於文件共享)。</li>
-<li>2049 (NFS)：Network File System (網路檔案系統)</li>
-</ul>
-<ol start="5">
-<li>資料庫與備份</li>
-</ol>
-<ul>
-<li>1433&#x2F;1434 (MSSQL)：Microsoft SQL Server 資料庫</li>
-<li>1521 (Oracle)：Oracle 資料庫</li>
-<li>5432 (PostgreSQL)：PostgreSQL 資料庫</li>
-<li>6379 (Redis)：Redis 資料庫</li>
-<li>27017 (MongoDB)：MongoDB 資料庫</li>
-</ul>
-<ol start="6">
-<li>網路及系統安全</li>
-</ol>
-<ul>
-<li>389&#x2F;636 (LDAP&#x2F;LDAPS)：Lightweight Directory Access Protocol (輕量目錄存取協定)</li>
-<li>514 (Syslog)：用於系統日誌傳輸的協定</li>
-<li>1812&#x2F;1813 (RADIUS)：Remote Authentication Dial-In User Service (遠程驗證撥入用戶服務，用於網絡認證)</li>
-<li>1645&#x2F;1646 (RADIUS Alt)：舊版的 RADIUS 認證端口</li>
-</ul>
-<ol start="7">
-<li>檢測工具與漏洞掃描</li>
-</ol>
-<ul>
-<li>53 (DNS)：有些攻擊會利用未加密的 DNS 通訊進行中間人攻擊（MitM）。</li>
-<li>135 (DCE&#x2F;RPC)：Distributed Computing Environment&#x2F;Remote Procedure Calls，與 Windows RPC 相關，常見於滲透測試。</li>
-<li>111 (RPCBind)：常見於 Linux&#x2F;Unix 系統，用於 RPC 服務。</li>
-<li>4444 (Metasploit Meterpreter)：滲透測試工具 Metasploit 中常用的回連端口。</li>
-</ul>
-<ol start="8">
-<li>物聯網與嵌入式系統</li>
-</ol>
-<ul>
-<li>1883 (MQTT)：Message Queuing Telemetry Transport，常用於物聯網設備的通信。</li>
-<li>4840 (OPC UA)：工業控制系統（ICS）中常見的通訊協定。</li>
-</ul>
-<ol start="9">
-<li>其他相關的端口</li>
-</ol>
-<ul>
-<li>5000 (Docker)：Docker 預設端口，用於 API 接口</li>
-<li>6000-6063 (X11)：用於圖形界面的 X Window System 通訊</li>
-<li>8081 (Tomcat)：Apache Tomcat 伺服器的管理接口</li>
-<li>8443 (HTTPS Alt)：用於加密的 HTTP 替代端口，常見於不同的應用伺服器上。</li>
-</ul>
-
+          <p>金盾獎一堆ISO&port</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/personal/20241011/">
+                閱讀全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
