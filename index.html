@@ -279,6 +279,170 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="https://chewu-0319.github.io/personal/20241011/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/personal/images/avatar.jpg">
+      <meta itemprop="name" content="che_wu">
+      <meta itemprop="description" content="大一好欸">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="che的blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/personal/20241011/" class="post-title-link" itemprop="url">金盾獎資料</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">發表於</span>
+              
+
+              <time title="創建時間：2024-10-11 23:22:12 / 修改時間：23:26:45" itemprop="dateCreated datePublished" datetime="2024-10-11T23:22:12+08:00">2024-10-11</time>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="文章字數">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">文章字數：</span>
+              <span>728</span>
+            </span>
+            <span class="post-meta-item" title="所需閱讀時間">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
+              <span>3 分鐘</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <ol>
+<li>常見應用層服務與端口</li>
+</ol>
+<ul>
+<li>20&#x2F;21 (FTP)：File Transfer Protocol (檔案傳輸協定)</li>
+<li>22 (SSH)：Secure Shell (安全外殼協定)</li>
+<li>23 (Telnet)：Telnet 遠程登入 (不安全)</li>
+<li>25 (SMTP)：Simple Mail Transfer Protocol (簡單郵件傳輸協定)</li>
+<li>53 (DNS)：Domain Name System (域名系統)</li>
+<li>80 (HTTP)：Hypertext Transfer Protocol (超文本傳輸協定)</li>
+<li>110 (POP3)：Post Office Protocol version 3 (郵局協定版本 3)</li>
+<li>143 (IMAP)：Internet Message Access Protocol (網際訊息存取協定)</li>
+<li>443 (HTTPS)：HTTP Secure (加密的超文本傳輸協定)</li>
+<li>993 (IMAPS)：IMAP over SSL (加密的 IMAP)</li>
+<li>995 (POP3S)：POP3 over SSL (加密的 POP3)</li>
+<li>3389 (RDP)：Remote Desktop Protocol (遠端桌面協定)</li>
+<li>3306 (MySQL)：MySQL 資料庫預設端口</li>
+<li>5432 (PostgreSQL)：PostgreSQL 資料庫預設端口</li>
+<li>8080 (HTTP Alt)：HTTP 替代端口，常用於代理伺服器或 Web 應用。</li>
+</ul>
+<ol start="2">
+<li>安全協定與遠程管理</li>
+</ol>
+<ul>
+<li>67&#x2F;68 (DHCP)：Dynamic Host Configuration Protocol (動態主機配置協定)</li>
+<li>161&#x2F;162 (SNMP)：Simple Network Management Protocol (簡單網路管理協定)</li>
+<li>500 (ISAKMP&#x2F;IKE)：Internet Security Association and Key Management Protocol (安全協會與金鑰管理協定，用於 IPsec)</li>
+<li>1701 (L2TP)：Layer 2 Tunneling Protocol (第二層隧道協定)</li>
+<li>1723 (PPTP)：Point-to-Point Tunneling Protocol (點對點隧道協定)</li>
+<li>4500 (IPsec NAT)：Network Address Translation traversal (用於 IPsec 的 NAT 穿透)</li>
+</ul>
+<ol start="3">
+<li>VPN 與安全通信</li>
+</ol>
+<ul>
+<li>1194 (OpenVPN)：用於 OpenVPN 的預設端口</li>
+<li>1701 (L2TP)：用於 L2TP VPN 服務</li>
+<li>1723 (PPTP)：PPTP VPN 服務</li>
+<li>443 (OpenVPN over SSL)：一些 VPN 服務會將流量包裝在 HTTPS 內，以便於通過防火牆。</li>
+</ul>
+<ol start="4">
+<li>文件共享與遠程協定</li>
+</ol>
+<ul>
+<li>137-139 (NetBIOS)：NetBIOS 用於局域網內的名稱解析和文件共享。</li>
+<li>445 (SMB&#x2F;CIFS)：Server Message Block (伺服訊息區塊，用於文件共享)。</li>
+<li>2049 (NFS)：Network File System (網路檔案系統)</li>
+</ul>
+<ol start="5">
+<li>資料庫與備份</li>
+</ol>
+<ul>
+<li>1433&#x2F;1434 (MSSQL)：Microsoft SQL Server 資料庫</li>
+<li>1521 (Oracle)：Oracle 資料庫</li>
+<li>5432 (PostgreSQL)：PostgreSQL 資料庫</li>
+<li>6379 (Redis)：Redis 資料庫</li>
+<li>27017 (MongoDB)：MongoDB 資料庫</li>
+</ul>
+<ol start="6">
+<li>網路及系統安全</li>
+</ol>
+<ul>
+<li>389&#x2F;636 (LDAP&#x2F;LDAPS)：Lightweight Directory Access Protocol (輕量目錄存取協定)</li>
+<li>514 (Syslog)：用於系統日誌傳輸的協定</li>
+<li>1812&#x2F;1813 (RADIUS)：Remote Authentication Dial-In User Service (遠程驗證撥入用戶服務，用於網絡認證)</li>
+<li>1645&#x2F;1646 (RADIUS Alt)：舊版的 RADIUS 認證端口</li>
+</ul>
+<ol start="7">
+<li>檢測工具與漏洞掃描</li>
+</ol>
+<ul>
+<li>53 (DNS)：有些攻擊會利用未加密的 DNS 通訊進行中間人攻擊（MitM）。</li>
+<li>135 (DCE&#x2F;RPC)：Distributed Computing Environment&#x2F;Remote Procedure Calls，與 Windows RPC 相關，常見於滲透測試。</li>
+<li>111 (RPCBind)：常見於 Linux&#x2F;Unix 系統，用於 RPC 服務。</li>
+<li>4444 (Metasploit Meterpreter)：滲透測試工具 Metasploit 中常用的回連端口。</li>
+</ul>
+<ol start="8">
+<li>物聯網與嵌入式系統</li>
+</ol>
+<ul>
+<li>1883 (MQTT)：Message Queuing Telemetry Transport，常用於物聯網設備的通信。</li>
+<li>4840 (OPC UA)：工業控制系統（ICS）中常見的通訊協定。</li>
+</ul>
+<ol start="9">
+<li>其他相關的端口</li>
+</ol>
+<ul>
+<li>5000 (Docker)：Docker 預設端口，用於 API 接口</li>
+<li>6000-6063 (X11)：用於圖形界面的 X Window System 通訊</li>
+<li>8081 (Tomcat)：Apache Tomcat 伺服器的管理接口</li>
+<li>8443 (HTTPS Alt)：用於加密的 HTTP 替代端口，常見於不同的應用伺服器上。</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+            
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-TW">
     <link itemprop="mainEntityOfPage" href="https://chewu-0319.github.io/personal/personal_schedule/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -995,7 +1159,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/personal/archives">
-          <span class="site-state-item-count">8</span>
+          <span class="site-state-item-count">9</span>
           <span class="site-state-item-name">文章</span>
         </a>
       </div>
@@ -1059,13 +1223,13 @@
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">總字數：</span>
-    <span title="總字數">7k</span>
+    <span title="總字數">8k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">所需總閱讀時間 &asymp;</span>
-    <span title="所需總閱讀時間">27 分鐘</span>
+    <span title="所需總閱讀時間">30 分鐘</span>
 </div>
 
 
