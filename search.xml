@@ -600,75 +600,6 @@ ABaB
       </categories>
   </entry>
   <entry>
-    <title>電資類競賽分享</title>
-    <url>/personal/sources-share/</url>
-    <content><![CDATA[<h2 id="主要競賽-具指標性"><a href="#主要競賽-具指標性" class="headerlink" title="主要競賽(具指標性):"></a>主要競賽(具指標性):</h2><p>競程類</p>
-<ul>
-<li><a href="https://apcs.csie.ntnu.edu.tw/" style="color: #0066CC;">⭐APCS</a></li>
-<li><a href="https://tpmso.org/toi/" style="color: #0066CC;">⭐TOI</a></li>
-<li><a href="https://contest.cc.ntu.edu.tw/npsc2023/index.html" style="color: #0066CC;">NPSC</a></li>
-<li><a href="https://cpe.cse.nsysu.edu.tw/" style="color: #0066CC;">⭐CPE</a></li>
-<li><a href="https://www.tw-ytp.org/" style="color: #0066CC;">YTP</a></li>
-<li>⭐資訊學科能力競賽<ul>
-<li>校內初賽前2名可參加複賽</li>
-<li>複賽前幾名可參加全國賽(決賽)</li>
-</ul>
-</li>
-<li><a href="https://e-tutor.itsa.org.tw/e-Tutor/" style="color: #0066CC;">ITSA</a></li>
-<li><a href="https://issc.csroc.org.tw/" style="color: #0066CC;">ISSC</a></li>
-<li><a href="https://www.hpcodewars.com.tw/" style="color: #0066CC;">HP CodeWars</a></li>
-<li><a href="https://hspc.csie.ncku.edu.tw/" style="color: #0066CC;">HSPC(成大暑期程式邀請賽)</a></li>
-</ul>
-<p>資安類</p>
-<ul>
-<li><a href="https://csc.nics.nat.gov.tw/" style="color: #0066CC;">⭐金盾獎</a></li>
-<li><a href="https://tcat2023.twisc.ncku.edu.tw/" style="color: #0066CC;">T貓盃</a></li>
-<li><a href="https://ais3.org/eof/" style="color: #0066CC;">⭐AIS3 EOF</a></li>
-<li><a href="https://gics.tw/" style="color: #0066CC;">尋找資安女婕思</a></li>
-<li><a href="https://ais3.org/mfctf/" style="color: #0066CC;">MyFirstCTF</a></li>
-<li><a href="https://ais3.org/" style="color: #0066CC;">⭐AIS3</a></li>
-</ul>
-<p>AI類</p>
-<ul>
-<li><a href="https://www.aicup.tw/" style="color: #0066CC;">AI CUP</a></li>
-</ul>
-<hr>
-<p>年會</p>
-<ul>
-<li><p><a href="https://sitcon.org/2024/" style="color: #0066CC;">SITCON 學生計算機年會</a></p>
-</li>
-<li><p><a href="https://hitcon.org/2024/CMT/" style="color: #0066CC;">HITCON 台灣駭客年會</a></p>
-</li>
-<li><p><a href="https://coscup.org/2024/zh-TW/landing" style="color: #0066CC;">COSCUP 開源人年會</a></p>
-</li>
-<li><p><a href="https://summit.g0v.tw/2024/" style="color: #0066CC;">g0v summit 零時政府雙年會</a></p>
-</li>
-<li><p><a href="https://summit.g0v.tw/2024/" style="color: #0066CC;">g0v summit 零時政府雙年會</a></p>
-</li>
-</ul>
-<p>社群</p>
-<ul>
-<li><a href="https://discord.gg/3fah53Bj46" style="color: #0066CC;">SCINT 北台灣學生資訊社群(北電)</a></li>
-<li><a href="https://discord.gg/R7uguV73tC" style="color: #0066CC;">SCAICT 中電會(中電)</a></li>
-<li><a href="https://discord.gg/g6qfD4Wk9j" style="color: #0066CC;">SCIST (南電)</a></li>
-</ul>
-<hr>
-<h2 id="其他資料"><a href="#其他資料" class="headerlink" title="其他資料:"></a>其他資料:</h2><ul>
-<li><a href="https://hackmd.io/@cube/rJ3o-G1mF" style="color: #0066CC;">程式設計競賽網路資源</a></li>
-<li><a href="https://github.com/goodjack/awesome-cs-training" style="color: #0066CC;">資訊培訓相關資源彙整</a></li>
-<li><a href="https://hackmd.io/@nehs-iced-7th/Skut4WffY" style="color: #0066CC;">實中資研整理</a></li>
-<li><a href="https://hackmd.io/@yuan-tw/SJHj8Xano" style="color: #0066CC;">電資資源整理(不定期更新)</a></li>
-<li><a href="https://github.com/Ice1187/TW-Security-and-CTF-Resource" style="color: #0066CC;">台灣資安 &#x2F; CTF 學習資源整理</a></li>
-</ul>
-<hr>
-<!-- Start of CuterCounter Code -->
-<p><a href="https://www.cutercounter.com/traditional-chinese-nn/" target="_blank" style="pointer-events: none;"><img src="https://www.cutercounter.com/hits.php?id=hrvxocncc&nd=6&style=11" border="0" alt="免費網站計數器"></a></p>
-<!-- End of CuterCounter Code -->]]></content>
-      <categories>
-        <category>資源分享</category>
-      </categories>
-  </entry>
-  <entry>
     <title>g0v summit 2024</title>
     <url>/personal/g0vsummit/</url>
     <content><![CDATA[<h1 id="g0v-summit"><a href="#g0v-summit" class="headerlink" title="g0v summit"></a>g0v summit</h1><h2 id="我都在幹嘛"><a href="#我都在幹嘛" class="headerlink" title="我都在幹嘛?"></a>我都在幹嘛?</h2><ul>
@@ -734,32 +665,6 @@ ABaB
 ]]></content>
       <categories>
         <category>紀錄</category>
-      </categories>
-  </entry>
-  <entry>
-    <title>個人時間表</title>
-    <url>/personal/personal_schedule/</url>
-    <content><![CDATA[<h1 id="此為-2024-10月-2025寒假前-日程表"><a href="#此為-2024-10月-2025寒假前-日程表" class="headerlink" title="此為 2024&#x2F;10月-2025寒假前 日程表"></a>此為 2024&#x2F;10月-2025寒假前 日程表</h1><p><img src="/personal/images/sch.png"></p>
-<ul>
-<li>藍色: 在學校</li>
-<li>綠色: 在家裡忙</li>
-<li>紫色: 社團</li>
-<li>灰色: 空閒</li>
-</ul>
-<p>聯絡方式:</p>
-<ul>
-<li>email: <a href="mailto:dylan.jc2222@gmail.com" title="吳昕哲">吳昕哲</a></li>
-<li>discord: <a href="https://discordapp.com/users/768889520280043561" title="che哲#4541">che哲#4541</a></li>
-<li>instagram: <a href="https://www.instagram.com/che._.wu/" title="che._.wu">che._.wu</a></li>
-</ul>
-<hr>
-<!-- Start of CuterCounter Code -->
-<p><a href="https://www.cutercounter.com/traditional-chinese-nn/" target="_blank" style="pointer-events: none;"><img src="https://www.cutercounter.com/hits.php?id=hxqxdco&nd=6&style=11" border="0" alt="免費網站計數器"></a></p>
-<!-- End of CuterCounter Code -->
-
-]]></content>
-      <categories>
-        <category>個人時間表</category>
       </categories>
   </entry>
   <entry>
@@ -1032,6 +937,32 @@ ABaB
 <!-- End of CuterCounter Code -->]]></content>
       <categories>
         <category>特殊選才</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>個人時間表</title>
+    <url>/personal/personal_schedule/</url>
+    <content><![CDATA[<h1 id="此為-2024-10月-2025寒假前-日程表"><a href="#此為-2024-10月-2025寒假前-日程表" class="headerlink" title="此為 2024&#x2F;10月-2025寒假前 日程表"></a>此為 2024&#x2F;10月-2025寒假前 日程表</h1><p><img src="/personal/images/sch.png"></p>
+<ul>
+<li>藍色: 在學校</li>
+<li>綠色: 在家裡忙</li>
+<li>紫色: 社團</li>
+<li>灰色: 空閒</li>
+</ul>
+<p>聯絡方式:</p>
+<ul>
+<li>email: <a href="mailto:dylan.jc2222@gmail.com" title="吳昕哲">吳昕哲</a></li>
+<li>discord: <a href="https://discordapp.com/users/768889520280043561" title="che哲#4541">che哲#4541</a></li>
+<li>instagram: <a href="https://www.instagram.com/che._.wu/" title="che._.wu">che._.wu</a></li>
+</ul>
+<hr>
+<!-- Start of CuterCounter Code -->
+<p><a href="https://www.cutercounter.com/traditional-chinese-nn/" target="_blank" style="pointer-events: none;"><img src="https://www.cutercounter.com/hits.php?id=hxqxdco&nd=6&style=11" border="0" alt="免費網站計數器"></a></p>
+<!-- End of CuterCounter Code -->
+
+]]></content>
+      <categories>
+        <category>個人時間表</category>
       </categories>
   </entry>
   <entry>
@@ -1321,6 +1252,75 @@ ABaB
 <!-- End of CuterCounter Code -->]]></content>
       <categories>
         <category>zerojudge</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>電資類競賽分享</title>
+    <url>/personal/sources-share/</url>
+    <content><![CDATA[<h2 id="主要競賽-具指標性"><a href="#主要競賽-具指標性" class="headerlink" title="主要競賽(具指標性):"></a>主要競賽(具指標性):</h2><p>競程類</p>
+<ul>
+<li><a href="https://apcs.csie.ntnu.edu.tw/" style="color: #0066CC;">⭐APCS</a></li>
+<li><a href="https://tpmso.org/toi/" style="color: #0066CC;">⭐TOI</a></li>
+<li><a href="https://contest.cc.ntu.edu.tw/npsc2023/index.html" style="color: #0066CC;">NPSC</a></li>
+<li><a href="https://cpe.cse.nsysu.edu.tw/" style="color: #0066CC;">⭐CPE</a></li>
+<li><a href="https://www.tw-ytp.org/" style="color: #0066CC;">YTP</a></li>
+<li>⭐資訊學科能力競賽<ul>
+<li>校內初賽前2名可參加複賽</li>
+<li>複賽前幾名可參加全國賽(決賽)</li>
+</ul>
+</li>
+<li><a href="https://e-tutor.itsa.org.tw/e-Tutor/" style="color: #0066CC;">ITSA</a></li>
+<li><a href="https://issc.csroc.org.tw/" style="color: #0066CC;">ISSC</a></li>
+<li><a href="https://www.hpcodewars.com.tw/" style="color: #0066CC;">HP CodeWars</a></li>
+<li><a href="https://hspc.csie.ncku.edu.tw/" style="color: #0066CC;">HSPC(成大暑期程式邀請賽)</a></li>
+</ul>
+<p>資安類</p>
+<ul>
+<li><a href="https://csc.nics.nat.gov.tw/" style="color: #0066CC;">⭐金盾獎</a></li>
+<li><a href="https://tcat2023.twisc.ncku.edu.tw/" style="color: #0066CC;">T貓盃</a></li>
+<li><a href="https://ais3.org/eof/" style="color: #0066CC;">⭐AIS3 EOF</a></li>
+<li><a href="https://gics.tw/" style="color: #0066CC;">尋找資安女婕思</a></li>
+<li><a href="https://ais3.org/mfctf/" style="color: #0066CC;">MyFirstCTF</a></li>
+<li><a href="https://ais3.org/" style="color: #0066CC;">⭐AIS3</a></li>
+</ul>
+<p>AI類</p>
+<ul>
+<li><a href="https://www.aicup.tw/" style="color: #0066CC;">AI CUP</a></li>
+</ul>
+<hr>
+<p>年會</p>
+<ul>
+<li><p><a href="https://sitcon.org/2024/" style="color: #0066CC;">SITCON 學生計算機年會</a></p>
+</li>
+<li><p><a href="https://hitcon.org/2024/CMT/" style="color: #0066CC;">HITCON 台灣駭客年會</a></p>
+</li>
+<li><p><a href="https://coscup.org/2024/zh-TW/landing" style="color: #0066CC;">COSCUP 開源人年會</a></p>
+</li>
+<li><p><a href="https://summit.g0v.tw/2024/" style="color: #0066CC;">g0v summit 零時政府雙年會</a></p>
+</li>
+<li><p><a href="https://summit.g0v.tw/2024/" style="color: #0066CC;">g0v summit 零時政府雙年會</a></p>
+</li>
+</ul>
+<p>社群</p>
+<ul>
+<li><a href="https://discord.gg/3fah53Bj46" style="color: #0066CC;">SCINT 北台灣學生資訊社群(北電)</a></li>
+<li><a href="https://discord.gg/R7uguV73tC" style="color: #0066CC;">SCAICT 中電會(中電)</a></li>
+<li><a href="https://discord.gg/g6qfD4Wk9j" style="color: #0066CC;">SCIST (南電)</a></li>
+</ul>
+<hr>
+<h2 id="其他資料"><a href="#其他資料" class="headerlink" title="其他資料:"></a>其他資料:</h2><ul>
+<li><a href="https://hackmd.io/@cube/rJ3o-G1mF" style="color: #0066CC;">程式設計競賽網路資源</a></li>
+<li><a href="https://github.com/goodjack/awesome-cs-training" style="color: #0066CC;">資訊培訓相關資源彙整</a></li>
+<li><a href="https://hackmd.io/@nehs-iced-7th/Skut4WffY" style="color: #0066CC;">實中資研整理</a></li>
+<li><a href="https://hackmd.io/@yuan-tw/SJHj8Xano" style="color: #0066CC;">電資資源整理(不定期更新)</a></li>
+<li><a href="https://github.com/Ice1187/TW-Security-and-CTF-Resource" style="color: #0066CC;">台灣資安 &#x2F; CTF 學習資源整理</a></li>
+</ul>
+<hr>
+<!-- Start of CuterCounter Code -->
+<p><a href="https://www.cutercounter.com/traditional-chinese-nn/" target="_blank" style="pointer-events: none;"><img src="https://www.cutercounter.com/hits.php?id=hrvxocncc&nd=6&style=11" border="0" alt="免費網站計數器"></a></p>
+<!-- End of CuterCounter Code -->]]></content>
+      <categories>
+        <category>資源分享</category>
       </categories>
   </entry>
 </search>
