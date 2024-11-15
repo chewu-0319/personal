@@ -101,6 +101,29 @@
       </categories>
   </entry>
   <entry>
+    <title>參考資料</title>
+    <url>/personal/20241114/</url>
+    <content><![CDATA[<h1 id="docker"><a href="#docker" class="headerlink" title="docker"></a>docker</h1><p>檢查容器</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">docker ps -a</span><br></pre></td></tr></table></figure>
+
+<p>啟動並進入容器</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">docker start demo_container</span><br><span class="line">docker exec -it demo_container /bin/bash</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>進容器後</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">source /opt/ros/humble/setup.bash</span><br><span class="line">cd demo</span><br><span class="line">bash start.sh</span><br></pre></td></tr></table></figure>
+
+<p>ctrl+d 退出容器</p>
+<p>停止容器</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">docker container stop demo_container</span><br></pre></td></tr></table></figure>
+
+<p>可視化</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">python3 visualization.py</span><br></pre></td></tr></table></figure>
+<p><a href="https://youtu.be/HGhSR-Vbb-E">https://youtu.be/HGhSR-Vbb-E</a></p>
+<p><img src="/personal/images/1114.pdf"></p>
+<p><img src="/personal/images/1115.pdf"></p>
+]]></content>
+  </entry>
+  <entry>
     <title>AIS3 2024 pre-exam</title>
     <url>/personal/AIS3pre-exam/</url>
     <content><![CDATA[<h1 id="AIS3-2024-pre-exam-write-up"><a href="#AIS3-2024-pre-exam-write-up" class="headerlink" title="AIS3 2024 pre-exam write up"></a>AIS3 2024 pre-exam write up</h1><p>第一次寫write up :D</p>
@@ -126,6 +149,74 @@
 ]]></content>
       <categories>
         <category>資安</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>g0v summit 2024</title>
+    <url>/personal/g0vsummit/</url>
+    <content><![CDATA[<h1 id="g0v-summit"><a href="#g0v-summit" class="headerlink" title="g0v summit"></a>g0v summit</h1><h2 id="我都在幹嘛"><a href="#我都在幹嘛" class="headerlink" title="我都在幹嘛?"></a>我都在幹嘛?</h2><ul>
+<li>工作人員<ul>
+<li>搬椅子</li>
+<li>搬桌子</li>
+<li>場佈</li>
+<li>動線規劃</li>
+<li>拆</li>
+<li>坐在電梯前指引</li>
+<li>被外國人問路</li>
+</ul>
+</li>
+<li>福利<ul>
+<li>吃吃吃吃吃吃吃吃…</li>
+<li>喝喝喝喝喝喝喝喝…</li>
+<li>免費住宿 中研院活動中心</li>
+<li>仙草茶 (呵</li>
+</ul>
+</li>
+</ul>
+<h2 id="Day-0-場佈"><a href="#Day-0-場佈" class="headerlink" title="Day 0(場佈)"></a>Day 0(場佈)</h2><ul>
+<li>搬椅子</li>
+<li>搬桌子</li>
+<li>動線規劃</li>
+<li>吃便當</li>
+<li>晚上去饒河夜市</li>
+</ul>
+<h2 id="Day-1"><a href="#Day-1" class="headerlink" title="Day 1"></a>Day 1</h2><ul>
+<li>早餐三明治+紅茶</li>
+<li>坐在電梯前好幾個小時</li>
+<li>R0搬椅子</li>
+<li>閒逛</li>
+<li>吃漢堡 吃撈麵</li>
+<li>聽南韓講者超酷</li>
+<li>有夠累</li>
+<li>睡在VIP room</li>
+<li>房間看西甲</li>
+<li>還以為有夜唱</li>
+</ul>
+<h2 id="Day-2"><a href="#Day-2" class="headerlink" title="Day 2"></a>Day 2</h2><ul>
+<li>繼續吃</li>
+<li>聽台灣爬蟲開源資料講者 超幽默</li>
+<li>仙草茶</li>
+<li>有個阿北專門來吃東西的</li>
+<li>收桌子</li>
+<li>拆東西</li>
+<li>在閉幕簡報上看到自己 很感動</li>
+<li>慶功宴 佛跳牆 龍蝦 雞佛 啤酒好欸</li>
+<li>才知道現場很多都是資工大佬 頂大好電</li>
+<li>大家都很好聊 一堆E人</li>
+<li>CPY有問題找他就對了 兆翌超好聊 喬不會喝酒笑死 柚子講者超電 賴彥江超幽默 </li>
+<li>口譯大哥說他18歲 pm5光頭超好認 攝影大哥敬酒*n次 室友雨辰居然是文組的</li>
+<li>有人喝醉超好笑 啤酒而已欸</li>
+<li>搭高鐵 好不捨</li>
+<li>整個g0v氣氛好好 好喜歡 2026再來!</li>
+</ul>
+<h1 id="總結"><a href="#總結" class="headerlink" title="總結"></a>總結</h1><p>我愛g0v summit，氣氛好讚，工人福利給過，認識好多新朋友，g0v summit 2026見!</p>
+<hr>
+<!-- Start of CuterCounter Code -->
+<p><a href="https://www.cutercounter.com/traditional-chinese-nn/" target="_blank" style="pointer-events: none;"><img src="https://www.cutercounter.com/hits.php?id=huxpnnqf&nd=6&style=11" border="0" alt="網頁計數器"></a></p>
+<!-- End of CuterCounter Code -->
+]]></content>
+      <categories>
+        <category>紀錄</category>
       </categories>
   </entry>
   <entry>
@@ -600,71 +691,29 @@ ABaB
       </categories>
   </entry>
   <entry>
-    <title>g0v summit 2024</title>
-    <url>/personal/g0vsummit/</url>
-    <content><![CDATA[<h1 id="g0v-summit"><a href="#g0v-summit" class="headerlink" title="g0v summit"></a>g0v summit</h1><h2 id="我都在幹嘛"><a href="#我都在幹嘛" class="headerlink" title="我都在幹嘛?"></a>我都在幹嘛?</h2><ul>
-<li>工作人員<ul>
-<li>搬椅子</li>
-<li>搬桌子</li>
-<li>場佈</li>
-<li>動線規劃</li>
-<li>拆</li>
-<li>坐在電梯前指引</li>
-<li>被外國人問路</li>
+    <title>個人時間表</title>
+    <url>/personal/personal_schedule/</url>
+    <content><![CDATA[<h1 id="此為-2024-10月-2025寒假前-日程表"><a href="#此為-2024-10月-2025寒假前-日程表" class="headerlink" title="此為 2024&#x2F;10月-2025寒假前 日程表"></a>此為 2024&#x2F;10月-2025寒假前 日程表</h1><p><img src="/personal/images/sch.png"></p>
+<ul>
+<li>藍色: 在學校</li>
+<li>綠色: 在家裡忙</li>
+<li>紫色: 社團</li>
+<li>灰色: 空閒</li>
 </ul>
-</li>
-<li>福利<ul>
-<li>吃吃吃吃吃吃吃吃…</li>
-<li>喝喝喝喝喝喝喝喝…</li>
-<li>免費住宿 中研院活動中心</li>
-<li>仙草茶 (呵</li>
+<p>聯絡方式:</p>
+<ul>
+<li>email: <a href="mailto:dylan.jc2222@gmail.com" title="吳昕哲">吳昕哲</a></li>
+<li>discord: <a href="https://discordapp.com/users/768889520280043561" title="che哲#4541">che哲#4541</a></li>
+<li>instagram: <a href="https://www.instagram.com/che._.wu/" title="che._.wu">che._.wu</a></li>
 </ul>
-</li>
-</ul>
-<h2 id="Day-0-場佈"><a href="#Day-0-場佈" class="headerlink" title="Day 0(場佈)"></a>Day 0(場佈)</h2><ul>
-<li>搬椅子</li>
-<li>搬桌子</li>
-<li>動線規劃</li>
-<li>吃便當</li>
-<li>晚上去饒河夜市</li>
-</ul>
-<h2 id="Day-1"><a href="#Day-1" class="headerlink" title="Day 1"></a>Day 1</h2><ul>
-<li>早餐三明治+紅茶</li>
-<li>坐在電梯前好幾個小時</li>
-<li>R0搬椅子</li>
-<li>閒逛</li>
-<li>吃漢堡 吃撈麵</li>
-<li>聽南韓講者超酷</li>
-<li>有夠累</li>
-<li>睡在VIP room</li>
-<li>房間看西甲</li>
-<li>還以為有夜唱</li>
-</ul>
-<h2 id="Day-2"><a href="#Day-2" class="headerlink" title="Day 2"></a>Day 2</h2><ul>
-<li>繼續吃</li>
-<li>聽台灣爬蟲開源資料講者 超幽默</li>
-<li>仙草茶</li>
-<li>有個阿北專門來吃東西的</li>
-<li>收桌子</li>
-<li>拆東西</li>
-<li>在閉幕簡報上看到自己 很感動</li>
-<li>慶功宴 佛跳牆 龍蝦 雞佛 啤酒好欸</li>
-<li>才知道現場很多都是資工大佬 頂大好電</li>
-<li>大家都很好聊 一堆E人</li>
-<li>CPY有問題找他就對了 兆翌超好聊 喬不會喝酒笑死 柚子講者超電 賴彥江超幽默 </li>
-<li>口譯大哥說他18歲 pm5光頭超好認 攝影大哥敬酒*n次 室友雨辰居然是文組的</li>
-<li>有人喝醉超好笑 啤酒而已欸</li>
-<li>搭高鐵 好不捨</li>
-<li>整個g0v氣氛好好 好喜歡 2026再來!</li>
-</ul>
-<h1 id="總結"><a href="#總結" class="headerlink" title="總結"></a>總結</h1><p>我愛g0v summit，氣氛好讚，工人福利給過，認識好多新朋友，g0v summit 2026見!</p>
 <hr>
 <!-- Start of CuterCounter Code -->
-<p><a href="https://www.cutercounter.com/traditional-chinese-nn/" target="_blank" style="pointer-events: none;"><img src="https://www.cutercounter.com/hits.php?id=huxpnnqf&nd=6&style=11" border="0" alt="網頁計數器"></a></p>
+<p><a href="https://www.cutercounter.com/traditional-chinese-nn/" target="_blank" style="pointer-events: none;"><img src="https://www.cutercounter.com/hits.php?id=hxqxdco&nd=6&style=11" border="0" alt="免費網站計數器"></a></p>
 <!-- End of CuterCounter Code -->
+
 ]]></content>
       <categories>
-        <category>紀錄</category>
+        <category>個人時間表</category>
       </categories>
   </entry>
   <entry>
@@ -1009,59 +1058,44 @@ ABaB
       </categories>
   </entry>
   <entry>
-    <title>個人時間表</title>
-    <url>/personal/personal_schedule/</url>
-    <content><![CDATA[<h1 id="此為-2024-10月-2025寒假前-日程表"><a href="#此為-2024-10月-2025寒假前-日程表" class="headerlink" title="此為 2024&#x2F;10月-2025寒假前 日程表"></a>此為 2024&#x2F;10月-2025寒假前 日程表</h1><p><img src="/personal/images/sch.png"></p>
-<ul>
-<li>藍色: 在學校</li>
-<li>綠色: 在家裡忙</li>
-<li>紫色: 社團</li>
-<li>灰色: 空閒</li>
-</ul>
-<p>聯絡方式:</p>
-<ul>
-<li>email: <a href="mailto:dylan.jc2222@gmail.com" title="吳昕哲">吳昕哲</a></li>
-<li>discord: <a href="https://discordapp.com/users/768889520280043561" title="che哲#4541">che哲#4541</a></li>
-<li>instagram: <a href="https://www.instagram.com/che._.wu/" title="che._.wu">che._.wu</a></li>
-</ul>
+    <title>日常刷題</title>
+    <url>/personal/zj-code/</url>
+    <content><![CDATA[<p>有空再更新</p>
+<h2 id="m370"><a href="#m370" class="headerlink" title="m370"></a>m370</h2><details>
+  <summary>
+    <span style="font-weight:bold;font-size:22px">code</span>
+    <span style="color:green;font-weight:bold; font-size:22px"> AC(3ms, 352KB)</span>
+  </summary>
+
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	ios::<span class="built_in">sync_with_stdio</span>(<span class="literal">false</span>);cin.<span class="built_in">tie</span>(<span class="number">0</span>);</span><br><span class="line">	<span class="type">int</span> x,n,a,l=<span class="number">0</span>,r=<span class="number">0</span>,mn=<span class="number">105</span>,mx=<span class="number">-105</span>;</span><br><span class="line">	cin&gt;&gt;x&gt;&gt;n;</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;n;i++)&#123;</span><br><span class="line">		cin&gt;&gt;a;</span><br><span class="line">		<span class="keyword">if</span>(a&gt;x) r++,mx=<span class="built_in">max</span>(mx,a);</span><br><span class="line">		<span class="keyword">else</span> l++,mn=<span class="built_in">min</span>(mn,a);</span><br><span class="line">	&#125;</span><br><span class="line">	(l&gt;r)?cout&lt;&lt;l&lt;&lt;<span class="string">&quot; &quot;</span>&lt;&lt;mn:cout&lt;&lt;r&lt;&lt;<span class="string">&quot; &quot;</span>&lt;&lt;mx;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</details>
+
+<hr>
+<h2 id="m931"><a href="#m931" class="headerlink" title="m931"></a>m931</h2><details>
+  <summary>
+    <span style="font-weight:bold;font-size:22px">code</span>
+    <span style="color:green;font-weight:bold; font-size:22px"> AC(2ms, 364KB)</span>
+  </summary>
+  
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    ios::<span class="built_in">sync_with_stdio</span>(<span class="number">0</span>);cin.<span class="built_in">tie</span>(<span class="number">0</span>);</span><br><span class="line">    <span class="type">int</span> n,mx=<span class="number">0</span>,tmp=<span class="number">0</span>;</span><br><span class="line">    vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; v;</span><br><span class="line">    cin&gt;&gt;n;</span><br><span class="line">    v.<span class="built_in">resize</span>(<span class="number">3</span>,<span class="built_in">vector</span>&lt;<span class="type">int</span>&gt;(n));</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;n;i++)&#123;</span><br><span class="line">        cin&gt;&gt;v[<span class="number">0</span>][i]&gt;&gt;v[<span class="number">1</span>][i];</span><br><span class="line">        v[<span class="number">2</span>][i]=(v[<span class="number">0</span>][i])*(v[<span class="number">0</span>][i])+(v[<span class="number">1</span>][i])*(v[<span class="number">1</span>][i]);</span><br><span class="line">        <span class="keyword">if</span>(v[<span class="number">2</span>][i]&gt;mx) mx=v[<span class="number">2</span>][i],tmp=i;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    v[<span class="number">2</span>][tmp]=<span class="number">0</span>,mx=<span class="number">0</span>,tmp=<span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;n;i++)&#123;</span><br><span class="line">        <span class="keyword">if</span>(v[<span class="number">2</span>][i]&gt;mx) mx=v[<span class="number">2</span>][i],tmp=i;</span><br><span class="line">    &#125;</span><br><span class="line">    cout&lt;&lt;v[<span class="number">0</span>][tmp]&lt;&lt;<span class="string">&quot; &quot;</span>&lt;&lt;v[<span class="number">1</span>][tmp];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</details>
+
+<hr>
+<h2 id="m932"><a href="#m932" class="headerlink" title="m932"></a>m932</h2><details>
+  <summary>
+    <span style="font-weight:bold;font-size:22px">code</span>
+    <span style="color:green;font-weight:bold; font-size:22px"> AC(2ms, 368KB)</span>
+  </summary>
+  
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    ios::<span class="built_in">sync_with_stdio</span>(<span class="number">0</span>);cin.<span class="built_in">tie</span>(<span class="number">0</span>); <span class="comment">//IO優化</span></span><br><span class="line">    vector&lt;vector&lt;<span class="type">char</span>&gt;&gt; v; </span><br><span class="line">    <span class="type">bool</span> t[<span class="number">123</span>]=&#123;<span class="number">0</span>&#125;;    <span class="comment">//統計用陣列 (輸出第二行時用的到)</span></span><br><span class="line">    <span class="type">int</span> m,n,k,d;        <span class="comment">//m,n,k為題目敘述 d代表的是input最後一行的整數</span></span><br><span class="line">    string s;</span><br><span class="line">    cin&gt;&gt;m&gt;&gt;n&gt;&gt;k;</span><br><span class="line">    <span class="type">int</span> nowx=m<span class="number">-1</span>,nowy=<span class="number">0</span>,cnt=<span class="number">0</span>;      <span class="comment">//nowx,nowy記錄現在位置的x和y cnt記錄種類</span></span><br><span class="line">    v.<span class="built_in">resize</span>(m,<span class="built_in">vector</span>&lt;<span class="type">char</span>&gt;(n));    <span class="comment">//動態開記憶體</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;m;i++)&#123;           <span class="comment">//把string丟進char陣列裡</span></span><br><span class="line">        cin&gt;&gt;s;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> j=<span class="number">0</span>;j&lt;n;j++)&#123;</span><br><span class="line">            v[i][j]=s[j];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">                              </span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;k;i++)&#123;    <span class="comment">//先判斷現在往哪個方向 再判斷if(沒超過邊界)就更新現在位置;</span></span><br><span class="line">        cin&gt;&gt;d;</span><br><span class="line">        <span class="keyword">if</span>(d==<span class="number">0</span>)&#123;</span><br><span class="line">            <span class="keyword">if</span>((nowx<span class="number">-1</span>)&gt;=<span class="number">0</span>) nowx--; </span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(d==<span class="number">1</span>)&#123;</span><br><span class="line">            <span class="keyword">if</span>((nowy+<span class="number">1</span>)&lt;n) nowy++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(d==<span class="number">2</span>)&#123;</span><br><span class="line">            <span class="keyword">if</span>((nowx+<span class="number">1</span>)&lt;m&amp;&amp;(nowy+<span class="number">1</span>)&lt;n) nowx++,nowy++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(d==<span class="number">3</span>)&#123;</span><br><span class="line">            <span class="keyword">if</span>((nowx+<span class="number">1</span>)&lt;m) nowx++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(d==<span class="number">4</span>)&#123;</span><br><span class="line">            <span class="keyword">if</span>((nowy<span class="number">-1</span>)&gt;=<span class="number">0</span>) nowy--;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(d==<span class="number">5</span>)&#123;</span><br><span class="line">            <span class="keyword">if</span>((nowx<span class="number">-1</span>)&gt;=<span class="number">0</span>&amp;&amp;(nowy<span class="number">-1</span>)&gt;=<span class="number">0</span>) nowx--,nowy--;</span><br><span class="line">        &#125;</span><br><span class="line">        cout&lt;&lt;v[nowx][nowy]; </span><br><span class="line">        t[(<span class="type">int</span>)(v[nowx][nowy])]=<span class="number">1</span>;     <span class="comment">//這邊使用ASCII 轉成int 丟到陣列</span></span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="string">&#x27;A&#x27;</span>;i&lt;=<span class="string">&#x27;Z&#x27;</span>;i++)&#123;         <span class="comment">//跑陣列 統計多少種類</span></span><br><span class="line">        <span class="keyword">if</span>(t[i]==<span class="number">1</span>) cnt++;        </span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="string">&#x27;a&#x27;</span>;i&lt;=<span class="string">&#x27;z&#x27;</span>;i++)&#123;</span><br><span class="line">        <span class="keyword">if</span>(t[i]==<span class="number">1</span>) cnt++;        </span><br><span class="line">    &#125;</span><br><span class="line">    cout&lt;&lt;<span class="string">&quot;\n&quot;</span>&lt;&lt;cnt;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</details>
+
 <hr>
 <!-- Start of CuterCounter Code -->
-<p><a href="https://www.cutercounter.com/traditional-chinese-nn/" target="_blank" style="pointer-events: none;"><img src="https://www.cutercounter.com/hits.php?id=hxqxdco&nd=6&style=11" border="0" alt="免費網站計數器"></a></p>
-<!-- End of CuterCounter Code -->
-
-]]></content>
+<p><a href="https://www.cutercounter.com/traditional-chinese-nn/" target="_blank" style="pointer-events: none;"><img src="https://www.cutercounter.com/hits.php?id=hvxocncq&nd=6&style=11" border="0" alt="網頁計數器"></a></p>
+<!-- End of CuterCounter Code -->]]></content>
       <categories>
-        <category>個人時間表</category>
-      </categories>
-  </entry>
-  <entry>
-    <title>漏洞紀錄</title>
-    <url>/personal/vulnerability/</url>
-    <content><![CDATA[<h1 id="漏洞"><a href="#漏洞" class="headerlink" title="漏洞"></a>漏洞</h1><p><a href="https://zeroday.hitcon.org/vulnerability/ZD-2024-00899" title="ZD-2024-00899">ZD-2024-00899</a> 中原大學SQLi</p>
-<ul>
-<li>多位學生+教職員工個人資料</li>
-</ul>
-<p><a href="https://zeroday.hitcon.org/vulnerability/ZD-2024-00900" title="ZD-2024-00900">ZD-2024-00900</a> 台中教育大學SQLi</p>
-<ul>
-<li>多位學生個人資料(嚴重資料外洩)</li>
-</ul>
-<p><a href="https://zeroday.hitcon.org/vulnerability/ZD-2024-00902" title="ZD-2024-00902">ZD-2024-00902</a> 國家華語測驗推動工作委員會SQLi</p>
-<p><a href="https://zeroday.hitcon.org/vulnerability/ZD-2024-00910" title="ZD-2024-00910">ZD-2024-00910</a> 臺北醫學大學SQLi</p>
-<p><a href="https://zeroday.hitcon.org/vulnerability/ZD-2024-00917" title="ZD-2024-00917">ZD-2024-00917</a> 低調資訊有限公司SQLi</p>
-<p><a href="https://zeroday.hitcon.org/vulnerability/ZD-2024-00918" title="ZD-2024-00918">ZD-2024-00918</a> 中原大學SQLi</p>
-<p><a href="https://zeroday.hitcon.org/vulnerability/ZD-2024-01060" title="ZD-2024-01060">ZD-2024-01060</a> 某單位RXSS</p>
-<p><a href="https://zeroday.hitcon.org/vulnerability/ZD-2024-01061" title="ZD-2024-01061">ZD-2024-01061</a> 某單位SQLi</p>
-<p><a href="https://zeroday.hitcon.org/vulnerability/ZD-2024-01062" title="ZD-2024-01062">ZD-2024-01062</a> 某單位SQLi to login+RXSS+SXSS+ckfinder後臺未關閉</p>
-<p><a href="https://zeroday.hitcon.org/vulnerability/ZD-2024-01064" title="ZD-2024-01064">ZD-2024-01064</a> 某單位SQLi to login+XSS+ckfinder後臺未關閉</p>
-<p><a href="https://zeroday.hitcon.org/vulnerability/ZD-2024-01083" title="ZD-2024-01083">ZD-2024-01083</a> 某單位RXSS</p>
-<p><a href="https://zeroday.hitcon.org/vulnerability/ZD-2024-01084" title="ZD-2024-01084">ZD-2024-01084</a> 某單位SQLi to login+XSS+ckfinder後臺未關閉</p>
-<p><a href="https://zeroday.hitcon.org/vulnerability/ZD-2024-01085" title="ZD-2024-01085">ZD-2024-01085</a> 某單位SQLi</p>
-<p><a href="https://zeroday.hitcon.org/vulnerability/ZD-2024-01086" title="ZD-2024-01086">ZD-2024-01086</a> 某單位SQLi to login+ckfinder後臺未關閉</p>
-<p><a href="https://zeroday.hitcon.org/vulnerability/ZD-2024-01087" title="ZD-2024-01087">ZD-2024-01087</a> 某單位SQLi to login+ckfinder後臺未關閉</p>
-<p><a href="https://zeroday.hitcon.org/vulnerability/ZD-2024-01088" title="ZD-2024-01088">ZD-2024-01088</a> 某單位SQLi to login+ckfinder後臺未關閉</p>
-]]></content>
-      <categories>
-        <category>資安</category>
+        <category>zerojudge</category>
       </categories>
   </entry>
   <entry>
@@ -1313,44 +1347,33 @@ ABaB
       </categories>
   </entry>
   <entry>
-    <title>日常刷題</title>
-    <url>/personal/zj-code/</url>
-    <content><![CDATA[<p>有空再更新</p>
-<h2 id="m370"><a href="#m370" class="headerlink" title="m370"></a>m370</h2><details>
-  <summary>
-    <span style="font-weight:bold;font-size:22px">code</span>
-    <span style="color:green;font-weight:bold; font-size:22px"> AC(3ms, 352KB)</span>
-  </summary>
-
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	ios::<span class="built_in">sync_with_stdio</span>(<span class="literal">false</span>);cin.<span class="built_in">tie</span>(<span class="number">0</span>);</span><br><span class="line">	<span class="type">int</span> x,n,a,l=<span class="number">0</span>,r=<span class="number">0</span>,mn=<span class="number">105</span>,mx=<span class="number">-105</span>;</span><br><span class="line">	cin&gt;&gt;x&gt;&gt;n;</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;n;i++)&#123;</span><br><span class="line">		cin&gt;&gt;a;</span><br><span class="line">		<span class="keyword">if</span>(a&gt;x) r++,mx=<span class="built_in">max</span>(mx,a);</span><br><span class="line">		<span class="keyword">else</span> l++,mn=<span class="built_in">min</span>(mn,a);</span><br><span class="line">	&#125;</span><br><span class="line">	(l&gt;r)?cout&lt;&lt;l&lt;&lt;<span class="string">&quot; &quot;</span>&lt;&lt;mn:cout&lt;&lt;r&lt;&lt;<span class="string">&quot; &quot;</span>&lt;&lt;mx;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</details>
-
-<hr>
-<h2 id="m931"><a href="#m931" class="headerlink" title="m931"></a>m931</h2><details>
-  <summary>
-    <span style="font-weight:bold;font-size:22px">code</span>
-    <span style="color:green;font-weight:bold; font-size:22px"> AC(2ms, 364KB)</span>
-  </summary>
-  
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    ios::<span class="built_in">sync_with_stdio</span>(<span class="number">0</span>);cin.<span class="built_in">tie</span>(<span class="number">0</span>);</span><br><span class="line">    <span class="type">int</span> n,mx=<span class="number">0</span>,tmp=<span class="number">0</span>;</span><br><span class="line">    vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; v;</span><br><span class="line">    cin&gt;&gt;n;</span><br><span class="line">    v.<span class="built_in">resize</span>(<span class="number">3</span>,<span class="built_in">vector</span>&lt;<span class="type">int</span>&gt;(n));</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;n;i++)&#123;</span><br><span class="line">        cin&gt;&gt;v[<span class="number">0</span>][i]&gt;&gt;v[<span class="number">1</span>][i];</span><br><span class="line">        v[<span class="number">2</span>][i]=(v[<span class="number">0</span>][i])*(v[<span class="number">0</span>][i])+(v[<span class="number">1</span>][i])*(v[<span class="number">1</span>][i]);</span><br><span class="line">        <span class="keyword">if</span>(v[<span class="number">2</span>][i]&gt;mx) mx=v[<span class="number">2</span>][i],tmp=i;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    v[<span class="number">2</span>][tmp]=<span class="number">0</span>,mx=<span class="number">0</span>,tmp=<span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;n;i++)&#123;</span><br><span class="line">        <span class="keyword">if</span>(v[<span class="number">2</span>][i]&gt;mx) mx=v[<span class="number">2</span>][i],tmp=i;</span><br><span class="line">    &#125;</span><br><span class="line">    cout&lt;&lt;v[<span class="number">0</span>][tmp]&lt;&lt;<span class="string">&quot; &quot;</span>&lt;&lt;v[<span class="number">1</span>][tmp];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</details>
-
-<hr>
-<h2 id="m932"><a href="#m932" class="headerlink" title="m932"></a>m932</h2><details>
-  <summary>
-    <span style="font-weight:bold;font-size:22px">code</span>
-    <span style="color:green;font-weight:bold; font-size:22px"> AC(2ms, 368KB)</span>
-  </summary>
-  
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    ios::<span class="built_in">sync_with_stdio</span>(<span class="number">0</span>);cin.<span class="built_in">tie</span>(<span class="number">0</span>); <span class="comment">//IO優化</span></span><br><span class="line">    vector&lt;vector&lt;<span class="type">char</span>&gt;&gt; v; </span><br><span class="line">    <span class="type">bool</span> t[<span class="number">123</span>]=&#123;<span class="number">0</span>&#125;;    <span class="comment">//統計用陣列 (輸出第二行時用的到)</span></span><br><span class="line">    <span class="type">int</span> m,n,k,d;        <span class="comment">//m,n,k為題目敘述 d代表的是input最後一行的整數</span></span><br><span class="line">    string s;</span><br><span class="line">    cin&gt;&gt;m&gt;&gt;n&gt;&gt;k;</span><br><span class="line">    <span class="type">int</span> nowx=m<span class="number">-1</span>,nowy=<span class="number">0</span>,cnt=<span class="number">0</span>;      <span class="comment">//nowx,nowy記錄現在位置的x和y cnt記錄種類</span></span><br><span class="line">    v.<span class="built_in">resize</span>(m,<span class="built_in">vector</span>&lt;<span class="type">char</span>&gt;(n));    <span class="comment">//動態開記憶體</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;m;i++)&#123;           <span class="comment">//把string丟進char陣列裡</span></span><br><span class="line">        cin&gt;&gt;s;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> j=<span class="number">0</span>;j&lt;n;j++)&#123;</span><br><span class="line">            v[i][j]=s[j];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">                              </span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;k;i++)&#123;    <span class="comment">//先判斷現在往哪個方向 再判斷if(沒超過邊界)就更新現在位置;</span></span><br><span class="line">        cin&gt;&gt;d;</span><br><span class="line">        <span class="keyword">if</span>(d==<span class="number">0</span>)&#123;</span><br><span class="line">            <span class="keyword">if</span>((nowx<span class="number">-1</span>)&gt;=<span class="number">0</span>) nowx--; </span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(d==<span class="number">1</span>)&#123;</span><br><span class="line">            <span class="keyword">if</span>((nowy+<span class="number">1</span>)&lt;n) nowy++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(d==<span class="number">2</span>)&#123;</span><br><span class="line">            <span class="keyword">if</span>((nowx+<span class="number">1</span>)&lt;m&amp;&amp;(nowy+<span class="number">1</span>)&lt;n) nowx++,nowy++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(d==<span class="number">3</span>)&#123;</span><br><span class="line">            <span class="keyword">if</span>((nowx+<span class="number">1</span>)&lt;m) nowx++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(d==<span class="number">4</span>)&#123;</span><br><span class="line">            <span class="keyword">if</span>((nowy<span class="number">-1</span>)&gt;=<span class="number">0</span>) nowy--;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(d==<span class="number">5</span>)&#123;</span><br><span class="line">            <span class="keyword">if</span>((nowx<span class="number">-1</span>)&gt;=<span class="number">0</span>&amp;&amp;(nowy<span class="number">-1</span>)&gt;=<span class="number">0</span>) nowx--,nowy--;</span><br><span class="line">        &#125;</span><br><span class="line">        cout&lt;&lt;v[nowx][nowy]; </span><br><span class="line">        t[(<span class="type">int</span>)(v[nowx][nowy])]=<span class="number">1</span>;     <span class="comment">//這邊使用ASCII 轉成int 丟到陣列</span></span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="string">&#x27;A&#x27;</span>;i&lt;=<span class="string">&#x27;Z&#x27;</span>;i++)&#123;         <span class="comment">//跑陣列 統計多少種類</span></span><br><span class="line">        <span class="keyword">if</span>(t[i]==<span class="number">1</span>) cnt++;        </span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="string">&#x27;a&#x27;</span>;i&lt;=<span class="string">&#x27;z&#x27;</span>;i++)&#123;</span><br><span class="line">        <span class="keyword">if</span>(t[i]==<span class="number">1</span>) cnt++;        </span><br><span class="line">    &#125;</span><br><span class="line">    cout&lt;&lt;<span class="string">&quot;\n&quot;</span>&lt;&lt;cnt;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</details>
-
-<hr>
-<!-- Start of CuterCounter Code -->
-<p><a href="https://www.cutercounter.com/traditional-chinese-nn/" target="_blank" style="pointer-events: none;"><img src="https://www.cutercounter.com/hits.php?id=hvxocncq&nd=6&style=11" border="0" alt="網頁計數器"></a></p>
-<!-- End of CuterCounter Code -->]]></content>
+    <title>漏洞紀錄</title>
+    <url>/personal/vulnerability/</url>
+    <content><![CDATA[<h1 id="漏洞"><a href="#漏洞" class="headerlink" title="漏洞"></a>漏洞</h1><p><a href="https://zeroday.hitcon.org/vulnerability/ZD-2024-00899" title="ZD-2024-00899">ZD-2024-00899</a> 中原大學SQLi</p>
+<ul>
+<li>多位學生+教職員工個人資料</li>
+</ul>
+<p><a href="https://zeroday.hitcon.org/vulnerability/ZD-2024-00900" title="ZD-2024-00900">ZD-2024-00900</a> 台中教育大學SQLi</p>
+<ul>
+<li>多位學生個人資料(嚴重資料外洩)</li>
+</ul>
+<p><a href="https://zeroday.hitcon.org/vulnerability/ZD-2024-00902" title="ZD-2024-00902">ZD-2024-00902</a> 國家華語測驗推動工作委員會SQLi</p>
+<p><a href="https://zeroday.hitcon.org/vulnerability/ZD-2024-00910" title="ZD-2024-00910">ZD-2024-00910</a> 臺北醫學大學SQLi</p>
+<p><a href="https://zeroday.hitcon.org/vulnerability/ZD-2024-00917" title="ZD-2024-00917">ZD-2024-00917</a> 低調資訊有限公司SQLi</p>
+<p><a href="https://zeroday.hitcon.org/vulnerability/ZD-2024-00918" title="ZD-2024-00918">ZD-2024-00918</a> 中原大學SQLi</p>
+<p><a href="https://zeroday.hitcon.org/vulnerability/ZD-2024-01060" title="ZD-2024-01060">ZD-2024-01060</a> 某單位RXSS</p>
+<p><a href="https://zeroday.hitcon.org/vulnerability/ZD-2024-01061" title="ZD-2024-01061">ZD-2024-01061</a> 某單位SQLi</p>
+<p><a href="https://zeroday.hitcon.org/vulnerability/ZD-2024-01062" title="ZD-2024-01062">ZD-2024-01062</a> 某單位SQLi to login+RXSS+SXSS+ckfinder後臺未關閉</p>
+<p><a href="https://zeroday.hitcon.org/vulnerability/ZD-2024-01064" title="ZD-2024-01064">ZD-2024-01064</a> 某單位SQLi to login+XSS+ckfinder後臺未關閉</p>
+<p><a href="https://zeroday.hitcon.org/vulnerability/ZD-2024-01083" title="ZD-2024-01083">ZD-2024-01083</a> 某單位RXSS</p>
+<p><a href="https://zeroday.hitcon.org/vulnerability/ZD-2024-01084" title="ZD-2024-01084">ZD-2024-01084</a> 某單位SQLi to login+XSS+ckfinder後臺未關閉</p>
+<p><a href="https://zeroday.hitcon.org/vulnerability/ZD-2024-01085" title="ZD-2024-01085">ZD-2024-01085</a> 某單位SQLi</p>
+<p><a href="https://zeroday.hitcon.org/vulnerability/ZD-2024-01086" title="ZD-2024-01086">ZD-2024-01086</a> 某單位SQLi to login+ckfinder後臺未關閉</p>
+<p><a href="https://zeroday.hitcon.org/vulnerability/ZD-2024-01087" title="ZD-2024-01087">ZD-2024-01087</a> 某單位SQLi to login+ckfinder後臺未關閉</p>
+<p><a href="https://zeroday.hitcon.org/vulnerability/ZD-2024-01088" title="ZD-2024-01088">ZD-2024-01088</a> 某單位SQLi to login+ckfinder後臺未關閉</p>
+]]></content>
       <categories>
-        <category>zerojudge</category>
+        <category>資安</category>
       </categories>
   </entry>
 </search>
