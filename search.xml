@@ -101,9 +101,25 @@
       </categories>
   </entry>
   <entry>
-    <title>參考資料</title>
+    <title>docker參考資料</title>
     <url>/personal/20241114/</url>
-    <content><![CDATA[<h1 id="docker"><a href="#docker" class="headerlink" title="docker"></a>docker</h1><p>檢查容器</p>
+    <content><![CDATA[<h1 id="docker-25-03-14"><a href="#docker-25-03-14" class="headerlink" title="docker (25&#x2F;03&#x2F;14)"></a>docker (25&#x2F;03&#x2F;14)</h1><p>查容器</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">docker ps -a</span><br></pre></td></tr></table></figure>
+<p>關掉image</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">docker-compose down</span><br></pre></td></tr></table></figure>
+<p>重新建構映像檔</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">docker-compose build </span><br></pre></td></tr></table></figure>
+<p>啟動服務</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">docker-compose up -d </span><br></pre></td></tr></table></figure>
+
+<p>查port</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">netstat -tulnp</span><br></pre></td></tr></table></figure>
+
+<p>查server目前的IPv4公網IP</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">curl -4 ifconfig.me </span><br></pre></td></tr></table></figure>
+
+<hr>
+<h1 id="docker-2-24-11-14"><a href="#docker-2-24-11-14" class="headerlink" title="docker 2 (24&#x2F;11&#x2F;14)"></a>docker 2 (24&#x2F;11&#x2F;14)</h1><p>檢查容器</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">docker ps -a</span><br></pre></td></tr></table></figure>
 
 <p>啟動並進入容器</p>
@@ -122,6 +138,9 @@
 <p><a href="https://chewu-0319.github.io/personal/images/1114.pdf">1114</a></p>
 <p><a href="https://chewu-0319.github.io/personal/images/1115.pdf">1115</a></p>
 ]]></content>
+      <categories>
+        <category>參考資料</category>
+      </categories>
   </entry>
   <entry>
     <title>AIS3 2024 pre-exam</title>
