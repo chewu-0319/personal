@@ -2,7 +2,7 @@
 <search>
   <entry>
     <title>金盾獎資料</title>
-    <url>/personal/20241011/</url>
+    <url>/20241011/</url>
     <content><![CDATA[<ol>
 <li>常見應用層服務與端口</li>
 </ol>
@@ -101,58 +101,16 @@
       </categories>
   </entry>
   <entry>
-    <title>docker參考資料</title>
-    <url>/personal/20241114/</url>
-    <content><![CDATA[<h1 id="docker-25-03-14"><a href="#docker-25-03-14" class="headerlink" title="docker (25&#x2F;03&#x2F;14)"></a>docker (25&#x2F;03&#x2F;14)</h1><p>查容器</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">docker ps -a</span><br></pre></td></tr></table></figure>
-<p>關掉image</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">docker-compose down</span><br></pre></td></tr></table></figure>
-<p>重新建構映像檔</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">docker-compose build </span><br></pre></td></tr></table></figure>
-<p>啟動服務</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">docker-compose up -d </span><br></pre></td></tr></table></figure>
-
-<p>查port</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">netstat -tulnp</span><br></pre></td></tr></table></figure>
-
-<p>查server目前的IPv4公網IP</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">curl -4 ifconfig.me </span><br></pre></td></tr></table></figure>
-
-<hr>
-<h1 id="docker-2-24-11-14"><a href="#docker-2-24-11-14" class="headerlink" title="docker 2 (24&#x2F;11&#x2F;14)"></a>docker 2 (24&#x2F;11&#x2F;14)</h1><p>檢查容器</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">docker ps -a</span><br></pre></td></tr></table></figure>
-
-<p>啟動並進入容器</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">docker start demo_container</span><br><span class="line">docker exec -it demo_container /bin/bash</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>進容器後</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">source /opt/ros/humble/setup.bash</span><br><span class="line">cd demo</span><br><span class="line">bash start.sh</span><br></pre></td></tr></table></figure>
-
-<p>ctrl+d 退出容器</p>
-<p>停止容器</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">docker container stop demo_container</span><br></pre></td></tr></table></figure>
-
-<p>可視化</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">python3 visualization.py</span><br></pre></td></tr></table></figure>
-<p><a href="https://youtu.be/HGhSR-Vbb-E">https://youtu.be/HGhSR-Vbb-E</a></p>
-<p><a href="https://chewu-0319.github.io/personal/images/1114.pdf">1114</a></p>
-<p><a href="https://chewu-0319.github.io/personal/images/1115.pdf">1115</a></p>
-]]></content>
-      <categories>
-        <category>參考資料</category>
-      </categories>
-  </entry>
-  <entry>
     <title>AIS3 2024 pre-exam</title>
-    <url>/personal/AIS3pre-exam/</url>
+    <url>/AIS3pre-exam/</url>
     <content><![CDATA[<h1 id="AIS3-2024-pre-exam-write-up"><a href="#AIS3-2024-pre-exam-write-up" class="headerlink" title="AIS3 2024 pre-exam write up"></a>AIS3 2024 pre-exam write up</h1><p>第一次寫write up :D</p>
 <h1 id="misc"><a href="#misc" class="headerlink" title="misc"></a>misc</h1><h2 id="welcome-100"><a href="#welcome-100" class="headerlink" title="welcome[100]"></a>welcome[100]</h2><p>略</p>
 <h2 id="Quantum-Nim-Heist-100"><a href="#Quantum-Nim-Heist-100" class="headerlink" title="Quantum Nim Heist[100]"></a>Quantum Nim Heist[100]</h2><p>一開始看code看很久都沒找到破綻，花超多時間在程式裡大海撈針，沒想到意外發現小漏洞，<br>反正就是讓值超出預期，但我其實不確定這做法的專有名詞(?<br>當他問which pile do you choose?的時候，<br>正常應該要回答是第幾pile，但如果什麼都不回答直接按enter或輸入-1，會發現可以直接跳過一回合，<br>直到最後一回合再記得把最後一個stones remove掉。</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">...</span><br><span class="line"></span><br><span class="line">it&#x27;s your turn to move! what do you choose?</span><br><span class="line">+--------------------- moved ---------------------+</span><br><span class="line">| you removed 2 stones from pile 1                |</span><br><span class="line">+---+-------------- stones info ------------------+</span><br><span class="line">| 0 | oo                                          |</span><br><span class="line">| 1 | oo                                          |</span><br><span class="line">+--------------------- moved ---------------------+</span><br><span class="line">| i removed 1 stones from pile 1                  |</span><br><span class="line">+---+-------------- stones info ------------------+</span><br><span class="line">| 0 | oo                                          |</span><br><span class="line">| 1 | o                                           |</span><br><span class="line">+---+--------------- game menu -------------------+</span><br><span class="line">| 0 | make a move                                 |</span><br><span class="line">| 1 | save the current game and leave             |</span><br><span class="line">| 2 | resign the game                             |</span><br><span class="line">+---+---------------------------------------------+</span><br><span class="line">it&#x27;s your turn to move! what do you choose?        </span><br><span class="line">+--------------------- moved ---------------------+</span><br><span class="line">| you removed 1 stones from pile 1                |</span><br><span class="line">+---+-------------- stones info ------------------+</span><br><span class="line">| 0 | oo                                          | </span><br><span class="line">| 1 | o                                           |</span><br><span class="line">+--------------------- moved ---------------------+</span><br><span class="line">| i removed 1 stones from pile 0                  | </span><br><span class="line">+---+-------------- stones info ------------------+</span><br><span class="line">| 0 | o                                           |</span><br><span class="line">| 1 | o                                           | </span><br><span class="line">+---+--------------- game menu -------------------+  </span><br><span class="line">| 0 | make a move                                 |   </span><br><span class="line">| 1 | save the current game and leave             |   </span><br><span class="line">| 2 | resign the game                             |   </span><br><span class="line">+---+---------------------------------------------+   </span><br><span class="line">it&#x27;s your turn to move! what do you choose?           </span><br><span class="line">+--------------------- moved ---------------------+   </span><br><span class="line">| you removed 1 stones from pile 0                |   </span><br><span class="line">+---+-------------- stones info ------------------+   </span><br><span class="line">| 0 | o                                           |    </span><br><span class="line">| 1 | o                                           |   </span><br><span class="line">+--------------------- moved ---------------------+   </span><br><span class="line">| i removed 1 stones from pile 0                  |   </span><br><span class="line">+---+-------------- stones info ------------------+   </span><br><span class="line">| 0 | o                                           |   </span><br><span class="line">+---+--------------- game menu -------------------+   </span><br><span class="line">| 0 | make a move                                 |   </span><br><span class="line">| 1 | save the current game and leave             |   </span><br><span class="line">| 2 | resign the game                             |  </span><br><span class="line">+---+---------------------------------------------+  </span><br><span class="line">it&#x27;s your turn to move! what do you choose? 0         </span><br><span class="line">which pile do you choose? 0                           </span><br><span class="line">how many stones do you remove? 1                      </span><br><span class="line">+---------------- congratulations ----------------+   </span><br><span class="line">| you are a true grandmaster of chess! here is    |   </span><br><span class="line">| the flag for you:                               |   </span><br><span class="line">| AIS3&#123;Ar3_y0u_a_N1m_ma57er_0r_a_Crypt0_ma57er?&#125;  |   </span><br><span class="line">+-------------------------------------------------+ </span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<h2 id="Three-Dimensional-Secret"><a href="#Three-Dimensional-Secret" class="headerlink" title="Three Dimensional Secret"></a>Three Dimensional Secret</h2><p>打開封包檔<br>看到很多Protocol&#x3D;TCP，隨機點一個<br><img src="/personal/images/p9.png"></p>
-<p>選follow -&gt; TCP Stream<br><img src="/personal/images/p10.png"></p>
-<p>打開後會出現很多同一格式的程式碼<br>拿去問chatgpt，得知這是G code<br><img src="/personal/images/p11.png"></p>
-<p>上網找預覽器，找到<a href="https://nraynaud.github.io/webgcode/">https://nraynaud.github.io/webgcode/</a><br><img src="/personal/images/p12.png"></p>
+<h2 id="Three-Dimensional-Secret"><a href="#Three-Dimensional-Secret" class="headerlink" title="Three Dimensional Secret"></a>Three Dimensional Secret</h2><p>打開封包檔<br>看到很多Protocol&#x3D;TCP，隨機點一個<br><img src="/images/p9.png"></p>
+<p>選follow -&gt; TCP Stream<br><img src="/images/p10.png"></p>
+<p>打開後會出現很多同一格式的程式碼<br>拿去問chatgpt，得知這是G code<br><img src="/images/p11.png"></p>
+<p>上網找預覽器，找到<a href="https://nraynaud.github.io/webgcode/">https://nraynaud.github.io/webgcode/</a><br><img src="/images/p12.png"></p>
 <p>貼上code就看到flag了</p>
 <h1 id="crypto"><a href="#crypto" class="headerlink" title="crypto"></a>crypto</h1><h2 id="zkp"><a href="#zkp" class="headerlink" title="zkp"></a>zkp</h2><p>原本想說開暴力解，吃完飯發現還是沒結果，<br>上網找資料找到這個酷酷的函式庫叫sympy，大數字也可以快速解，<br>用sympy去計算離散對數r，再去算sk，<br>求得sk後丟long_to_bytes求回flag</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line">!pip install sympy</span><br><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> inverse</span><br><span class="line"><span class="keyword">from</span> sympy.ntheory <span class="keyword">import</span> discrete_log</span><br><span class="line"></span><br><span class="line"><span class="comment"># 已知參數</span></span><br><span class="line">p = <span class="number">912963562570713895762123712634341582363191342435924527885311975797578046400116904692505817547350929619596093083745446525856149291591598712142696114753807416455553636357128701771057485027781550780145668058332461392878693207262984011086549089459904749465167095482671894984474035487400352761994560452501497000487</span></span><br><span class="line">g = <span class="number">5</span></span><br><span class="line">y = <span class="number">826538666839613533825164219540577914201103248283631882579415248247469603672292332561005185045449294103457059566058782307774879654805356212117148864755019033392691510181464751398765490686084806155442759849410837406192708511190585484331707794669398717997173649869228717077858848442336016926370038781486833717341</span></span><br><span class="line">a = <span class="number">837391429146716246298265649828833926553703307768263532882119633652369160923460038502759864396719595556822579283450060054716753545203402598089323793321805639129260667950080636462204135426887388899955615207806039627983773534304007953073586374003734715079722274887416433453079445822219423995951703135829496007286</span>        </span><br><span class="line">c = <span class="number">1</span> <span class="comment"># 這邊用1可以節省運算時間</span></span><br><span class="line">w = <span class="number">394811387946114683904252174454710537206578693342055809178279464013047561646863743919996435695718914181044539464633729592712968512748007403695056092396246866848389859706990642501065525104839776919236901735230456614618350145301893017979866181624159788935390202502224091369603614245766192646548573130781044536668</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 用sympy計算離散對數r</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">compute_r</span>(<span class="params">g, a, p</span>):</span><br><span class="line">    <span class="keyword">return</span> discrete_log(p, a, g)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 算sk</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">compute_sk</span>(<span class="params">p, g, y, a, w, c</span>):</span><br><span class="line">    r = compute_r(g, a, p)</span><br><span class="line">    p_minus_1 = p - <span class="number">1</span></span><br><span class="line">    c_inv = inverse(c, p_minus_1)</span><br><span class="line">    sk = (w - r) * c_inv % p_minus_1</span><br><span class="line">    <span class="keyword">return</span> sk</span><br><span class="line"></span><br><span class="line"><span class="comment"># 計算 輸出sk</span></span><br><span class="line">sk = compute_sk(p, g, y, a, w, c)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;Computed sk:&quot;</span>, sk)</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
@@ -172,7 +130,7 @@
   </entry>
   <entry>
     <title>APCS-2024/01/07</title>
-    <url>/personal/APCS20240107/</url>
+    <url>/APCS20240107/</url>
     <content><![CDATA[<h1 id="第一題"><a href="#第一題" class="headerlink" title="第一題"></a>第一題</h1><p><a href="https://zerojudge.tw/ShowProblem?problemid=m931">https://zerojudge.tw/ShowProblem?problemid=m931</a></p>
 <hr>
 <details>
@@ -642,76 +600,50 @@ ABaB
       </categories>
   </entry>
   <entry>
-    <title>g0v summit 2024</title>
-    <url>/personal/g0vsummit/</url>
-    <content><![CDATA[<h1 id="g0v-summit"><a href="#g0v-summit" class="headerlink" title="g0v summit"></a>g0v summit</h1><h2 id="我都在幹嘛"><a href="#我都在幹嘛" class="headerlink" title="我都在幹嘛?"></a>我都在幹嘛?</h2><ul>
-<li>工作人員<ul>
-<li>搬椅子</li>
-<li>搬桌子</li>
-<li>場佈</li>
-<li>動線規劃</li>
-<li>拆</li>
-<li>坐在電梯前指引</li>
-<li>被外國人問路</li>
-</ul>
-</li>
-<li>福利<ul>
-<li>吃吃吃吃吃吃吃吃…</li>
-<li>喝喝喝喝喝喝喝喝…</li>
-<li>免費住宿 中研院活動中心</li>
-<li>仙草茶 (呵</li>
-</ul>
-</li>
-</ul>
-<h2 id="Day-0-場佈"><a href="#Day-0-場佈" class="headerlink" title="Day 0(場佈)"></a>Day 0(場佈)</h2><ul>
-<li>搬椅子</li>
-<li>搬桌子</li>
-<li>動線規劃</li>
-<li>吃便當</li>
-<li>晚上去饒河夜市</li>
-</ul>
-<h2 id="Day-1"><a href="#Day-1" class="headerlink" title="Day 1"></a>Day 1</h2><ul>
-<li>早餐三明治+紅茶</li>
-<li>坐在電梯前好幾個小時</li>
-<li>R0搬椅子</li>
-<li>閒逛</li>
-<li>吃漢堡 吃撈麵</li>
-<li>聽南韓講者超酷</li>
-<li>有夠累</li>
-<li>睡在VIP room</li>
-<li>房間看西甲</li>
-<li>還以為有夜唱</li>
-</ul>
-<h2 id="Day-2"><a href="#Day-2" class="headerlink" title="Day 2"></a>Day 2</h2><ul>
-<li>繼續吃</li>
-<li>聽台灣爬蟲開源資料講者 超幽默</li>
-<li>仙草茶</li>
-<li>有個阿北專門來吃東西的</li>
-<li>收桌子</li>
-<li>拆東西</li>
-<li>在閉幕簡報上看到自己 很感動</li>
-<li>慶功宴 佛跳牆 龍蝦 雞佛 啤酒好欸</li>
-<li>才知道現場很多都是資工大佬 頂大好電</li>
-<li>大家都很好聊 一堆E人</li>
-<li>CPY有問題找他就對了 兆翌超好聊 喬不會喝酒笑死 柚子講者超電 賴彥江超幽默 </li>
-<li>口譯大哥說他18歲 pm5光頭超好認 攝影大哥敬酒*n次 室友雨辰居然是文組的</li>
-<li>有人喝醉超好笑 啤酒而已欸</li>
-<li>搭高鐵 好不捨</li>
-<li>整個g0v氣氛好好 好喜歡 2026再來!</li>
-</ul>
-<h1 id="總結"><a href="#總結" class="headerlink" title="總結"></a>總結</h1><p>我愛g0v summit，氣氛好讚，工人福利給過，認識好多新朋友，g0v summit 2026見!</p>
+    <title>docker參考資料</title>
+    <url>/20241114/</url>
+    <content><![CDATA[<h1 id="docker-25-03-14"><a href="#docker-25-03-14" class="headerlink" title="docker (25&#x2F;03&#x2F;14)"></a>docker (25&#x2F;03&#x2F;14)</h1><p>查容器</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">docker ps -a</span><br></pre></td></tr></table></figure>
+<p>關掉image</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">docker-compose down</span><br></pre></td></tr></table></figure>
+<p>重新建構映像檔</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">docker-compose build </span><br></pre></td></tr></table></figure>
+<p>啟動服務</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">docker-compose up -d </span><br></pre></td></tr></table></figure>
+
+<p>查port</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">netstat -tulnp</span><br></pre></td></tr></table></figure>
+
+<p>查server目前的IPv4公網IP</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">curl -4 ifconfig.me </span><br></pre></td></tr></table></figure>
+
 <hr>
-<!-- Start of CuterCounter Code -->
-<p><a href="https://www.cutercounter.com/traditional-chinese-nn/" target="_blank" style="pointer-events: none;"><img src="https://www.cutercounter.com/hits.php?id=huxpnnqf&nd=6&style=11" border="0" alt="網頁計數器"></a></p>
-<!-- End of CuterCounter Code -->
+<h1 id="docker-2-24-11-14"><a href="#docker-2-24-11-14" class="headerlink" title="docker 2 (24&#x2F;11&#x2F;14)"></a>docker 2 (24&#x2F;11&#x2F;14)</h1><p>檢查容器</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">docker ps -a</span><br></pre></td></tr></table></figure>
+
+<p>啟動並進入容器</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">docker start demo_container</span><br><span class="line">docker exec -it demo_container /bin/bash</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>進容器後</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">source /opt/ros/humble/setup.bash</span><br><span class="line">cd demo</span><br><span class="line">bash start.sh</span><br></pre></td></tr></table></figure>
+
+<p>ctrl+d 退出容器</p>
+<p>停止容器</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">docker container stop demo_container</span><br></pre></td></tr></table></figure>
+
+<p>可視化</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">python3 visualization.py</span><br></pre></td></tr></table></figure>
+<p><a href="https://youtu.be/HGhSR-Vbb-E">https://youtu.be/HGhSR-Vbb-E</a></p>
+<p><a href="https://chewu-0319.github.io/personal/images/1114.pdf">1114</a></p>
+<p><a href="https://chewu-0319.github.io/personal/images/1115.pdf">1115</a></p>
 ]]></content>
       <categories>
-        <category>紀錄</category>
+        <category>參考資料</category>
       </categories>
   </entry>
   <entry>
     <title>特殊選才</title>
-    <url>/personal/interview/</url>
+    <url>/interview/</url>
     <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>嗨嗨 我是che，成功用特殊選材上岸啦!! <a href="https://chewu-0319.github.io/personal/about/">這裡</a> 有較詳細的個人經歷。</p>
 <p>家人一開始其實是反對我走特殊選才的 (以下簡稱特選)，他們覺得花時間準備特殊選才太冒險，不如好好的去學測走個人申請，但我自己知道如果靠學測申請大學，我頂多私立中後段 (我一模才30 超墊阿哈哈)。</p>
 <p>對我來說，特選和學測的準備時間有很大的衝突，寫程式跟讀學科只能二擇一 (不過還是有人可以兼顧，超電🛐)</p>
@@ -939,36 +871,36 @@ ABaB
 <h2 id="面試題目紀錄"><a href="#面試題目紀錄" class="headerlink" title="面試題目紀錄"></a>面試題目紀錄</h2><h3 id="面試記錄傳送們"><a href="#面試記錄傳送們" class="headerlink" title="面試記錄傳送們:"></a>面試記錄傳送們:</h3><p><a href="https://chewu-0319.github.io/personal/interview/#%E8%BC%94%E4%BB%81%E5%A4%A7%E5%AD%B8-%E8%B3%87%E8%A8%8A%E5%B7%A5%E7%A8%8B%E5%AD%B8%E7%B3%BB-%E5%82%992-%E5%B7%B2%E9%8C%84%E5%8F%96">輔大</a>、 <a href="https://chewu-0319.github.io/personal/interview/#%E5%8F%B0%E4%B8%AD%E6%95%99%E8%82%B2%E5%A4%A7%E5%AD%B8-%E8%B3%87%E8%A8%8A%E5%B7%A5%E7%A8%8B%E5%AD%B8%E7%B3%BB-%E5%82%991-%E5%B7%B2%E6%94%BE%E6%A3%84">中教大</a> 、<a href="https://chewu-0319.github.io/personal/interview/#%E4%B8%AD%E5%8E%9F%E5%A4%A7%E5%AD%B8-%E8%B3%87%E8%A8%8A%E5%B7%A5%E7%A8%8B%E5%AD%B8%E7%B3%BB-%E5%82%997-%E5%B7%B2%E6%94%BE%E6%A3%84">中原</a> 、<a href="https://chewu-0319.github.io/personal/interview/#%E9%AB%98%E9%9B%84%E5%A4%A7%E5%AD%B8-%E8%B3%87%E8%A8%8A%E5%B7%A5%E7%A8%8B%E5%AD%B8%E7%B3%BB-%E5%82%9926">高雄</a> 、<a href="https://chewu-0319.github.io/personal/interview/#%E9%80%A2%E7%94%B2%E5%A4%A7%E5%AD%B8-%E8%B3%87%E8%A8%8A%E5%B7%A5%E7%A8%8B%E5%AD%B8%E7%B3%BB-%E5%82%9913">逢甲</a> 、<a href="https://chewu-0319.github.io/personal/interview/#%E6%9A%A8%E5%8D%97%E5%A4%A7%E5%AD%B8-%E8%B3%87%E8%A8%8A%E5%B7%A5%E7%A8%8B%E5%AD%B8%E7%B3%BB-%E5%82%992">暨南</a> 、<a href="https://chewu-0319.github.io/personal/interview/#%E9%AB%98%E9%9B%84%E5%B8%AB%E7%AF%84%E5%A4%A7%E5%AD%B8-%E8%BB%9F%E9%AB%94%E5%B7%A5%E7%A8%8B%E8%88%87%E7%AE%A1%E7%90%86%E5%AD%B8%E7%B3%BB-%E5%82%996-%E5%B7%B2%E6%94%BE%E6%A3%84">高師</a>、 <a href="https://chewu-0319.github.io/personal/interview/#%E5%98%89%E7%BE%A9%E5%A4%A7%E5%AD%B8-%E8%B3%87%E8%A8%8A%E5%B7%A5%E7%A8%8B%E5%AD%B8%E7%B3%BB-%E5%82%9911">嘉義</a></p>
 <hr>
 <h3 id="輔仁大學-資訊工程學系-備2-已錄取"><a href="#輔仁大學-資訊工程學系-備2-已錄取" class="headerlink" title="輔仁大學 資訊工程學系 備2(已錄取)"></a>輔仁大學 資訊工程學系 備2(已錄取)</h3><p>一對三 面試10分鐘</p>
-<p><img src="/personal/images/p1.png"></p>
+<p><img src="/images/p1.png"></p>
 <p>Q: 自我介紹<br>A: 略<br>Q: 動態記憶體配置的配置方法<br>A: malloc()<br>Q: class是什麼<br>A: 自訂的資料型別; 封裝、繼承和多態……<br>Q: 動態規劃題目 試問可切割還是不可切割<br>A: 01背包問題為不可切割……<br>Q: 這次apcs有用到哪些資料結構<br>A: ……<br>Q: 為何想參加SITCON<br>A: 學知識、交朋友……<br>Q: vector跟array差在哪<br>A: 動態陣列，可使用pop_back、push_back<br>Q: 學到DFS有用嗎 但apcs只有三級應該用不到<br>A: 資訊學科能力競賽有用到<br>Q: apcs考幾次 幾分 為什麼實作沒進步<br>A: 不熟，……<br>Q: 你認為你的專長是什麼<br>A: 略</p>
 <hr>
 <h3 id="台中教育大學-資訊工程學系-備1-已放棄"><a href="#台中教育大學-資訊工程學系-備1-已放棄" class="headerlink" title="台中教育大學 資訊工程學系 備1(已放棄)"></a>台中教育大學 資訊工程學系 備1(已放棄)</h3><p>一對二 面試8分鐘*2間</p>
-<p><img src="/personal/images/p2.png"></p>
+<p><img src="/images/p2.png"></p>
 <p>第一間<br>Q: 自我介紹<br>A: 略<br>Q: 最熟的程式語言<br>A: c++<br>Q: 用過什麼演算法<br>A: sort、search、greedy……<br>Q: 排序? 如何挑?<br>A: 習慣用quick sort<br>Q: for迴圈跟while迴圈差在哪<br>A: 變數是否為已知<br>Q: tree? binary search? 二元樹? balance tree?<br>A: balance tree沒實做過 (他就說沒關係 高中這樣就夠了)<br>Q: 學校資訊課程如何 教什麼?<br>A: 簡單的if,for,while<br>Q: 如何準備apcs? zerojudge?<br>A: 刷題……<br>Q: 為什麼想考cpe?<br>A: 證明自己<br>Q: 英文題目可以嗎<br>A: 盡力:)<br>Q: 日常生活中聽過新的資訊科技?<br>A: 我答深度學習、生成式AI……<br>Q: chatGPT用來做什麼?<br>A: 我答解題debug，但gpt能力不太行<br>Q: 資訊成績? 最弱科目? 數學成績?<br>A: 略<br>Q: 程式得意的作品或題目<br>A: 略</p>
 <p>第二間<br>Q: 自我介紹<br>A: 略<br>Q: 特殊經歷中 哪個最值得講?<br>A: 好像沒什麼特別的<br>Q: APCS實作為什麼只有兩題? 為什麼第二題只拿部分分數<br>A: 卡測資<br>Q: ITSA創立單位? 中文題目?<br>A: 對<br>Q: 資訊學科能力競賽 新北區 多少人 幾個佳作 幾個全國賽<br>A: 接近100人 佳作不知道 全國賽好像8<br>Q: 為什麼參加資安14個小時<br>A: 略<br>Q: AI cup是什麼樣的活動 雲端運算 優等獎?<br>A: 實作，找最短距離的兩點，數萬筆資料上傳雲端做運算<br>Q: 額外問 百米12秒2蠻特別的 解釋一下<br>A: 略</p>
 <p>因為我後面沒人了 所以聊天聊快五分鐘吧:)</p>
 <hr>
 <h3 id="中原大學-資訊工程學系-備7-已放棄"><a href="#中原大學-資訊工程學系-備7-已放棄" class="headerlink" title="中原大學 資訊工程學系 備7(已放棄)"></a>中原大學 資訊工程學系 備7(已放棄)</h3><p>一對四 面試10分鐘</p>
-<p><img src="/personal/images/p3.png"></p>
+<p><img src="/images/p3.png"></p>
 <p>Q: 自我介紹<br>A: 略<br>Q: 社團教學教什麼<br>A: 略<br>Q: 為什麼你認為你適合資工<br>A: 略<br>Q: 個人特色<br>A: 略<br>Q: 大學肯接受熬夜嗎?<br>A: OK阿 沒問題，……<br>Q: 熬夜到天亮ok嗎?<br>A: 當然OK，高中就熬過了<br>Q: 結婚後日夜顛倒也沒關係?<br>A: OK，但會在家庭與事業中找到平衡點，……<br>Q: 競賽中遇到的困難?<br>A: debug不出來……<br>Q: 雲端運算競賽在幹嘛？<br>A: 我有提到race condition 然後他有問過程和怎麼解決<br>Q: 理論和實作你認為哪個重要？<br>A: 都重要，…….</p>
 <hr>
 <h3 id="高雄大學-資訊工程學系-備26"><a href="#高雄大學-資訊工程學系-備26" class="headerlink" title="高雄大學 資訊工程學系 備26"></a>高雄大學 資訊工程學系 備26</h3><p>一對三 面試5分鐘</p>
-<p><img src="/personal/images/p4.png"></p>
+<p><img src="/images/p4.png"></p>
 <p>Q: 自我介紹 家庭背景<br>A: 略<br>Q: 得獎部分 全校第一參加資訊學科能力競賽是幹嘛?<br>A: 略<br>Q: 除了C++ 還會什麼程式語言 網站怎麼架設的 有接資料庫嗎<br>A: 略，沒接資料庫<br>Q: APCS怎麼準備的 遇到問題怎麼解決<br>A: 輸出看看<br>Q: 數學題 骰子迴圈題…<br>A: 略 (被問倒了 我討厭數學題)</p>
 <hr>
 <h3 id="逢甲大學-資訊工程學系-備13"><a href="#逢甲大學-資訊工程學系-備13" class="headerlink" title="逢甲大學 資訊工程學系 備13"></a>逢甲大學 資訊工程學系 備13</h3><p>一對三 面試5分鐘</p>
-<p><img src="/personal/images/p5.png"></p>
+<p><img src="/images/p5.png"></p>
 <p>Q: 自我介紹<br>A: 略<br>Q: 雲端運算競賽是幹嘛的<br>A: 同上 略<br>Q: 那你有聽過….(一串英文)<br>A: 分散式?<br>Q: 只有server跟使用者的關係<br>A: 略<br>Q: 運算思維競賽為什麼當初想去報?<br>A: 學校報的<br>Q: APCS考幾次<br>A: 略<br>Q: 參加什麼C++課程<br>A: 略<br>Q:  什麼時候發現自己跑這麼快：）<br>A: 高中:D</p>
 <hr>
-<h3 id="暨南大學-資訊工程學系-備2"><a href="#暨南大學-資訊工程學系-備2" class="headerlink" title="暨南大學 資訊工程學系 備2"></a>暨南大學 資訊工程學系 備2</h3><p>一對三 面試10分鐘<br><strong>需要用簡報</strong><br><img src="/personal/images/p6.png"></p>
+<h3 id="暨南大學-資訊工程學系-備2"><a href="#暨南大學-資訊工程學系-備2" class="headerlink" title="暨南大學 資訊工程學系 備2"></a>暨南大學 資訊工程學系 備2</h3><p>一對三 面試10分鐘<br><strong>需要用簡報</strong><br><img src="/images/p6.png"></p>
 <p>簡報講了8分鐘後…<br>Q: 為什麼來報暨南<br>A: 好山好水，環境清幽:D<br>Q: 還報哪間學校?<br>A: 略<br>Q: 雲端運算競賽用到的演算法<br>A: 略<br>Q: 進階程式設計課程在上什麼<br>A: 超級基礎的東西<br>時間有剩，開始教我分治法：）</p>
 <hr>
 <h3 id="高雄師範大學-軟體工程與管理學系-備6-已放棄"><a href="#高雄師範大學-軟體工程與管理學系-備6-已放棄" class="headerlink" title="高雄師範大學 軟體工程與管理學系 備6(已放棄)"></a>高雄師範大學 軟體工程與管理學系 備6(已放棄)</h3><p>多對多 (4考生對3教授) 共20分鐘</p>
-<p><img src="/personal/images/p7.png"></p>
+<p><img src="/images/p7.png"></p>
 <p>輪流回答 這題從1號先答 下題就是2號先答 蠻公平但壓力最大的一間<br>Q: 自我介紹<br>A: 略<br>Q: 為什麼要選擇資安組<br>A: 名額多:D<br>Q: 進資安組想要往什麼方面？未來工作想做什麼？<br>A: 略<br>Q: 和資安相關的程式經驗？<br>A: 可以說是幾乎沒有QQ，……(同組的都資安怪)<br>Q: 為什麼網路詐騙那麼廣泛？如何加強？<br>A: 略<br>Q: 使用ChatGPT的相關經驗？<br>A: 略</p>
 <hr>
 <h3 id="嘉義大學-資訊工程學系-備11"><a href="#嘉義大學-資訊工程學系-備11" class="headerlink" title="嘉義大學 資訊工程學系 備11"></a>嘉義大學 資訊工程學系 備11</h3><p>一對二    1間10分鐘(共2間)</p>
-<p><img src="/personal/images/p8.png"></p>
+<p><img src="/images/p8.png"></p>
 <p>第一間<br>Q: 自我介紹<br>A: 略<br>Q: 全校第一資訊學科能力競賽 解釋為什麼拿到第一<br>A: 略 (我怎麼知道我會拿第一:D)<br>Q: 新北區資訊學科能力競賽?<br>A: 略<br>Q: APCS實作為什麼只有2題<br>A: 熟練度不足<br>Q: 寫程式遇到錯誤 怎麼找出問題<br>A: 我回答每執行一次 輸出一次<br>Q: 你這樣的作法 有什麼缺點<br>A: 花時間<br>Q: 花在什麼地方<br>A: 略<br>(叫我學習使用IDE的debugger<br>Q: 如果範例測資過了但隱形測資沒過 你會怎麼解決<br>A: 略<br>Q: 對於貴校有什麼資訊想要了解的嗎<br>A: 我講專題或競程培訓的資源?</p>
 <p>第二間<br>Q: 這間是問專業問題 就不自我介紹了 解釋數學歸納法<br>A: if n&#x3D;1，設n&#x3D;m成立，可得n&#x3D;m+1成立<br>Q: 解釋動態規劃<br>A: <del>把array名稱取作DP的技術</del><br>Q: 解釋遞迴<br>A: 略<br>Q: 為什麼學C++不學其他程式<br>A: 執行效率快，打競程<br>Q: 都上哪個網站刷題?<br>A: zerojudge<br>Q: 你都集中刷哪類的題目 基礎?進階?競賽?<br>A: 略<br>Q: APCS刷的如何<br>A: 略<br>Q: 雲端運算競賽在幹嘛<br>A: 同上 略<br>Q: 知道race condition不錯 這應該大3以上或學完資料庫才會學到<br>A: 謝謝謝謝~<br>Q: 動態規劃跟遞迴的優缺點跟比較<br>A: time complexity……<br>Q: 還有什麼是我沒問到你的嗎<br>A: 好像都問完了<br>Q: 有想了解我們學校什麼嗎<br>A: 五年一貫，資工競爭力……</p>
 <hr>
@@ -983,8 +915,8 @@ ABaB
   </entry>
   <entry>
     <title>個人時間表</title>
-    <url>/personal/personal_schedule/</url>
-    <content><![CDATA[<h1 id="此為-2024-10月-2025寒假前-日程表"><a href="#此為-2024-10月-2025寒假前-日程表" class="headerlink" title="此為 2024&#x2F;10月-2025寒假前 日程表"></a>此為 2024&#x2F;10月-2025寒假前 日程表</h1><p><img src="/personal/images/sch.png"></p>
+    <url>/personal_schedule/</url>
+    <content><![CDATA[<h1 id="此為-2024-10月-2025寒假前-日程表"><a href="#此為-2024-10月-2025寒假前-日程表" class="headerlink" title="此為 2024&#x2F;10月-2025寒假前 日程表"></a>此為 2024&#x2F;10月-2025寒假前 日程表</h1><p><img src="/images/sch.png"></p>
 <ul>
 <li>藍色: 在學校</li>
 <li>綠色: 在家裡忙</li>
@@ -1009,7 +941,7 @@ ABaB
   </entry>
   <entry>
     <title>電資類競賽分享</title>
-    <url>/personal/sources-share/</url>
+    <url>/sources-share/</url>
     <content><![CDATA[<h2 id="主要競賽-具指標性"><a href="#主要競賽-具指標性" class="headerlink" title="主要競賽(具指標性):"></a>主要競賽(具指標性):</h2><p>競程類</p>
 <ul>
 <li><a href="https://apcs.csie.ntnu.edu.tw/" style="color: #0066CC;">⭐APCS</a></li>
@@ -1077,38 +1009,76 @@ ABaB
       </categories>
   </entry>
   <entry>
-    <title>漏洞紀錄</title>
-    <url>/personal/vulnerability/</url>
-    <content><![CDATA[<h1 id="漏洞"><a href="#漏洞" class="headerlink" title="漏洞"></a>漏洞</h1><p><a href="https://zeroday.hitcon.org/vulnerability/ZD-2024-00899" title="ZD-2024-00899">ZD-2024-00899</a> 中原大學SQLi</p>
-<ul>
-<li>多位學生+教職員工個人資料</li>
+    <title>g0v summit 2024</title>
+    <url>/g0vsummit/</url>
+    <content><![CDATA[<h1 id="g0v-summit"><a href="#g0v-summit" class="headerlink" title="g0v summit"></a>g0v summit</h1><h2 id="我都在幹嘛"><a href="#我都在幹嘛" class="headerlink" title="我都在幹嘛?"></a>我都在幹嘛?</h2><ul>
+<li>工作人員<ul>
+<li>搬椅子</li>
+<li>搬桌子</li>
+<li>場佈</li>
+<li>動線規劃</li>
+<li>拆</li>
+<li>坐在電梯前指引</li>
+<li>被外國人問路</li>
 </ul>
-<p><a href="https://zeroday.hitcon.org/vulnerability/ZD-2024-00900" title="ZD-2024-00900">ZD-2024-00900</a> 台中教育大學SQLi</p>
-<ul>
-<li>多位學生個人資料(嚴重資料外洩)</li>
+</li>
+<li>福利<ul>
+<li>吃吃吃吃吃吃吃吃…</li>
+<li>喝喝喝喝喝喝喝喝…</li>
+<li>免費住宿 中研院活動中心</li>
+<li>仙草茶 (呵</li>
 </ul>
-<p><a href="https://zeroday.hitcon.org/vulnerability/ZD-2024-00902" title="ZD-2024-00902">ZD-2024-00902</a> 國家華語測驗推動工作委員會SQLi</p>
-<p><a href="https://zeroday.hitcon.org/vulnerability/ZD-2024-00910" title="ZD-2024-00910">ZD-2024-00910</a> 臺北醫學大學SQLi</p>
-<p><a href="https://zeroday.hitcon.org/vulnerability/ZD-2024-00917" title="ZD-2024-00917">ZD-2024-00917</a> 低調資訊有限公司SQLi</p>
-<p><a href="https://zeroday.hitcon.org/vulnerability/ZD-2024-00918" title="ZD-2024-00918">ZD-2024-00918</a> 中原大學SQLi</p>
-<p><a href="https://zeroday.hitcon.org/vulnerability/ZD-2024-01060" title="ZD-2024-01060">ZD-2024-01060</a> 泰禾國際實業有限公司RXSS</p>
-<p><a href="https://zeroday.hitcon.org/vulnerability/ZD-2024-01061" title="ZD-2024-01061">ZD-2024-01061</a> 奧斯華德色技有限公司SQLi</p>
-<p><a href="https://zeroday.hitcon.org/vulnerability/ZD-2024-01062" title="ZD-2024-01062">ZD-2024-01062</a> 台中精美無聊科技SQLi to login+RXSS+SXSS+ckfinder後臺未關閉</p>
-<p><a href="https://zeroday.hitcon.org/vulnerability/ZD-2024-01064" title="ZD-2024-01064">ZD-2024-01064</a> 達特楊美學診所SQLi to login+XSS+ckfinder後臺未關閉</p>
-<p><a href="https://zeroday.hitcon.org/vulnerability/ZD-2024-01083" title="ZD-2024-01083">ZD-2024-01083</a> TKB甄戰學習顧問中心RXSS</p>
-<p><a href="https://zeroday.hitcon.org/vulnerability/ZD-2024-01084" title="ZD-2024-01084">ZD-2024-01084</a> 文山美學診所SQLi to login+XSS+ckfinder後臺未關閉</p>
-<p><a href="https://zeroday.hitcon.org/vulnerability/ZD-2024-01085" title="ZD-2024-01085">ZD-2024-01085</a> 牧丘銅鑼燒SQLi to login</p>
-<p><a href="https://zeroday.hitcon.org/vulnerability/ZD-2024-01086" title="ZD-2024-01086">ZD-2024-01086</a> 黑傑克整形外科診所SQLi to login+ckfinder後臺未關閉</p>
-<p><a href="https://zeroday.hitcon.org/vulnerability/ZD-2024-01087" title="ZD-2024-01087">ZD-2024-01087</a> 勝林五金SQLi to login+ckfinder後臺未關閉</p>
-<p><a href="https://zeroday.hitcon.org/vulnerability/ZD-2024-01088" title="ZD-2024-01088">ZD-2024-01088</a> 瀚升精密科技有限公司SQLi to login+ckfinder後臺未關閉</p>
+</li>
+</ul>
+<h2 id="Day-0-場佈"><a href="#Day-0-場佈" class="headerlink" title="Day 0(場佈)"></a>Day 0(場佈)</h2><ul>
+<li>搬椅子</li>
+<li>搬桌子</li>
+<li>動線規劃</li>
+<li>吃便當</li>
+<li>晚上去饒河夜市</li>
+</ul>
+<h2 id="Day-1"><a href="#Day-1" class="headerlink" title="Day 1"></a>Day 1</h2><ul>
+<li>早餐三明治+紅茶</li>
+<li>坐在電梯前好幾個小時</li>
+<li>R0搬椅子</li>
+<li>閒逛</li>
+<li>吃漢堡 吃撈麵</li>
+<li>聽南韓講者超酷</li>
+<li>有夠累</li>
+<li>睡在VIP room</li>
+<li>房間看西甲</li>
+<li>還以為有夜唱</li>
+</ul>
+<h2 id="Day-2"><a href="#Day-2" class="headerlink" title="Day 2"></a>Day 2</h2><ul>
+<li>繼續吃</li>
+<li>聽台灣爬蟲開源資料講者 超幽默</li>
+<li>仙草茶</li>
+<li>有個阿北專門來吃東西的</li>
+<li>收桌子</li>
+<li>拆東西</li>
+<li>在閉幕簡報上看到自己 很感動</li>
+<li>慶功宴 佛跳牆 龍蝦 雞佛 啤酒好欸</li>
+<li>才知道現場很多都是資工大佬 頂大好電</li>
+<li>大家都很好聊 一堆E人</li>
+<li>CPY有問題找他就對了 兆翌超好聊 喬不會喝酒笑死 柚子講者超電 賴彥江超幽默 </li>
+<li>口譯大哥說他18歲 pm5光頭超好認 攝影大哥敬酒*n次 室友雨辰居然是文組的</li>
+<li>有人喝醉超好笑 啤酒而已欸</li>
+<li>搭高鐵 好不捨</li>
+<li>整個g0v氣氛好好 好喜歡 2026再來!</li>
+</ul>
+<h1 id="總結"><a href="#總結" class="headerlink" title="總結"></a>總結</h1><p>我愛g0v summit，氣氛好讚，工人福利給過，認識好多新朋友，g0v summit 2026見!</p>
+<hr>
+<!-- Start of CuterCounter Code -->
+<p><a href="https://www.cutercounter.com/traditional-chinese-nn/" target="_blank" style="pointer-events: none;"><img src="https://www.cutercounter.com/hits.php?id=huxpnnqf&nd=6&style=11" border="0" alt="網頁計數器"></a></p>
+<!-- End of CuterCounter Code -->
 ]]></content>
       <categories>
-        <category>資安</category>
+        <category>紀錄</category>
       </categories>
   </entry>
   <entry>
     <title>程式週記</title>
-    <url>/personal/weekly-diary/</url>
+    <url>/weekly-diary/</url>
     <content><![CDATA[<h1 id="Week-1-3-17-3-23"><a href="#Week-1-3-17-3-23" class="headerlink" title="Week 1 (3&#x2F;17~3&#x2F;23)"></a>Week 1 (3&#x2F;17~3&#x2F;23)</h1><ul>
 <li>APP (week1)<ul>
 <li>Still searching for a reasonable UI&#x2F;UX</li>
@@ -1355,8 +1325,38 @@ ABaB
       </categories>
   </entry>
   <entry>
+    <title>漏洞紀錄</title>
+    <url>/vulnerability/</url>
+    <content><![CDATA[<h1 id="漏洞"><a href="#漏洞" class="headerlink" title="漏洞"></a>漏洞</h1><p><a href="https://zeroday.hitcon.org/vulnerability/ZD-2024-00899" title="ZD-2024-00899">ZD-2024-00899</a> 中原大學SQLi</p>
+<ul>
+<li>多位學生+教職員工個人資料</li>
+</ul>
+<p><a href="https://zeroday.hitcon.org/vulnerability/ZD-2024-00900" title="ZD-2024-00900">ZD-2024-00900</a> 台中教育大學SQLi</p>
+<ul>
+<li>多位學生個人資料(嚴重資料外洩)</li>
+</ul>
+<p><a href="https://zeroday.hitcon.org/vulnerability/ZD-2024-00902" title="ZD-2024-00902">ZD-2024-00902</a> 國家華語測驗推動工作委員會SQLi</p>
+<p><a href="https://zeroday.hitcon.org/vulnerability/ZD-2024-00910" title="ZD-2024-00910">ZD-2024-00910</a> 臺北醫學大學SQLi</p>
+<p><a href="https://zeroday.hitcon.org/vulnerability/ZD-2024-00917" title="ZD-2024-00917">ZD-2024-00917</a> 低調資訊有限公司SQLi</p>
+<p><a href="https://zeroday.hitcon.org/vulnerability/ZD-2024-00918" title="ZD-2024-00918">ZD-2024-00918</a> 中原大學SQLi</p>
+<p><a href="https://zeroday.hitcon.org/vulnerability/ZD-2024-01060" title="ZD-2024-01060">ZD-2024-01060</a> 泰禾國際實業有限公司RXSS</p>
+<p><a href="https://zeroday.hitcon.org/vulnerability/ZD-2024-01061" title="ZD-2024-01061">ZD-2024-01061</a> 奧斯華德色技有限公司SQLi</p>
+<p><a href="https://zeroday.hitcon.org/vulnerability/ZD-2024-01062" title="ZD-2024-01062">ZD-2024-01062</a> 台中精美無聊科技SQLi to login+RXSS+SXSS+ckfinder後臺未關閉</p>
+<p><a href="https://zeroday.hitcon.org/vulnerability/ZD-2024-01064" title="ZD-2024-01064">ZD-2024-01064</a> 達特楊美學診所SQLi to login+XSS+ckfinder後臺未關閉</p>
+<p><a href="https://zeroday.hitcon.org/vulnerability/ZD-2024-01083" title="ZD-2024-01083">ZD-2024-01083</a> TKB甄戰學習顧問中心RXSS</p>
+<p><a href="https://zeroday.hitcon.org/vulnerability/ZD-2024-01084" title="ZD-2024-01084">ZD-2024-01084</a> 文山美學診所SQLi to login+XSS+ckfinder後臺未關閉</p>
+<p><a href="https://zeroday.hitcon.org/vulnerability/ZD-2024-01085" title="ZD-2024-01085">ZD-2024-01085</a> 牧丘銅鑼燒SQLi to login</p>
+<p><a href="https://zeroday.hitcon.org/vulnerability/ZD-2024-01086" title="ZD-2024-01086">ZD-2024-01086</a> 黑傑克整形外科診所SQLi to login+ckfinder後臺未關閉</p>
+<p><a href="https://zeroday.hitcon.org/vulnerability/ZD-2024-01087" title="ZD-2024-01087">ZD-2024-01087</a> 勝林五金SQLi to login+ckfinder後臺未關閉</p>
+<p><a href="https://zeroday.hitcon.org/vulnerability/ZD-2024-01088" title="ZD-2024-01088">ZD-2024-01088</a> 瀚升精密科技有限公司SQLi to login+ckfinder後臺未關閉</p>
+]]></content>
+      <categories>
+        <category>資安</category>
+      </categories>
+  </entry>
+  <entry>
     <title>日常刷題</title>
-    <url>/personal/zj-code/</url>
+    <url>/zj-code/</url>
     <content><![CDATA[<p>有空再更新</p>
 <h2 id="m370"><a href="#m370" class="headerlink" title="m370"></a>m370</h2><details>
   <summary>
