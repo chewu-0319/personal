@@ -1,6 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>docker參考資料</title>
+    <url>/20241114/</url>
+    <content><![CDATA[<h1 id="docker-25-03-14"><a href="#docker-25-03-14" class="headerlink" title="docker (25&#x2F;03&#x2F;14)"></a>docker (25&#x2F;03&#x2F;14)</h1><p>查容器</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">docker ps -a</span><br></pre></td></tr></table></figure>
+<p>關掉image</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">docker-compose down</span><br></pre></td></tr></table></figure>
+<p>重新建構映像檔</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">docker-compose build </span><br></pre></td></tr></table></figure>
+<p>啟動服務</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">docker-compose up -d </span><br></pre></td></tr></table></figure>
+
+<p>查port</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">netstat -tulnp</span><br></pre></td></tr></table></figure>
+
+<p>查server目前的IPv4公網IP</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">curl -4 ifconfig.me </span><br></pre></td></tr></table></figure>
+
+<hr>
+<h1 id="docker-2-24-11-14"><a href="#docker-2-24-11-14" class="headerlink" title="docker 2 (24&#x2F;11&#x2F;14)"></a>docker 2 (24&#x2F;11&#x2F;14)</h1><p>檢查容器</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">docker ps -a</span><br></pre></td></tr></table></figure>
+
+<p>啟動並進入容器</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">docker start demo_container</span><br><span class="line">docker exec -it demo_container /bin/bash</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>進容器後</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">source /opt/ros/humble/setup.bash</span><br><span class="line">cd demo</span><br><span class="line">bash start.sh</span><br></pre></td></tr></table></figure>
+
+<p>ctrl+d 退出容器</p>
+<p>停止容器</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">docker container stop demo_container</span><br></pre></td></tr></table></figure>
+
+<p>可視化</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">python3 visualization.py</span><br></pre></td></tr></table></figure>
+<p><a href="https://youtu.be/HGhSR-Vbb-E">https://youtu.be/HGhSR-Vbb-E</a></p>
+<p><a href="https://chewu-0319.github.io/personal/images/1114.pdf">1114</a></p>
+<p><a href="https://chewu-0319.github.io/personal/images/1115.pdf">1115</a></p>
+]]></content>
+      <categories>
+        <category>參考資料</category>
+      </categories>
+  </entry>
+  <entry>
     <title>金盾獎資料</title>
     <url>/20241011/</url>
     <content><![CDATA[<ol>
@@ -600,45 +642,71 @@ ABaB
       </categories>
   </entry>
   <entry>
-    <title>docker參考資料</title>
-    <url>/20241114/</url>
-    <content><![CDATA[<h1 id="docker-25-03-14"><a href="#docker-25-03-14" class="headerlink" title="docker (25&#x2F;03&#x2F;14)"></a>docker (25&#x2F;03&#x2F;14)</h1><p>查容器</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">docker ps -a</span><br></pre></td></tr></table></figure>
-<p>關掉image</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">docker-compose down</span><br></pre></td></tr></table></figure>
-<p>重新建構映像檔</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">docker-compose build </span><br></pre></td></tr></table></figure>
-<p>啟動服務</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">docker-compose up -d </span><br></pre></td></tr></table></figure>
-
-<p>查port</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">netstat -tulnp</span><br></pre></td></tr></table></figure>
-
-<p>查server目前的IPv4公網IP</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">curl -4 ifconfig.me </span><br></pre></td></tr></table></figure>
-
+    <title>g0v summit 2024</title>
+    <url>/g0vsummit/</url>
+    <content><![CDATA[<h1 id="g0v-summit"><a href="#g0v-summit" class="headerlink" title="g0v summit"></a>g0v summit</h1><h2 id="我都在幹嘛"><a href="#我都在幹嘛" class="headerlink" title="我都在幹嘛?"></a>我都在幹嘛?</h2><ul>
+<li>工作人員<ul>
+<li>搬椅子</li>
+<li>搬桌子</li>
+<li>場佈</li>
+<li>動線規劃</li>
+<li>拆</li>
+<li>坐在電梯前指引</li>
+<li>被外國人問路</li>
+</ul>
+</li>
+<li>福利<ul>
+<li>吃吃吃吃吃吃吃吃…</li>
+<li>喝喝喝喝喝喝喝喝…</li>
+<li>免費住宿 中研院活動中心</li>
+<li>仙草茶 (呵</li>
+</ul>
+</li>
+</ul>
+<h2 id="Day-0-場佈"><a href="#Day-0-場佈" class="headerlink" title="Day 0(場佈)"></a>Day 0(場佈)</h2><ul>
+<li>搬椅子</li>
+<li>搬桌子</li>
+<li>動線規劃</li>
+<li>吃便當</li>
+<li>晚上去饒河夜市</li>
+</ul>
+<h2 id="Day-1"><a href="#Day-1" class="headerlink" title="Day 1"></a>Day 1</h2><ul>
+<li>早餐三明治+紅茶</li>
+<li>坐在電梯前好幾個小時</li>
+<li>R0搬椅子</li>
+<li>閒逛</li>
+<li>吃漢堡 吃撈麵</li>
+<li>聽南韓講者超酷</li>
+<li>有夠累</li>
+<li>睡在VIP room</li>
+<li>房間看西甲</li>
+<li>還以為有夜唱</li>
+</ul>
+<h2 id="Day-2"><a href="#Day-2" class="headerlink" title="Day 2"></a>Day 2</h2><ul>
+<li>繼續吃</li>
+<li>聽台灣爬蟲開源資料講者 超幽默</li>
+<li>仙草茶</li>
+<li>有個阿北專門來吃東西的</li>
+<li>收桌子</li>
+<li>拆東西</li>
+<li>在閉幕簡報上看到自己 很感動</li>
+<li>慶功宴 佛跳牆 龍蝦 雞佛 啤酒好欸</li>
+<li>才知道現場很多都是資工大佬 頂大好電</li>
+<li>大家都很好聊 一堆E人</li>
+<li>CPY有問題找他就對了 兆翌超好聊 喬不會喝酒笑死 柚子講者超電 賴彥江超幽默 </li>
+<li>口譯大哥說他18歲 pm5光頭超好認 攝影大哥敬酒*n次 室友雨辰居然是文組的</li>
+<li>有人喝醉超好笑 啤酒而已欸</li>
+<li>搭高鐵 好不捨</li>
+<li>整個g0v氣氛好好 好喜歡 2026再來!</li>
+</ul>
+<h1 id="總結"><a href="#總結" class="headerlink" title="總結"></a>總結</h1><p>我愛g0v summit，氣氛好讚，工人福利給過，認識好多新朋友，g0v summit 2026見!</p>
 <hr>
-<h1 id="docker-2-24-11-14"><a href="#docker-2-24-11-14" class="headerlink" title="docker 2 (24&#x2F;11&#x2F;14)"></a>docker 2 (24&#x2F;11&#x2F;14)</h1><p>檢查容器</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">docker ps -a</span><br></pre></td></tr></table></figure>
-
-<p>啟動並進入容器</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">docker start demo_container</span><br><span class="line">docker exec -it demo_container /bin/bash</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>進容器後</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">source /opt/ros/humble/setup.bash</span><br><span class="line">cd demo</span><br><span class="line">bash start.sh</span><br></pre></td></tr></table></figure>
-
-<p>ctrl+d 退出容器</p>
-<p>停止容器</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">docker container stop demo_container</span><br></pre></td></tr></table></figure>
-
-<p>可視化</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">python3 visualization.py</span><br></pre></td></tr></table></figure>
-<p><a href="https://youtu.be/HGhSR-Vbb-E">https://youtu.be/HGhSR-Vbb-E</a></p>
-<p><a href="https://chewu-0319.github.io/personal/images/1114.pdf">1114</a></p>
-<p><a href="https://chewu-0319.github.io/personal/images/1115.pdf">1115</a></p>
+<!-- Start of CuterCounter Code -->
+<p><a href="https://www.cutercounter.com/traditional-chinese-nn/" target="_blank" style="pointer-events: none;"><img src="https://www.cutercounter.com/hits.php?id=huxpnnqf&nd=6&style=11" border="0" alt="網頁計數器"></a></p>
+<!-- End of CuterCounter Code -->
 ]]></content>
       <categories>
-        <category>參考資料</category>
+        <category>紀錄</category>
       </categories>
   </entry>
   <entry>
@@ -1009,71 +1077,33 @@ ABaB
       </categories>
   </entry>
   <entry>
-    <title>g0v summit 2024</title>
-    <url>/g0vsummit/</url>
-    <content><![CDATA[<h1 id="g0v-summit"><a href="#g0v-summit" class="headerlink" title="g0v summit"></a>g0v summit</h1><h2 id="我都在幹嘛"><a href="#我都在幹嘛" class="headerlink" title="我都在幹嘛?"></a>我都在幹嘛?</h2><ul>
-<li>工作人員<ul>
-<li>搬椅子</li>
-<li>搬桌子</li>
-<li>場佈</li>
-<li>動線規劃</li>
-<li>拆</li>
-<li>坐在電梯前指引</li>
-<li>被外國人問路</li>
+    <title>漏洞紀錄</title>
+    <url>/vulnerability/</url>
+    <content><![CDATA[<h1 id="漏洞"><a href="#漏洞" class="headerlink" title="漏洞"></a>漏洞</h1><p><a href="https://zeroday.hitcon.org/vulnerability/ZD-2024-00899" title="ZD-2024-00899">ZD-2024-00899</a> 中原大學SQLi</p>
+<ul>
+<li>多位學生+教職員工個人資料</li>
 </ul>
-</li>
-<li>福利<ul>
-<li>吃吃吃吃吃吃吃吃…</li>
-<li>喝喝喝喝喝喝喝喝…</li>
-<li>免費住宿 中研院活動中心</li>
-<li>仙草茶 (呵</li>
+<p><a href="https://zeroday.hitcon.org/vulnerability/ZD-2024-00900" title="ZD-2024-00900">ZD-2024-00900</a> 台中教育大學SQLi</p>
+<ul>
+<li>多位學生個人資料(嚴重資料外洩)</li>
 </ul>
-</li>
-</ul>
-<h2 id="Day-0-場佈"><a href="#Day-0-場佈" class="headerlink" title="Day 0(場佈)"></a>Day 0(場佈)</h2><ul>
-<li>搬椅子</li>
-<li>搬桌子</li>
-<li>動線規劃</li>
-<li>吃便當</li>
-<li>晚上去饒河夜市</li>
-</ul>
-<h2 id="Day-1"><a href="#Day-1" class="headerlink" title="Day 1"></a>Day 1</h2><ul>
-<li>早餐三明治+紅茶</li>
-<li>坐在電梯前好幾個小時</li>
-<li>R0搬椅子</li>
-<li>閒逛</li>
-<li>吃漢堡 吃撈麵</li>
-<li>聽南韓講者超酷</li>
-<li>有夠累</li>
-<li>睡在VIP room</li>
-<li>房間看西甲</li>
-<li>還以為有夜唱</li>
-</ul>
-<h2 id="Day-2"><a href="#Day-2" class="headerlink" title="Day 2"></a>Day 2</h2><ul>
-<li>繼續吃</li>
-<li>聽台灣爬蟲開源資料講者 超幽默</li>
-<li>仙草茶</li>
-<li>有個阿北專門來吃東西的</li>
-<li>收桌子</li>
-<li>拆東西</li>
-<li>在閉幕簡報上看到自己 很感動</li>
-<li>慶功宴 佛跳牆 龍蝦 雞佛 啤酒好欸</li>
-<li>才知道現場很多都是資工大佬 頂大好電</li>
-<li>大家都很好聊 一堆E人</li>
-<li>CPY有問題找他就對了 兆翌超好聊 喬不會喝酒笑死 柚子講者超電 賴彥江超幽默 </li>
-<li>口譯大哥說他18歲 pm5光頭超好認 攝影大哥敬酒*n次 室友雨辰居然是文組的</li>
-<li>有人喝醉超好笑 啤酒而已欸</li>
-<li>搭高鐵 好不捨</li>
-<li>整個g0v氣氛好好 好喜歡 2026再來!</li>
-</ul>
-<h1 id="總結"><a href="#總結" class="headerlink" title="總結"></a>總結</h1><p>我愛g0v summit，氣氛好讚，工人福利給過，認識好多新朋友，g0v summit 2026見!</p>
-<hr>
-<!-- Start of CuterCounter Code -->
-<p><a href="https://www.cutercounter.com/traditional-chinese-nn/" target="_blank" style="pointer-events: none;"><img src="https://www.cutercounter.com/hits.php?id=huxpnnqf&nd=6&style=11" border="0" alt="網頁計數器"></a></p>
-<!-- End of CuterCounter Code -->
+<p><a href="https://zeroday.hitcon.org/vulnerability/ZD-2024-00902" title="ZD-2024-00902">ZD-2024-00902</a> 國家華語測驗推動工作委員會SQLi</p>
+<p><a href="https://zeroday.hitcon.org/vulnerability/ZD-2024-00910" title="ZD-2024-00910">ZD-2024-00910</a> 臺北醫學大學SQLi</p>
+<p><a href="https://zeroday.hitcon.org/vulnerability/ZD-2024-00917" title="ZD-2024-00917">ZD-2024-00917</a> 低調資訊有限公司SQLi</p>
+<p><a href="https://zeroday.hitcon.org/vulnerability/ZD-2024-00918" title="ZD-2024-00918">ZD-2024-00918</a> 中原大學SQLi</p>
+<p><a href="https://zeroday.hitcon.org/vulnerability/ZD-2024-01060" title="ZD-2024-01060">ZD-2024-01060</a> 泰禾國際實業有限公司RXSS</p>
+<p><a href="https://zeroday.hitcon.org/vulnerability/ZD-2024-01061" title="ZD-2024-01061">ZD-2024-01061</a> 奧斯華德色技有限公司SQLi</p>
+<p><a href="https://zeroday.hitcon.org/vulnerability/ZD-2024-01062" title="ZD-2024-01062">ZD-2024-01062</a> 台中精美無聊科技SQLi to login+RXSS+SXSS+ckfinder後臺未關閉</p>
+<p><a href="https://zeroday.hitcon.org/vulnerability/ZD-2024-01064" title="ZD-2024-01064">ZD-2024-01064</a> 達特楊美學診所SQLi to login+XSS+ckfinder後臺未關閉</p>
+<p><a href="https://zeroday.hitcon.org/vulnerability/ZD-2024-01083" title="ZD-2024-01083">ZD-2024-01083</a> TKB甄戰學習顧問中心RXSS</p>
+<p><a href="https://zeroday.hitcon.org/vulnerability/ZD-2024-01084" title="ZD-2024-01084">ZD-2024-01084</a> 文山美學診所SQLi to login+XSS+ckfinder後臺未關閉</p>
+<p><a href="https://zeroday.hitcon.org/vulnerability/ZD-2024-01085" title="ZD-2024-01085">ZD-2024-01085</a> 牧丘銅鑼燒SQLi to login</p>
+<p><a href="https://zeroday.hitcon.org/vulnerability/ZD-2024-01086" title="ZD-2024-01086">ZD-2024-01086</a> 黑傑克整形外科診所SQLi to login+ckfinder後臺未關閉</p>
+<p><a href="https://zeroday.hitcon.org/vulnerability/ZD-2024-01087" title="ZD-2024-01087">ZD-2024-01087</a> 勝林五金SQLi to login+ckfinder後臺未關閉</p>
+<p><a href="https://zeroday.hitcon.org/vulnerability/ZD-2024-01088" title="ZD-2024-01088">ZD-2024-01088</a> 瀚升精密科技有限公司SQLi to login+ckfinder後臺未關閉</p>
 ]]></content>
       <categories>
-        <category>紀錄</category>
+        <category>資安</category>
       </categories>
   </entry>
   <entry>
@@ -1322,36 +1352,6 @@ ABaB
 <!-- End of CuterCounter Code -->]]></content>
       <categories>
         <category>紀錄</category>
-      </categories>
-  </entry>
-  <entry>
-    <title>漏洞紀錄</title>
-    <url>/vulnerability/</url>
-    <content><![CDATA[<h1 id="漏洞"><a href="#漏洞" class="headerlink" title="漏洞"></a>漏洞</h1><p><a href="https://zeroday.hitcon.org/vulnerability/ZD-2024-00899" title="ZD-2024-00899">ZD-2024-00899</a> 中原大學SQLi</p>
-<ul>
-<li>多位學生+教職員工個人資料</li>
-</ul>
-<p><a href="https://zeroday.hitcon.org/vulnerability/ZD-2024-00900" title="ZD-2024-00900">ZD-2024-00900</a> 台中教育大學SQLi</p>
-<ul>
-<li>多位學生個人資料(嚴重資料外洩)</li>
-</ul>
-<p><a href="https://zeroday.hitcon.org/vulnerability/ZD-2024-00902" title="ZD-2024-00902">ZD-2024-00902</a> 國家華語測驗推動工作委員會SQLi</p>
-<p><a href="https://zeroday.hitcon.org/vulnerability/ZD-2024-00910" title="ZD-2024-00910">ZD-2024-00910</a> 臺北醫學大學SQLi</p>
-<p><a href="https://zeroday.hitcon.org/vulnerability/ZD-2024-00917" title="ZD-2024-00917">ZD-2024-00917</a> 低調資訊有限公司SQLi</p>
-<p><a href="https://zeroday.hitcon.org/vulnerability/ZD-2024-00918" title="ZD-2024-00918">ZD-2024-00918</a> 中原大學SQLi</p>
-<p><a href="https://zeroday.hitcon.org/vulnerability/ZD-2024-01060" title="ZD-2024-01060">ZD-2024-01060</a> 泰禾國際實業有限公司RXSS</p>
-<p><a href="https://zeroday.hitcon.org/vulnerability/ZD-2024-01061" title="ZD-2024-01061">ZD-2024-01061</a> 奧斯華德色技有限公司SQLi</p>
-<p><a href="https://zeroday.hitcon.org/vulnerability/ZD-2024-01062" title="ZD-2024-01062">ZD-2024-01062</a> 台中精美無聊科技SQLi to login+RXSS+SXSS+ckfinder後臺未關閉</p>
-<p><a href="https://zeroday.hitcon.org/vulnerability/ZD-2024-01064" title="ZD-2024-01064">ZD-2024-01064</a> 達特楊美學診所SQLi to login+XSS+ckfinder後臺未關閉</p>
-<p><a href="https://zeroday.hitcon.org/vulnerability/ZD-2024-01083" title="ZD-2024-01083">ZD-2024-01083</a> TKB甄戰學習顧問中心RXSS</p>
-<p><a href="https://zeroday.hitcon.org/vulnerability/ZD-2024-01084" title="ZD-2024-01084">ZD-2024-01084</a> 文山美學診所SQLi to login+XSS+ckfinder後臺未關閉</p>
-<p><a href="https://zeroday.hitcon.org/vulnerability/ZD-2024-01085" title="ZD-2024-01085">ZD-2024-01085</a> 牧丘銅鑼燒SQLi to login</p>
-<p><a href="https://zeroday.hitcon.org/vulnerability/ZD-2024-01086" title="ZD-2024-01086">ZD-2024-01086</a> 黑傑克整形外科診所SQLi to login+ckfinder後臺未關閉</p>
-<p><a href="https://zeroday.hitcon.org/vulnerability/ZD-2024-01087" title="ZD-2024-01087">ZD-2024-01087</a> 勝林五金SQLi to login+ckfinder後臺未關閉</p>
-<p><a href="https://zeroday.hitcon.org/vulnerability/ZD-2024-01088" title="ZD-2024-01088">ZD-2024-01088</a> 瀚升精密科技有限公司SQLi to login+ckfinder後臺未關閉</p>
-]]></content>
-      <categories>
-        <category>資安</category>
       </categories>
   </entry>
   <entry>
