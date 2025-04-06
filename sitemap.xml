@@ -2,15 +2,6 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://chewu.tw/404.html</loc>
-    
-    <lastmod>2025-04-06</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://chewu.tw/about/index.html</loc>
     
     <lastmod>2025-03-13</lastmod>
@@ -160,14 +151,14 @@
   </url>
   
   <url>
-    <loc>https://chewu.tw/categories/%E7%B4%80%E9%8C%84/</loc>
+    <loc>https://chewu.tw/categories/%E7%89%B9%E6%AE%8A%E9%81%B8%E6%89%8D/</loc>
     <lastmod>2025-04-06</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://chewu.tw/categories/%E7%89%B9%E6%AE%8A%E9%81%B8%E6%89%8D/</loc>
+    <loc>https://chewu.tw/categories/%E7%B4%80%E9%8C%84/</loc>
     <lastmod>2025-04-06</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
