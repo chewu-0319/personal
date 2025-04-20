@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/avatar3.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/avatar3.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/avatar3.png">
+  <link rel="mask-icon" href="/images/avatar3.png" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"chewu.tw","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+<!--SEO-->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "吳昕哲",
+  "alternateName": "chewu",
+  "url": "https://chewu.tw/",
+  "sameAs": [
+    "https://discordapp.com/users/768889520280043561",
+    "https://www.instagram.com/che._.wu",
+    "https://github.com/chewu-0319"
+  ],
+  "jobTitle": "AI & 資訊安全愛好者",
+  "description": "吳昕哲（Che Wu, chewu, HSIN-CHE）的個人網站。"
+}
+</script>
+
+  <meta name="description" content="write-up">
+<meta property="og:type" content="article">
+<meta property="og:title" content="THJCC CTF 2025">
+<meta property="og:url" content="https://chewu.tw/20250421/index.html">
+<meta property="og:site_name" content="che&#39;s blog">
+<meta property="og:description" content="write-up">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://hackmd.io/_uploads/BJZQWqfJel.png">
+<meta property="og:image" content="https://hackmd.io/_uploads/BJl5FyL-1xx.png">
+<meta property="og:image" content="https://hackmd.io/_uploads/BJltJUW1ee.png">
+<meta property="og:image" content="https://hackmd.io/_uploads/By8okUbJgl.png">
+<meta property="og:image" content="https://hackmd.io/_uploads/BJKTJIbJel.png">
+<meta property="og:image" content="https://hackmd.io/_uploads/rkyeeL-ylg.png">
+<meta property="og:image" content="https://hackmd.io/_uploads/rkxbgLbyeg.png">
+<meta property="og:image" content="https://hackmd.io/_uploads/SysHlIWygl.png">
+<meta property="og:image" content="https://hackmd.io/_uploads/BJ7vlIZ1ee.png">
+<meta property="og:image" content="https://hackmd.io/_uploads/S1WFlLZ1xg.png">
+<meta property="og:image" content="https://hackmd.io/_uploads/H1nXlI-1xl.png">
+<meta property="og:image" content="https://hackmd.io/_uploads/HkANx8W1ll.png">
+<meta property="og:image" content="https://hackmd.io/_uploads/S1Aym8ZJgg.png">
+<meta property="og:image" content="https://hackmd.io/_uploads/SyvyXU-kll.png">
+<meta property="og:image" content="https://hackmd.io/_uploads/HyF_mU-ylg.png">
+<meta property="og:image" content="https://hackmd.io/_uploads/B1JC7UWklg.png">
+<meta property="og:image" content="https://hackmd.io/_uploads/SJL91Dbkxg.png">
+<meta property="og:image" content="https://hackmd.io/_uploads/HJ1FvPZ1gg.png">
+<meta property="og:image" content="https://hackmd.io/_uploads/S1vxVP-1gg.png">
+<meta property="og:image" content="https://hackmd.io/_uploads/SyJUDDWJxl.png">
+<meta property="og:image" content="https://hackmd.io/_uploads/rJM4vD-Jgx.png">
+<meta property="og:image" content="https://hackmd.io/_uploads/S1pfDw-Jxl.png">
+<meta property="og:image" content="https://hackmd.io/_uploads/rkaRj7z1xe.png">
+<meta property="og:image" content="https://hackmd.io/_uploads/B1m4SfGyxx.png">
+<meta property="og:image" content="https://hackmd.io/_uploads/HyTFjmGJll.png">
+<meta property="og:image" content="https://hackmd.io/_uploads/B1MYjQGkee.png">
+<meta property="og:image" content="https://hackmd.io/_uploads/B1U6jXfkeg.png">
+<meta property="og:image" content="https://hackmd.io/_uploads/H1nff4fJxx.png">
+<meta property="og:image" content="https://hackmd.io/_uploads/BykUzVzyxl.png">
+<meta property="og:image" content="https://hackmd.io/_uploads/BkhOMVfJxg.png">
+<meta property="og:image" content="https://hackmd.io/_uploads/rk0CBUGJgg.png">
+<meta property="og:image" content="https://hackmd.io/_uploads/H1Le8Uf1xg.png">
+<meta property="og:image" content="https://hackmd.io/_uploads/SJKyzrzJxe.png">
+<meta property="og:image" content="https://hackmd.io/_uploads/SyKaWHz1ee.png">
+<meta property="og:image" content="https://hackmd.io/_uploads/S1vqYBfylg.png">
+<meta property="og:image" content="https://hackmd.io/_uploads/B1Eptrzkgx.png">
+<meta property="og:image" content="https://hackmd.io/_uploads/BJDvcHMyll.png">
+<meta property="og:image" content="https://hackmd.io/_uploads/S1Da5rfkeg.png">
+<meta property="og:image" content="https://hackmd.io/_uploads/B1q1hBf1ex.png">
+<meta property="og:image" content="https://hackmd.io/_uploads/Bkx13HGyll.png">
+<meta property="og:image" content="https://hackmd.io/_uploads/Skvf5Ufyge.png">
+<meta property="og:image" content="https://hackmd.io/_uploads/rkJM5UG1xe.png">
+<meta property="article:published_time" content="2025-04-20T16:28:13.893Z">
+<meta property="article:modified_time" content="2025-04-20T16:29:37.545Z">
+<meta property="article:author" content="che">
+<meta property="article:tag" content="吳昕哲, 昕哲, chewu, che, 程式, 資工, 資訊, 資訊社, 吳○哲, 光復資訊研究社, 資安, AI, NLP">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://hackmd.io/_uploads/BJZQWqfJel.png">
+
+<link rel="canonical" href="https://chewu.tw/20250421/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>THJCC CTF 2025 | che's blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">che's blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://chewu.tw/20250421/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="che">
+      <meta itemprop="description" content="Eat. Sleep. Code. Repeat.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="che's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          THJCC CTF 2025
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2025-04-21 00:28:13 / Modified: 00:29:37" itemprop="dateCreated datePublished" datetime="2025-04-21T00:28:13+08:00">2025-04-21</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E8%B3%87%E5%AE%89/" itemprop="url" rel="index"><span itemprop="name">資安</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="Symbols count in article">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">Symbols count in article: </span>
+              <span>900</span>
+            </span>
+            <span class="post-meta-item" title="Reading time">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">Reading time &asymp;</span>
+              <span>3 mins.</span>
+            </span>
+            <div class="post-description">write-up</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="好久沒打CTF"><a href="#好久沒打CTF" class="headerlink" title="好久沒打CTF!"></a>好久沒打CTF!</h1><p>只打不到5小時，原本只是來打web，沒想到還有時間就打下去了:D<br>蠻意外排名有 總排59&#x2F;133 分組27&#x2F;65 我以為專挑基礎題不會前50%的說xd</p>
+<p><img src="https://hackmd.io/_uploads/BJZQWqfJel.png" alt="image"></p>
+<h1 id="Web"><a href="#Web" class="headerlink" title="Web"></a>Web</h1><h2 id="Headless"><a href="#Headless" class="headerlink" title="Headless"></a>Headless</h2><p><img src="https://hackmd.io/_uploads/BJl5FyL-1xx.png" alt="image"></p>
+<p><img src="https://hackmd.io/_uploads/BJltJUW1ee.png" alt="image"><br>&#x2F;robots.txt<br>連去<br>&#x2F;hum4n-0nly<br>code寫request.headers要&lt;&#x3D;1<br><img src="https://hackmd.io/_uploads/By8okUbJgl.png" alt="image"><br>送乾淨的request<br><img src="https://hackmd.io/_uploads/BJKTJIbJel.png" alt="image"><br><code>THJCC&#123;Rob0t_r=@lways_he@dl3ss...&#125;</code></p>
+<hr>
+<h2 id="Nothing-here"><a href="#Nothing-here" class="headerlink" title="Nothing here"></a>Nothing here</h2><p><img src="https://hackmd.io/_uploads/rkyeeL-ylg.png" alt="image"><br>連進去開F12，發現可疑字串<br><img src="https://hackmd.io/_uploads/rkxbgLbyeg.png" alt="image"><br>直接<br>base64<br><code>THJCC&#123;h4ve_f5n_1n_b4by_w3b_a5161cc22af2ab20&#125;</code></p>
+<hr>
+<h2 id="APPL3-STOR3"><a href="#APPL3-STOR3" class="headerlink" title="APPL3 STOR3"></a>APPL3 STOR3</h2><p><img src="https://hackmd.io/_uploads/SysHlIWygl.png" alt="image"><br>隨便點商品，觀察URL<br><img src="https://hackmd.io/_uploads/BJ7vlIZ1ee.png" alt="image"><br>找到Flag頁面<br><img src="https://hackmd.io/_uploads/S1WFlLZ1xg.png" alt="image"></p>
+<p>改cookie</p>
+<p><img src="https://hackmd.io/_uploads/H1nXlI-1xl.png" alt="image"><br>改掉FLAG的金額去購買<br><img src="https://hackmd.io/_uploads/HkANx8W1ll.png" alt="image"></p>
+<p><code>THJCC&#123;Appl3_st0r3_M45t3r&#125;</code></p>
+<hr>
+<h2 id="Lime-Ranger"><a href="#Lime-Ranger" class="headerlink" title="Lime Ranger"></a>Lime Ranger</h2><p><img src="https://hackmd.io/_uploads/S1Aym8ZJgg.png" alt="image"></p>
+<p><img src="https://hackmd.io/_uploads/SyvyXU-kll.png" alt="image"><br>右下角查原碼</p>
+<p><img src="https://hackmd.io/_uploads/HyF_mU-ylg.png" alt="image"><br>手寫序列化<code>a:2:&#123;s:2:&quot;UR&quot;;i:500000000;s:3:&quot;SSR&quot;;i:500000000000;&#125;</code><br>再<br>出售帳號<br><img src="https://hackmd.io/_uploads/B1JC7UWklg.png" alt="image"></p>
+<p><code>THJCC&#123;lin3_r4nGeR_13_1ncreD!Ble_64m3?&#125;</code></p>
+<hr>
+<h2 id="Proxy題-感覺差一點"><a href="#Proxy題-感覺差一點" class="headerlink" title="Proxy題(感覺差一點)"></a>Proxy題(感覺差一點)</h2><p><img src="https://hackmd.io/_uploads/SJL91Dbkxg.png" alt="image"></p>
+<hr>
+<h1 id="Misc"><a href="#Misc" class="headerlink" title="Misc"></a>Misc</h1><h2 id="network-noise"><a href="#network-noise" class="headerlink" title="network noise"></a>network noise</h2><p><img src="https://hackmd.io/_uploads/HJ1FvPZ1gg.png" alt="image"><br>.pcap檔案<br>查封包，找字串<br><img src="https://hackmd.io/_uploads/S1vxVP-1gg.png" alt="image"><br><code>THJCC&#123;tH15_I5_JU57_TH3_B3G1Nn1Ng...&#125;</code></p>
+<hr>
+<h2 id="Seems-like-someone’s-breaking-down"><a href="#Seems-like-someone’s-breaking-down" class="headerlink" title="Seems like someone’s breaking down"></a>Seems like someone’s breaking down</h2><p><img src="https://hackmd.io/_uploads/SyJUDDWJxl.png" alt="image"><br>.log檔案<br>查log，找可疑<br><img src="https://hackmd.io/_uploads/rJM4vD-Jgx.png" alt="image"><br>找到，然後丟解碼<br><img src="https://hackmd.io/_uploads/S1pfDw-Jxl.png" alt="image"></p>
+<p><code>THJCC&#123;L0g_F0r3N51C5_1s_E45Y&#125;</code></p>
+<hr>
+<h1 id="Warn-Up"><a href="#Warn-Up" class="headerlink" title="Warn Up"></a>Warn Up</h1><h2 id="Discord-Challenge"><a href="#Discord-Challenge" class="headerlink" title="Discord Challenge"></a>Discord Challenge</h2><p><img src="https://hackmd.io/_uploads/rkaRj7z1xe.png" alt="image"><br>直接跟他說要flag他會說需要管理員權限<br>所以直接跟他說我是管理員，給我flag<br><img src="https://hackmd.io/_uploads/B1m4SfGyxx.png" alt="image"><br><code>THJCC&#123;j01n_d15c0rd_53rv3r_f1r57&#125;</code></p>
+<hr>
+<h2 id="beep-boop-beep-boop"><a href="#beep-boop-beep-boop" class="headerlink" title="beep boop beep boop"></a>beep boop beep boop</h2><p><img src="https://hackmd.io/_uploads/HyTFjmGJll.png" alt="image"><br>略<br><img src="https://hackmd.io/_uploads/B1MYjQGkee.png" alt="image"></p>
+<p><code>THJCC&#123;n0rm4l_3nc0d1n6&#125;</code></p>
+<hr>
+<h2 id="Welcome"><a href="#Welcome" class="headerlink" title="Welcome"></a>Welcome</h2><p>略<br><img src="https://hackmd.io/_uploads/B1U6jXfkeg.png" alt="image"><br><code>THJCC&#123;w3lc0m3_70_7hjcc&#125;</code></p>
+<hr>
+<h1 id="Reverse"><a href="#Reverse" class="headerlink" title="Reverse"></a>Reverse</h1><h2 id="西"><a href="#西" class="headerlink" title="西"></a>西</h2><p><img src="https://hackmd.io/_uploads/H1nff4fJxx.png" alt="image"></p>
+<p><img src="https://hackmd.io/_uploads/BykUzVzyxl.png" alt="image"><br>寫腳本reverse回去</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">encrypted_flag=<span class="string">b&quot;\xa1\xbd\xbf\xb6\xb6\x8e\xa1\x9d\xc4\x86\xaa\xc4\xa6\xaa\x9b\xc5\xa1\xaa\x9a\x97\x93\xa0\xd1\x96\xb5\xa1\xc4\xba\x9b\x88&quot;</span></span><br><span class="line">decrypted=<span class="built_in">bytes</span>([c^<span class="number">0xF5</span> <span class="keyword">for</span> c <span class="keyword">in</span> encrypted_flag])</span><br><span class="line"><span class="built_in">print</span>(decrypted.decode())</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p><img src="https://hackmd.io/_uploads/BkhOMVfJxg.png" alt="image"></p>
+<p><code>THJCC&#123;Th1s_1S_n0T_obfU$c@T1On&#125;</code></p>
+<hr>
+<h2 id="Python-Hunter"><a href="#Python-Hunter" class="headerlink" title="Python Hunter"></a>Python Hunter</h2><p><img src="https://hackmd.io/_uploads/rk0CBUGJgg.png" alt="image"><br><img src="https://hackmd.io/_uploads/H1Le8Uf1xg.png" alt="image"></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># uncompyle6 version 3.9.2</span></span><br><span class="line"><span class="comment"># Python bytecode version base 3.8.0 (3413)</span></span><br><span class="line"><span class="comment"># Decompiled from: Python 3.10.12 (main, Feb  4 2025, 14:57:36) [GCC 11.4.0]</span></span><br><span class="line"><span class="comment"># Embedded file name: hunter.py</span></span><br><span class="line"><span class="comment"># Compiled at: 2025-03-24 19:52:35</span></span><br><span class="line"><span class="comment"># Size of source mod 2**32: 655 bytes</span></span><br><span class="line"><span class="keyword">import</span> sys <span class="keyword">as</span> s</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">qwe</span>(<span class="params">abc, xyz</span>):</span><br><span class="line">    r = []</span><br><span class="line">    l = <span class="built_in">len</span>(xyz)</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(abc)):</span><br><span class="line">        t = <span class="built_in">chr</span>(abc[i] ^ <span class="built_in">ord</span>(xyz[i % l]))</span><br><span class="line">        r.append(t)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;&quot;</span>.join(r)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">d = [<span class="number">48</span>, <span class="number">39</span>, <span class="number">37</span>, <span class="number">49</span>, <span class="number">28</span>, <span class="number">16</span>, <span class="number">82</span>, <span class="number">17</span>, <span class="number">87</span>, <span class="number">13</span>, <span class="number">92</span>, <span class="number">71</span>, <span class="number">104</span>, <span class="number">52</span>, <span class="number">21</span>, <span class="number">0</span>, <span class="number">83</span>, </span><br><span class="line"> <span class="number">7</span>, <span class="number">95</span>, <span class="number">28</span>, <span class="number">55</span>, <span class="number">30</span>, <span class="number">11</span>, <span class="number">78</span>, <span class="number">87</span>, <span class="number">29</span>, <span class="number">18</span>]</span><br><span class="line">k = <span class="string">&quot;door_key&quot;</span></span><br><span class="line">m = <span class="string">&quot;not_a_key&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">asd</span>(<span class="params">p</span>):</span><br><span class="line">    u = <span class="number">42</span></span><br><span class="line">    v = qwe(d, k)</span><br><span class="line">    w = qwe(d, p)</span><br><span class="line">    <span class="keyword">if</span> w == v:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">f&quot;Correct! <span class="subst">&#123;v&#125;</span>&quot;</span>)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;Wrong!&quot;</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">dummy</span>():</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">len</span>(d) * <span class="number">2</span> - <span class="number">1</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&quot;__main__&quot;</span>:</span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">len</span>(s.argv) &gt; <span class="number">1</span>:</span><br><span class="line">        asd(s.argv[<span class="number">1</span>])</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;Please provide a key as an argument.&quot;</span>)</span><br><span class="line">    dummy()</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p><code>THJCC&#123;7h3b357_py7h0nhun73r&#125;</code></p>
+<hr>
+<h1 id="Pwn-我不會pwn"><a href="#Pwn-我不會pwn" class="headerlink" title="Pwn (我不會pwn @@)"></a>Pwn (我不會pwn @@)</h1><h2 id="Flag-Shopping"><a href="#Flag-Shopping" class="headerlink" title="Flag Shopping"></a>Flag Shopping</h2><p><img src="https://hackmd.io/_uploads/SJKyzrzJxe.png" alt="image"></p>
+<p>overflow老題目了<br><img src="https://hackmd.io/_uploads/SyKaWHz1ee.png" alt="image"></p>
+<p><code>THJCC&#123;W0w_U_R_G0oD_at_SHoPplng&#125; </code></p>
+<hr>
+<h1 id="Crypto"><a href="#Crypto" class="headerlink" title="Crypto"></a>Crypto</h1><h2 id="Frequency-Freakout"><a href="#Frequency-Freakout" class="headerlink" title="Frequency Freakout"></a>Frequency Freakout</h2><p><img src="https://hackmd.io/_uploads/S1vqYBfylg.png" alt="image"></p>
+<p>給</p>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">MW RUB LGSEC GN TEYDDMTYE TSZJRGASYJUZ, IYWZ BWRUFDMYDRD XBAMW LMRU DMIJEB DFXDRMRFRMGW TMJUBSD. RUBDB XYDMT RBTUWMHFBD CBIGWDRSYRB RUB VFEWBSYXMEMRZ GN EBRRBS NSBHFBWTZ YWC DUGL UGL TBSRYMW JYRRBSWD TYW SBVBYE UMCCBW IBDDYABD.</span><br><span class="line"></span><br><span class="line">GWB GN RUB IGDR BPTMRMWA BPBSTMDBD MW EBYSWMWA YXGFR TMJUBSD MD RSZMWA RG TGWDRSFTR ZGFS GLW YWC TUYEEBWAB GRUBSD RG XSBYQ MR. LUMEB IGCBSW BWTSZJRMGW IBRUGCD UYVB NYS DFSJYDDBC RUBDB RBTUWMHFBD MW TGIJEBPMRZ YWC DRSBWARU, RUB NFWCYIBWRYE MCBYD SBIYMW NYDTMWYRMWA.</span><br><span class="line"></span><br><span class="line">MN ZGF&#x27;SB FJ NGS Y JFOOEB, UBSB&#x27;D Y TUYEEBWAB: RUKTT&#123;DFXDR1R1GW_TMJU3S_1D_TGG1&#125; -K RUMD IMAUR EGGQ EMQB Y SYWCGI DRSMWA, XFR MR&#x27;D WGR. UMCCBW LMRUMW RUMD DBHFBWTB MD RUB QBZ RG FWCBSDRYWCMWA UGL DMIJEB EBRRBS DFXDRMRFRMGW TYW DRMEE DJYSQ TFSMGDMRZ YWC NFW.</span><br><span class="line"></span><br><span class="line">RSZ CBTGCMWA MR GS BIXBCCMWA MR LMRUMW ZGFS GLW TMJUBS. LUG QWGLD? ZGF IMAUR KFDR MWDJMSB DGIBGWB BEDB RG CMVB MWRG RUB LGSEC GN TSZJRYWYEZDMD.</span><br></pre></td></tr></table></figure>
+<p>去做頻率分析<br><img src="https://hackmd.io/_uploads/B1Eptrzkgx.png" alt="image"></p>
+<p><code>THJCC&#123;SUBST1T1ON_CIPH3R_1S_COO1&#125;</code></p>
+<hr>
+<h2 id="SNAKE"><a href="#SNAKE" class="headerlink" title="SNAKE"></a>SNAKE</h2><p><img src="https://hackmd.io/_uploads/BJDvcHMyll.png" alt="image"><br>題目給</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">SSSSS = input()</span><br><span class="line">print(&quot;&quot;.join([&quot;!@#$%^&amp;*()&#123;&#125;[]:;&quot;[int(x, 2)] for x in [&#x27;&#x27;.join(f&quot;&#123;ord(c):08b&#125;&quot; for c in SSSSS)[i:i+4] for i in range(0, len(SSSSS) * 8, 4)]]))</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">^$&amp;:&amp;@&amp;&#125;&amp;^*$#!&amp;@*#&amp;^#!&amp;^&amp;[&amp;;&amp;:&amp;*&amp;@*%&amp;^&amp;%#!&amp;[&amp;)&amp;]&amp;#&amp;[&amp;^*$*$#!*#&amp;^*!*%&amp;)&amp;[&amp;^*$#!&amp;;&amp;&amp;#!*%&amp;(&amp;^#!*$*^&amp;#&amp;;*#&amp;%&amp;^*##!^$&amp;^*#*!&amp;^&amp;:*%&amp;^*$#:#!%$&amp;[&amp;@&amp;%&amp;)*$*%&amp;)&amp;$&amp;@&amp;[&amp;[*)#!*$*@*^&amp;@&amp;]&amp;@*%&amp;^*$#[#!*$&amp;:&amp;@&amp;&#125;&amp;^*$#!&amp;@*#&amp;^#!&amp;^&amp;$*%&amp;;*%&amp;(&amp;^*#&amp;]&amp;)&amp;$#[#!&amp;@&amp;]&amp;:&amp;)&amp;;*%&amp;^#!*&amp;&amp;^*#*%&amp;^&amp;#*#&amp;@*%&amp;^*$#!&amp;$&amp;;*&amp;&amp;^*#&amp;^&amp;%#!&amp;)&amp;:#!&amp;;*&amp;&amp;^*#&amp;[&amp;@*!*!&amp;)&amp;:&amp;*#!*$&amp;$&amp;@&amp;[&amp;^*$#!&amp;]*^&amp;$&amp;(#!&amp;[&amp;)&amp;&#125;&amp;^#!&amp;;*%&amp;(&amp;^*##!&amp;]&amp;^&amp;]&amp;#&amp;^*#*$#!&amp;;&amp;&amp;#!*%&amp;(&amp;^#!&amp;**#&amp;;*^*!#:#!%]&amp;@&amp;:*)#!*$*!&amp;^&amp;$&amp;)&amp;^*$#!&amp;;&amp;&amp;#!*$&amp;:&amp;@&amp;&#125;&amp;^*$#!&amp;(&amp;@*&amp;&amp;^#!*$&amp;&#125;*^&amp;[&amp;[*$#!**&amp;)*%&amp;(#!*$&amp;^*&amp;&amp;^*#&amp;@&amp;[#!&amp;]&amp;;*#&amp;^#!&amp;&#123;&amp;;&amp;)&amp;:*%*$#!*%&amp;(&amp;@&amp;:#!*%&amp;(&amp;^&amp;)*##!&amp;[&amp;)*&#123;&amp;@*#&amp;%#!&amp;@&amp;:&amp;$&amp;^*$*%&amp;;*#*$#!&amp;@&amp;:&amp;%#!*#&amp;^&amp;[&amp;@*%&amp;)*&amp;&amp;^*$#[#!&amp;^&amp;:&amp;@&amp;#&amp;[&amp;)&amp;:&amp;*#!*%&amp;(&amp;^&amp;]#!*%&amp;;#!*$**&amp;@&amp;[&amp;[&amp;;**#!*!*#&amp;^*)#!&amp;]*^&amp;$&amp;(#!&amp;[&amp;@*#&amp;*&amp;^*##!*%&amp;(&amp;@&amp;:#!*%&amp;(&amp;^&amp;)*##!&amp;(&amp;^&amp;@&amp;%*$#!#(&amp;$*#&amp;@&amp;:&amp;)&amp;@&amp;[#!&amp;&#125;&amp;)&amp;:&amp;^*$&amp;)*$#)#:#!^%&amp;;#!&amp;@&amp;$&amp;$&amp;;&amp;]&amp;]&amp;;&amp;%&amp;@*%&amp;^#!*%&amp;(&amp;^&amp;)*##!&amp;:&amp;@*#*#&amp;;**#!&amp;#&amp;;&amp;%&amp;)&amp;^*$#[#!*$&amp;:&amp;@&amp;&#125;&amp;^*$#*#!*!&amp;@&amp;)*#&amp;^&amp;%#!&amp;;*#&amp;*&amp;@&amp;:*$#!#(*$*^&amp;$&amp;(#!&amp;@*$#!&amp;&#125;&amp;)&amp;%&amp;:&amp;^*)*$#)#!&amp;@*!*!&amp;^&amp;@*##!&amp;;&amp;:&amp;^#!&amp;)&amp;:#!&amp;&amp;*#&amp;;&amp;:*%#!&amp;;&amp;&amp;#!*%&amp;(&amp;^#!&amp;;*%&amp;(&amp;^*##!&amp;)&amp;:*$*%&amp;^&amp;@&amp;%#!&amp;;&amp;&amp;#!*$&amp;)&amp;%&amp;^#!&amp;#*)#!*$&amp;)&amp;%&amp;^#[#!&amp;@&amp;:&amp;%#!&amp;]&amp;;*$*%#!&amp;;&amp;:&amp;[*)#!&amp;(&amp;@*&amp;&amp;^#!&amp;;&amp;:&amp;^#!&amp;&amp;*^&amp;:&amp;$*%&amp;)&amp;;&amp;:&amp;@&amp;[#!&amp;[*^&amp;:&amp;*#:#!^$&amp;;&amp;]&amp;^#!*$*!&amp;^&amp;$&amp;)&amp;^*$#!*#&amp;^*%&amp;@&amp;)&amp;:#!&amp;@#!*!&amp;^&amp;[*&amp;&amp;)&amp;$#!&amp;*&amp;)*#&amp;%&amp;[&amp;^#!**&amp;)*%&amp;(#!&amp;@#!*!&amp;@&amp;)*##!&amp;;&amp;&amp;#!*&amp;&amp;^*$*%&amp;)&amp;*&amp;)&amp;@&amp;[#!&amp;$&amp;[&amp;@***$#!&amp;;&amp;:#!&amp;^&amp;)*%&amp;(&amp;^*##!*$&amp;)&amp;%&amp;^#!&amp;;&amp;&amp;#!*%&amp;(&amp;^#!&amp;$&amp;[&amp;;&amp;@&amp;$&amp;@#:#!%[&amp;)*&#123;&amp;@*#&amp;%*$#!&amp;(&amp;@*&amp;&amp;^#!&amp;)&amp;:&amp;%&amp;^*!&amp;^&amp;:&amp;%&amp;^&amp;:*%&amp;[*)#!&amp;^*&amp;&amp;;&amp;[*&amp;&amp;^&amp;%#!&amp;^&amp;[&amp;;&amp;:&amp;*&amp;@*%&amp;^#!&amp;#&amp;;&amp;%&amp;)&amp;^*$#!**&amp;)*%&amp;(&amp;;*^*%#!&amp;[&amp;)&amp;]&amp;#*$#!&amp;;*##!**&amp;)*%&amp;(#!&amp;**#&amp;^&amp;@*%&amp;[*)#!*#&amp;^&amp;%*^&amp;$&amp;^&amp;%#!&amp;[&amp;)&amp;]&amp;#*$#!&amp;@*%#!&amp;[&amp;^&amp;@*$*%#!*%**&amp;^&amp;:*%*)#]&amp;&amp;&amp;)*&amp;&amp;^#!*%&amp;)&amp;]&amp;^*$#!*&amp;&amp;)&amp;@#!&amp;$&amp;;&amp;:*&amp;&amp;^*#&amp;*&amp;^&amp;:*%#!&amp;^*&amp;&amp;;&amp;[*^*%&amp;)&amp;;&amp;:#[#!&amp;[&amp;^&amp;@&amp;%&amp;)&amp;:&amp;*#!*%&amp;;#!&amp;]&amp;@&amp;:*)#!&amp;[&amp;)&amp;:&amp;^&amp;@&amp;*&amp;^*$#!&amp;;&amp;&amp;#!&amp;[&amp;^&amp;*&amp;[&amp;^*$*$#!&amp;[&amp;)*&#123;&amp;@*#&amp;%*$#:#!^%&amp;(&amp;^*$&amp;^#!*#&amp;^*$&amp;^&amp;]&amp;#&amp;[&amp;^#!*$&amp;:&amp;@&amp;&#125;&amp;^*$#[#!&amp;#*^*%#!*$&amp;^*&amp;&amp;^*#&amp;@&amp;[#!&amp;$&amp;;&amp;]&amp;]&amp;;&amp;:#!&amp;**#&amp;;*^*!*$#!&amp;;&amp;&amp;#!&amp;[&amp;^&amp;*&amp;[&amp;^*$*$#!&amp;[&amp;)*&#123;&amp;@*#&amp;%*$#!&amp;(&amp;@*&amp;&amp;^#!&amp;^*)&amp;^&amp;[&amp;)&amp;%*$#!&amp;@&amp;:&amp;%#!&amp;^*(*%&amp;^*#&amp;:&amp;@&amp;[#!&amp;^&amp;@*#*$#[#!**&amp;(&amp;)&amp;$&amp;(#!*$&amp;:&amp;@&amp;&#125;&amp;^*$#!&amp;[&amp;@&amp;$&amp;&#125;#[#!&amp;@&amp;[*%&amp;(&amp;;*^&amp;*&amp;(#!*%&amp;(&amp;)*$#!*#*^&amp;[&amp;^#!&amp;)*$#!&amp;:&amp;;*%#!*^&amp;:&amp;)*&amp;&amp;^*#*$&amp;@&amp;[#!#(*$&amp;^&amp;^#!%@&amp;]*!&amp;(&amp;)*$&amp;#&amp;@&amp;^&amp;:&amp;)&amp;@#[#!%%&amp;)&amp;#&amp;@&amp;]&amp;)&amp;%&amp;@&amp;^#[#!&amp;@&amp;:&amp;%#!^!*)&amp;*&amp;;*!&amp;;&amp;%&amp;)&amp;%&amp;@&amp;^#)#:#!&amp;#&amp;[&amp;@&amp;#&amp;[&amp;@&amp;#&amp;[&amp;@#!%(&amp;^*#&amp;^#!&amp;)*$#!*)&amp;;*^*##!&amp;&amp;&amp;[&amp;@&amp;*$&#123;#!^%%(%&#123;%$%$*&#125;^$%:%@%&#125;$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$*]</span><br></pre></td></tr></table></figure>
+
+<p>老樣子，寫腳本吧</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">ciphertext=<span class="string">&quot;&quot;&quot;^$&amp;:&amp;@&amp;&#125;&amp;^*$#!&amp;@*#&amp;^#!&amp;^&amp;[&amp;;&amp;:&amp;*&amp;@*%&amp;^&amp;%#!&amp;[&amp;)&amp;]&amp;#&amp;[&amp;^*$*$#!*#&amp;^*!*%&amp;)&amp;[&amp;^*$#!&amp;;&amp;&amp;#!*%&amp;(&amp;^#!*$*^&amp;#&amp;;*#&amp;%&amp;^*##!^$&amp;^*#*!&amp;^&amp;:*%&amp;^*$#:#!%$&amp;[&amp;@&amp;%&amp;)*$*%&amp;)&amp;$&amp;@&amp;[&amp;[*)#!*$*@*^&amp;@&amp;]&amp;@*%&amp;^*$#[#!*$&amp;:&amp;@&amp;&#125;&amp;^*$#!&amp;@*#&amp;^#!&amp;^&amp;$*%&amp;;*%&amp;(&amp;^*#&amp;]&amp;)&amp;$#[#!&amp;@&amp;]&amp;:&amp;)&amp;;*%&amp;^#!*&amp;&amp;^*#*%&amp;^&amp;#*#&amp;@*%&amp;^*$#!&amp;$&amp;;*&amp;&amp;^*#&amp;^&amp;%#!&amp;)&amp;:#!&amp;;*&amp;&amp;^*#&amp;[&amp;@*!*!&amp;)&amp;:&amp;*#!*$&amp;$&amp;@&amp;[&amp;^*$#!&amp;]*^&amp;$&amp;(#!&amp;[&amp;)&amp;&#125;&amp;^#!&amp;;*%&amp;(&amp;^*##!&amp;]&amp;^&amp;]&amp;#&amp;^*#*$#!&amp;;&amp;&amp;#!*%&amp;(&amp;^#!&amp;**#&amp;;*^*!#:#!%]&amp;@&amp;:*)#!*$*!&amp;^&amp;$&amp;)&amp;^*$#!&amp;;&amp;&amp;#!*$&amp;:&amp;@&amp;&#125;&amp;^*$#!&amp;(&amp;@*&amp;&amp;^#!*$&amp;&#125;*^&amp;[&amp;[*$#!**&amp;)*%&amp;(#!*$&amp;^*&amp;&amp;^*#&amp;@&amp;[#!&amp;]&amp;;*#&amp;^#!&amp;&#123;&amp;;&amp;)&amp;:*%*$#!*%&amp;(&amp;@&amp;:#!*%&amp;(&amp;^&amp;)*##!&amp;[&amp;)*&#123;&amp;@*#&amp;%#!&amp;@&amp;:&amp;$&amp;^*$*%&amp;;*#*$#!&amp;@&amp;:&amp;%#!*#&amp;^&amp;[&amp;@*%&amp;)*&amp;&amp;^*$#[#!&amp;^&amp;:&amp;@&amp;#&amp;[&amp;)&amp;:&amp;*#!*%&amp;(&amp;^&amp;]#!*%&amp;;#!*$**&amp;@&amp;[&amp;[&amp;;**#!*!*#&amp;^*)#!&amp;]*^&amp;$&amp;(#!&amp;[&amp;@*#&amp;*&amp;^*##!*%&amp;(&amp;@&amp;:#!*%&amp;(&amp;^&amp;)*##!&amp;(&amp;^&amp;@&amp;%*$#!#(&amp;$*#&amp;@&amp;:&amp;)&amp;@&amp;[#!&amp;&#125;&amp;)&amp;:&amp;^*$&amp;)*$#)#:#!^%&amp;;#!&amp;@&amp;$&amp;$&amp;;&amp;]&amp;]&amp;;&amp;%&amp;@*%&amp;^#!*%&amp;(&amp;^&amp;)*##!&amp;:&amp;@*#*#&amp;;**#!&amp;#&amp;;&amp;%&amp;)&amp;^*$#[#!*$&amp;:&amp;@&amp;&#125;&amp;^*$#*#!*!&amp;@&amp;)*#&amp;^&amp;%#!&amp;;*#&amp;*&amp;@&amp;:*$#!#(*$*^&amp;$&amp;(#!&amp;@*$#!&amp;&#125;&amp;)&amp;%&amp;:&amp;^*)*$#)#!&amp;@*!*!&amp;^&amp;@*##!&amp;;&amp;:&amp;^#!&amp;)&amp;:#!&amp;&amp;*#&amp;;&amp;:*%#!&amp;;&amp;&amp;#!*%&amp;(&amp;^#!&amp;;*%&amp;(&amp;^*##!&amp;)&amp;:*$*%&amp;^&amp;@&amp;%#!&amp;;&amp;&amp;#!*$&amp;)&amp;%&amp;^#!&amp;#*)#!*$&amp;)&amp;%&amp;^#[#!&amp;@&amp;:&amp;%#!&amp;]&amp;;*$*%#!&amp;;&amp;:&amp;[*)#!&amp;(&amp;@*&amp;&amp;^#!&amp;;&amp;:&amp;^#!&amp;&amp;*^&amp;:&amp;$*%&amp;)&amp;;&amp;:&amp;@&amp;[#!&amp;[*^&amp;:&amp;*#:#!^$&amp;;&amp;]&amp;^#!*$*!&amp;^&amp;$&amp;)&amp;^*$#!*#&amp;^*%&amp;@&amp;)&amp;:#!&amp;@#!*!&amp;^&amp;[*&amp;&amp;)&amp;$#!&amp;*&amp;)*#&amp;%&amp;[&amp;^#!**&amp;)*%&amp;(#!&amp;@#!*!&amp;@&amp;)*##!&amp;;&amp;&amp;#!*&amp;&amp;^*$*%&amp;)&amp;*&amp;)&amp;@&amp;[#!&amp;$&amp;[&amp;@***$#!&amp;;&amp;:#!&amp;^&amp;)*%&amp;(&amp;^*##!*$&amp;)&amp;%&amp;^#!&amp;;&amp;&amp;#!*%&amp;(&amp;^#!&amp;$&amp;[&amp;;&amp;@&amp;$&amp;@#:#!%[&amp;)*&#123;&amp;@*#&amp;%*$#!&amp;(&amp;@*&amp;&amp;^#!&amp;)&amp;:&amp;%&amp;^*!&amp;^&amp;:&amp;%&amp;^&amp;:*%&amp;[*)#!&amp;^*&amp;&amp;;&amp;[*&amp;&amp;^&amp;%#!&amp;^&amp;[&amp;;&amp;:&amp;*&amp;@*%&amp;^#!&amp;#&amp;;&amp;%&amp;)&amp;^*$#!**&amp;)*%&amp;(&amp;;*^*%#!&amp;[&amp;)&amp;]&amp;#*$#!&amp;;*##!**&amp;)*%&amp;(#!&amp;**#&amp;^&amp;@*%&amp;[*)#!*#&amp;^&amp;%*^&amp;$&amp;^&amp;%#!&amp;[&amp;)&amp;]&amp;#*$#!&amp;@*%#!&amp;[&amp;^&amp;@*$*%#!*%**&amp;^&amp;:*%*)#]&amp;&amp;&amp;)*&amp;&amp;^#!*%&amp;)&amp;]&amp;^*$#!*&amp;&amp;)&amp;@#!&amp;$&amp;;&amp;:*&amp;&amp;^*#&amp;*&amp;^&amp;:*%#!&amp;^*&amp;&amp;;&amp;[*^*%&amp;)&amp;;&amp;:#[#!&amp;[&amp;^&amp;@&amp;%&amp;)&amp;:&amp;*#!*%&amp;;#!&amp;]&amp;@&amp;:*)#!&amp;[&amp;)&amp;:&amp;^&amp;@&amp;*&amp;^*$#!&amp;;&amp;&amp;#!&amp;[&amp;^&amp;*&amp;[&amp;^*$*$#!&amp;[&amp;)*&#123;&amp;@*#&amp;%*$#:#!^%&amp;(&amp;^*$&amp;^#!*#&amp;^*$&amp;^&amp;]&amp;#&amp;[&amp;^#!*$&amp;:&amp;@&amp;&#125;&amp;^*$#[#!&amp;#*^*%#!*$&amp;^*&amp;&amp;^*#&amp;@&amp;[#!&amp;$&amp;;&amp;]&amp;]&amp;;&amp;:#!&amp;**#&amp;;*^*!*$#!&amp;;&amp;&amp;#!&amp;[&amp;^&amp;*&amp;[&amp;^*$*$#!&amp;[&amp;)*&#123;&amp;@*#&amp;%*$#!&amp;(&amp;@*&amp;&amp;^#!&amp;^*)&amp;^&amp;[&amp;)&amp;%*$#!&amp;@&amp;:&amp;%#!&amp;^*(*%&amp;^*#&amp;:&amp;@&amp;[#!&amp;^&amp;@*#*$#[#!**&amp;(&amp;)&amp;$&amp;(#!*$&amp;:&amp;@&amp;&#125;&amp;^*$#!&amp;[&amp;@&amp;$&amp;&#125;#[#!&amp;@&amp;[*%&amp;(&amp;;*^&amp;*&amp;(#!*%&amp;(&amp;)*$#!*#*^&amp;[&amp;^#!&amp;)*$#!&amp;:&amp;;*%#!*^&amp;:&amp;)*&amp;&amp;^*#*$&amp;@&amp;[#!#(*$&amp;^&amp;^#!%@&amp;]*!&amp;(&amp;)*$&amp;#&amp;@&amp;^&amp;:&amp;)&amp;@#[#!%%&amp;)&amp;#&amp;@&amp;]&amp;)&amp;%&amp;@&amp;^#[#!&amp;@&amp;:&amp;%#!^!*)&amp;*&amp;;*!&amp;;&amp;%&amp;)&amp;%&amp;@&amp;^#)#:#!&amp;#&amp;[&amp;@&amp;#&amp;[&amp;@&amp;#&amp;[&amp;@#!%(&amp;^*#&amp;^#!&amp;)*$#!*)&amp;;*^*##!&amp;&amp;&amp;[&amp;@&amp;*$&#123;#!^%%(%&#123;%$%$*&#125;^$%:%@%&#125;$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$*]&quot;&quot;&quot;</span></span><br><span class="line">mapping=<span class="string">&quot;!@#$%^&amp;*()&#123;&#125;[]:;&quot;</span></span><br><span class="line">rev_map=&#123;c:<span class="built_in">format</span>(i,<span class="string">&#x27;04b&#x27;</span>) <span class="keyword">for</span> i,c <span class="keyword">in</span> <span class="built_in">enumerate</span>(mapping)&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># Step 1: 將每個符號轉為 4-bit binary</span></span><br><span class="line">bits=<span class="string">&#x27;&#x27;</span>.join([rev_map[c] <span class="keyword">for</span> c <span class="keyword">in</span> ciphertext])</span><br><span class="line"></span><br><span class="line"><span class="comment"># Step 2: 每 8 位轉回字元</span></span><br><span class="line">plain=<span class="string">&#x27;&#x27;</span>.join([<span class="built_in">chr</span>(<span class="built_in">int</span>(bits[i:i+<span class="number">8</span>],<span class="number">2</span>)) <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">0</span>,<span class="built_in">len</span>(bits),<span class="number">8</span>)])</span><br><span class="line"><span class="built_in">print</span>(plain)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p><img src="https://hackmd.io/_uploads/S1Da5rfkeg.png" alt="image"></p>
+<p><code>THJCC&#123;SNAK3333333333333333&#125;</code></p>
+<hr>
+<h2 id="DAES"><a href="#DAES" class="headerlink" title="DAES"></a>DAES</h2><p><img src="https://hackmd.io/_uploads/B1q1hBf1ex.png" alt="image"></p>
+<p><img src="https://hackmd.io/_uploads/Bkx13HGyll.png" alt="image"><br>chal.py:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/python3</span></span><br><span class="line"><span class="keyword">from</span> Crypto.Cipher <span class="keyword">import</span> AES</span><br><span class="line"><span class="keyword">from</span> secret <span class="keyword">import</span> FLAG</span><br><span class="line"><span class="keyword">import</span> random</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> signal</span><br><span class="line"></span><br><span class="line">TIMEOUT = <span class="number">120</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">timeout_handler</span>(<span class="params">signum, frame</span>):</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;\nTime&#x27;s up! No flag for u...&quot;</span>)</span><br><span class="line">    exit()</span><br><span class="line"></span><br><span class="line">signal.signal(signal.SIGALRM, timeout_handler)</span><br><span class="line">signal.alarm(TIMEOUT)</span><br><span class="line"></span><br><span class="line">target = os.urandom(<span class="number">16</span>)</span><br><span class="line"></span><br><span class="line">keys = [<span class="string">b&#x27;whalekey:&#x27;</span> + <span class="built_in">str</span>(random.randrange(<span class="number">1000000</span>, <span class="number">1999999</span>)).encode() <span class="keyword">for</span> _ <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">2</span>)]</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">enc</span>(<span class="params">key, msg</span>):</span><br><span class="line">    ecb = AES.new(key, AES.MODE_ECB)</span><br><span class="line">    <span class="keyword">return</span> ecb.encrypt(msg)</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">daes</span>(<span class="params">msg</span>):</span><br><span class="line">    tmp = enc(keys[<span class="number">0</span>], msg)</span><br><span class="line">    <span class="keyword">return</span> enc(keys[<span class="number">1</span>], tmp)</span><br><span class="line"></span><br><span class="line">test = <span class="string">b&#x27;you are my fire~&#x27;</span></span><br><span class="line"><span class="built_in">print</span>(daes(test).<span class="built_in">hex</span>())</span><br><span class="line"><span class="built_in">print</span>(daes(target).<span class="built_in">hex</span>())</span><br><span class="line"></span><br><span class="line">ans = <span class="built_in">input</span>(<span class="string">&quot;Ans:&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> ans == target.<span class="built_in">hex</span>():</span><br><span class="line">    <span class="built_in">print</span>(FLAG)</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;Nah, no flag for u...&quot;</span>)</span><br><span class="line"></span><br><span class="line">signal.alarm(<span class="number">0</span>)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>雙層AES-ECB<br><code>THJCC&#123;see_u_again_in_the_middle&#125;</code></li>
+</ul>
+<hr>
+<h2 id="Twins"><a href="#Twins" class="headerlink" title="Twins"></a>Twins</h2><p><img src="https://hackmd.io/_uploads/Skvf5Ufyge.png" alt="image"><br>RSA題<br><img src="https://hackmd.io/_uploads/rkJM5UG1xe.png" alt="image"></p>
+<p><code>THJCC&#123;7wIn_pR!me$_4RE_Too_L0VE1Y&#125;</code></p>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>Post author:  </strong>che
+  </li>
+  <li class="post-copyright-link">
+    <strong>Post link: </strong>
+    <a href="https://chewu.tw/20250421/" title="THJCC CTF 2025">https://chewu.tw/20250421/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>Copyright Notice:  </strong>All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC</a> unless stating additionally.
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/20241114/" rel="prev" title="docker參考資料">
+      <i class="fa fa-chevron-left"></i> docker參考資料
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%A5%BD%E4%B9%85%E6%B2%92%E6%89%93CTF"><span class="nav-number">1.</span> <span class="nav-text">好久沒打CTF!</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Web"><span class="nav-number">2.</span> <span class="nav-text">Web</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Headless"><span class="nav-number">2.1.</span> <span class="nav-text">Headless</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Nothing-here"><span class="nav-number">2.2.</span> <span class="nav-text">Nothing here</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#APPL3-STOR3"><span class="nav-number">2.3.</span> <span class="nav-text">APPL3 STOR3</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Lime-Ranger"><span class="nav-number">2.4.</span> <span class="nav-text">Lime Ranger</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Proxy%E9%A1%8C-%E6%84%9F%E8%A6%BA%E5%B7%AE%E4%B8%80%E9%BB%9E"><span class="nav-number">2.5.</span> <span class="nav-text">Proxy題(感覺差一點)</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Misc"><span class="nav-number">3.</span> <span class="nav-text">Misc</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#network-noise"><span class="nav-number">3.1.</span> <span class="nav-text">network noise</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Seems-like-someone%E2%80%99s-breaking-down"><span class="nav-number">3.2.</span> <span class="nav-text">Seems like someone’s breaking down</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Warn-Up"><span class="nav-number">4.</span> <span class="nav-text">Warn Up</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Discord-Challenge"><span class="nav-number">4.1.</span> <span class="nav-text">Discord Challenge</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#beep-boop-beep-boop"><span class="nav-number">4.2.</span> <span class="nav-text">beep boop beep boop</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Welcome"><span class="nav-number">4.3.</span> <span class="nav-text">Welcome</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Reverse"><span class="nav-number">5.</span> <span class="nav-text">Reverse</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A5%BF"><span class="nav-number">5.1.</span> <span class="nav-text">西</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Python-Hunter"><span class="nav-number">5.2.</span> <span class="nav-text">Python Hunter</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Pwn-%E6%88%91%E4%B8%8D%E6%9C%83pwn"><span class="nav-number">6.</span> <span class="nav-text">Pwn (我不會pwn @@)</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Flag-Shopping"><span class="nav-number">6.1.</span> <span class="nav-text">Flag Shopping</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Crypto"><span class="nav-number">7.</span> <span class="nav-text">Crypto</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Frequency-Freakout"><span class="nav-number">7.1.</span> <span class="nav-text">Frequency Freakout</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SNAKE"><span class="nav-number">7.2.</span> <span class="nav-text">SNAKE</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#DAES"><span class="nav-number">7.3.</span> <span class="nav-text">DAES</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Twins"><span class="nav-number">7.4.</span> <span class="nav-text">Twins</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="che"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">che</p>
+  <div class="site-description" itemprop="description">Eat. Sleep. Code. Repeat.</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+          <span class="site-state-item-count">12</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://chewu.tw/" title="Home → https:&#x2F;&#x2F;chewu.tw"><i class=" fa-fw"></i>Home</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://github.com/chewu-0319" title="Github → https:&#x2F;&#x2F;github.com&#x2F;chewu-0319" rel="noopener" target="_blank"><i class="Github fa-fw"></i>Github</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:dylan.jc2222@gmail.com" title="Email → mailto:dylan.jc2222@gmail.com" rel="noopener" target="_blank"><i class="Email fa-fw"></i>Email</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.instagram.com/che._.wu/" title="Instagram → https:&#x2F;&#x2F;www.instagram.com&#x2F;che._.wu&#x2F;" rel="noopener" target="_blank"><i class="instagram fa-fw"></i>Instagram</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://discordapp.com/users/768889520280043561" title="discord → https:&#x2F;&#x2F;discordapp.com&#x2F;users&#x2F;768889520280043561" rel="noopener" target="_blank"><i class="discord fa-fw"></i>discord</a>
+      </span>
+  </div>
+  <div class="cc-license motion-element" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">che</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">Symbols count total: </span>
+    <span title="Symbols count total">9k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">Reading time total &asymp;</span>
+    <span title="Reading time total">34 mins.</span>
+</div>
+
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+</body>
+</html>

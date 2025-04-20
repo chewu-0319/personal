@@ -1,6 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>docker參考資料</title>
+    <url>/20241114/</url>
+    <content><![CDATA[<h1 id="docker-25-03-14"><a href="#docker-25-03-14" class="headerlink" title="docker (25&#x2F;03&#x2F;14)"></a>docker (25&#x2F;03&#x2F;14)</h1><p>查容器</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">docker ps -a</span><br></pre></td></tr></table></figure>
+<p>關掉image</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">docker-compose down</span><br></pre></td></tr></table></figure>
+<p>重新建構映像檔</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">docker-compose build </span><br></pre></td></tr></table></figure>
+<p>啟動服務</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">docker-compose up -d </span><br></pre></td></tr></table></figure>
+
+<p>查port</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">netstat -tulnp</span><br></pre></td></tr></table></figure>
+
+<p>查server目前的IPv4公網IP</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">curl -4 ifconfig.me </span><br></pre></td></tr></table></figure>
+
+<hr>
+<h1 id="docker-2-24-11-14"><a href="#docker-2-24-11-14" class="headerlink" title="docker 2 (24&#x2F;11&#x2F;14)"></a>docker 2 (24&#x2F;11&#x2F;14)</h1><p>檢查容器</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">docker ps -a</span><br></pre></td></tr></table></figure>
+
+<p>啟動並進入容器</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">docker start demo_container</span><br><span class="line">docker exec -it demo_container /bin/bash</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>進容器後</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">source /opt/ros/humble/setup.bash</span><br><span class="line">cd demo</span><br><span class="line">bash start.sh</span><br></pre></td></tr></table></figure>
+
+<p>ctrl+d 退出容器</p>
+<p>停止容器</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">docker container stop demo_container</span><br></pre></td></tr></table></figure>
+
+<p>可視化</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">python3 visualization.py</span><br></pre></td></tr></table></figure>
+<p><a href="https://youtu.be/HGhSR-Vbb-E">https://youtu.be/HGhSR-Vbb-E</a></p>
+<p><a href="https://chewu-0319.github.io/personal/images/1114.pdf">1114</a></p>
+<p><a href="https://chewu-0319.github.io/personal/images/1115.pdf">1115</a></p>
+]]></content>
+      <categories>
+        <category>參考資料</category>
+      </categories>
+  </entry>
+  <entry>
     <title>金盾獎資料</title>
     <url>/20241011/</url>
     <content><![CDATA[<ol>
@@ -98,48 +140,6 @@
 ]]></content>
       <categories>
         <category>資安</category>
-      </categories>
-  </entry>
-  <entry>
-    <title>docker參考資料</title>
-    <url>/20241114/</url>
-    <content><![CDATA[<h1 id="docker-25-03-14"><a href="#docker-25-03-14" class="headerlink" title="docker (25&#x2F;03&#x2F;14)"></a>docker (25&#x2F;03&#x2F;14)</h1><p>查容器</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">docker ps -a</span><br></pre></td></tr></table></figure>
-<p>關掉image</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">docker-compose down</span><br></pre></td></tr></table></figure>
-<p>重新建構映像檔</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">docker-compose build </span><br></pre></td></tr></table></figure>
-<p>啟動服務</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">docker-compose up -d </span><br></pre></td></tr></table></figure>
-
-<p>查port</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">netstat -tulnp</span><br></pre></td></tr></table></figure>
-
-<p>查server目前的IPv4公網IP</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">curl -4 ifconfig.me </span><br></pre></td></tr></table></figure>
-
-<hr>
-<h1 id="docker-2-24-11-14"><a href="#docker-2-24-11-14" class="headerlink" title="docker 2 (24&#x2F;11&#x2F;14)"></a>docker 2 (24&#x2F;11&#x2F;14)</h1><p>檢查容器</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">docker ps -a</span><br></pre></td></tr></table></figure>
-
-<p>啟動並進入容器</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">docker start demo_container</span><br><span class="line">docker exec -it demo_container /bin/bash</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>進容器後</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">source /opt/ros/humble/setup.bash</span><br><span class="line">cd demo</span><br><span class="line">bash start.sh</span><br></pre></td></tr></table></figure>
-
-<p>ctrl+d 退出容器</p>
-<p>停止容器</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">docker container stop demo_container</span><br></pre></td></tr></table></figure>
-
-<p>可視化</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">python3 visualization.py</span><br></pre></td></tr></table></figure>
-<p><a href="https://youtu.be/HGhSR-Vbb-E">https://youtu.be/HGhSR-Vbb-E</a></p>
-<p><a href="https://chewu-0319.github.io/personal/images/1114.pdf">1114</a></p>
-<p><a href="https://chewu-0319.github.io/personal/images/1115.pdf">1115</a></p>
-]]></content>
-      <categories>
-        <category>參考資料</category>
       </categories>
   </entry>
   <entry>
@@ -614,6 +614,85 @@ ABaB
       </categories>
   </entry>
   <entry>
+    <title>THJCC CTF 2025</title>
+    <url>/20250421/</url>
+    <content><![CDATA[<h1 id="好久沒打CTF"><a href="#好久沒打CTF" class="headerlink" title="好久沒打CTF!"></a>好久沒打CTF!</h1><p>只打不到5小時，原本只是來打web，沒想到還有時間就打下去了:D<br>蠻意外排名有 總排59&#x2F;133 分組27&#x2F;65 我以為專挑基礎題不會前50%的說xd</p>
+<p><img src="https://hackmd.io/_uploads/BJZQWqfJel.png" alt="image"></p>
+<h1 id="Web"><a href="#Web" class="headerlink" title="Web"></a>Web</h1><h2 id="Headless"><a href="#Headless" class="headerlink" title="Headless"></a>Headless</h2><p><img src="https://hackmd.io/_uploads/BJl5FyL-1xx.png" alt="image"></p>
+<p><img src="https://hackmd.io/_uploads/BJltJUW1ee.png" alt="image"><br>&#x2F;robots.txt<br>連去<br>&#x2F;hum4n-0nly<br>code寫request.headers要&lt;&#x3D;1<br><img src="https://hackmd.io/_uploads/By8okUbJgl.png" alt="image"><br>送乾淨的request<br><img src="https://hackmd.io/_uploads/BJKTJIbJel.png" alt="image"><br><code>THJCC&#123;Rob0t_r=@lways_he@dl3ss...&#125;</code></p>
+<hr>
+<h2 id="Nothing-here"><a href="#Nothing-here" class="headerlink" title="Nothing here"></a>Nothing here</h2><p><img src="https://hackmd.io/_uploads/rkyeeL-ylg.png" alt="image"><br>連進去開F12，發現可疑字串<br><img src="https://hackmd.io/_uploads/rkxbgLbyeg.png" alt="image"><br>直接<br>base64<br><code>THJCC&#123;h4ve_f5n_1n_b4by_w3b_a5161cc22af2ab20&#125;</code></p>
+<hr>
+<h2 id="APPL3-STOR3"><a href="#APPL3-STOR3" class="headerlink" title="APPL3 STOR3"></a>APPL3 STOR3</h2><p><img src="https://hackmd.io/_uploads/SysHlIWygl.png" alt="image"><br>隨便點商品，觀察URL<br><img src="https://hackmd.io/_uploads/BJ7vlIZ1ee.png" alt="image"><br>找到Flag頁面<br><img src="https://hackmd.io/_uploads/S1WFlLZ1xg.png" alt="image"></p>
+<p>改cookie</p>
+<p><img src="https://hackmd.io/_uploads/H1nXlI-1xl.png" alt="image"><br>改掉FLAG的金額去購買<br><img src="https://hackmd.io/_uploads/HkANx8W1ll.png" alt="image"></p>
+<p><code>THJCC&#123;Appl3_st0r3_M45t3r&#125;</code></p>
+<hr>
+<h2 id="Lime-Ranger"><a href="#Lime-Ranger" class="headerlink" title="Lime Ranger"></a>Lime Ranger</h2><p><img src="https://hackmd.io/_uploads/S1Aym8ZJgg.png" alt="image"></p>
+<p><img src="https://hackmd.io/_uploads/SyvyXU-kll.png" alt="image"><br>右下角查原碼</p>
+<p><img src="https://hackmd.io/_uploads/HyF_mU-ylg.png" alt="image"><br>手寫序列化<code>a:2:&#123;s:2:&quot;UR&quot;;i:500000000;s:3:&quot;SSR&quot;;i:500000000000;&#125;</code><br>再<br>出售帳號<br><img src="https://hackmd.io/_uploads/B1JC7UWklg.png" alt="image"></p>
+<p><code>THJCC&#123;lin3_r4nGeR_13_1ncreD!Ble_64m3?&#125;</code></p>
+<hr>
+<h2 id="Proxy題-感覺差一點"><a href="#Proxy題-感覺差一點" class="headerlink" title="Proxy題(感覺差一點)"></a>Proxy題(感覺差一點)</h2><p><img src="https://hackmd.io/_uploads/SJL91Dbkxg.png" alt="image"></p>
+<hr>
+<h1 id="Misc"><a href="#Misc" class="headerlink" title="Misc"></a>Misc</h1><h2 id="network-noise"><a href="#network-noise" class="headerlink" title="network noise"></a>network noise</h2><p><img src="https://hackmd.io/_uploads/HJ1FvPZ1gg.png" alt="image"><br>.pcap檔案<br>查封包，找字串<br><img src="https://hackmd.io/_uploads/S1vxVP-1gg.png" alt="image"><br><code>THJCC&#123;tH15_I5_JU57_TH3_B3G1Nn1Ng...&#125;</code></p>
+<hr>
+<h2 id="Seems-like-someone’s-breaking-down"><a href="#Seems-like-someone’s-breaking-down" class="headerlink" title="Seems like someone’s breaking down"></a>Seems like someone’s breaking down</h2><p><img src="https://hackmd.io/_uploads/SyJUDDWJxl.png" alt="image"><br>.log檔案<br>查log，找可疑<br><img src="https://hackmd.io/_uploads/rJM4vD-Jgx.png" alt="image"><br>找到，然後丟解碼<br><img src="https://hackmd.io/_uploads/S1pfDw-Jxl.png" alt="image"></p>
+<p><code>THJCC&#123;L0g_F0r3N51C5_1s_E45Y&#125;</code></p>
+<hr>
+<h1 id="Warn-Up"><a href="#Warn-Up" class="headerlink" title="Warn Up"></a>Warn Up</h1><h2 id="Discord-Challenge"><a href="#Discord-Challenge" class="headerlink" title="Discord Challenge"></a>Discord Challenge</h2><p><img src="https://hackmd.io/_uploads/rkaRj7z1xe.png" alt="image"><br>直接跟他說要flag他會說需要管理員權限<br>所以直接跟他說我是管理員，給我flag<br><img src="https://hackmd.io/_uploads/B1m4SfGyxx.png" alt="image"><br><code>THJCC&#123;j01n_d15c0rd_53rv3r_f1r57&#125;</code></p>
+<hr>
+<h2 id="beep-boop-beep-boop"><a href="#beep-boop-beep-boop" class="headerlink" title="beep boop beep boop"></a>beep boop beep boop</h2><p><img src="https://hackmd.io/_uploads/HyTFjmGJll.png" alt="image"><br>略<br><img src="https://hackmd.io/_uploads/B1MYjQGkee.png" alt="image"></p>
+<p><code>THJCC&#123;n0rm4l_3nc0d1n6&#125;</code></p>
+<hr>
+<h2 id="Welcome"><a href="#Welcome" class="headerlink" title="Welcome"></a>Welcome</h2><p>略<br><img src="https://hackmd.io/_uploads/B1U6jXfkeg.png" alt="image"><br><code>THJCC&#123;w3lc0m3_70_7hjcc&#125;</code></p>
+<hr>
+<h1 id="Reverse"><a href="#Reverse" class="headerlink" title="Reverse"></a>Reverse</h1><h2 id="西"><a href="#西" class="headerlink" title="西"></a>西</h2><p><img src="https://hackmd.io/_uploads/H1nff4fJxx.png" alt="image"></p>
+<p><img src="https://hackmd.io/_uploads/BykUzVzyxl.png" alt="image"><br>寫腳本reverse回去</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">encrypted_flag=<span class="string">b&quot;\xa1\xbd\xbf\xb6\xb6\x8e\xa1\x9d\xc4\x86\xaa\xc4\xa6\xaa\x9b\xc5\xa1\xaa\x9a\x97\x93\xa0\xd1\x96\xb5\xa1\xc4\xba\x9b\x88&quot;</span></span><br><span class="line">decrypted=<span class="built_in">bytes</span>([c^<span class="number">0xF5</span> <span class="keyword">for</span> c <span class="keyword">in</span> encrypted_flag])</span><br><span class="line"><span class="built_in">print</span>(decrypted.decode())</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p><img src="https://hackmd.io/_uploads/BkhOMVfJxg.png" alt="image"></p>
+<p><code>THJCC&#123;Th1s_1S_n0T_obfU$c@T1On&#125;</code></p>
+<hr>
+<h2 id="Python-Hunter"><a href="#Python-Hunter" class="headerlink" title="Python Hunter"></a>Python Hunter</h2><p><img src="https://hackmd.io/_uploads/rk0CBUGJgg.png" alt="image"><br><img src="https://hackmd.io/_uploads/H1Le8Uf1xg.png" alt="image"></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># uncompyle6 version 3.9.2</span></span><br><span class="line"><span class="comment"># Python bytecode version base 3.8.0 (3413)</span></span><br><span class="line"><span class="comment"># Decompiled from: Python 3.10.12 (main, Feb  4 2025, 14:57:36) [GCC 11.4.0]</span></span><br><span class="line"><span class="comment"># Embedded file name: hunter.py</span></span><br><span class="line"><span class="comment"># Compiled at: 2025-03-24 19:52:35</span></span><br><span class="line"><span class="comment"># Size of source mod 2**32: 655 bytes</span></span><br><span class="line"><span class="keyword">import</span> sys <span class="keyword">as</span> s</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">qwe</span>(<span class="params">abc, xyz</span>):</span><br><span class="line">    r = []</span><br><span class="line">    l = <span class="built_in">len</span>(xyz)</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(abc)):</span><br><span class="line">        t = <span class="built_in">chr</span>(abc[i] ^ <span class="built_in">ord</span>(xyz[i % l]))</span><br><span class="line">        r.append(t)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;&quot;</span>.join(r)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">d = [<span class="number">48</span>, <span class="number">39</span>, <span class="number">37</span>, <span class="number">49</span>, <span class="number">28</span>, <span class="number">16</span>, <span class="number">82</span>, <span class="number">17</span>, <span class="number">87</span>, <span class="number">13</span>, <span class="number">92</span>, <span class="number">71</span>, <span class="number">104</span>, <span class="number">52</span>, <span class="number">21</span>, <span class="number">0</span>, <span class="number">83</span>, </span><br><span class="line"> <span class="number">7</span>, <span class="number">95</span>, <span class="number">28</span>, <span class="number">55</span>, <span class="number">30</span>, <span class="number">11</span>, <span class="number">78</span>, <span class="number">87</span>, <span class="number">29</span>, <span class="number">18</span>]</span><br><span class="line">k = <span class="string">&quot;door_key&quot;</span></span><br><span class="line">m = <span class="string">&quot;not_a_key&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">asd</span>(<span class="params">p</span>):</span><br><span class="line">    u = <span class="number">42</span></span><br><span class="line">    v = qwe(d, k)</span><br><span class="line">    w = qwe(d, p)</span><br><span class="line">    <span class="keyword">if</span> w == v:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">f&quot;Correct! <span class="subst">&#123;v&#125;</span>&quot;</span>)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;Wrong!&quot;</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">dummy</span>():</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">len</span>(d) * <span class="number">2</span> - <span class="number">1</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&quot;__main__&quot;</span>:</span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">len</span>(s.argv) &gt; <span class="number">1</span>:</span><br><span class="line">        asd(s.argv[<span class="number">1</span>])</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;Please provide a key as an argument.&quot;</span>)</span><br><span class="line">    dummy()</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p><code>THJCC&#123;7h3b357_py7h0nhun73r&#125;</code></p>
+<hr>
+<h1 id="Pwn-我不會pwn"><a href="#Pwn-我不會pwn" class="headerlink" title="Pwn (我不會pwn @@)"></a>Pwn (我不會pwn @@)</h1><h2 id="Flag-Shopping"><a href="#Flag-Shopping" class="headerlink" title="Flag Shopping"></a>Flag Shopping</h2><p><img src="https://hackmd.io/_uploads/SJKyzrzJxe.png" alt="image"></p>
+<p>overflow老題目了<br><img src="https://hackmd.io/_uploads/SyKaWHz1ee.png" alt="image"></p>
+<p><code>THJCC&#123;W0w_U_R_G0oD_at_SHoPplng&#125; </code></p>
+<hr>
+<h1 id="Crypto"><a href="#Crypto" class="headerlink" title="Crypto"></a>Crypto</h1><h2 id="Frequency-Freakout"><a href="#Frequency-Freakout" class="headerlink" title="Frequency Freakout"></a>Frequency Freakout</h2><p><img src="https://hackmd.io/_uploads/S1vqYBfylg.png" alt="image"></p>
+<p>給</p>
+<figure class="highlight txt"><table><tr><td class="code"><pre><span class="line">MW RUB LGSEC GN TEYDDMTYE TSZJRGASYJUZ, IYWZ BWRUFDMYDRD XBAMW LMRU DMIJEB DFXDRMRFRMGW TMJUBSD. RUBDB XYDMT RBTUWMHFBD CBIGWDRSYRB RUB VFEWBSYXMEMRZ GN EBRRBS NSBHFBWTZ YWC DUGL UGL TBSRYMW JYRRBSWD TYW SBVBYE UMCCBW IBDDYABD.</span><br><span class="line"></span><br><span class="line">GWB GN RUB IGDR BPTMRMWA BPBSTMDBD MW EBYSWMWA YXGFR TMJUBSD MD RSZMWA RG TGWDRSFTR ZGFS GLW YWC TUYEEBWAB GRUBSD RG XSBYQ MR. LUMEB IGCBSW BWTSZJRMGW IBRUGCD UYVB NYS DFSJYDDBC RUBDB RBTUWMHFBD MW TGIJEBPMRZ YWC DRSBWARU, RUB NFWCYIBWRYE MCBYD SBIYMW NYDTMWYRMWA.</span><br><span class="line"></span><br><span class="line">MN ZGF&#x27;SB FJ NGS Y JFOOEB, UBSB&#x27;D Y TUYEEBWAB: RUKTT&#123;DFXDR1R1GW_TMJU3S_1D_TGG1&#125; -K RUMD IMAUR EGGQ EMQB Y SYWCGI DRSMWA, XFR MR&#x27;D WGR. UMCCBW LMRUMW RUMD DBHFBWTB MD RUB QBZ RG FWCBSDRYWCMWA UGL DMIJEB EBRRBS DFXDRMRFRMGW TYW DRMEE DJYSQ TFSMGDMRZ YWC NFW.</span><br><span class="line"></span><br><span class="line">RSZ CBTGCMWA MR GS BIXBCCMWA MR LMRUMW ZGFS GLW TMJUBS. LUG QWGLD? ZGF IMAUR KFDR MWDJMSB DGIBGWB BEDB RG CMVB MWRG RUB LGSEC GN TSZJRYWYEZDMD.</span><br></pre></td></tr></table></figure>
+<p>去做頻率分析<br><img src="https://hackmd.io/_uploads/B1Eptrzkgx.png" alt="image"></p>
+<p><code>THJCC&#123;SUBST1T1ON_CIPH3R_1S_COO1&#125;</code></p>
+<hr>
+<h2 id="SNAKE"><a href="#SNAKE" class="headerlink" title="SNAKE"></a>SNAKE</h2><p><img src="https://hackmd.io/_uploads/BJDvcHMyll.png" alt="image"><br>題目給</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">SSSSS = input()</span><br><span class="line">print(&quot;&quot;.join([&quot;!@#$%^&amp;*()&#123;&#125;[]:;&quot;[int(x, 2)] for x in [&#x27;&#x27;.join(f&quot;&#123;ord(c):08b&#125;&quot; for c in SSSSS)[i:i+4] for i in range(0, len(SSSSS) * 8, 4)]]))</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight txt"><table><tr><td class="code"><pre><span class="line">^$&amp;:&amp;@&amp;&#125;&amp;^*$#!&amp;@*#&amp;^#!&amp;^&amp;[&amp;;&amp;:&amp;*&amp;@*%&amp;^&amp;%#!&amp;[&amp;)&amp;]&amp;#&amp;[&amp;^*$*$#!*#&amp;^*!*%&amp;)&amp;[&amp;^*$#!&amp;;&amp;&amp;#!*%&amp;(&amp;^#!*$*^&amp;#&amp;;*#&amp;%&amp;^*##!^$&amp;^*#*!&amp;^&amp;:*%&amp;^*$#:#!%$&amp;[&amp;@&amp;%&amp;)*$*%&amp;)&amp;$&amp;@&amp;[&amp;[*)#!*$*@*^&amp;@&amp;]&amp;@*%&amp;^*$#[#!*$&amp;:&amp;@&amp;&#125;&amp;^*$#!&amp;@*#&amp;^#!&amp;^&amp;$*%&amp;;*%&amp;(&amp;^*#&amp;]&amp;)&amp;$#[#!&amp;@&amp;]&amp;:&amp;)&amp;;*%&amp;^#!*&amp;&amp;^*#*%&amp;^&amp;#*#&amp;@*%&amp;^*$#!&amp;$&amp;;*&amp;&amp;^*#&amp;^&amp;%#!&amp;)&amp;:#!&amp;;*&amp;&amp;^*#&amp;[&amp;@*!*!&amp;)&amp;:&amp;*#!*$&amp;$&amp;@&amp;[&amp;^*$#!&amp;]*^&amp;$&amp;(#!&amp;[&amp;)&amp;&#125;&amp;^#!&amp;;*%&amp;(&amp;^*##!&amp;]&amp;^&amp;]&amp;#&amp;^*#*$#!&amp;;&amp;&amp;#!*%&amp;(&amp;^#!&amp;**#&amp;;*^*!#:#!%]&amp;@&amp;:*)#!*$*!&amp;^&amp;$&amp;)&amp;^*$#!&amp;;&amp;&amp;#!*$&amp;:&amp;@&amp;&#125;&amp;^*$#!&amp;(&amp;@*&amp;&amp;^#!*$&amp;&#125;*^&amp;[&amp;[*$#!**&amp;)*%&amp;(#!*$&amp;^*&amp;&amp;^*#&amp;@&amp;[#!&amp;]&amp;;*#&amp;^#!&amp;&#123;&amp;;&amp;)&amp;:*%*$#!*%&amp;(&amp;@&amp;:#!*%&amp;(&amp;^&amp;)*##!&amp;[&amp;)*&#123;&amp;@*#&amp;%#!&amp;@&amp;:&amp;$&amp;^*$*%&amp;;*#*$#!&amp;@&amp;:&amp;%#!*#&amp;^&amp;[&amp;@*%&amp;)*&amp;&amp;^*$#[#!&amp;^&amp;:&amp;@&amp;#&amp;[&amp;)&amp;:&amp;*#!*%&amp;(&amp;^&amp;]#!*%&amp;;#!*$**&amp;@&amp;[&amp;[&amp;;**#!*!*#&amp;^*)#!&amp;]*^&amp;$&amp;(#!&amp;[&amp;@*#&amp;*&amp;^*##!*%&amp;(&amp;@&amp;:#!*%&amp;(&amp;^&amp;)*##!&amp;(&amp;^&amp;@&amp;%*$#!#(&amp;$*#&amp;@&amp;:&amp;)&amp;@&amp;[#!&amp;&#125;&amp;)&amp;:&amp;^*$&amp;)*$#)#:#!^%&amp;;#!&amp;@&amp;$&amp;$&amp;;&amp;]&amp;]&amp;;&amp;%&amp;@*%&amp;^#!*%&amp;(&amp;^&amp;)*##!&amp;:&amp;@*#*#&amp;;**#!&amp;#&amp;;&amp;%&amp;)&amp;^*$#[#!*$&amp;:&amp;@&amp;&#125;&amp;^*$#*#!*!&amp;@&amp;)*#&amp;^&amp;%#!&amp;;*#&amp;*&amp;@&amp;:*$#!#(*$*^&amp;$&amp;(#!&amp;@*$#!&amp;&#125;&amp;)&amp;%&amp;:&amp;^*)*$#)#!&amp;@*!*!&amp;^&amp;@*##!&amp;;&amp;:&amp;^#!&amp;)&amp;:#!&amp;&amp;*#&amp;;&amp;:*%#!&amp;;&amp;&amp;#!*%&amp;(&amp;^#!&amp;;*%&amp;(&amp;^*##!&amp;)&amp;:*$*%&amp;^&amp;@&amp;%#!&amp;;&amp;&amp;#!*$&amp;)&amp;%&amp;^#!&amp;#*)#!*$&amp;)&amp;%&amp;^#[#!&amp;@&amp;:&amp;%#!&amp;]&amp;;*$*%#!&amp;;&amp;:&amp;[*)#!&amp;(&amp;@*&amp;&amp;^#!&amp;;&amp;:&amp;^#!&amp;&amp;*^&amp;:&amp;$*%&amp;)&amp;;&amp;:&amp;@&amp;[#!&amp;[*^&amp;:&amp;*#:#!^$&amp;;&amp;]&amp;^#!*$*!&amp;^&amp;$&amp;)&amp;^*$#!*#&amp;^*%&amp;@&amp;)&amp;:#!&amp;@#!*!&amp;^&amp;[*&amp;&amp;)&amp;$#!&amp;*&amp;)*#&amp;%&amp;[&amp;^#!**&amp;)*%&amp;(#!&amp;@#!*!&amp;@&amp;)*##!&amp;;&amp;&amp;#!*&amp;&amp;^*$*%&amp;)&amp;*&amp;)&amp;@&amp;[#!&amp;$&amp;[&amp;@***$#!&amp;;&amp;:#!&amp;^&amp;)*%&amp;(&amp;^*##!*$&amp;)&amp;%&amp;^#!&amp;;&amp;&amp;#!*%&amp;(&amp;^#!&amp;$&amp;[&amp;;&amp;@&amp;$&amp;@#:#!%[&amp;)*&#123;&amp;@*#&amp;%*$#!&amp;(&amp;@*&amp;&amp;^#!&amp;)&amp;:&amp;%&amp;^*!&amp;^&amp;:&amp;%&amp;^&amp;:*%&amp;[*)#!&amp;^*&amp;&amp;;&amp;[*&amp;&amp;^&amp;%#!&amp;^&amp;[&amp;;&amp;:&amp;*&amp;@*%&amp;^#!&amp;#&amp;;&amp;%&amp;)&amp;^*$#!**&amp;)*%&amp;(&amp;;*^*%#!&amp;[&amp;)&amp;]&amp;#*$#!&amp;;*##!**&amp;)*%&amp;(#!&amp;**#&amp;^&amp;@*%&amp;[*)#!*#&amp;^&amp;%*^&amp;$&amp;^&amp;%#!&amp;[&amp;)&amp;]&amp;#*$#!&amp;@*%#!&amp;[&amp;^&amp;@*$*%#!*%**&amp;^&amp;:*%*)#]&amp;&amp;&amp;)*&amp;&amp;^#!*%&amp;)&amp;]&amp;^*$#!*&amp;&amp;)&amp;@#!&amp;$&amp;;&amp;:*&amp;&amp;^*#&amp;*&amp;^&amp;:*%#!&amp;^*&amp;&amp;;&amp;[*^*%&amp;)&amp;;&amp;:#[#!&amp;[&amp;^&amp;@&amp;%&amp;)&amp;:&amp;*#!*%&amp;;#!&amp;]&amp;@&amp;:*)#!&amp;[&amp;)&amp;:&amp;^&amp;@&amp;*&amp;^*$#!&amp;;&amp;&amp;#!&amp;[&amp;^&amp;*&amp;[&amp;^*$*$#!&amp;[&amp;)*&#123;&amp;@*#&amp;%*$#:#!^%&amp;(&amp;^*$&amp;^#!*#&amp;^*$&amp;^&amp;]&amp;#&amp;[&amp;^#!*$&amp;:&amp;@&amp;&#125;&amp;^*$#[#!&amp;#*^*%#!*$&amp;^*&amp;&amp;^*#&amp;@&amp;[#!&amp;$&amp;;&amp;]&amp;]&amp;;&amp;:#!&amp;**#&amp;;*^*!*$#!&amp;;&amp;&amp;#!&amp;[&amp;^&amp;*&amp;[&amp;^*$*$#!&amp;[&amp;)*&#123;&amp;@*#&amp;%*$#!&amp;(&amp;@*&amp;&amp;^#!&amp;^*)&amp;^&amp;[&amp;)&amp;%*$#!&amp;@&amp;:&amp;%#!&amp;^*(*%&amp;^*#&amp;:&amp;@&amp;[#!&amp;^&amp;@*#*$#[#!**&amp;(&amp;)&amp;$&amp;(#!*$&amp;:&amp;@&amp;&#125;&amp;^*$#!&amp;[&amp;@&amp;$&amp;&#125;#[#!&amp;@&amp;[*%&amp;(&amp;;*^&amp;*&amp;(#!*%&amp;(&amp;)*$#!*#*^&amp;[&amp;^#!&amp;)*$#!&amp;:&amp;;*%#!*^&amp;:&amp;)*&amp;&amp;^*#*$&amp;@&amp;[#!#(*$&amp;^&amp;^#!%@&amp;]*!&amp;(&amp;)*$&amp;#&amp;@&amp;^&amp;:&amp;)&amp;@#[#!%%&amp;)&amp;#&amp;@&amp;]&amp;)&amp;%&amp;@&amp;^#[#!&amp;@&amp;:&amp;%#!^!*)&amp;*&amp;;*!&amp;;&amp;%&amp;)&amp;%&amp;@&amp;^#)#:#!&amp;#&amp;[&amp;@&amp;#&amp;[&amp;@&amp;#&amp;[&amp;@#!%(&amp;^*#&amp;^#!&amp;)*$#!*)&amp;;*^*##!&amp;&amp;&amp;[&amp;@&amp;*$&#123;#!^%%(%&#123;%$%$*&#125;^$%:%@%&#125;$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$*]</span><br></pre></td></tr></table></figure>
+
+<p>老樣子，寫腳本吧</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">ciphertext=<span class="string">&quot;&quot;&quot;^$&amp;:&amp;@&amp;&#125;&amp;^*$#!&amp;@*#&amp;^#!&amp;^&amp;[&amp;;&amp;:&amp;*&amp;@*%&amp;^&amp;%#!&amp;[&amp;)&amp;]&amp;#&amp;[&amp;^*$*$#!*#&amp;^*!*%&amp;)&amp;[&amp;^*$#!&amp;;&amp;&amp;#!*%&amp;(&amp;^#!*$*^&amp;#&amp;;*#&amp;%&amp;^*##!^$&amp;^*#*!&amp;^&amp;:*%&amp;^*$#:#!%$&amp;[&amp;@&amp;%&amp;)*$*%&amp;)&amp;$&amp;@&amp;[&amp;[*)#!*$*@*^&amp;@&amp;]&amp;@*%&amp;^*$#[#!*$&amp;:&amp;@&amp;&#125;&amp;^*$#!&amp;@*#&amp;^#!&amp;^&amp;$*%&amp;;*%&amp;(&amp;^*#&amp;]&amp;)&amp;$#[#!&amp;@&amp;]&amp;:&amp;)&amp;;*%&amp;^#!*&amp;&amp;^*#*%&amp;^&amp;#*#&amp;@*%&amp;^*$#!&amp;$&amp;;*&amp;&amp;^*#&amp;^&amp;%#!&amp;)&amp;:#!&amp;;*&amp;&amp;^*#&amp;[&amp;@*!*!&amp;)&amp;:&amp;*#!*$&amp;$&amp;@&amp;[&amp;^*$#!&amp;]*^&amp;$&amp;(#!&amp;[&amp;)&amp;&#125;&amp;^#!&amp;;*%&amp;(&amp;^*##!&amp;]&amp;^&amp;]&amp;#&amp;^*#*$#!&amp;;&amp;&amp;#!*%&amp;(&amp;^#!&amp;**#&amp;;*^*!#:#!%]&amp;@&amp;:*)#!*$*!&amp;^&amp;$&amp;)&amp;^*$#!&amp;;&amp;&amp;#!*$&amp;:&amp;@&amp;&#125;&amp;^*$#!&amp;(&amp;@*&amp;&amp;^#!*$&amp;&#125;*^&amp;[&amp;[*$#!**&amp;)*%&amp;(#!*$&amp;^*&amp;&amp;^*#&amp;@&amp;[#!&amp;]&amp;;*#&amp;^#!&amp;&#123;&amp;;&amp;)&amp;:*%*$#!*%&amp;(&amp;@&amp;:#!*%&amp;(&amp;^&amp;)*##!&amp;[&amp;)*&#123;&amp;@*#&amp;%#!&amp;@&amp;:&amp;$&amp;^*$*%&amp;;*#*$#!&amp;@&amp;:&amp;%#!*#&amp;^&amp;[&amp;@*%&amp;)*&amp;&amp;^*$#[#!&amp;^&amp;:&amp;@&amp;#&amp;[&amp;)&amp;:&amp;*#!*%&amp;(&amp;^&amp;]#!*%&amp;;#!*$**&amp;@&amp;[&amp;[&amp;;**#!*!*#&amp;^*)#!&amp;]*^&amp;$&amp;(#!&amp;[&amp;@*#&amp;*&amp;^*##!*%&amp;(&amp;@&amp;:#!*%&amp;(&amp;^&amp;)*##!&amp;(&amp;^&amp;@&amp;%*$#!#(&amp;$*#&amp;@&amp;:&amp;)&amp;@&amp;[#!&amp;&#125;&amp;)&amp;:&amp;^*$&amp;)*$#)#:#!^%&amp;;#!&amp;@&amp;$&amp;$&amp;;&amp;]&amp;]&amp;;&amp;%&amp;@*%&amp;^#!*%&amp;(&amp;^&amp;)*##!&amp;:&amp;@*#*#&amp;;**#!&amp;#&amp;;&amp;%&amp;)&amp;^*$#[#!*$&amp;:&amp;@&amp;&#125;&amp;^*$#*#!*!&amp;@&amp;)*#&amp;^&amp;%#!&amp;;*#&amp;*&amp;@&amp;:*$#!#(*$*^&amp;$&amp;(#!&amp;@*$#!&amp;&#125;&amp;)&amp;%&amp;:&amp;^*)*$#)#!&amp;@*!*!&amp;^&amp;@*##!&amp;;&amp;:&amp;^#!&amp;)&amp;:#!&amp;&amp;*#&amp;;&amp;:*%#!&amp;;&amp;&amp;#!*%&amp;(&amp;^#!&amp;;*%&amp;(&amp;^*##!&amp;)&amp;:*$*%&amp;^&amp;@&amp;%#!&amp;;&amp;&amp;#!*$&amp;)&amp;%&amp;^#!&amp;#*)#!*$&amp;)&amp;%&amp;^#[#!&amp;@&amp;:&amp;%#!&amp;]&amp;;*$*%#!&amp;;&amp;:&amp;[*)#!&amp;(&amp;@*&amp;&amp;^#!&amp;;&amp;:&amp;^#!&amp;&amp;*^&amp;:&amp;$*%&amp;)&amp;;&amp;:&amp;@&amp;[#!&amp;[*^&amp;:&amp;*#:#!^$&amp;;&amp;]&amp;^#!*$*!&amp;^&amp;$&amp;)&amp;^*$#!*#&amp;^*%&amp;@&amp;)&amp;:#!&amp;@#!*!&amp;^&amp;[*&amp;&amp;)&amp;$#!&amp;*&amp;)*#&amp;%&amp;[&amp;^#!**&amp;)*%&amp;(#!&amp;@#!*!&amp;@&amp;)*##!&amp;;&amp;&amp;#!*&amp;&amp;^*$*%&amp;)&amp;*&amp;)&amp;@&amp;[#!&amp;$&amp;[&amp;@***$#!&amp;;&amp;:#!&amp;^&amp;)*%&amp;(&amp;^*##!*$&amp;)&amp;%&amp;^#!&amp;;&amp;&amp;#!*%&amp;(&amp;^#!&amp;$&amp;[&amp;;&amp;@&amp;$&amp;@#:#!%[&amp;)*&#123;&amp;@*#&amp;%*$#!&amp;(&amp;@*&amp;&amp;^#!&amp;)&amp;:&amp;%&amp;^*!&amp;^&amp;:&amp;%&amp;^&amp;:*%&amp;[*)#!&amp;^*&amp;&amp;;&amp;[*&amp;&amp;^&amp;%#!&amp;^&amp;[&amp;;&amp;:&amp;*&amp;@*%&amp;^#!&amp;#&amp;;&amp;%&amp;)&amp;^*$#!**&amp;)*%&amp;(&amp;;*^*%#!&amp;[&amp;)&amp;]&amp;#*$#!&amp;;*##!**&amp;)*%&amp;(#!&amp;**#&amp;^&amp;@*%&amp;[*)#!*#&amp;^&amp;%*^&amp;$&amp;^&amp;%#!&amp;[&amp;)&amp;]&amp;#*$#!&amp;@*%#!&amp;[&amp;^&amp;@*$*%#!*%**&amp;^&amp;:*%*)#]&amp;&amp;&amp;)*&amp;&amp;^#!*%&amp;)&amp;]&amp;^*$#!*&amp;&amp;)&amp;@#!&amp;$&amp;;&amp;:*&amp;&amp;^*#&amp;*&amp;^&amp;:*%#!&amp;^*&amp;&amp;;&amp;[*^*%&amp;)&amp;;&amp;:#[#!&amp;[&amp;^&amp;@&amp;%&amp;)&amp;:&amp;*#!*%&amp;;#!&amp;]&amp;@&amp;:*)#!&amp;[&amp;)&amp;:&amp;^&amp;@&amp;*&amp;^*$#!&amp;;&amp;&amp;#!&amp;[&amp;^&amp;*&amp;[&amp;^*$*$#!&amp;[&amp;)*&#123;&amp;@*#&amp;%*$#:#!^%&amp;(&amp;^*$&amp;^#!*#&amp;^*$&amp;^&amp;]&amp;#&amp;[&amp;^#!*$&amp;:&amp;@&amp;&#125;&amp;^*$#[#!&amp;#*^*%#!*$&amp;^*&amp;&amp;^*#&amp;@&amp;[#!&amp;$&amp;;&amp;]&amp;]&amp;;&amp;:#!&amp;**#&amp;;*^*!*$#!&amp;;&amp;&amp;#!&amp;[&amp;^&amp;*&amp;[&amp;^*$*$#!&amp;[&amp;)*&#123;&amp;@*#&amp;%*$#!&amp;(&amp;@*&amp;&amp;^#!&amp;^*)&amp;^&amp;[&amp;)&amp;%*$#!&amp;@&amp;:&amp;%#!&amp;^*(*%&amp;^*#&amp;:&amp;@&amp;[#!&amp;^&amp;@*#*$#[#!**&amp;(&amp;)&amp;$&amp;(#!*$&amp;:&amp;@&amp;&#125;&amp;^*$#!&amp;[&amp;@&amp;$&amp;&#125;#[#!&amp;@&amp;[*%&amp;(&amp;;*^&amp;*&amp;(#!*%&amp;(&amp;)*$#!*#*^&amp;[&amp;^#!&amp;)*$#!&amp;:&amp;;*%#!*^&amp;:&amp;)*&amp;&amp;^*#*$&amp;@&amp;[#!#(*$&amp;^&amp;^#!%@&amp;]*!&amp;(&amp;)*$&amp;#&amp;@&amp;^&amp;:&amp;)&amp;@#[#!%%&amp;)&amp;#&amp;@&amp;]&amp;)&amp;%&amp;@&amp;^#[#!&amp;@&amp;:&amp;%#!^!*)&amp;*&amp;;*!&amp;;&amp;%&amp;)&amp;%&amp;@&amp;^#)#:#!&amp;#&amp;[&amp;@&amp;#&amp;[&amp;@&amp;#&amp;[&amp;@#!%(&amp;^*#&amp;^#!&amp;)*$#!*)&amp;;*^*##!&amp;&amp;&amp;[&amp;@&amp;*$&#123;#!^%%(%&#123;%$%$*&#125;^$%:%@%&#125;$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$*]&quot;&quot;&quot;</span></span><br><span class="line">mapping=<span class="string">&quot;!@#$%^&amp;*()&#123;&#125;[]:;&quot;</span></span><br><span class="line">rev_map=&#123;c:<span class="built_in">format</span>(i,<span class="string">&#x27;04b&#x27;</span>) <span class="keyword">for</span> i,c <span class="keyword">in</span> <span class="built_in">enumerate</span>(mapping)&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># Step 1: 將每個符號轉為 4-bit binary</span></span><br><span class="line">bits=<span class="string">&#x27;&#x27;</span>.join([rev_map[c] <span class="keyword">for</span> c <span class="keyword">in</span> ciphertext])</span><br><span class="line"></span><br><span class="line"><span class="comment"># Step 2: 每 8 位轉回字元</span></span><br><span class="line">plain=<span class="string">&#x27;&#x27;</span>.join([<span class="built_in">chr</span>(<span class="built_in">int</span>(bits[i:i+<span class="number">8</span>],<span class="number">2</span>)) <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">0</span>,<span class="built_in">len</span>(bits),<span class="number">8</span>)])</span><br><span class="line"><span class="built_in">print</span>(plain)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p><img src="https://hackmd.io/_uploads/S1Da5rfkeg.png" alt="image"></p>
+<p><code>THJCC&#123;SNAK3333333333333333&#125;</code></p>
+<hr>
+<h2 id="DAES"><a href="#DAES" class="headerlink" title="DAES"></a>DAES</h2><p><img src="https://hackmd.io/_uploads/B1q1hBf1ex.png" alt="image"></p>
+<p><img src="https://hackmd.io/_uploads/Bkx13HGyll.png" alt="image"><br>chal.py:</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/python3</span></span><br><span class="line"><span class="keyword">from</span> Crypto.Cipher <span class="keyword">import</span> AES</span><br><span class="line"><span class="keyword">from</span> secret <span class="keyword">import</span> FLAG</span><br><span class="line"><span class="keyword">import</span> random</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> signal</span><br><span class="line"></span><br><span class="line">TIMEOUT = <span class="number">120</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">timeout_handler</span>(<span class="params">signum, frame</span>):</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;\nTime&#x27;s up! No flag for u...&quot;</span>)</span><br><span class="line">    exit()</span><br><span class="line"></span><br><span class="line">signal.signal(signal.SIGALRM, timeout_handler)</span><br><span class="line">signal.alarm(TIMEOUT)</span><br><span class="line"></span><br><span class="line">target = os.urandom(<span class="number">16</span>)</span><br><span class="line"></span><br><span class="line">keys = [<span class="string">b&#x27;whalekey:&#x27;</span> + <span class="built_in">str</span>(random.randrange(<span class="number">1000000</span>, <span class="number">1999999</span>)).encode() <span class="keyword">for</span> _ <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">2</span>)]</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">enc</span>(<span class="params">key, msg</span>):</span><br><span class="line">    ecb = AES.new(key, AES.MODE_ECB)</span><br><span class="line">    <span class="keyword">return</span> ecb.encrypt(msg)</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">daes</span>(<span class="params">msg</span>):</span><br><span class="line">    tmp = enc(keys[<span class="number">0</span>], msg)</span><br><span class="line">    <span class="keyword">return</span> enc(keys[<span class="number">1</span>], tmp)</span><br><span class="line"></span><br><span class="line">test = <span class="string">b&#x27;you are my fire~&#x27;</span></span><br><span class="line"><span class="built_in">print</span>(daes(test).<span class="built_in">hex</span>())</span><br><span class="line"><span class="built_in">print</span>(daes(target).<span class="built_in">hex</span>())</span><br><span class="line"></span><br><span class="line">ans = <span class="built_in">input</span>(<span class="string">&quot;Ans:&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> ans == target.<span class="built_in">hex</span>():</span><br><span class="line">    <span class="built_in">print</span>(FLAG)</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;Nah, no flag for u...&quot;</span>)</span><br><span class="line"></span><br><span class="line">signal.alarm(<span class="number">0</span>)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>雙層AES-ECB<br><code>THJCC&#123;see_u_again_in_the_middle&#125;</code></li>
+</ul>
+<hr>
+<h2 id="Twins"><a href="#Twins" class="headerlink" title="Twins"></a>Twins</h2><p><img src="https://hackmd.io/_uploads/Skvf5Ufyge.png" alt="image"><br>RSA題<br><img src="https://hackmd.io/_uploads/rkJM5UG1xe.png" alt="image"></p>
+<p><code>THJCC&#123;7wIn_pR!me$_4RE_Too_L0VE1Y&#125;</code></p>
+]]></content>
+      <categories>
+        <category>資安</category>
+      </categories>
+  </entry>
+  <entry>
     <title>AIS3 2024 pre-exam</title>
     <url>/AIS3pre-exam/</url>
     <content><![CDATA[<h1 id="AIS3-2024-pre-exam-write-up"><a href="#AIS3-2024-pre-exam-write-up" class="headerlink" title="AIS3 2024 pre-exam write up"></a>AIS3 2024 pre-exam write up</h1><p>第一次寫write up :D</p>
@@ -639,100 +718,6 @@ ABaB
 ]]></content>
       <categories>
         <category>資安</category>
-      </categories>
-  </entry>
-  <entry>
-    <title>g0v summit 2024</title>
-    <url>/g0vsummit/</url>
-    <content><![CDATA[<h1 id="g0v-summit"><a href="#g0v-summit" class="headerlink" title="g0v summit"></a>g0v summit</h1><h2 id="我都在幹嘛"><a href="#我都在幹嘛" class="headerlink" title="我都在幹嘛?"></a>我都在幹嘛?</h2><ul>
-<li>工作人員<ul>
-<li>搬椅子</li>
-<li>搬桌子</li>
-<li>場佈</li>
-<li>動線規劃</li>
-<li>拆</li>
-<li>坐在電梯前指引</li>
-<li>被外國人問路</li>
-</ul>
-</li>
-<li>福利<ul>
-<li>吃吃吃吃吃吃吃吃…</li>
-<li>喝喝喝喝喝喝喝喝…</li>
-<li>免費住宿 中研院活動中心</li>
-<li>仙草茶 (呵</li>
-</ul>
-</li>
-</ul>
-<h2 id="Day-0-場佈"><a href="#Day-0-場佈" class="headerlink" title="Day 0(場佈)"></a>Day 0(場佈)</h2><ul>
-<li>搬椅子</li>
-<li>搬桌子</li>
-<li>動線規劃</li>
-<li>吃便當</li>
-<li>晚上去饒河夜市</li>
-</ul>
-<h2 id="Day-1"><a href="#Day-1" class="headerlink" title="Day 1"></a>Day 1</h2><ul>
-<li>早餐三明治+紅茶</li>
-<li>坐在電梯前好幾個小時</li>
-<li>R0搬椅子</li>
-<li>閒逛</li>
-<li>吃漢堡 吃撈麵</li>
-<li>聽南韓講者超酷</li>
-<li>有夠累</li>
-<li>睡在VIP room</li>
-<li>房間看西甲</li>
-<li>還以為有夜唱</li>
-</ul>
-<h2 id="Day-2"><a href="#Day-2" class="headerlink" title="Day 2"></a>Day 2</h2><ul>
-<li>繼續吃</li>
-<li>聽台灣爬蟲開源資料講者 超幽默</li>
-<li>仙草茶</li>
-<li>有個阿北專門來吃東西的</li>
-<li>收桌子</li>
-<li>拆東西</li>
-<li>在閉幕簡報上看到自己 很感動</li>
-<li>慶功宴 佛跳牆 龍蝦 雞佛 啤酒好欸</li>
-<li>才知道現場很多都是資工大佬 頂大好電</li>
-<li>大家都很好聊 一堆E人</li>
-<li>CPY有問題找他就對了 兆翌超好聊 喬不會喝酒笑死 柚子講者超電 賴彥江超幽默 </li>
-<li>口譯大哥說他18歲 pm5光頭超好認 攝影大哥敬酒*n次 室友雨辰居然是文組的</li>
-<li>有人喝醉超好笑 啤酒而已欸</li>
-<li>搭高鐵 好不捨</li>
-<li>整個g0v氣氛好好 好喜歡 2026再來!</li>
-</ul>
-<h1 id="總結"><a href="#總結" class="headerlink" title="總結"></a>總結</h1><p>我愛g0v summit，氣氛好讚，工人福利給過，認識好多新朋友，g0v summit 2026見!</p>
-<hr>
-<!-- Start of CuterCounter Code -->
-<p><a href="https://www.cutercounter.com/traditional-chinese-nn/" target="_blank" style="pointer-events: none;"><img src="https://www.cutercounter.com/hits.php?id=huxpnnqf&nd=6&style=11" border="0" alt="網頁計數器"></a></p>
-<!-- End of CuterCounter Code -->
-]]></content>
-      <categories>
-        <category>紀錄</category>
-      </categories>
-  </entry>
-  <entry>
-    <title>個人時間表</title>
-    <url>/personal_schedule/</url>
-    <content><![CDATA[<h1 id="此為-2024-10月-2025寒假前-日程表"><a href="#此為-2024-10月-2025寒假前-日程表" class="headerlink" title="此為 2024&#x2F;10月-2025寒假前 日程表"></a>此為 2024&#x2F;10月-2025寒假前 日程表</h1><p><img src="/images/sch.png"></p>
-<ul>
-<li>藍色: 在學校</li>
-<li>綠色: 在家裡忙</li>
-<li>紫色: 社團</li>
-<li>灰色: 空閒</li>
-</ul>
-<p>聯絡方式:</p>
-<ul>
-<li>email: <a href="mailto:dylan.jc2222@gmail.com" title="吳昕哲">吳昕哲</a></li>
-<li>discord: <a href="https://discordapp.com/users/768889520280043561" title="che哲#4541">che哲#4541</a></li>
-<li>instagram: <a href="https://www.instagram.com/che._.wu/" title="che._.wu">che._.wu</a></li>
-</ul>
-<hr>
-<!-- Start of CuterCounter Code -->
-<p><a href="https://www.cutercounter.com/traditional-chinese-nn/" target="_blank" style="pointer-events: none;"><img src="https://www.cutercounter.com/hits.php?id=hxqxdco&nd=6&style=11" border="0" alt="免費網站計數器"></a></p>
-<!-- End of CuterCounter Code -->
-
-]]></content>
-      <categories>
-        <category>個人時間表</category>
       </categories>
   </entry>
   <entry>
@@ -1005,6 +990,100 @@ ABaB
 <!-- End of CuterCounter Code -->]]></content>
       <categories>
         <category>特殊選才</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>個人時間表</title>
+    <url>/personal_schedule/</url>
+    <content><![CDATA[<h1 id="此為-2024-10月-2025寒假前-日程表"><a href="#此為-2024-10月-2025寒假前-日程表" class="headerlink" title="此為 2024&#x2F;10月-2025寒假前 日程表"></a>此為 2024&#x2F;10月-2025寒假前 日程表</h1><p><img src="/images/sch.png"></p>
+<ul>
+<li>藍色: 在學校</li>
+<li>綠色: 在家裡忙</li>
+<li>紫色: 社團</li>
+<li>灰色: 空閒</li>
+</ul>
+<p>聯絡方式:</p>
+<ul>
+<li>email: <a href="mailto:dylan.jc2222@gmail.com" title="吳昕哲">吳昕哲</a></li>
+<li>discord: <a href="https://discordapp.com/users/768889520280043561" title="che哲#4541">che哲#4541</a></li>
+<li>instagram: <a href="https://www.instagram.com/che._.wu/" title="che._.wu">che._.wu</a></li>
+</ul>
+<hr>
+<!-- Start of CuterCounter Code -->
+<p><a href="https://www.cutercounter.com/traditional-chinese-nn/" target="_blank" style="pointer-events: none;"><img src="https://www.cutercounter.com/hits.php?id=hxqxdco&nd=6&style=11" border="0" alt="免費網站計數器"></a></p>
+<!-- End of CuterCounter Code -->
+
+]]></content>
+      <categories>
+        <category>個人時間表</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>g0v summit 2024</title>
+    <url>/g0vsummit/</url>
+    <content><![CDATA[<h1 id="g0v-summit"><a href="#g0v-summit" class="headerlink" title="g0v summit"></a>g0v summit</h1><h2 id="我都在幹嘛"><a href="#我都在幹嘛" class="headerlink" title="我都在幹嘛?"></a>我都在幹嘛?</h2><ul>
+<li>工作人員<ul>
+<li>搬椅子</li>
+<li>搬桌子</li>
+<li>場佈</li>
+<li>動線規劃</li>
+<li>拆</li>
+<li>坐在電梯前指引</li>
+<li>被外國人問路</li>
+</ul>
+</li>
+<li>福利<ul>
+<li>吃吃吃吃吃吃吃吃…</li>
+<li>喝喝喝喝喝喝喝喝…</li>
+<li>免費住宿 中研院活動中心</li>
+<li>仙草茶 (呵</li>
+</ul>
+</li>
+</ul>
+<h2 id="Day-0-場佈"><a href="#Day-0-場佈" class="headerlink" title="Day 0(場佈)"></a>Day 0(場佈)</h2><ul>
+<li>搬椅子</li>
+<li>搬桌子</li>
+<li>動線規劃</li>
+<li>吃便當</li>
+<li>晚上去饒河夜市</li>
+</ul>
+<h2 id="Day-1"><a href="#Day-1" class="headerlink" title="Day 1"></a>Day 1</h2><ul>
+<li>早餐三明治+紅茶</li>
+<li>坐在電梯前好幾個小時</li>
+<li>R0搬椅子</li>
+<li>閒逛</li>
+<li>吃漢堡 吃撈麵</li>
+<li>聽南韓講者超酷</li>
+<li>有夠累</li>
+<li>睡在VIP room</li>
+<li>房間看西甲</li>
+<li>還以為有夜唱</li>
+</ul>
+<h2 id="Day-2"><a href="#Day-2" class="headerlink" title="Day 2"></a>Day 2</h2><ul>
+<li>繼續吃</li>
+<li>聽台灣爬蟲開源資料講者 超幽默</li>
+<li>仙草茶</li>
+<li>有個阿北專門來吃東西的</li>
+<li>收桌子</li>
+<li>拆東西</li>
+<li>在閉幕簡報上看到自己 很感動</li>
+<li>慶功宴 佛跳牆 龍蝦 雞佛 啤酒好欸</li>
+<li>才知道現場很多都是資工大佬 頂大好電</li>
+<li>大家都很好聊 一堆E人</li>
+<li>CPY有問題找他就對了 兆翌超好聊 喬不會喝酒笑死 柚子講者超電 賴彥江超幽默 </li>
+<li>口譯大哥說他18歲 pm5光頭超好認 攝影大哥敬酒*n次 室友雨辰居然是文組的</li>
+<li>有人喝醉超好笑 啤酒而已欸</li>
+<li>搭高鐵 好不捨</li>
+<li>整個g0v氣氛好好 好喜歡 2026再來!</li>
+</ul>
+<h1 id="總結"><a href="#總結" class="headerlink" title="總結"></a>總結</h1><p>我愛g0v summit，氣氛好讚，工人福利給過，認識好多新朋友，g0v summit 2026見!</p>
+<hr>
+<!-- Start of CuterCounter Code -->
+<p><a href="https://www.cutercounter.com/traditional-chinese-nn/" target="_blank" style="pointer-events: none;"><img src="https://www.cutercounter.com/hits.php?id=huxpnnqf&nd=6&style=11" border="0" alt="網頁計數器"></a></p>
+<!-- End of CuterCounter Code -->
+]]></content>
+      <categories>
+        <category>紀錄</category>
       </categories>
   </entry>
   <entry>
