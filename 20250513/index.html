@@ -1,0 +1,784 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/avatar3.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/avatar3.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/avatar3.png">
+  <link rel="mask-icon" href="/images/avatar3.png" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"chewu.tw","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+<!--SEO-->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "吳昕哲",
+  "alternateName": "chewu",
+  "url": "https://chewu.tw/",
+  "sameAs": [
+    "https://discordapp.com/users/768889520280043561",
+    "https://www.instagram.com/che._.wu",
+    "https://github.com/chewu-0319"
+  ],
+  "jobTitle": "AI & 資訊安全愛好者",
+  "description": "吳昕哲（Che Wu, chewu, HSIN-CHE）的個人網站。"
+}
+</script>
+
+  <meta name="description" content="研究與實作eBPF的容器逃逸行為偵測機制">
+<meta property="og:type" content="article">
+<meta property="og:title" content="基於eBPF的容器逃逸行為偵測機制研究與實作">
+<meta property="og:url" content="https://chewu.tw/20250513/index.html">
+<meta property="og:site_name" content="che&#39;s blog">
+<meta property="og:description" content="研究與實作eBPF的容器逃逸行為偵測機制">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://chewu.tw/images/image1.png">
+<meta property="og:image" content="https://chewu.tw/images/image2.png">
+<meta property="og:image" content="https://chewu.tw/images/image3.png">
+<meta property="og:image" content="https://chewu.tw/images/image4.png">
+<meta property="og:image" content="https://chewu.tw/images/image5.png">
+<meta property="og:image" content="https://chewu.tw/images/image6.png">
+<meta property="og:image" content="https://chewu.tw/images/image7.png">
+<meta property="og:image" content="https://chewu.tw/images/image8.png">
+<meta property="og:image" content="https://chewu.tw/images/image9.png">
+<meta property="og:image" content="https://chewu.tw/images/image10.png">
+<meta property="article:published_time" content="2025-05-13T15:10:43.004Z">
+<meta property="article:modified_time" content="2025-05-13T16:03:09.853Z">
+<meta property="article:author" content="che">
+<meta property="article:tag" content="吳昕哲, 昕哲, chewu, che, 程式, 資工, 資訊, 資訊社, 吳○哲, 光復資訊研究社, 資安, AI, NLP">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://chewu.tw/images/image1.png">
+
+<link rel="canonical" href="https://chewu.tw/20250513/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>基於eBPF的容器逃逸行為偵測機制研究與實作 | che's blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">che's blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://chewu.tw/20250513/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="che">
+      <meta itemprop="description" content="Eat. Sleep. Code. Repeat.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="che's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          基於eBPF的容器逃逸行為偵測機制研究與實作
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2025-05-13 23:10:43" itemprop="dateCreated datePublished" datetime="2025-05-13T23:10:43+08:00">2025-05-13</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2025-05-14 00:03:09" itemprop="dateModified" datetime="2025-05-14T00:03:09+08:00">2025-05-14</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E8%B3%87%E5%AE%89/" itemprop="url" rel="index"><span itemprop="name">資安</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="Symbols count in article">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">Symbols count in article: </span>
+              <span>5.5k</span>
+            </span>
+            <span class="post-meta-item" title="Reading time">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">Reading time &asymp;</span>
+              <span>20 mins.</span>
+            </span>
+            <div class="post-description">研究與實作eBPF的容器逃逸行為偵測機制</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="基於eBPF的容器逃逸行為偵測機制研究與實作"><a href="#基於eBPF的容器逃逸行為偵測機制研究與實作" class="headerlink" title="基於eBPF的容器逃逸行為偵測機制研究與實作"></a>基於eBPF的容器逃逸行為偵測機制研究與實作</h1><p>前情提要: 這篇是我的資安研究報告，當初是做成docx檔案，現在為了放上blog才轉成<code>.md</code>，若有沒正確轉成markdown語法而造成版面跑掉的話請多包涵:D</p>
+<h1 id="一、緒論"><a href="#一、緒論" class="headerlink" title="一、緒論"></a>一、緒論</h1><p>隨著容器化技術（Containerization）在各領域的廣泛應用，系統資源的管理與部署效率大幅提升。Docker、containerd 等容器平台讓應用程式在不同環境中快速部署、隔離運行並高效擴展。然而，這種虛擬化程度較低的隔離機制也帶來潛在風險——一旦攻擊者突破容器限制，可能對宿主機（Host Machine）造成嚴重威脅。</p>
+<p>傳統上，作業系統透過 namespace 和 cgroup 機制來隔離容器與主機資源。然而，若容器被賦予過多權限（例如 –privileged），將獲得近似宿主機的能力，可能導致<strong>容器逃逸（Container Escape）</strong>攻擊。攻擊者可從受限容器中控制宿主機，取得 root 權限、存取 &#x2F;etc&#x2F;passwd 等敏感檔案，甚至橫向移動攻擊其他容器。</p>
+<p>為應對這些安全威脅，eBPF（Extended Berkeley Packet Filter） 自 2014 年引入以來，憑藉其高效性與安全性，已成為容器安全監控的熱門技術。它允許使用者撰寫微型程式並安全地掛載到內核的特定 hook 點（如 syscall、kprobe），在不中斷系統運作的情況下即時監控與攔截系統行為。</p>
+<h2 id="報告目的"><a href="#報告目的" class="headerlink" title="報告目的:"></a>報告目的:</h2><ul>
+<li>探討 eBPF 如何應用於容器逃逸偵測。</li>
+<li>建構實驗環境，模擬典型的容器逃逸行為。</li>
+<li>使用 eBPF 偵測並聚焦於模擬簡單的 chroot 和 mount 逃逸場景。</li>
+<li>驗證攻擊是否成功並能被有效捕捉，評估該偵測方法的實用性與可行性。</li>
+</ul>
+<h1 id="二、eBPF-技術背景"><a href="#二、eBPF-技術背景" class="headerlink" title="二、eBPF 技術背景"></a>二、eBPF 技術背景</h1><p>eBPF(Extended Berkeley Packet Filter)最初設計於1992年的BPF (Berkeley Packet Filter)，用於在內核空間過濾封包，提升網路封包處理效率，傳統BPF的功能有限，僅能處理簡單的封包邏輯，而eBPF作為其延伸版本，自linux kernel 3.18以來大幅擴展能力，成為一個能在內核安全執行自訂邏輯的沙箱虛擬機。<br>eBPF最大的特性是: 「無需修改內核原始碼，即可即時插入內核程式邏輯」，這使它成為理想的內核觀察者，</p>
+<h2 id="具備以下優勢"><a href="#具備以下優勢" class="headerlink" title="具備以下優勢:"></a>具備以下優勢:</h2><ul>
+<li><strong>動態載入、不需重啟系統</strong>: eBPF 程式可以動態載入至特定 hook 點，例如syscall、tracing、perf event、網路等，無需修改或重編譯核心。</li>
+<li><strong>安全性設計</strong>: 所有eBPF程式都會經過內核verifier去做驗證，保證其不會進入無限迴圈、不會越界訪問、不會導致系統崩潰，因此執行於內核空間，還是有極高的安全性。</li>
+<li><strong>效能開銷低</strong>: 相比傳統syscall hooking或其他內核模組，eBPF有更低的效能損耗，適合長時間、低干擾地執行監控任務。</li>
+<li><strong>語言支援強大</strong>: eBPF 程式通常以C或Rust撰寫，Python和Go用於使用者空間的編譯、載入和資料處理。</li>
+</ul>
+<h2 id="eBPF-的關鍵組件"><a href="#eBPF-的關鍵組件" class="headerlink" title="eBPF 的關鍵組件:"></a>eBPF 的關鍵組件:</h2><ul>
+<li>BPF程式(eBPF Program): 使用者撰寫的微型邏輯程式，會被掛載到指定的 hook 點。</li>
+<li>BPF Map: 內核與使用者空間共用的資料結構，可用來交換資料，如記錄事件、累積計數、傳遞訊息。</li>
+<li>使用者空間Loader: 負責編譯、驗證並載入eBPF程式，常見工具如 bcc、bpftrace、libbpf。</li>
+<li>tracing 與 kprobe&#x2F;kretprobe: eBPF可以附掛於 kernel function的進入點(kprobe)或離開點(kretprobe)，實現行為追蹤。</li>
+</ul>
+<h2 id="在資訊安全的應用"><a href="#在資訊安全的應用" class="headerlink" title="在資訊安全的應用:"></a>在資訊安全的應用:</h2><ul>
+<li><strong>惡意程式偵測</strong>: 利用eBPF追蹤異常系統呼叫，如可疑的 file I&#x2F;O、網路連線或權限提升。</li>
+<li><strong>容器行為監控</strong>: 追蹤容器中執行的 syscall，辨識是否有異常逃逸操作。</li>
+<li><strong>RASP(Runtime Application Self Protection)</strong>: RASP可利用eBPF 監控應用程式運行時的系統呼叫，動態檢測異常行為，如未授權的檔案訪問。</li>
+</ul>
+<p>本次報告透過bcc工具集撰寫eBPF程式，監控容器中是否有進行chroot或 mount系統呼叫，藉此識別潛在逃逸行為。</p>
+<h1 id="三、容器逃逸技術概論"><a href="#三、容器逃逸技術概論" class="headerlink" title="三、容器逃逸技術概論"></a>三、容器逃逸技術概論</h1><h2 id="1-容器逃逸的背景"><a href="#1-容器逃逸的背景" class="headerlink" title="1. 容器逃逸的背景"></a>1. 容器逃逸的背景</h2><p>容器化技術(如:Docker)為開發領域帶來極大的便捷性，尤其在資源隔離、快速部署與應用擴展方面表現突出，不過，這與虛擬機(VM)不同，容器的隔離機制較為輕量，容器和宿主機共享相同的操作系統核心(kernel)，代表若容器內部的應用程序或攻擊者能突破容器內的安全限制，就有可能對宿主機或其他容器造成威脅，這種攻擊方式被稱為「容器逃逸(Container Escape)」。</p>
+<p>容器逃逸指的是<strong>攻擊者從一個容器內部，繞過容器的隔離機制，進而取得宿主機的控制權或對其他容器造成影響</strong>。容器逃逸通常涉及利用容器的配置錯誤、漏洞或過度授權的權限進行攻擊。</p>
+<h2 id="2-容器逃逸的典型手段"><a href="#2-容器逃逸的典型手段" class="headerlink" title="2. 容器逃逸的典型手段"></a>2. 容器逃逸的典型手段</h2><p>容器逃逸的攻擊手段多種多樣，常見的手段包括: </p>
+<ul>
+<li>利用容器權限過高: 若容器以 –privileged 模式運行，將擁有接近宿主機的操作權限，攻擊者可以繞過容器隔離。</li>
+<li>漏洞利用: 攻擊者可透過容器中運行的應用程式或內核漏洞，利用已知漏洞發起攻擊，如: CVE-2019-5736 (runc 漏洞)。</li>
+<li>修改容器配置或掛載點: 攻擊者可通過篡改容器中的掛載點(例如 &#x2F;proc、&#x2F;sys 目錄)，直接訪問宿主機的敏感檔案系統。</li>
+<li>利用 chroot或 mount系統呼叫: 若容器內部的應用程式能夠調用 chroot或 mount系統呼叫，便能將根目錄或其他檔案系統映射到宿主機，從而實現逃逸。</li>
+</ul>
+<p><img src="/images/image1.png"><br>容器逃逸行為的攻擊架構流程圖。(使用mermaid繪製)</p>
+<h2 id="3-本報告的容器逃逸案例"><a href="#3-本報告的容器逃逸案例" class="headerlink" title="3. 本報告的容器逃逸案例"></a>3. 本報告的容器逃逸案例</h2><p>本報告使用兩種系統呼叫作為容器逃逸的核心攻擊手段:</p>
+<ul>
+<li>chroot系統呼叫: chroot是一種將進程根目錄更改為指定目錄的操作。攻擊者通過使用 chroot可以將容器中的根目錄映射到宿主機的某一位置，從而使容器內部的進程能夠直接訪問宿主機的檔案系統。若容器有足夠權限執行 chroot，將會導致容器逃逸。</li>
+<li>mount系統呼叫: mount呼叫用於將外部檔案系統掛載到指定目錄。如果攻擊者能夠在容器中執行 mount操作並將宿主機的檔案系統掛載到容器中，就能夠繞過容器的隔離機制，直接進到宿主機的檔案系統，進而實現逃逸。</li>
+</ul>
+<h2 id="4-逃逸的風險與影響"><a href="#4-逃逸的風險與影響" class="headerlink" title="4. 逃逸的風險與影響"></a>4. 逃逸的風險與影響</h2><p>成功的容器逃逸攻擊不僅意味著攻擊者能夠繞過容器的隔離，還可能帶來嚴重的安全問題，具體影響包括: </p>
+<ul>
+<li>取得宿主機控制權: 攻擊者可以利用容器逃逸攻擊獲得宿主機的 root權限，進而執行任意命令或改動系統設置。</li>
+<li>跨容器攻擊: 一旦攻擊者成功逃逸容器，便能夠對其他容器進行橫向移動，破壞整個容器環境中的應用。</li>
+<li>資料竊取與損壞: 攻擊者可讀取或修改宿主機上的敏感資料，甚至可能破壞整體系統。</li>
+</ul>
+<h2 id="5-容器逃逸防禦"><a href="#5-容器逃逸防禦" class="headerlink" title="5. 容器逃逸防禦"></a>5. 容器逃逸防禦</h2><p>為了防範容器逃逸，企業與開發者需遵循最佳安全實踐，包括但不限於: </p>
+<ul>
+<li>限制容器權限: 避免容器以 –privileged 模式運行，並確保容器內的應用程序不具備過多的操作系統權限。</li>
+<li>使用最新的內核版本: 定期更新內核及容器平台、修補已知漏洞、加強容器配置的安全性。</li>
+<li>強化系統呼叫過濾: 透過eBPF等技術，對關鍵系統呼叫(如 mount、chroot)進行監控與過濾，及時發現異常行為。</li>
+</ul>
+<p><img src="/images/image2.png"><br>對關鍵系統呼叫(如 mount、chroot)進行監控架構圖。(使用mermaid繪製)</p>
+<h1 id="四、實驗環境與配置"><a href="#四、實驗環境與配置" class="headerlink" title="四、實驗環境與配置"></a>四、實驗環境與配置</h1><p>以下內容可搭配個人實際demo影片: <a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=K-QwDysbjXU">https://www.youtube.com/watch?v=K-QwDysbjXU</a></p>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/K-QwDysbjXU?si=VGYvio-XmMEqO0F2" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
+<h2 id="1-環境架構總覽"><a href="#1-環境架構總覽" class="headerlink" title="1. 環境架構總覽"></a>1. 環境架構總覽</h2><p>本次實驗以一Ubuntu虛擬機架構進行，VM同時作為監控端(eBPF 偵測機制所在)與繞過端(發動容器逃逸行為)。</p>
+<ul>
+<li>虛擬機作業系統: Ubuntu22.04 LTS(宿主機)、Linux 6.8.0-59-generic</li>
+<li>容器映像檔: ubuntu: 22.04 (攻擊容器)</li>
+<li>容器管理工具: Docker version 28.1.1</li>
+<li>eBPF 工具鏈: BCC(BPF Compiler Collection)</li>
+</ul>
+<h2 id="2-系統前置安裝-Ubuntu宿主機執行"><a href="#2-系統前置安裝-Ubuntu宿主機執行" class="headerlink" title="2. 系統前置安裝(Ubuntu宿主機執行)"></a>2. 系統前置安裝(Ubuntu宿主機執行)</h2><p>以下操作皆於宿主機進行，用以安裝eBPF所需的套件及 Docker 環境:</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> apt-get update</span><br></pre></td></tr></table></figure>
+<p><img src="/images/image3.png"></p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> apt-get install -y docker.io bpfcc-tools python3-bpfcc linux-headers-$(<span class="built_in">uname</span> -r)</span><br></pre></td></tr></table></figure>
+<p><img src="/images/image4.png"></p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> systemctl <span class="built_in">enable</span> --now docker</span><br></pre></td></tr></table></figure>
+<p><img src="/images/image5.png"></p>
+<p>確認 BPF 工具能正常使用: </p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">ls</span> /usr/share/bcc/tools/</span><br></pre></td></tr></table></figure>
+<p><img src="/images/image6.png"></p>
+<h2 id="3-建立eBPF偵測程式-宿主機執行"><a href="#3-建立eBPF偵測程式-宿主機執行" class="headerlink" title="3. 建立eBPF偵測程式(宿主機執行)"></a>3. 建立eBPF偵測程式(宿主機執行)</h2><p>使用 BCC提供的 trace 工具，掛勾監控 syscall__mount和syscall__chroot，以即時偵測容器中可疑的系統呼叫:</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/python3</span></span><br><span class="line"><span class="keyword">from</span> bcc <span class="keyword">import</span> BPF</span><br><span class="line"></span><br><span class="line">prog = <span class="string">r&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">#include &lt;uapi/linux/ptrace.h&gt;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">int trace_mount(struct pt_regs *ctx) &#123;</span></span><br><span class="line"><span class="string">    bpf_trace_printk(&quot;MOUNT by pid %d\\n&quot;, bpf_get_current_pid_tgid() &gt;&gt; 32);</span></span><br><span class="line"><span class="string">    return 0;</span></span><br><span class="line"><span class="string">&#125;</span></span><br><span class="line"><span class="string">int trace_chroot(struct pt_regs *ctx) &#123;</span></span><br><span class="line"><span class="string">    bpf_trace_printk(&quot;CHROOT by pid %d\\n&quot;, bpf_get_current_pid_tgid() &gt;&gt; 32);</span></span><br><span class="line"><span class="string">    return 0;</span></span><br><span class="line"><span class="string">&#125;</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line">b = BPF(text=prog)</span><br><span class="line">b.attach_kprobe(event=<span class="string">&quot;__x64_sys_mount&quot;</span>, fn_name=<span class="string">&quot;trace_mount&quot;</span>)</span><br><span class="line">b.attach_kprobe(event=<span class="string">&quot;__x64_sys_chroot&quot;</span>, fn_name=<span class="string">&quot;trace_chroot&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;Tracing mount/chroot syscalls... Ctrl-C to exit.&quot;</span>)</span><br><span class="line">b.trace_print()</span><br></pre></td></tr></table></figure>
+<p>上面的程式碼，其中bpf_get_current_pid_tgid()要右移32位元是因為這條function是回傳 64 位元值，高32位元為 PID，低32位元為 TGID，需要右移32位元才可以提取PID。<br>監控時會在終端機輸出: </p>
+<p><img src="/images/image7.png"></p>
+<h2 id="4-建立攻擊容器-宿主機執行"><a href="#4-建立攻擊容器-宿主機執行" class="headerlink" title="4. 建立攻擊容器(宿主機執行)"></a>4. 建立攻擊容器(宿主機執行)</h2><p>使用以下指令建立權限過高的容器，並將宿主機的檔案系統掛載到容器內: </p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">docker run -it--rm \</span><br><span class="line">  --privileged \</span><br><span class="line">  -v /: /host: rw \</span><br><span class="line">  ubuntu: 22.04 \</span><br><span class="line">  bash</span><br></pre></td></tr></table></figure>
+<p>這段shell意思: 開啟一個可互動容器(-it)、移除容器結束後的殘留(–rm)、開啟 –privileged 權限、掛載整個 &#x2F;(宿主機根目錄)至容器內的 &#x2F;host。<br>(這個容器是簡化的場景，未來研究可嘗試無–privileged 的逃逸，相關補充可查詢CVE-2024-21626)</p>
+<h2 id="5-在容器中發動逃逸攻擊-容器內部執行"><a href="#5-在容器中發動逃逸攻擊-容器內部執行" class="headerlink" title="5. 在容器中發動逃逸攻擊(容器內部執行)"></a>5. 在容器中發動逃逸攻擊(容器內部執行)</h2><p>在容器內部執行下列指令以逃逸至宿主機的環境: </p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">chroot</span> /host/bin/bash</span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;HACKED by container&quot;</span> &gt;&gt; /root/HACKED.txt</span><br></pre></td></tr></table></figure>
+<p>若成功進入宿主機根目錄，且可以直接將檔案寫入&#x2F;root而不用再加上sudo，即代表逃逸成功。<br><img src="/images/image8.png"><br>同時，宿主機上開啟的 trace 命令應輸出 MOUNT與 CHROOT系統呼叫紀錄，可用作事後調查依據。<br><img src="/images/image9.png"></p>
+<h1 id="五、eBPF偵測原理"><a href="#五、eBPF偵測原理" class="headerlink" title="五、eBPF偵測原理"></a>五、eBPF偵測原理</h1><h2 id="1-為何選擇-eBPF"><a href="#1-為何選擇-eBPF" class="headerlink" title="1. 為何選擇 eBPF ?"></a>1. 為何選擇 eBPF ?</h2><ul>
+<li>eBPF(extended Berkeley PacketFilter)原本是為高效處理封包過濾而生，但近年來演進成為一種「可安全在核心層執行使用者自定義程式」的通用技術，具備以下優點: </li>
+<li>零撰寫核心模組風險: 透過verifier保證邏輯安全，不會導致Kernel crash。</li>
+<li>即時性高: 直接嵌入在kernel執行流程中，無須上下文切換。</li>
+<li>可掛鉤syscall: 可直接追蹤如mount、chroot等系統呼叫，為行為型偵測提供基礎。<br>支援tracepoint&#x2F;kprobe&#x2F;uprobe: 可追蹤核心或應用程式層的各種執行點。</li>
+</ul>
+<h2 id="2-偵測原理概述"><a href="#2-偵測原理概述" class="headerlink" title="2. 偵測原理概述"></a>2. 偵測原理概述</h2><p>容器逃逸常仰賴對宿主機的掛載與chroot操作，eBPF可以在syscall層級偵測這些異常操作。<br>主要偵測目標: </p>
+<ul>
+<li>mount(): 將宿主機檔案系統掛載進容器。</li>
+<li>chroot(): 改變根目錄以達到逃逸目的。<br>核心偵測邏輯: </li>
+<li>觀察非預期的mount行為，尤其是對 &#x2F; 或宿主機目錄的掛載。</li>
+<li>判斷是否在容器中發生chroot，且目標為宿主機根目錄(例如: &#x2F;host)。</li>
+<li>搭配 PID 判斷是否來自runc或其他container runtime。</li>
+</ul>
+<h2 id="3-輸出結果與意義"><a href="#3-輸出結果與意義" class="headerlink" title="3. 輸出結果與意義"></a>3. 輸出結果與意義</h2><p>當我們在宿主機開啟上述eBPF偵測程式時，並從容器內部執行逃逸行為(chroot&#x2F;host)，輸出如下:</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">b<span class="string">&#x27;   runc:[2:INIT]-27112   [003] ...21 12818.624276: bpf_trace_printk: MOUNT by pid 27112\\n&#x27;</span>                         </span><br><span class="line">b<span class="string">&#x27;   &lt;...&gt;-27148   [000] ...21 12859.718135: bpf_trace_printk: CHROOT by pid 27148\\n&#x27;</span></span><br></pre></td></tr></table></figure>
+<p>runc: [2: INIT] 表示該系統呼叫發自 container 初始化進程。<br>pid 27112 則是可被後續手動比對或自動分析的依據。<br>一連串短時間內的 MOUNT→ CHROOT，表示容器進程試圖脫離原有檔案系統限制，為明顯的逃逸徵兆。</p>
+<h1 id="六、實驗結果與分析"><a href="#六、實驗結果與分析" class="headerlink" title="六、實驗結果與分析"></a>六、實驗結果與分析</h1><h2 id="1-實驗設定回顧"><a href="#1-實驗設定回顧" class="headerlink" title="1. 實驗設定回顧"></a>1. 實驗設定回顧</h2><p>本實驗於單一台Ubuntu22.04虛擬機進行，模擬如下場景: </p>
+<ul>
+<li>宿主機安裝並執行eBPF偵測程式。</li>
+<li>容器內部透過 –privileged 權限啟動後，執行掛載整個宿主機目錄(-v &#x2F;: &#x2F;host)，再利用 chroot&#x2F;host轉移執行環境至宿主機。<br>最後在容器內直接寫入&#x2F;root，發現成功寫入&#x2F;root&#x2F;HACKED.txt且獲得宿主機root權限，證實逃逸成功。</li>
+</ul>
+<h2 id="2-eBPF偵測輸出分析"><a href="#2-eBPF偵測輸出分析" class="headerlink" title="2. eBPF偵測輸出分析"></a>2. eBPF偵測輸出分析</h2><p>當容器內進行 mount與 chroot操作時，宿主機終端機立即輸出以下訊息: </p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">b<span class="string">&#x27;   runc:[2:INIT]-27112   [003] ...21 12818.496559: bpf_trace_printk: MOUNT by pid 27112\\n&#x27;</span></span><br><span class="line">b<span class="string">&#x27;   runc:[2:INIT]-27112   [003] ...21 12818.496754: bpf_trace_printk: MOUNT by pid 27112\\n&#x27;</span></span><br><span class="line">b<span class="string">&#x27;   runc:[2:INIT]-27112   [003] ...21 12818.496972: bpf_trace_printk: MOUNT by pid 27112\\n&#x27;</span></span><br><span class="line">b<span class="string">&#x27;   runc:[2:INIT]-27112   [003] ...21 12818.497298: bpf_trace_printk: MOUNT by pid 27112\\n&#x27;</span></span><br><span class="line">b<span class="string">&#x27;   runc:[2:INIT]-27112   [003] ...21 12818.497563: bpf_trace_printk: MOUNT by pid 27112\\n&#x27;</span></span><br><span class="line">b<span class="string">&#x27;   runc:[2:INIT]-27112   [003] ...21 12818.497795: bpf_trace_printk: MOUNT by pid 27112\\n&#x27;</span></span><br><span class="line">b<span class="string">&#x27;   runc:[2:INIT]-27112   [003] ...21 12818.499010: bpf_trace_printk: MOUNT by pid 27112\\n&#x27;</span></span><br><span class="line">b<span class="string">&#x27;   runc:[2:INIT]-27112   [003] ...21 12818.501682: bpf_trace_printk: MOUNT by pid 27112\\n&#x27;</span></span><br><span class="line">b<span class="string">&#x27;   runc:[2:INIT]-27112   [003] ...21 12818.502590: bpf_trace_printk: MOUNT by pid 27112\\n&#x27;</span></span><br><span class="line">b<span class="string">&#x27;   runc:[2:INIT]-27112   [003] ...21 12818.502777: bpf_trace_printk: MOUNT by pid 27112\\n&#x27;</span></span><br></pre></td></tr></table></figure>
+<p>從輸出可以觀察出短時間內連續的 MOUNT行為，且來自同一PID，屬於典型逃逸特徵。<br>runc: [2: INIT] 表示該行為由 container runtime 所觸發，並非一般使用者 shell，風險更高。<br>透過 pid 27112 進一步交叉比對容器內外進程，可確定行為來源與目的。</p>
+<h2 id="3-容器內部行為觀察"><a href="#3-容器內部行為觀察" class="headerlink" title="3. 容器內部行為觀察"></a>3. 容器內部行為觀察</h2><p>在容器中執行: </p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">chroot</span> /host/bin/bash</span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;HACKED by container&quot;</span> &gt;&gt; /root/HACKED.txt</span><br></pre></td></tr></table></figure>
+<p>結果為真的寫入&#x2F;root，表示當前shell已轉移至宿主機環境。<br>此時執行 ls &#x2F;root等操作，皆會作用於宿主機的實體 &#x2F;root目錄，若未做防護，攻擊者可直接竄改宿主機關鍵設定或寫入後門程式。</p>
+<h2 id="4-安全分析與行為特徵彙整"><a href="#4-安全分析與行為特徵彙整" class="headerlink" title="4. 安全分析與行為特徵彙整"></a>4. 安全分析與行為特徵彙整</h2><table>
+<thead>
+<tr>
+<th>行為</th>
+<th>是否異常</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>掛載 &#x2F; 或 &#x2F;host</td>
+<td>是</td>
+<td>表示容器嘗試讀取整個宿主機檔案系統</td>
+</tr>
+<tr>
+<td>執行 chroot&#x2F;host</td>
+<td>是</td>
+<td>將容器內 shell 移至宿主機空間</td>
+</tr>
+<tr>
+<td>使用者為 root</td>
+<td>需視情境</td>
+<td>若容器內 root 對應宿主機 root為嚴重問題；若啟用user namespace，風險較低</td>
+</tr>
+<tr>
+<td>若 PID 出現在 eBPF 輸出中，且與 runc 有關</td>
+<td>是</td>
+<td>多為自動化 escape 或惡意 runtime 行為</td>
+</tr>
+</tbody></table>
+<h2 id="5-成效總結"><a href="#5-成效總結" class="headerlink" title="5. 成效總結"></a>5. 成效總結</h2><ul>
+<li>eBPF 成功偵測容器內部異常的系統呼叫，實現了即時、低延遲的偵測效果。</li>
+<li>在不改動 kernel 原始碼的前提下，完成行為型逃逸攻擊的準確攔截與記錄。</li>
+<li>偵測邏輯簡單清晰，可進一步拓展至多種 container runtime 與複雜場景。</li>
+</ul>
+<h1 id="七、對策與建議"><a href="#七、對策與建議" class="headerlink" title="七、對策與建議"></a>七、對策與建議</h1><h2 id="1-限制容器權限-避免使用-–privileged"><a href="#1-限制容器權限-避免使用-–privileged" class="headerlink" title="1. 限制容器權限: 避免使用 –privileged"></a>1. 限制容器權限: 避免使用 –privileged</h2><p>本次容器能成功掛載宿主機根目錄並執行 chroot的主要原因，是 Docker 使用了 –privileged 參數。<br>該參數會賦予容器所有宿主機的 Linux capabilities(如 CAP_SYS_ADMIN)，基本等同於 root。<br>建議做法: </p>
+<ul>
+<li>除非必要，嚴禁使用 –privileged 啟動容器。</li>
+<li>使用 Docker Capabilities 精細調控所需的權限，例如移除 SYS_ADMIN、SYS_CHROOT等敏感能力。</li>
+</ul>
+<h2 id="2-文件系統掛載安全控管"><a href="#2-文件系統掛載安全控管" class="headerlink" title="2. 文件系統掛載安全控管"></a>2. 文件系統掛載安全控管</h2><p>攻擊中將 &#x2F; 掛載至 &#x2F;host，進一步配合 chroot進行空間轉移。<br>建議做法: </p>
+<ul>
+<li>禁止容器掛載敏感路徑(例如宿主機的 &#x2F; 或 &#x2F;proc等)。</li>
+<li>搭配 Seccomp 或 AppArmor 配置限制 mount() 等系統呼叫。</li>
+</ul>
+<h2 id="3-使用eBPF持續監控敏感-syscall"><a href="#3-使用eBPF持續監控敏感-syscall" class="headerlink" title="3. 使用eBPF持續監控敏感 syscall"></a>3. 使用eBPF持續監控敏感 syscall</h2><p>本實驗展示了eBPF能有效監控 mount與 chroot系統呼叫，並記錄可疑行為。<br>相較於傳統 log 分析工具，eBPF 擁有以下優勢: </p>
+<ul>
+<li>可即時追蹤內核層級活動，不需仰賴容器內部 agent。</li>
+<li>可客製監控邏輯，精準匹配逃逸行為模式。<br>建議做法: </li>
+<li>常駐執行簡易eBPF探測模組，設定觸發條件與警報通知。</li>
+<li>搭配 tracee、Tetragon 等開源框架建構eBPF安全監控系統。</li>
+</ul>
+<h2 id="4-實作-Namespace-隔離強化"><a href="#4-實作-Namespace-隔離強化" class="headerlink" title="4. 實作 Namespace 隔離強化"></a>4. 實作 Namespace 隔離強化</h2><p>若容器逃逸行為未搭配完善的 namespace 隔離設計，容易成功竄改宿主系統。<br>建議做法: </p>
+<ul>
+<li>啟用 user namespace，以確保容器內部 root權限對應到宿主非 rootUID。</li>
+<li>使用 gVisor、Kata Containers 等加強隔離型 container runtime。</li>
+</ul>
+<h2 id="5-eBPF安全策略設計建議"><a href="#5-eBPF安全策略設計建議" class="headerlink" title="5. eBPF安全策略設計建議"></a>5. eBPF安全策略設計建議</h2><table>
+<thead>
+<tr>
+<th>偵測行為</th>
+<th>建議策略</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>mount() 呼叫</td>
+<td>僅允許預先定義的 mount目的與來源</td>
+</tr>
+<tr>
+<td>chroot() 呼叫</td>
+<td>僅允許特定目錄或 UID 呼叫執行</td>
+</tr>
+<tr>
+<td>PID 來自 runc</td>
+<td>加強審查 container runtime 初始化行為</td>
+</tr>
+<tr>
+<td>容器 PID 與宿主機交叉</td>
+<td>若 PID 同時出現在 container 與 host，可標記為異常</td>
+</tr>
+</tbody></table>
+<h1 id="八、結論"><a href="#八、結論" class="headerlink" title="八、結論"></a>八、結論</h1><p>本報告深入探討了使用eBPF偵測容器逃逸行為的可行性與實作細節，透過在單一台 Ubuntu22.04 虛擬機中進行的實驗，我們成功模擬出一個基於 –privileged權限與chroot()技術的容器逃逸案例，並證明eBPF可在不干擾系統運作的情況下，即時攔截與記錄高風險的系統呼叫(如 mount() 和 chroot())，該偵測方式具備低延遲、低開銷與高度靈活性，對於雲端原生環境中零信任架構的實現具有極高的實務價值。</p>
+<p>從安全防禦角度來看，eBPF 並非單一解方，而是應當作一個可擴充的監控框架，與Docker權限控管、Namespace隔離、系統資源限制(如 Seccomp、AppArmor)等多層防禦機制整合。藉由持續性偵測與行為模式分析，eBPF 可有效從微觀層面補足傳統安全方案在容器場域中的不足之處。</p>
+<p>最後，雖然本次實驗選擇使用較簡化的非CVE攻擊路徑，並僅以基本的 tracepoint 做偵測，但這也顯示出: 即使是初階的eBPF腳本與行為觀察，也能在實務中產生實質的安全防禦成效，未來可結合 ML 分析 eBPF 輸出的行為模式，實現自動化異常檢測。<br><img src="/images/image10.png"><br>此圖為此次報告完整架構圖，可以清楚看到chroot到宿主機的全過程 (使用mermaid繪製)</p>
+<h1 id="九、心得"><a href="#九、心得" class="headerlink" title="九、心得"></a>九、心得</h1><p>這份的主題啟發來自最近跟著實驗室在做專題時，同一台伺服器上有許多docker容器，有的容器是已對外公開的網頁，有的是對外公開的API，那我要怎麼確保我自己開的docker不會去影響到其他學長姐的成果，所以我就從這個角度往資安方向去做衍生，最一開始想的是: 我有可能可以從我的docker裡面去影響到全域的環境變數嗎? 還真的被我找到一篇2019年的漏洞，不過它可以直接造成RCE就是了，CVE編號: CVE-2019-5736，主要是在講二進位檔案會造成RCE，詳細邏輯不詳談，但事實是可以做得到的。</p>
+<p>再來就是去年的CVE-2024-8695、CVE-2024-8696、CVE-2024-21626，這三篇基本上都是容器逃逸的實際漏洞，也因此這份報告選用chroot 和 mount 作為模擬場景，而這些CVE邏輯跟這份報告所做的差不多，只是需要多加一些bypass的地方需要更深入研究，如果有空想要復現的話就把–privileged拿掉，不要讓docker容器權限這麼高，再實際去exploit-db找腳本試，應該也是個蠻好玩的復現(個人覺得這總比apache好玩多了xd)，這次最困難的地方大概是釐清一些eBPF的基本機制和環境吧，繞過的邏輯順了以後其實沒有太難，基本上有一大半的時間都在調整環境，一下子linux headers版本衝突，一下子docker環境不符合，一下子又抓不到bcc位置，中途還想說再不行我就鬼轉題目來研究了，不過好險最後一步一步的調整就成功復現了!</p>
+<h1 id="十、部分參考資料"><a href="#十、部分參考資料" class="headerlink" title="十、部分參考資料"></a>十、部分參考資料</h1><p>GitHub:<br><a target="_blank" rel="noopener" href="https://github.com/iovisor/bcc">https://github.com/iovisor/bcc</a>,<br><a target="_blank" rel="noopener" href="https://github.com/aquasecurity/tracee">https://github.com/aquasecurity/tracee</a>,<br><a target="_blank" rel="noopener" href="https://github.com/pathtofile/bad-bpf">https://github.com/pathtofile/bad-bpf</a>, </p>
+<p>Linux中基於eBPF的惡意利用與檢測機制: <a target="_blank" rel="noopener" href="https://kknews.cc/zh-tw/n/gx6j5y9.html">https://kknews.cc/zh-tw/n/gx6j5y9.html</a></p>
+<p>高效入門eBPF:<br><a target="_blank" rel="noopener" href="https://github.com/gojue/ebpf-slide/blob/master/eBPF_basic/%E9%AB%98%E6%95%88%E5%85%A5%E9%97%A8eBPF-%E8%A5%BF%E5%AE%89%E9%82%AE%E7%94%B5%E5%A4%A7%E5%AD%A6-%E8%B4%BA%E4%B8%9C%E5%8D%87.pdf">https://github.com/gojue/ebpf-slide/blob/master/eBPF_basic&#x2F;%E9%AB%98%E6%95%88%E5%85%A5%E9%97%A8eBPF-%E8%A5%BF%E5%AE%89%E9%82%AE%E7%94%B5%E5%A4%A7%E5%AD%A6-%E8%B4%BA%E4%B8%9C%E5%8D%87.pdf</a></p>
+<p>分享一些eBPF技术相关的PDF: <a target="_blank" rel="noopener" href="https://www.cnxct.com/ebpf-slide-pdf-share/#ftoc-heading-3">https://www.cnxct.com/ebpf-slide-pdf-share/#ftoc-heading-3</a></p>
+<p>复现基于eBPF实现的Docker逃逸: <a target="_blank" rel="noopener" href="https://drivertom.blogspot.com/2022/01/ebpfdocker.html">https://drivertom.blogspot.com/2022/01/ebpfdocker.html</a></p>
+<p>黑客利用 Linux eBPF 持续传播恶意软件: <a target="_blank" rel="noopener" href="https://www.anquanke.com/post/id/302837">https://www.anquanke.com/post/id/302837</a></p>
+<p>DEFCON: <a target="_blank" rel="noopener" href="https://defcon.org/html/defcon-29/dc-29-speakers.html#path">https://defcon.org/html/defcon-29/dc-29-speakers.html#path</a> </p>
+<p>Day04 - (攻擊) 容器逃逸手法 nsenter: <a target="_blank" rel="noopener" href="https://ithelp.ithome.com.tw/m/articles/10316981">https://ithelp.ithome.com.tw/m/articles/10316981</a></p>
+<p>eBPF linux運行時惡意利用: <a target="_blank" rel="noopener" href="https://v.qq.com/txp/iframe/player.html?vid=e33246j5zi5">https://v.qq.com/txp/iframe/player.html?vid=e33246j5zi5</a></p>
+<p>datadog的eBPF安全检测机制分析: <a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/SAPz4Z1m2gVtQWzt68u6eg">https://mp.weixin.qq.com/s/SAPz4Z1m2gVtQWzt68u6eg</a></p>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>Post author:  </strong>che
+  </li>
+  <li class="post-copyright-link">
+    <strong>Post link: </strong>
+    <a href="https://chewu.tw/20250513/" title="基於eBPF的容器逃逸行為偵測機制研究與實作">https://chewu.tw/20250513/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>Copyright Notice:  </strong>All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC</a> unless stating additionally.
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/practise_web/" rel="prev" title="Practise Web Security">
+      <i class="fa fa-chevron-left"></i> Practise Web Security
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%9F%BA%E6%96%BCeBPF%E7%9A%84%E5%AE%B9%E5%99%A8%E9%80%83%E9%80%B8%E8%A1%8C%E7%82%BA%E5%81%B5%E6%B8%AC%E6%A9%9F%E5%88%B6%E7%A0%94%E7%A9%B6%E8%88%87%E5%AF%A6%E4%BD%9C"><span class="nav-number">1.</span> <span class="nav-text">基於eBPF的容器逃逸行為偵測機制研究與實作</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E7%B7%92%E8%AB%96"><span class="nav-number">2.</span> <span class="nav-text">一、緒論</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A0%B1%E5%91%8A%E7%9B%AE%E7%9A%84"><span class="nav-number">2.1.</span> <span class="nav-text">報告目的:</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BA%8C%E3%80%81eBPF-%E6%8A%80%E8%A1%93%E8%83%8C%E6%99%AF"><span class="nav-number">3.</span> <span class="nav-text">二、eBPF 技術背景</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B7%E5%82%99%E4%BB%A5%E4%B8%8B%E5%84%AA%E5%8B%A2"><span class="nav-number">3.1.</span> <span class="nav-text">具備以下優勢:</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#eBPF-%E7%9A%84%E9%97%9C%E9%8D%B5%E7%B5%84%E4%BB%B6"><span class="nav-number">3.2.</span> <span class="nav-text">eBPF 的關鍵組件:</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9C%A8%E8%B3%87%E8%A8%8A%E5%AE%89%E5%85%A8%E7%9A%84%E6%87%89%E7%94%A8"><span class="nav-number">3.3.</span> <span class="nav-text">在資訊安全的應用:</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%89%E3%80%81%E5%AE%B9%E5%99%A8%E9%80%83%E9%80%B8%E6%8A%80%E8%A1%93%E6%A6%82%E8%AB%96"><span class="nav-number">4.</span> <span class="nav-text">三、容器逃逸技術概論</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E5%AE%B9%E5%99%A8%E9%80%83%E9%80%B8%E7%9A%84%E8%83%8C%E6%99%AF"><span class="nav-number">4.1.</span> <span class="nav-text">1. 容器逃逸的背景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E5%AE%B9%E5%99%A8%E9%80%83%E9%80%B8%E7%9A%84%E5%85%B8%E5%9E%8B%E6%89%8B%E6%AE%B5"><span class="nav-number">4.2.</span> <span class="nav-text">2. 容器逃逸的典型手段</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-%E6%9C%AC%E5%A0%B1%E5%91%8A%E7%9A%84%E5%AE%B9%E5%99%A8%E9%80%83%E9%80%B8%E6%A1%88%E4%BE%8B"><span class="nav-number">4.3.</span> <span class="nav-text">3. 本報告的容器逃逸案例</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-%E9%80%83%E9%80%B8%E7%9A%84%E9%A2%A8%E9%9A%AA%E8%88%87%E5%BD%B1%E9%9F%BF"><span class="nav-number">4.4.</span> <span class="nav-text">4. 逃逸的風險與影響</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-%E5%AE%B9%E5%99%A8%E9%80%83%E9%80%B8%E9%98%B2%E7%A6%A6"><span class="nav-number">4.5.</span> <span class="nav-text">5. 容器逃逸防禦</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%9B%9B%E3%80%81%E5%AF%A6%E9%A9%97%E7%92%B0%E5%A2%83%E8%88%87%E9%85%8D%E7%BD%AE"><span class="nav-number">5.</span> <span class="nav-text">四、實驗環境與配置</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E7%92%B0%E5%A2%83%E6%9E%B6%E6%A7%8B%E7%B8%BD%E8%A6%BD"><span class="nav-number">5.1.</span> <span class="nav-text">1. 環境架構總覽</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E7%B3%BB%E7%B5%B1%E5%89%8D%E7%BD%AE%E5%AE%89%E8%A3%9D-Ubuntu%E5%AE%BF%E4%B8%BB%E6%A9%9F%E5%9F%B7%E8%A1%8C"><span class="nav-number">5.2.</span> <span class="nav-text">2. 系統前置安裝(Ubuntu宿主機執行)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-%E5%BB%BA%E7%AB%8BeBPF%E5%81%B5%E6%B8%AC%E7%A8%8B%E5%BC%8F-%E5%AE%BF%E4%B8%BB%E6%A9%9F%E5%9F%B7%E8%A1%8C"><span class="nav-number">5.3.</span> <span class="nav-text">3. 建立eBPF偵測程式(宿主機執行)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-%E5%BB%BA%E7%AB%8B%E6%94%BB%E6%93%8A%E5%AE%B9%E5%99%A8-%E5%AE%BF%E4%B8%BB%E6%A9%9F%E5%9F%B7%E8%A1%8C"><span class="nav-number">5.4.</span> <span class="nav-text">4. 建立攻擊容器(宿主機執行)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-%E5%9C%A8%E5%AE%B9%E5%99%A8%E4%B8%AD%E7%99%BC%E5%8B%95%E9%80%83%E9%80%B8%E6%94%BB%E6%93%8A-%E5%AE%B9%E5%99%A8%E5%85%A7%E9%83%A8%E5%9F%B7%E8%A1%8C"><span class="nav-number">5.5.</span> <span class="nav-text">5. 在容器中發動逃逸攻擊(容器內部執行)</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BA%94%E3%80%81eBPF%E5%81%B5%E6%B8%AC%E5%8E%9F%E7%90%86"><span class="nav-number">6.</span> <span class="nav-text">五、eBPF偵測原理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E7%82%BA%E4%BD%95%E9%81%B8%E6%93%87-eBPF"><span class="nav-number">6.1.</span> <span class="nav-text">1. 為何選擇 eBPF ?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E5%81%B5%E6%B8%AC%E5%8E%9F%E7%90%86%E6%A6%82%E8%BF%B0"><span class="nav-number">6.2.</span> <span class="nav-text">2. 偵測原理概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-%E8%BC%B8%E5%87%BA%E7%B5%90%E6%9E%9C%E8%88%87%E6%84%8F%E7%BE%A9"><span class="nav-number">6.3.</span> <span class="nav-text">3. 輸出結果與意義</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%85%AD%E3%80%81%E5%AF%A6%E9%A9%97%E7%B5%90%E6%9E%9C%E8%88%87%E5%88%86%E6%9E%90"><span class="nav-number">7.</span> <span class="nav-text">六、實驗結果與分析</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E5%AF%A6%E9%A9%97%E8%A8%AD%E5%AE%9A%E5%9B%9E%E9%A1%A7"><span class="nav-number">7.1.</span> <span class="nav-text">1. 實驗設定回顧</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-eBPF%E5%81%B5%E6%B8%AC%E8%BC%B8%E5%87%BA%E5%88%86%E6%9E%90"><span class="nav-number">7.2.</span> <span class="nav-text">2. eBPF偵測輸出分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-%E5%AE%B9%E5%99%A8%E5%85%A7%E9%83%A8%E8%A1%8C%E7%82%BA%E8%A7%80%E5%AF%9F"><span class="nav-number">7.3.</span> <span class="nav-text">3. 容器內部行為觀察</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-%E5%AE%89%E5%85%A8%E5%88%86%E6%9E%90%E8%88%87%E8%A1%8C%E7%82%BA%E7%89%B9%E5%BE%B5%E5%BD%99%E6%95%B4"><span class="nav-number">7.4.</span> <span class="nav-text">4. 安全分析與行為特徵彙整</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-%E6%88%90%E6%95%88%E7%B8%BD%E7%B5%90"><span class="nav-number">7.5.</span> <span class="nav-text">5. 成效總結</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%83%E3%80%81%E5%B0%8D%E7%AD%96%E8%88%87%E5%BB%BA%E8%AD%B0"><span class="nav-number">8.</span> <span class="nav-text">七、對策與建議</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E9%99%90%E5%88%B6%E5%AE%B9%E5%99%A8%E6%AC%8A%E9%99%90-%E9%81%BF%E5%85%8D%E4%BD%BF%E7%94%A8-%E2%80%93privileged"><span class="nav-number">8.1.</span> <span class="nav-text">1. 限制容器權限: 避免使用 –privileged</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E6%96%87%E4%BB%B6%E7%B3%BB%E7%B5%B1%E6%8E%9B%E8%BC%89%E5%AE%89%E5%85%A8%E6%8E%A7%E7%AE%A1"><span class="nav-number">8.2.</span> <span class="nav-text">2. 文件系統掛載安全控管</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-%E4%BD%BF%E7%94%A8eBPF%E6%8C%81%E7%BA%8C%E7%9B%A3%E6%8E%A7%E6%95%8F%E6%84%9F-syscall"><span class="nav-number">8.3.</span> <span class="nav-text">3. 使用eBPF持續監控敏感 syscall</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-%E5%AF%A6%E4%BD%9C-Namespace-%E9%9A%94%E9%9B%A2%E5%BC%B7%E5%8C%96"><span class="nav-number">8.4.</span> <span class="nav-text">4. 實作 Namespace 隔離強化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-eBPF%E5%AE%89%E5%85%A8%E7%AD%96%E7%95%A5%E8%A8%AD%E8%A8%88%E5%BB%BA%E8%AD%B0"><span class="nav-number">8.5.</span> <span class="nav-text">5. eBPF安全策略設計建議</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%85%AB%E3%80%81%E7%B5%90%E8%AB%96"><span class="nav-number">9.</span> <span class="nav-text">八、結論</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B9%9D%E3%80%81%E5%BF%83%E5%BE%97"><span class="nav-number">10.</span> <span class="nav-text">九、心得</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8D%81%E3%80%81%E9%83%A8%E5%88%86%E5%8F%83%E8%80%83%E8%B3%87%E6%96%99"><span class="nav-number">11.</span> <span class="nav-text">十、部分參考資料</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="che"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">che</p>
+  <div class="site-description" itemprop="description">Eat. Sleep. Code. Repeat.</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+          <span class="site-state-item-count">15</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://chewu.tw/" title="Home → https:&#x2F;&#x2F;chewu.tw"><i class=" fa-fw"></i>Home</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://github.com/chewu-0319" title="Github → https:&#x2F;&#x2F;github.com&#x2F;chewu-0319" rel="noopener" target="_blank"><i class="Github fa-fw"></i>Github</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:dylan.jc2222@gmail.com" title="Email → mailto:dylan.jc2222@gmail.com" rel="noopener" target="_blank"><i class="Email fa-fw"></i>Email</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.instagram.com/che._.wu/" title="Instagram → https:&#x2F;&#x2F;www.instagram.com&#x2F;che._.wu&#x2F;" rel="noopener" target="_blank"><i class="instagram fa-fw"></i>Instagram</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://discordapp.com/users/768889520280043561" title="discord → https:&#x2F;&#x2F;discordapp.com&#x2F;users&#x2F;768889520280043561" rel="noopener" target="_blank"><i class="discord fa-fw"></i>discord</a>
+      </span>
+  </div>
+  <div class="cc-license motion-element" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">che</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">Symbols count total: </span>
+    <span title="Symbols count total">29k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">Reading time total &asymp;</span>
+    <span title="Reading time total">1:44</span>
+</div>
+
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+</body>
+</html>
