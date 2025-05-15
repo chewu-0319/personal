@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://chewu.tw/20241011/</loc>
+    <lastmod>2025-05-14</lastmod>
+  </url>
+  <url>
     <loc>https://chewu.tw/20250513/</loc>
     <lastmod>2025-05-13</lastmod>
   </url>
@@ -27,10 +31,6 @@
   <url>
     <loc>https://chewu.tw/weekly-diary/</loc>
     <lastmod>2024-11-03</lastmod>
-  </url>
-  <url>
-    <loc>https://chewu.tw/20241011/</loc>
-    <lastmod>2024-10-11</lastmod>
   </url>
   <url>
     <loc>https://chewu.tw/personal_schedule/</loc>
