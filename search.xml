@@ -472,7 +472,8 @@
   <entry>
     <title>Local PII Extractor：支援中文的本地個資識別與匿名化工具</title>
     <url>/20250528/</url>
-    <content><![CDATA[<h1 id="🛡️-Local-PII-Extractor：支援中文的本地個資識別與匿名化工具"><a href="#🛡️-Local-PII-Extractor：支援中文的本地個資識別與匿名化工具" class="headerlink" title="🛡️ Local PII Extractor：支援中文的本地個資識別與匿名化工具"></a>🛡️ Local PII Extractor：支援中文的本地個資識別與匿名化工具</h1><h2 id="GitHub-Repository：https-github-com-chewu-0319-Local-PII-Extractor"><a href="#GitHub-Repository：https-github-com-chewu-0319-Local-PII-Extractor" class="headerlink" title="GitHub Repository：https://github.com/chewu-0319/Local_PII_Extractor"></a>GitHub Repository：<a href="https://github.com/chewu-0319/Local_PII_Extractor">https://github.com/chewu-0319/Local_PII_Extractor</a></h2><hr>
+    <content><![CDATA[<h1 id="🛡️-Local-PII-Extractor：支援中文的本地個資識別與匿名化工具"><a href="#🛡️-Local-PII-Extractor：支援中文的本地個資識別與匿名化工具" class="headerlink" title="🛡️ Local PII Extractor：支援中文的本地個資識別與匿名化工具"></a>🛡️ Local PII Extractor：支援中文的本地個資識別與匿名化工具</h1><p>GitHub Repository：<a href="https://github.com/chewu-0319/Local_PII_Extractor">https://github.com/chewu-0319/Local_PII_Extractor</a></p>
+<hr>
 <h1 id="簡介"><a href="#簡介" class="headerlink" title="簡介"></a>簡介</h1><p>許多使用者習慣將資料輸入至如 GPT, Grok或Claude等AI模型進行處理，但這些資料可能包含機敏資訊（例如電話號碼、身分證號、信用卡資訊等），直接上傳可能面臨個資外洩的風險。</p>
 <p>那我就想到，如果能在上傳資料到這些大語言模型之前，先在本地<strong>自動</strong>把重要資料先移除 (手動的話會很久很麻煩)，避免資料偷偷被這些公司拿去蒐集訓練，造成個資外洩，所以就結合自己在自然語言處理領域的研究，使用NER的方式去實作。</p>
 <p>開發 <strong>Local PII Extractor</strong>，支援中文的本地個資提取與匿名化工具，使用spaCy與正規表示式進行雙重偵測，並提供簡潔的 GUI 操作介面，讓使用者能夠在本地環境中安全地處理敏感資料。</p>

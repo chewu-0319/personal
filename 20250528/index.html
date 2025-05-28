@@ -45,8 +45,8 @@
 <meta property="og:site_name" content="che&#39;s blog">
 <meta property="og:description" content="Local PII Extractor：支援中文的本地個資識別與匿名化工具">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2025-05-28T16:45:37.459Z">
-<meta property="article:modified_time" content="2025-05-28T17:03:58.054Z">
+<meta property="article:published_time" content="2025-05-15T16:00:00.000Z">
+<meta property="article:modified_time" content="2025-05-28T17:06:34.791Z">
 <meta property="article:author" content="che">
 <meta property="article:tag" content="吳昕哲, 昕哲, chewu, che, 程式, 資工, 資訊, 資訊社, 吳○哲, 光復資訊研究社, 資安, AI, NLP">
 <meta name="twitter:card" content="summary">
@@ -224,10 +224,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2025-05-29 00:45:37 / Modified: 01:03:58" itemprop="dateCreated datePublished" datetime="2025-05-29T00:45:37+08:00">2025-05-29</time>
+              <time title="Created: 2025-05-16 00:00:00" itemprop="dateCreated datePublished" datetime="2025-05-16T00:00:00+08:00">2025-05-16</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2025-05-29 01:06:34" itemprop="dateModified" datetime="2025-05-29T01:06:34+08:00">2025-05-29</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -264,7 +270,8 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h1 id="🛡️-Local-PII-Extractor：支援中文的本地個資識別與匿名化工具"><a href="#🛡️-Local-PII-Extractor：支援中文的本地個資識別與匿名化工具" class="headerlink" title="🛡️ Local PII Extractor：支援中文的本地個資識別與匿名化工具"></a>🛡️ Local PII Extractor：支援中文的本地個資識別與匿名化工具</h1><h2 id="GitHub-Repository：https-github-com-chewu-0319-Local-PII-Extractor"><a href="#GitHub-Repository：https-github-com-chewu-0319-Local-PII-Extractor" class="headerlink" title="GitHub Repository：https://github.com/chewu-0319/Local_PII_Extractor"></a>GitHub Repository：<a target="_blank" rel="noopener" href="https://github.com/chewu-0319/Local_PII_Extractor">https://github.com/chewu-0319/Local_PII_Extractor</a></h2><hr>
+        <h1 id="🛡️-Local-PII-Extractor：支援中文的本地個資識別與匿名化工具"><a href="#🛡️-Local-PII-Extractor：支援中文的本地個資識別與匿名化工具" class="headerlink" title="🛡️ Local PII Extractor：支援中文的本地個資識別與匿名化工具"></a>🛡️ Local PII Extractor：支援中文的本地個資識別與匿名化工具</h1><p>GitHub Repository：<a target="_blank" rel="noopener" href="https://github.com/chewu-0319/Local_PII_Extractor">https://github.com/chewu-0319/Local_PII_Extractor</a></p>
+<hr>
 <h1 id="簡介"><a href="#簡介" class="headerlink" title="簡介"></a>簡介</h1><p>許多使用者習慣將資料輸入至如 GPT, Grok或Claude等AI模型進行處理，但這些資料可能包含機敏資訊（例如電話號碼、身分證號、信用卡資訊等），直接上傳可能面臨個資外洩的風險。</p>
 <p>那我就想到，如果能在上傳資料到這些大語言模型之前，先在本地<strong>自動</strong>把重要資料先移除 (手動的話會很久很麻煩)，避免資料偷偷被這些公司拿去蒐集訓練，造成個資外洩，所以就結合自己在自然語言處理領域的研究，使用NER的方式去實作。</p>
 <p>開發 <strong>Local PII Extractor</strong>，支援中文的本地個資提取與匿名化工具，使用spaCy與正規表示式進行雙重偵測，並提供簡潔的 GUI 操作介面，讓使用者能夠在本地環境中安全地處理敏感資料。</p>
@@ -410,7 +417,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%F0%9F%9B%A1%EF%B8%8F-Local-PII-Extractor%EF%BC%9A%E6%94%AF%E6%8F%B4%E4%B8%AD%E6%96%87%E7%9A%84%E6%9C%AC%E5%9C%B0%E5%80%8B%E8%B3%87%E8%AD%98%E5%88%A5%E8%88%87%E5%8C%BF%E5%90%8D%E5%8C%96%E5%B7%A5%E5%85%B7"><span class="nav-number">1.</span> <span class="nav-text">🛡️ Local PII Extractor：支援中文的本地個資識別與匿名化工具</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#GitHub-Repository%EF%BC%9Ahttps-github-com-chewu-0319-Local-PII-Extractor"><span class="nav-number">1.1.</span> <span class="nav-text">GitHub Repository：https:&#x2F;&#x2F;github.com&#x2F;chewu-0319&#x2F;Local_PII_Extractor</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%B0%A1%E4%BB%8B"><span class="nav-number">2.</span> <span class="nav-text">簡介</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8B%95%E6%A9%9F"><span class="nav-number">3.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8A%9F%E8%83%BD"><span class="nav-number">4.</span> <span class="nav-text">功能</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%8A%80%E8%A1%93"><span class="nav-number">5.</span> <span class="nav-text">技術</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E8%AA%AA%E6%98%8E"><span class="nav-number">6.</span> <span class="nav-text">使用說明</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%F0%9F%93%81-%E5%B0%88%E6%A1%88%E7%B5%90%E6%A7%8B"><span class="nav-number">7.</span> <span class="nav-text">📁 專案結構</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%F0%9F%94%8D-%E6%9C%AA%E4%BE%86%E8%A6%8F%E5%8A%83"><span class="nav-number">8.</span> <span class="nav-text">🔍 未來規劃</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%F0%9F%9B%A1%EF%B8%8F-Local-PII-Extractor%EF%BC%9A%E6%94%AF%E6%8F%B4%E4%B8%AD%E6%96%87%E7%9A%84%E6%9C%AC%E5%9C%B0%E5%80%8B%E8%B3%87%E8%AD%98%E5%88%A5%E8%88%87%E5%8C%BF%E5%90%8D%E5%8C%96%E5%B7%A5%E5%85%B7"><span class="nav-number">1.</span> <span class="nav-text">🛡️ Local PII Extractor：支援中文的本地個資識別與匿名化工具</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%B0%A1%E4%BB%8B"><span class="nav-number">2.</span> <span class="nav-text">簡介</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8B%95%E6%A9%9F"><span class="nav-number">3.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8A%9F%E8%83%BD"><span class="nav-number">4.</span> <span class="nav-text">功能</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%8A%80%E8%A1%93"><span class="nav-number">5.</span> <span class="nav-text">技術</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E8%AA%AA%E6%98%8E"><span class="nav-number">6.</span> <span class="nav-text">使用說明</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%F0%9F%93%81-%E5%B0%88%E6%A1%88%E7%B5%90%E6%A7%8B"><span class="nav-number">7.</span> <span class="nav-text">📁 專案結構</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%F0%9F%94%8D-%E6%9C%AA%E4%BE%86%E8%A6%8F%E5%8A%83"><span class="nav-number">8.</span> <span class="nav-text">🔍 未來規劃</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
