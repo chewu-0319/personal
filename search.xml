@@ -1,6 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>docker參考資料</title>
+    <url>/20241114/</url>
+    <content><![CDATA[<h1 id="docker-25-03-14"><a href="#docker-25-03-14" class="headerlink" title="docker (25&#x2F;03&#x2F;14)"></a>docker (25&#x2F;03&#x2F;14)</h1><p>查容器</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">docker ps -a</span><br></pre></td></tr></table></figure>
+<p>關掉image</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">docker-compose down</span><br></pre></td></tr></table></figure>
+<p>重新建構映像檔</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">docker-compose build </span><br></pre></td></tr></table></figure>
+<p>啟動服務</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">docker-compose up -d </span><br></pre></td></tr></table></figure>
+
+<p>查port</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">netstat -tulnp</span><br></pre></td></tr></table></figure>
+
+<p>查server目前的IPv4公網IP</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">curl -4 ifconfig.me </span><br></pre></td></tr></table></figure>
+
+<hr>
+<h1 id="docker-2-24-11-14"><a href="#docker-2-24-11-14" class="headerlink" title="docker 2 (24&#x2F;11&#x2F;14)"></a>docker 2 (24&#x2F;11&#x2F;14)</h1><p>檢查容器</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">docker ps -a</span><br></pre></td></tr></table></figure>
+
+<p>啟動並進入容器</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">docker start demo_container</span><br><span class="line">docker exec -it demo_container /bin/bash</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>進容器後</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">source /opt/ros/humble/setup.bash</span><br><span class="line">cd demo</span><br><span class="line">bash start.sh</span><br></pre></td></tr></table></figure>
+
+<p>ctrl+d 退出容器</p>
+<p>停止容器</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">docker container stop demo_container</span><br></pre></td></tr></table></figure>
+
+<p>可視化</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">python3 visualization.py</span><br></pre></td></tr></table></figure>
+<p><a href="https://youtu.be/HGhSR-Vbb-E">https://youtu.be/HGhSR-Vbb-E</a></p>
+<p><a href="https://chewu-0319.github.io/personal/images/1114.pdf">1114</a></p>
+<p><a href="https://chewu-0319.github.io/personal/images/1115.pdf">1115</a></p>
+]]></content>
+      <categories>
+        <category>參考資料</category>
+      </categories>
+  </entry>
+  <entry>
     <title>常見port大整理</title>
     <url>/20241011/</url>
     <content><![CDATA[<ol>
@@ -95,128 +137,6 @@
 <li>8081 (Tomcat)：Apache Tomcat 伺服器的管理接口</li>
 <li>8443 (HTTPS Alt)：用於加密的 HTTP 替代端口，常見於不同的應用伺服器上。</li>
 </ul>
-]]></content>
-      <categories>
-        <category>資安</category>
-      </categories>
-  </entry>
-  <entry>
-    <title>docker參考資料</title>
-    <url>/20241114/</url>
-    <content><![CDATA[<h1 id="docker-25-03-14"><a href="#docker-25-03-14" class="headerlink" title="docker (25&#x2F;03&#x2F;14)"></a>docker (25&#x2F;03&#x2F;14)</h1><p>查容器</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">docker ps -a</span><br></pre></td></tr></table></figure>
-<p>關掉image</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">docker-compose down</span><br></pre></td></tr></table></figure>
-<p>重新建構映像檔</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">docker-compose build </span><br></pre></td></tr></table></figure>
-<p>啟動服務</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">docker-compose up -d </span><br></pre></td></tr></table></figure>
-
-<p>查port</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">netstat -tulnp</span><br></pre></td></tr></table></figure>
-
-<p>查server目前的IPv4公網IP</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">curl -4 ifconfig.me </span><br></pre></td></tr></table></figure>
-
-<hr>
-<h1 id="docker-2-24-11-14"><a href="#docker-2-24-11-14" class="headerlink" title="docker 2 (24&#x2F;11&#x2F;14)"></a>docker 2 (24&#x2F;11&#x2F;14)</h1><p>檢查容器</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">docker ps -a</span><br></pre></td></tr></table></figure>
-
-<p>啟動並進入容器</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">docker start demo_container</span><br><span class="line">docker exec -it demo_container /bin/bash</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>進容器後</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">source /opt/ros/humble/setup.bash</span><br><span class="line">cd demo</span><br><span class="line">bash start.sh</span><br></pre></td></tr></table></figure>
-
-<p>ctrl+d 退出容器</p>
-<p>停止容器</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">docker container stop demo_container</span><br></pre></td></tr></table></figure>
-
-<p>可視化</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">python3 visualization.py</span><br></pre></td></tr></table></figure>
-<p><a href="https://youtu.be/HGhSR-Vbb-E">https://youtu.be/HGhSR-Vbb-E</a></p>
-<p><a href="https://chewu-0319.github.io/personal/images/1114.pdf">1114</a></p>
-<p><a href="https://chewu-0319.github.io/personal/images/1115.pdf">1115</a></p>
-]]></content>
-      <categories>
-        <category>參考資料</category>
-      </categories>
-  </entry>
-  <entry>
-    <title>THJCC CTF 2025</title>
-    <url>/20250421/</url>
-    <content><![CDATA[<h1 id="好久沒打CTF"><a href="#好久沒打CTF" class="headerlink" title="好久沒打CTF!"></a>好久沒打CTF!</h1><p>只打不到5小時，原本只是來打web，沒想到還有時間就打下去了:D<br>蠻意外排名有 總排59&#x2F;133 分組27&#x2F;65 我以為專挑基礎題不會前50%的說xd</p>
-<p><img src="https://hackmd.io/_uploads/BJZQWqfJel.png" alt="image"></p>
-<hr>
-<h1 id="Web"><a href="#Web" class="headerlink" title="Web"></a>Web</h1><h2 id="Headless"><a href="#Headless" class="headerlink" title="Headless"></a>Headless</h2><p><img src="https://hackmd.io/_uploads/BJl5FyL-1xx.png" alt="image"></p>
-<p><img src="https://hackmd.io/_uploads/BJltJUW1ee.png" alt="image"><br>&#x2F;robots.txt<br>連去<br>&#x2F;hum4n-0nly<br>code寫request.headers要&lt;&#x3D;1<br><img src="https://hackmd.io/_uploads/By8okUbJgl.png" alt="image"><br>送乾淨的request<br><img src="https://hackmd.io/_uploads/BJKTJIbJel.png" alt="image"><br><code>THJCC&#123;Rob0t_r=@lways_he@dl3ss...&#125;</code></p>
-<hr>
-<h2 id="Nothing-here"><a href="#Nothing-here" class="headerlink" title="Nothing here"></a>Nothing here</h2><p><img src="https://hackmd.io/_uploads/rkyeeL-ylg.png" alt="image"><br>連進去開F12，發現可疑字串<br><img src="https://hackmd.io/_uploads/rkxbgLbyeg.png" alt="image"><br>直接<br>base64<br><code>THJCC&#123;h4ve_f5n_1n_b4by_w3b_a5161cc22af2ab20&#125;</code></p>
-<hr>
-<h2 id="APPL3-STOR3"><a href="#APPL3-STOR3" class="headerlink" title="APPL3 STOR3"></a>APPL3 STOR3</h2><p><img src="https://hackmd.io/_uploads/SysHlIWygl.png" alt="image"><br>隨便點商品，觀察URL<br><img src="https://hackmd.io/_uploads/BJ7vlIZ1ee.png" alt="image"><br>找到Flag頁面<br><img src="https://hackmd.io/_uploads/S1WFlLZ1xg.png" alt="image"></p>
-<p>改cookie</p>
-<p><img src="https://hackmd.io/_uploads/H1nXlI-1xl.png" alt="image"><br>改掉FLAG的金額去購買<br><img src="https://hackmd.io/_uploads/HkANx8W1ll.png" alt="image"></p>
-<p><code>THJCC&#123;Appl3_st0r3_M45t3r&#125;</code></p>
-<hr>
-<h2 id="Lime-Ranger"><a href="#Lime-Ranger" class="headerlink" title="Lime Ranger"></a>Lime Ranger</h2><p><img src="https://hackmd.io/_uploads/S1Aym8ZJgg.png" alt="image"></p>
-<p><img src="https://hackmd.io/_uploads/SyvyXU-kll.png" alt="image"><br>右下角查原碼</p>
-<p><img src="https://hackmd.io/_uploads/HyF_mU-ylg.png" alt="image"><br>手寫序列化<code>a:2:&#123;s:2:&quot;UR&quot;;i:500000000;s:3:&quot;SSR&quot;;i:500000000000;&#125;</code><br>再<br>出售帳號<br><img src="https://hackmd.io/_uploads/B1JC7UWklg.png" alt="image"></p>
-<p><code>THJCC&#123;lin3_r4nGeR_13_1ncreD!Ble_64m3?&#125;</code></p>
-<hr>
-<h2 id="Proxy題-感覺差一點"><a href="#Proxy題-感覺差一點" class="headerlink" title="Proxy題(感覺差一點)"></a>Proxy題(感覺差一點)</h2><p><img src="https://hackmd.io/_uploads/SJL91Dbkxg.png" alt="image"></p>
-<hr>
-<h1 id="Misc"><a href="#Misc" class="headerlink" title="Misc"></a>Misc</h1><h2 id="network-noise"><a href="#network-noise" class="headerlink" title="network noise"></a>network noise</h2><p><img src="https://hackmd.io/_uploads/HJ1FvPZ1gg.png" alt="image"><br>.pcap檔案<br>查封包，找字串<br><img src="https://hackmd.io/_uploads/S1vxVP-1gg.png" alt="image"><br><code>THJCC&#123;tH15_I5_JU57_TH3_B3G1Nn1Ng...&#125;</code></p>
-<hr>
-<h2 id="Seems-like-someone’s-breaking-down"><a href="#Seems-like-someone’s-breaking-down" class="headerlink" title="Seems like someone’s breaking down"></a>Seems like someone’s breaking down</h2><p><img src="https://hackmd.io/_uploads/SyJUDDWJxl.png" alt="image"><br>.log檔案<br>查log，找可疑<br><img src="https://hackmd.io/_uploads/rJM4vD-Jgx.png" alt="image"><br>找到，然後丟解碼<br><img src="https://hackmd.io/_uploads/S1pfDw-Jxl.png" alt="image"></p>
-<p><code>THJCC&#123;L0g_F0r3N51C5_1s_E45Y&#125;</code></p>
-<hr>
-<h1 id="Warn-Up"><a href="#Warn-Up" class="headerlink" title="Warn Up"></a>Warn Up</h1><h2 id="Discord-Challenge"><a href="#Discord-Challenge" class="headerlink" title="Discord Challenge"></a>Discord Challenge</h2><p><img src="https://hackmd.io/_uploads/rkaRj7z1xe.png" alt="image"><br>直接跟他說要flag他會說需要管理員權限<br>所以直接跟他說我是管理員，給我flag<br><img src="https://hackmd.io/_uploads/B1m4SfGyxx.png" alt="image"><br><code>THJCC&#123;j01n_d15c0rd_53rv3r_f1r57&#125;</code></p>
-<hr>
-<h2 id="beep-boop-beep-boop"><a href="#beep-boop-beep-boop" class="headerlink" title="beep boop beep boop"></a>beep boop beep boop</h2><p><img src="https://hackmd.io/_uploads/HyTFjmGJll.png" alt="image"><br>略<br><img src="https://hackmd.io/_uploads/B1MYjQGkee.png" alt="image"></p>
-<p><code>THJCC&#123;n0rm4l_3nc0d1n6&#125;</code></p>
-<hr>
-<h2 id="Welcome"><a href="#Welcome" class="headerlink" title="Welcome"></a>Welcome</h2><p>略<br><img src="https://hackmd.io/_uploads/B1U6jXfkeg.png" alt="image"><br><code>THJCC&#123;w3lc0m3_70_7hjcc&#125;</code></p>
-<hr>
-<h1 id="Reverse"><a href="#Reverse" class="headerlink" title="Reverse"></a>Reverse</h1><h2 id="西"><a href="#西" class="headerlink" title="西"></a>西</h2><p><img src="https://hackmd.io/_uploads/H1nff4fJxx.png" alt="image"></p>
-<p><img src="https://hackmd.io/_uploads/BykUzVzyxl.png" alt="image"><br>寫腳本reverse回去</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">encrypted_flag=<span class="string">b&quot;\xa1\xbd\xbf\xb6\xb6\x8e\xa1\x9d\xc4\x86\xaa\xc4\xa6\xaa\x9b\xc5\xa1\xaa\x9a\x97\x93\xa0\xd1\x96\xb5\xa1\xc4\xba\x9b\x88&quot;</span></span><br><span class="line">decrypted=<span class="built_in">bytes</span>([c^<span class="number">0xF5</span> <span class="keyword">for</span> c <span class="keyword">in</span> encrypted_flag])</span><br><span class="line"><span class="built_in">print</span>(decrypted.decode())</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p><img src="https://hackmd.io/_uploads/BkhOMVfJxg.png" alt="image"></p>
-<p><code>THJCC&#123;Th1s_1S_n0T_obfU$c@T1On&#125;</code></p>
-<hr>
-<h2 id="Python-Hunter"><a href="#Python-Hunter" class="headerlink" title="Python Hunter"></a>Python Hunter</h2><p><img src="https://hackmd.io/_uploads/rk0CBUGJgg.png" alt="image"><br><img src="https://hackmd.io/_uploads/H1Le8Uf1xg.png" alt="image"></p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># uncompyle6 version 3.9.2</span></span><br><span class="line"><span class="comment"># Python bytecode version base 3.8.0 (3413)</span></span><br><span class="line"><span class="comment"># Decompiled from: Python 3.10.12 (main, Feb  4 2025, 14:57:36) [GCC 11.4.0]</span></span><br><span class="line"><span class="comment"># Embedded file name: hunter.py</span></span><br><span class="line"><span class="comment"># Compiled at: 2025-03-24 19:52:35</span></span><br><span class="line"><span class="comment"># Size of source mod 2**32: 655 bytes</span></span><br><span class="line"><span class="keyword">import</span> sys <span class="keyword">as</span> s</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">qwe</span>(<span class="params">abc, xyz</span>):</span><br><span class="line">    r = []</span><br><span class="line">    l = <span class="built_in">len</span>(xyz)</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(abc)):</span><br><span class="line">        t = <span class="built_in">chr</span>(abc[i] ^ <span class="built_in">ord</span>(xyz[i % l]))</span><br><span class="line">        r.append(t)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;&quot;</span>.join(r)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">d = [<span class="number">48</span>, <span class="number">39</span>, <span class="number">37</span>, <span class="number">49</span>, <span class="number">28</span>, <span class="number">16</span>, <span class="number">82</span>, <span class="number">17</span>, <span class="number">87</span>, <span class="number">13</span>, <span class="number">92</span>, <span class="number">71</span>, <span class="number">104</span>, <span class="number">52</span>, <span class="number">21</span>, <span class="number">0</span>, <span class="number">83</span>, </span><br><span class="line"> <span class="number">7</span>, <span class="number">95</span>, <span class="number">28</span>, <span class="number">55</span>, <span class="number">30</span>, <span class="number">11</span>, <span class="number">78</span>, <span class="number">87</span>, <span class="number">29</span>, <span class="number">18</span>]</span><br><span class="line">k = <span class="string">&quot;door_key&quot;</span></span><br><span class="line">m = <span class="string">&quot;not_a_key&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">asd</span>(<span class="params">p</span>):</span><br><span class="line">    u = <span class="number">42</span></span><br><span class="line">    v = qwe(d, k)</span><br><span class="line">    w = qwe(d, p)</span><br><span class="line">    <span class="keyword">if</span> w == v:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">f&quot;Correct! <span class="subst">&#123;v&#125;</span>&quot;</span>)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;Wrong!&quot;</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">dummy</span>():</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">len</span>(d) * <span class="number">2</span> - <span class="number">1</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&quot;__main__&quot;</span>:</span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">len</span>(s.argv) &gt; <span class="number">1</span>:</span><br><span class="line">        asd(s.argv[<span class="number">1</span>])</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;Please provide a key as an argument.&quot;</span>)</span><br><span class="line">    dummy()</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p><code>THJCC&#123;7h3b357_py7h0nhun73r&#125;</code></p>
-<hr>
-<h1 id="Pwn-我不會pwn"><a href="#Pwn-我不會pwn" class="headerlink" title="Pwn (我不會pwn @@)"></a>Pwn (我不會pwn @@)</h1><h2 id="Flag-Shopping"><a href="#Flag-Shopping" class="headerlink" title="Flag Shopping"></a>Flag Shopping</h2><p><img src="https://hackmd.io/_uploads/SJKyzrzJxe.png" alt="image"></p>
-<p>overflow老題目了<br><img src="https://hackmd.io/_uploads/SyKaWHz1ee.png" alt="image"></p>
-<p><code>THJCC&#123;W0w_U_R_G0oD_at_SHoPplng&#125; </code></p>
-<hr>
-<h1 id="Crypto"><a href="#Crypto" class="headerlink" title="Crypto"></a>Crypto</h1><h2 id="Frequency-Freakout"><a href="#Frequency-Freakout" class="headerlink" title="Frequency Freakout"></a>Frequency Freakout</h2><p><img src="https://hackmd.io/_uploads/S1vqYBfylg.png" alt="image"></p>
-<p>給</p>
-<figure class="highlight txt"><table><tr><td class="code"><pre><span class="line">MW RUB LGSEC GN TEYDDMTYE TSZJRGASYJUZ, IYWZ BWRUFDMYDRD XBAMW LMRU DMIJEB DFXDRMRFRMGW TMJUBSD. RUBDB XYDMT RBTUWMHFBD CBIGWDRSYRB RUB VFEWBSYXMEMRZ GN EBRRBS NSBHFBWTZ YWC DUGL UGL TBSRYMW JYRRBSWD TYW SBVBYE UMCCBW IBDDYABD.</span><br><span class="line"></span><br><span class="line">GWB GN RUB IGDR BPTMRMWA BPBSTMDBD MW EBYSWMWA YXGFR TMJUBSD MD RSZMWA RG TGWDRSFTR ZGFS GLW YWC TUYEEBWAB GRUBSD RG XSBYQ MR. LUMEB IGCBSW BWTSZJRMGW IBRUGCD UYVB NYS DFSJYDDBC RUBDB RBTUWMHFBD MW TGIJEBPMRZ YWC DRSBWARU, RUB NFWCYIBWRYE MCBYD SBIYMW NYDTMWYRMWA.</span><br><span class="line"></span><br><span class="line">MN ZGF&#x27;SB FJ NGS Y JFOOEB, UBSB&#x27;D Y TUYEEBWAB: RUKTT&#123;DFXDR1R1GW_TMJU3S_1D_TGG1&#125; -K RUMD IMAUR EGGQ EMQB Y SYWCGI DRSMWA, XFR MR&#x27;D WGR. UMCCBW LMRUMW RUMD DBHFBWTB MD RUB QBZ RG FWCBSDRYWCMWA UGL DMIJEB EBRRBS DFXDRMRFRMGW TYW DRMEE DJYSQ TFSMGDMRZ YWC NFW.</span><br><span class="line"></span><br><span class="line">RSZ CBTGCMWA MR GS BIXBCCMWA MR LMRUMW ZGFS GLW TMJUBS. LUG QWGLD? ZGF IMAUR KFDR MWDJMSB DGIBGWB BEDB RG CMVB MWRG RUB LGSEC GN TSZJRYWYEZDMD.</span><br></pre></td></tr></table></figure>
-<p>去做頻率分析<br><img src="https://hackmd.io/_uploads/B1Eptrzkgx.png" alt="image"></p>
-<p><code>THJCC&#123;SUBST1T1ON_CIPH3R_1S_COO1&#125;</code></p>
-<hr>
-<h2 id="SNAKE"><a href="#SNAKE" class="headerlink" title="SNAKE"></a>SNAKE</h2><p><img src="https://hackmd.io/_uploads/BJDvcHMyll.png" alt="image"><br>題目給</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">SSSSS = input()</span><br><span class="line">print(&quot;&quot;.join([&quot;!@#$%^&amp;*()&#123;&#125;[]:;&quot;[int(x, 2)] for x in [&#x27;&#x27;.join(f&quot;&#123;ord(c):08b&#125;&quot; for c in SSSSS)[i:i+4] for i in range(0, len(SSSSS) * 8, 4)]]))</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight txt"><table><tr><td class="code"><pre><span class="line">^$&amp;:&amp;@&amp;&#125;&amp;^*$#!&amp;@*#&amp;^#!&amp;^&amp;[&amp;;&amp;:&amp;*&amp;@*%&amp;^&amp;%#!&amp;[&amp;)&amp;]&amp;#&amp;[&amp;^*$*$#!*#&amp;^*!*%&amp;)&amp;[&amp;^*$#!&amp;;&amp;&amp;#!*%&amp;(&amp;^#!*$*^&amp;#&amp;;*#&amp;%&amp;^*##!^$&amp;^*#*!&amp;^&amp;:*%&amp;^*$#:#!%$&amp;[&amp;@&amp;%&amp;)*$*%&amp;)&amp;$&amp;@&amp;[&amp;[*)#!*$*@*^&amp;@&amp;]&amp;@*%&amp;^*$#[#!*$&amp;:&amp;@&amp;&#125;&amp;^*$#!&amp;@*#&amp;^#!&amp;^&amp;$*%&amp;;*%&amp;(&amp;^*#&amp;]&amp;)&amp;$#[#!&amp;@&amp;]&amp;:&amp;)&amp;;*%&amp;^#!*&amp;&amp;^*#*%&amp;^&amp;#*#&amp;@*%&amp;^*$#!&amp;$&amp;;*&amp;&amp;^*#&amp;^&amp;%#!&amp;)&amp;:#!&amp;;*&amp;&amp;^*#&amp;[&amp;@*!*!&amp;)&amp;:&amp;*#!*$&amp;$&amp;@&amp;[&amp;^*$#!&amp;]*^&amp;$&amp;(#!&amp;[&amp;)&amp;&#125;&amp;^#!&amp;;*%&amp;(&amp;^*##!&amp;]&amp;^&amp;]&amp;#&amp;^*#*$#!&amp;;&amp;&amp;#!*%&amp;(&amp;^#!&amp;**#&amp;;*^*!#:#!%]&amp;@&amp;:*)#!*$*!&amp;^&amp;$&amp;)&amp;^*$#!&amp;;&amp;&amp;#!*$&amp;:&amp;@&amp;&#125;&amp;^*$#!&amp;(&amp;@*&amp;&amp;^#!*$&amp;&#125;*^&amp;[&amp;[*$#!**&amp;)*%&amp;(#!*$&amp;^*&amp;&amp;^*#&amp;@&amp;[#!&amp;]&amp;;*#&amp;^#!&amp;&#123;&amp;;&amp;)&amp;:*%*$#!*%&amp;(&amp;@&amp;:#!*%&amp;(&amp;^&amp;)*##!&amp;[&amp;)*&#123;&amp;@*#&amp;%#!&amp;@&amp;:&amp;$&amp;^*$*%&amp;;*#*$#!&amp;@&amp;:&amp;%#!*#&amp;^&amp;[&amp;@*%&amp;)*&amp;&amp;^*$#[#!&amp;^&amp;:&amp;@&amp;#&amp;[&amp;)&amp;:&amp;*#!*%&amp;(&amp;^&amp;]#!*%&amp;;#!*$**&amp;@&amp;[&amp;[&amp;;**#!*!*#&amp;^*)#!&amp;]*^&amp;$&amp;(#!&amp;[&amp;@*#&amp;*&amp;^*##!*%&amp;(&amp;@&amp;:#!*%&amp;(&amp;^&amp;)*##!&amp;(&amp;^&amp;@&amp;%*$#!#(&amp;$*#&amp;@&amp;:&amp;)&amp;@&amp;[#!&amp;&#125;&amp;)&amp;:&amp;^*$&amp;)*$#)#:#!^%&amp;;#!&amp;@&amp;$&amp;$&amp;;&amp;]&amp;]&amp;;&amp;%&amp;@*%&amp;^#!*%&amp;(&amp;^&amp;)*##!&amp;:&amp;@*#*#&amp;;**#!&amp;#&amp;;&amp;%&amp;)&amp;^*$#[#!*$&amp;:&amp;@&amp;&#125;&amp;^*$#*#!*!&amp;@&amp;)*#&amp;^&amp;%#!&amp;;*#&amp;*&amp;@&amp;:*$#!#(*$*^&amp;$&amp;(#!&amp;@*$#!&amp;&#125;&amp;)&amp;%&amp;:&amp;^*)*$#)#!&amp;@*!*!&amp;^&amp;@*##!&amp;;&amp;:&amp;^#!&amp;)&amp;:#!&amp;&amp;*#&amp;;&amp;:*%#!&amp;;&amp;&amp;#!*%&amp;(&amp;^#!&amp;;*%&amp;(&amp;^*##!&amp;)&amp;:*$*%&amp;^&amp;@&amp;%#!&amp;;&amp;&amp;#!*$&amp;)&amp;%&amp;^#!&amp;#*)#!*$&amp;)&amp;%&amp;^#[#!&amp;@&amp;:&amp;%#!&amp;]&amp;;*$*%#!&amp;;&amp;:&amp;[*)#!&amp;(&amp;@*&amp;&amp;^#!&amp;;&amp;:&amp;^#!&amp;&amp;*^&amp;:&amp;$*%&amp;)&amp;;&amp;:&amp;@&amp;[#!&amp;[*^&amp;:&amp;*#:#!^$&amp;;&amp;]&amp;^#!*$*!&amp;^&amp;$&amp;)&amp;^*$#!*#&amp;^*%&amp;@&amp;)&amp;:#!&amp;@#!*!&amp;^&amp;[*&amp;&amp;)&amp;$#!&amp;*&amp;)*#&amp;%&amp;[&amp;^#!**&amp;)*%&amp;(#!&amp;@#!*!&amp;@&amp;)*##!&amp;;&amp;&amp;#!*&amp;&amp;^*$*%&amp;)&amp;*&amp;)&amp;@&amp;[#!&amp;$&amp;[&amp;@***$#!&amp;;&amp;:#!&amp;^&amp;)*%&amp;(&amp;^*##!*$&amp;)&amp;%&amp;^#!&amp;;&amp;&amp;#!*%&amp;(&amp;^#!&amp;$&amp;[&amp;;&amp;@&amp;$&amp;@#:#!%[&amp;)*&#123;&amp;@*#&amp;%*$#!&amp;(&amp;@*&amp;&amp;^#!&amp;)&amp;:&amp;%&amp;^*!&amp;^&amp;:&amp;%&amp;^&amp;:*%&amp;[*)#!&amp;^*&amp;&amp;;&amp;[*&amp;&amp;^&amp;%#!&amp;^&amp;[&amp;;&amp;:&amp;*&amp;@*%&amp;^#!&amp;#&amp;;&amp;%&amp;)&amp;^*$#!**&amp;)*%&amp;(&amp;;*^*%#!&amp;[&amp;)&amp;]&amp;#*$#!&amp;;*##!**&amp;)*%&amp;(#!&amp;**#&amp;^&amp;@*%&amp;[*)#!*#&amp;^&amp;%*^&amp;$&amp;^&amp;%#!&amp;[&amp;)&amp;]&amp;#*$#!&amp;@*%#!&amp;[&amp;^&amp;@*$*%#!*%**&amp;^&amp;:*%*)#]&amp;&amp;&amp;)*&amp;&amp;^#!*%&amp;)&amp;]&amp;^*$#!*&amp;&amp;)&amp;@#!&amp;$&amp;;&amp;:*&amp;&amp;^*#&amp;*&amp;^&amp;:*%#!&amp;^*&amp;&amp;;&amp;[*^*%&amp;)&amp;;&amp;:#[#!&amp;[&amp;^&amp;@&amp;%&amp;)&amp;:&amp;*#!*%&amp;;#!&amp;]&amp;@&amp;:*)#!&amp;[&amp;)&amp;:&amp;^&amp;@&amp;*&amp;^*$#!&amp;;&amp;&amp;#!&amp;[&amp;^&amp;*&amp;[&amp;^*$*$#!&amp;[&amp;)*&#123;&amp;@*#&amp;%*$#:#!^%&amp;(&amp;^*$&amp;^#!*#&amp;^*$&amp;^&amp;]&amp;#&amp;[&amp;^#!*$&amp;:&amp;@&amp;&#125;&amp;^*$#[#!&amp;#*^*%#!*$&amp;^*&amp;&amp;^*#&amp;@&amp;[#!&amp;$&amp;;&amp;]&amp;]&amp;;&amp;:#!&amp;**#&amp;;*^*!*$#!&amp;;&amp;&amp;#!&amp;[&amp;^&amp;*&amp;[&amp;^*$*$#!&amp;[&amp;)*&#123;&amp;@*#&amp;%*$#!&amp;(&amp;@*&amp;&amp;^#!&amp;^*)&amp;^&amp;[&amp;)&amp;%*$#!&amp;@&amp;:&amp;%#!&amp;^*(*%&amp;^*#&amp;:&amp;@&amp;[#!&amp;^&amp;@*#*$#[#!**&amp;(&amp;)&amp;$&amp;(#!*$&amp;:&amp;@&amp;&#125;&amp;^*$#!&amp;[&amp;@&amp;$&amp;&#125;#[#!&amp;@&amp;[*%&amp;(&amp;;*^&amp;*&amp;(#!*%&amp;(&amp;)*$#!*#*^&amp;[&amp;^#!&amp;)*$#!&amp;:&amp;;*%#!*^&amp;:&amp;)*&amp;&amp;^*#*$&amp;@&amp;[#!#(*$&amp;^&amp;^#!%@&amp;]*!&amp;(&amp;)*$&amp;#&amp;@&amp;^&amp;:&amp;)&amp;@#[#!%%&amp;)&amp;#&amp;@&amp;]&amp;)&amp;%&amp;@&amp;^#[#!&amp;@&amp;:&amp;%#!^!*)&amp;*&amp;;*!&amp;;&amp;%&amp;)&amp;%&amp;@&amp;^#)#:#!&amp;#&amp;[&amp;@&amp;#&amp;[&amp;@&amp;#&amp;[&amp;@#!%(&amp;^*#&amp;^#!&amp;)*$#!*)&amp;;*^*##!&amp;&amp;&amp;[&amp;@&amp;*$&#123;#!^%%(%&#123;%$%$*&#125;^$%:%@%&#125;$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$*]</span><br></pre></td></tr></table></figure>
-
-<p>老樣子，寫腳本吧</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">ciphertext=<span class="string">&quot;&quot;&quot;^$&amp;:&amp;@&amp;&#125;&amp;^*$#!&amp;@*#&amp;^#!&amp;^&amp;[&amp;;&amp;:&amp;*&amp;@*%&amp;^&amp;%#!&amp;[&amp;)&amp;]&amp;#&amp;[&amp;^*$*$#!*#&amp;^*!*%&amp;)&amp;[&amp;^*$#!&amp;;&amp;&amp;#!*%&amp;(&amp;^#!*$*^&amp;#&amp;;*#&amp;%&amp;^*##!^$&amp;^*#*!&amp;^&amp;:*%&amp;^*$#:#!%$&amp;[&amp;@&amp;%&amp;)*$*%&amp;)&amp;$&amp;@&amp;[&amp;[*)#!*$*@*^&amp;@&amp;]&amp;@*%&amp;^*$#[#!*$&amp;:&amp;@&amp;&#125;&amp;^*$#!&amp;@*#&amp;^#!&amp;^&amp;$*%&amp;;*%&amp;(&amp;^*#&amp;]&amp;)&amp;$#[#!&amp;@&amp;]&amp;:&amp;)&amp;;*%&amp;^#!*&amp;&amp;^*#*%&amp;^&amp;#*#&amp;@*%&amp;^*$#!&amp;$&amp;;*&amp;&amp;^*#&amp;^&amp;%#!&amp;)&amp;:#!&amp;;*&amp;&amp;^*#&amp;[&amp;@*!*!&amp;)&amp;:&amp;*#!*$&amp;$&amp;@&amp;[&amp;^*$#!&amp;]*^&amp;$&amp;(#!&amp;[&amp;)&amp;&#125;&amp;^#!&amp;;*%&amp;(&amp;^*##!&amp;]&amp;^&amp;]&amp;#&amp;^*#*$#!&amp;;&amp;&amp;#!*%&amp;(&amp;^#!&amp;**#&amp;;*^*!#:#!%]&amp;@&amp;:*)#!*$*!&amp;^&amp;$&amp;)&amp;^*$#!&amp;;&amp;&amp;#!*$&amp;:&amp;@&amp;&#125;&amp;^*$#!&amp;(&amp;@*&amp;&amp;^#!*$&amp;&#125;*^&amp;[&amp;[*$#!**&amp;)*%&amp;(#!*$&amp;^*&amp;&amp;^*#&amp;@&amp;[#!&amp;]&amp;;*#&amp;^#!&amp;&#123;&amp;;&amp;)&amp;:*%*$#!*%&amp;(&amp;@&amp;:#!*%&amp;(&amp;^&amp;)*##!&amp;[&amp;)*&#123;&amp;@*#&amp;%#!&amp;@&amp;:&amp;$&amp;^*$*%&amp;;*#*$#!&amp;@&amp;:&amp;%#!*#&amp;^&amp;[&amp;@*%&amp;)*&amp;&amp;^*$#[#!&amp;^&amp;:&amp;@&amp;#&amp;[&amp;)&amp;:&amp;*#!*%&amp;(&amp;^&amp;]#!*%&amp;;#!*$**&amp;@&amp;[&amp;[&amp;;**#!*!*#&amp;^*)#!&amp;]*^&amp;$&amp;(#!&amp;[&amp;@*#&amp;*&amp;^*##!*%&amp;(&amp;@&amp;:#!*%&amp;(&amp;^&amp;)*##!&amp;(&amp;^&amp;@&amp;%*$#!#(&amp;$*#&amp;@&amp;:&amp;)&amp;@&amp;[#!&amp;&#125;&amp;)&amp;:&amp;^*$&amp;)*$#)#:#!^%&amp;;#!&amp;@&amp;$&amp;$&amp;;&amp;]&amp;]&amp;;&amp;%&amp;@*%&amp;^#!*%&amp;(&amp;^&amp;)*##!&amp;:&amp;@*#*#&amp;;**#!&amp;#&amp;;&amp;%&amp;)&amp;^*$#[#!*$&amp;:&amp;@&amp;&#125;&amp;^*$#*#!*!&amp;@&amp;)*#&amp;^&amp;%#!&amp;;*#&amp;*&amp;@&amp;:*$#!#(*$*^&amp;$&amp;(#!&amp;@*$#!&amp;&#125;&amp;)&amp;%&amp;:&amp;^*)*$#)#!&amp;@*!*!&amp;^&amp;@*##!&amp;;&amp;:&amp;^#!&amp;)&amp;:#!&amp;&amp;*#&amp;;&amp;:*%#!&amp;;&amp;&amp;#!*%&amp;(&amp;^#!&amp;;*%&amp;(&amp;^*##!&amp;)&amp;:*$*%&amp;^&amp;@&amp;%#!&amp;;&amp;&amp;#!*$&amp;)&amp;%&amp;^#!&amp;#*)#!*$&amp;)&amp;%&amp;^#[#!&amp;@&amp;:&amp;%#!&amp;]&amp;;*$*%#!&amp;;&amp;:&amp;[*)#!&amp;(&amp;@*&amp;&amp;^#!&amp;;&amp;:&amp;^#!&amp;&amp;*^&amp;:&amp;$*%&amp;)&amp;;&amp;:&amp;@&amp;[#!&amp;[*^&amp;:&amp;*#:#!^$&amp;;&amp;]&amp;^#!*$*!&amp;^&amp;$&amp;)&amp;^*$#!*#&amp;^*%&amp;@&amp;)&amp;:#!&amp;@#!*!&amp;^&amp;[*&amp;&amp;)&amp;$#!&amp;*&amp;)*#&amp;%&amp;[&amp;^#!**&amp;)*%&amp;(#!&amp;@#!*!&amp;@&amp;)*##!&amp;;&amp;&amp;#!*&amp;&amp;^*$*%&amp;)&amp;*&amp;)&amp;@&amp;[#!&amp;$&amp;[&amp;@***$#!&amp;;&amp;:#!&amp;^&amp;)*%&amp;(&amp;^*##!*$&amp;)&amp;%&amp;^#!&amp;;&amp;&amp;#!*%&amp;(&amp;^#!&amp;$&amp;[&amp;;&amp;@&amp;$&amp;@#:#!%[&amp;)*&#123;&amp;@*#&amp;%*$#!&amp;(&amp;@*&amp;&amp;^#!&amp;)&amp;:&amp;%&amp;^*!&amp;^&amp;:&amp;%&amp;^&amp;:*%&amp;[*)#!&amp;^*&amp;&amp;;&amp;[*&amp;&amp;^&amp;%#!&amp;^&amp;[&amp;;&amp;:&amp;*&amp;@*%&amp;^#!&amp;#&amp;;&amp;%&amp;)&amp;^*$#!**&amp;)*%&amp;(&amp;;*^*%#!&amp;[&amp;)&amp;]&amp;#*$#!&amp;;*##!**&amp;)*%&amp;(#!&amp;**#&amp;^&amp;@*%&amp;[*)#!*#&amp;^&amp;%*^&amp;$&amp;^&amp;%#!&amp;[&amp;)&amp;]&amp;#*$#!&amp;@*%#!&amp;[&amp;^&amp;@*$*%#!*%**&amp;^&amp;:*%*)#]&amp;&amp;&amp;)*&amp;&amp;^#!*%&amp;)&amp;]&amp;^*$#!*&amp;&amp;)&amp;@#!&amp;$&amp;;&amp;:*&amp;&amp;^*#&amp;*&amp;^&amp;:*%#!&amp;^*&amp;&amp;;&amp;[*^*%&amp;)&amp;;&amp;:#[#!&amp;[&amp;^&amp;@&amp;%&amp;)&amp;:&amp;*#!*%&amp;;#!&amp;]&amp;@&amp;:*)#!&amp;[&amp;)&amp;:&amp;^&amp;@&amp;*&amp;^*$#!&amp;;&amp;&amp;#!&amp;[&amp;^&amp;*&amp;[&amp;^*$*$#!&amp;[&amp;)*&#123;&amp;@*#&amp;%*$#:#!^%&amp;(&amp;^*$&amp;^#!*#&amp;^*$&amp;^&amp;]&amp;#&amp;[&amp;^#!*$&amp;:&amp;@&amp;&#125;&amp;^*$#[#!&amp;#*^*%#!*$&amp;^*&amp;&amp;^*#&amp;@&amp;[#!&amp;$&amp;;&amp;]&amp;]&amp;;&amp;:#!&amp;**#&amp;;*^*!*$#!&amp;;&amp;&amp;#!&amp;[&amp;^&amp;*&amp;[&amp;^*$*$#!&amp;[&amp;)*&#123;&amp;@*#&amp;%*$#!&amp;(&amp;@*&amp;&amp;^#!&amp;^*)&amp;^&amp;[&amp;)&amp;%*$#!&amp;@&amp;:&amp;%#!&amp;^*(*%&amp;^*#&amp;:&amp;@&amp;[#!&amp;^&amp;@*#*$#[#!**&amp;(&amp;)&amp;$&amp;(#!*$&amp;:&amp;@&amp;&#125;&amp;^*$#!&amp;[&amp;@&amp;$&amp;&#125;#[#!&amp;@&amp;[*%&amp;(&amp;;*^&amp;*&amp;(#!*%&amp;(&amp;)*$#!*#*^&amp;[&amp;^#!&amp;)*$#!&amp;:&amp;;*%#!*^&amp;:&amp;)*&amp;&amp;^*#*$&amp;@&amp;[#!#(*$&amp;^&amp;^#!%@&amp;]*!&amp;(&amp;)*$&amp;#&amp;@&amp;^&amp;:&amp;)&amp;@#[#!%%&amp;)&amp;#&amp;@&amp;]&amp;)&amp;%&amp;@&amp;^#[#!&amp;@&amp;:&amp;%#!^!*)&amp;*&amp;;*!&amp;;&amp;%&amp;)&amp;%&amp;@&amp;^#)#:#!&amp;#&amp;[&amp;@&amp;#&amp;[&amp;@&amp;#&amp;[&amp;@#!%(&amp;^*#&amp;^#!&amp;)*$#!*)&amp;;*^*##!&amp;&amp;&amp;[&amp;@&amp;*$&#123;#!^%%(%&#123;%$%$*&#125;^$%:%@%&#125;$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$*]&quot;&quot;&quot;</span></span><br><span class="line">mapping=<span class="string">&quot;!@#$%^&amp;*()&#123;&#125;[]:;&quot;</span></span><br><span class="line">rev_map=&#123;c:<span class="built_in">format</span>(i,<span class="string">&#x27;04b&#x27;</span>) <span class="keyword">for</span> i,c <span class="keyword">in</span> <span class="built_in">enumerate</span>(mapping)&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># Step 1: 將每個符號轉為 4-bit binary</span></span><br><span class="line">bits=<span class="string">&#x27;&#x27;</span>.join([rev_map[c] <span class="keyword">for</span> c <span class="keyword">in</span> ciphertext])</span><br><span class="line"></span><br><span class="line"><span class="comment"># Step 2: 每 8 位轉回字元</span></span><br><span class="line">plain=<span class="string">&#x27;&#x27;</span>.join([<span class="built_in">chr</span>(<span class="built_in">int</span>(bits[i:i+<span class="number">8</span>],<span class="number">2</span>)) <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">0</span>,<span class="built_in">len</span>(bits),<span class="number">8</span>)])</span><br><span class="line"><span class="built_in">print</span>(plain)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p><img src="https://hackmd.io/_uploads/S1Da5rfkeg.png" alt="image"></p>
-<p><code>THJCC&#123;SNAK3333333333333333&#125;</code></p>
-<hr>
-<h2 id="DAES"><a href="#DAES" class="headerlink" title="DAES"></a>DAES</h2><p><img src="https://hackmd.io/_uploads/B1q1hBf1ex.png" alt="image"></p>
-<p><img src="https://hackmd.io/_uploads/Bkx13HGyll.png" alt="image"><br>chal.py:</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/python3</span></span><br><span class="line"><span class="keyword">from</span> Crypto.Cipher <span class="keyword">import</span> AES</span><br><span class="line"><span class="keyword">from</span> secret <span class="keyword">import</span> FLAG</span><br><span class="line"><span class="keyword">import</span> random</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> signal</span><br><span class="line"></span><br><span class="line">TIMEOUT = <span class="number">120</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">timeout_handler</span>(<span class="params">signum, frame</span>):</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;\nTime&#x27;s up! No flag for u...&quot;</span>)</span><br><span class="line">    exit()</span><br><span class="line"></span><br><span class="line">signal.signal(signal.SIGALRM, timeout_handler)</span><br><span class="line">signal.alarm(TIMEOUT)</span><br><span class="line"></span><br><span class="line">target = os.urandom(<span class="number">16</span>)</span><br><span class="line"></span><br><span class="line">keys = [<span class="string">b&#x27;whalekey:&#x27;</span> + <span class="built_in">str</span>(random.randrange(<span class="number">1000000</span>, <span class="number">1999999</span>)).encode() <span class="keyword">for</span> _ <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">2</span>)]</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">enc</span>(<span class="params">key, msg</span>):</span><br><span class="line">    ecb = AES.new(key, AES.MODE_ECB)</span><br><span class="line">    <span class="keyword">return</span> ecb.encrypt(msg)</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">daes</span>(<span class="params">msg</span>):</span><br><span class="line">    tmp = enc(keys[<span class="number">0</span>], msg)</span><br><span class="line">    <span class="keyword">return</span> enc(keys[<span class="number">1</span>], tmp)</span><br><span class="line"></span><br><span class="line">test = <span class="string">b&#x27;you are my fire~&#x27;</span></span><br><span class="line"><span class="built_in">print</span>(daes(test).<span class="built_in">hex</span>())</span><br><span class="line"><span class="built_in">print</span>(daes(target).<span class="built_in">hex</span>())</span><br><span class="line"></span><br><span class="line">ans = <span class="built_in">input</span>(<span class="string">&quot;Ans:&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> ans == target.<span class="built_in">hex</span>():</span><br><span class="line">    <span class="built_in">print</span>(FLAG)</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;Nah, no flag for u...&quot;</span>)</span><br><span class="line"></span><br><span class="line">signal.alarm(<span class="number">0</span>)</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>雙層AES-ECB<br><code>THJCC&#123;see_u_again_in_the_middle&#125;</code></li>
-</ul>
-<hr>
-<h2 id="Twins"><a href="#Twins" class="headerlink" title="Twins"></a>Twins</h2><p><img src="https://hackmd.io/_uploads/Skvf5Ufyge.png" alt="image"><br>RSA題<br><img src="https://hackmd.io/_uploads/rkJM5UG1xe.png" alt="image"></p>
-<p><code>THJCC&#123;7wIn_pR!me$_4RE_Too_L0VE1Y&#125;</code></p>
 ]]></content>
       <categories>
         <category>資安</category>
@@ -442,6 +362,114 @@
       </categories>
   </entry>
   <entry>
+    <title>AIS3 2024 pre-exam</title>
+    <url>/AIS3pre-exam/</url>
+    <content><![CDATA[<h1 id="AIS3-2024-pre-exam-write-up"><a href="#AIS3-2024-pre-exam-write-up" class="headerlink" title="AIS3 2024 pre-exam write up"></a>AIS3 2024 pre-exam write up</h1><p>第一次寫write up :D</p>
+<h1 id="misc"><a href="#misc" class="headerlink" title="misc"></a>misc</h1><h2 id="welcome-100"><a href="#welcome-100" class="headerlink" title="welcome[100]"></a>welcome[100]</h2><p>略</p>
+<h2 id="Quantum-Nim-Heist-100"><a href="#Quantum-Nim-Heist-100" class="headerlink" title="Quantum Nim Heist[100]"></a>Quantum Nim Heist[100]</h2><p>一開始看code看很久都沒找到破綻，花超多時間在程式裡大海撈針，沒想到意外發現小漏洞，<br>反正就是讓值超出預期，但我其實不確定這做法的專有名詞(?<br>當他問which pile do you choose?的時候，<br>正常應該要回答是第幾pile，但如果什麼都不回答直接按enter或輸入-1，會發現可以直接跳過一回合，<br>直到最後一回合再記得把最後一個stones remove掉。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">...</span><br><span class="line"></span><br><span class="line">it&#x27;s your turn to move! what do you choose?</span><br><span class="line">+--------------------- moved ---------------------+</span><br><span class="line">| you removed 2 stones from pile 1                |</span><br><span class="line">+---+-------------- stones info ------------------+</span><br><span class="line">| 0 | oo                                          |</span><br><span class="line">| 1 | oo                                          |</span><br><span class="line">+--------------------- moved ---------------------+</span><br><span class="line">| i removed 1 stones from pile 1                  |</span><br><span class="line">+---+-------------- stones info ------------------+</span><br><span class="line">| 0 | oo                                          |</span><br><span class="line">| 1 | o                                           |</span><br><span class="line">+---+--------------- game menu -------------------+</span><br><span class="line">| 0 | make a move                                 |</span><br><span class="line">| 1 | save the current game and leave             |</span><br><span class="line">| 2 | resign the game                             |</span><br><span class="line">+---+---------------------------------------------+</span><br><span class="line">it&#x27;s your turn to move! what do you choose?        </span><br><span class="line">+--------------------- moved ---------------------+</span><br><span class="line">| you removed 1 stones from pile 1                |</span><br><span class="line">+---+-------------- stones info ------------------+</span><br><span class="line">| 0 | oo                                          | </span><br><span class="line">| 1 | o                                           |</span><br><span class="line">+--------------------- moved ---------------------+</span><br><span class="line">| i removed 1 stones from pile 0                  | </span><br><span class="line">+---+-------------- stones info ------------------+</span><br><span class="line">| 0 | o                                           |</span><br><span class="line">| 1 | o                                           | </span><br><span class="line">+---+--------------- game menu -------------------+  </span><br><span class="line">| 0 | make a move                                 |   </span><br><span class="line">| 1 | save the current game and leave             |   </span><br><span class="line">| 2 | resign the game                             |   </span><br><span class="line">+---+---------------------------------------------+   </span><br><span class="line">it&#x27;s your turn to move! what do you choose?           </span><br><span class="line">+--------------------- moved ---------------------+   </span><br><span class="line">| you removed 1 stones from pile 0                |   </span><br><span class="line">+---+-------------- stones info ------------------+   </span><br><span class="line">| 0 | o                                           |    </span><br><span class="line">| 1 | o                                           |   </span><br><span class="line">+--------------------- moved ---------------------+   </span><br><span class="line">| i removed 1 stones from pile 0                  |   </span><br><span class="line">+---+-------------- stones info ------------------+   </span><br><span class="line">| 0 | o                                           |   </span><br><span class="line">+---+--------------- game menu -------------------+   </span><br><span class="line">| 0 | make a move                                 |   </span><br><span class="line">| 1 | save the current game and leave             |   </span><br><span class="line">| 2 | resign the game                             |  </span><br><span class="line">+---+---------------------------------------------+  </span><br><span class="line">it&#x27;s your turn to move! what do you choose? 0         </span><br><span class="line">which pile do you choose? 0                           </span><br><span class="line">how many stones do you remove? 1                      </span><br><span class="line">+---------------- congratulations ----------------+   </span><br><span class="line">| you are a true grandmaster of chess! here is    |   </span><br><span class="line">| the flag for you:                               |   </span><br><span class="line">| AIS3&#123;Ar3_y0u_a_N1m_ma57er_0r_a_Crypt0_ma57er?&#125;  |   </span><br><span class="line">+-------------------------------------------------+ </span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h2 id="Three-Dimensional-Secret"><a href="#Three-Dimensional-Secret" class="headerlink" title="Three Dimensional Secret"></a>Three Dimensional Secret</h2><p>打開封包檔<br>看到很多Protocol&#x3D;TCP，隨機點一個<br><img src="/images/p9.png"></p>
+<p>選follow -&gt; TCP Stream<br><img src="/images/p10.png"></p>
+<p>打開後會出現很多同一格式的程式碼<br>拿去問chatgpt，得知這是G code<br><img src="/images/p11.png"></p>
+<p>上網找預覽器，找到<a href="https://nraynaud.github.io/webgcode/">https://nraynaud.github.io/webgcode/</a><br><img src="/images/p12.png"></p>
+<p>貼上code就看到flag了</p>
+<h1 id="crypto"><a href="#crypto" class="headerlink" title="crypto"></a>crypto</h1><h2 id="zkp"><a href="#zkp" class="headerlink" title="zkp"></a>zkp</h2><p>原本想說開暴力解，吃完飯發現還是沒結果，<br>上網找資料找到這個酷酷的函式庫叫sympy，大數字也可以快速解，<br>用sympy去計算離散對數r，再去算sk，<br>求得sk後丟long_to_bytes求回flag</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">!pip install sympy</span><br><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> inverse</span><br><span class="line"><span class="keyword">from</span> sympy.ntheory <span class="keyword">import</span> discrete_log</span><br><span class="line"></span><br><span class="line"><span class="comment"># 已知參數</span></span><br><span class="line">p = <span class="number">912963562570713895762123712634341582363191342435924527885311975797578046400116904692505817547350929619596093083745446525856149291591598712142696114753807416455553636357128701771057485027781550780145668058332461392878693207262984011086549089459904749465167095482671894984474035487400352761994560452501497000487</span></span><br><span class="line">g = <span class="number">5</span></span><br><span class="line">y = <span class="number">826538666839613533825164219540577914201103248283631882579415248247469603672292332561005185045449294103457059566058782307774879654805356212117148864755019033392691510181464751398765490686084806155442759849410837406192708511190585484331707794669398717997173649869228717077858848442336016926370038781486833717341</span></span><br><span class="line">a = <span class="number">837391429146716246298265649828833926553703307768263532882119633652369160923460038502759864396719595556822579283450060054716753545203402598089323793321805639129260667950080636462204135426887388899955615207806039627983773534304007953073586374003734715079722274887416433453079445822219423995951703135829496007286</span>        </span><br><span class="line">c = <span class="number">1</span> <span class="comment"># 這邊用1可以節省運算時間</span></span><br><span class="line">w = <span class="number">394811387946114683904252174454710537206578693342055809178279464013047561646863743919996435695718914181044539464633729592712968512748007403695056092396246866848389859706990642501065525104839776919236901735230456614618350145301893017979866181624159788935390202502224091369603614245766192646548573130781044536668</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 用sympy計算離散對數r</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">compute_r</span>(<span class="params">g, a, p</span>):</span><br><span class="line">    <span class="keyword">return</span> discrete_log(p, a, g)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 算sk</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">compute_sk</span>(<span class="params">p, g, y, a, w, c</span>):</span><br><span class="line">    r = compute_r(g, a, p)</span><br><span class="line">    p_minus_1 = p - <span class="number">1</span></span><br><span class="line">    c_inv = inverse(c, p_minus_1)</span><br><span class="line">    sk = (w - r) * c_inv % p_minus_1</span><br><span class="line">    <span class="keyword">return</span> sk</span><br><span class="line"></span><br><span class="line"><span class="comment"># 計算 輸出sk</span></span><br><span class="line">sk = compute_sk(p, g, y, a, w, c)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;Computed sk:&quot;</span>, sk)</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Requirement already satisfied: sympy in /usr/local/lib/python3.10/dist-packages (1.12)</span><br><span class="line">Requirement already satisfied: mpmath&gt;=0.19 in /usr/local/lib/python3.10/dist-packages (from sympy) (1.3.0)</span><br><span class="line">Computed sk: 796124238634205301132370159483254378466188675876173490569851599404569838177493188146821283009169954596409601313555455638014751336770403395328637</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> long_to_bytes</span><br><span class="line"></span><br><span class="line"><span class="comment"># 已知參數</span></span><br><span class="line">sk = <span class="number">796124238634205301132370159483254378466188675876173490569851599404569838177493188146821283009169954596409601313555455638014751336770403395328637</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 私鑰轉flag</span></span><br><span class="line">flag = long_to_bytes(sk)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;Flag:&quot;</span>, flag)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Flag: b&#x27;AIS3&#123;ToSolveADiscreteLogProblemWhithSmoothPIsSoEZZZZZZZZZZZ&#125;&#x27;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<!-- Start of CuterCounter Code -->
+<p><a href="https://www.cutercounter.com/traditional-chinese-nn/" target="_blank" style="pointer-events: none;"><img src="https://www.cutercounter.com/hits.php?id=huexqdano&nd=6&style=11" border="0" alt="免費網站計數器"></a></p>
+<!-- End of CuterCounter Code -->
+]]></content>
+      <categories>
+        <category>資安</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>THJCC CTF 2025</title>
+    <url>/20250421/</url>
+    <content><![CDATA[<h1 id="好久沒打CTF"><a href="#好久沒打CTF" class="headerlink" title="好久沒打CTF!"></a>好久沒打CTF!</h1><p>只打不到5小時，原本只是來打web，沒想到還有時間就打下去了:D<br>蠻意外排名有 總排59&#x2F;133 分組27&#x2F;65 我以為專挑基礎題不會前50%的說xd</p>
+<p><img src="https://hackmd.io/_uploads/BJZQWqfJel.png" alt="image"></p>
+<hr>
+<h1 id="Web"><a href="#Web" class="headerlink" title="Web"></a>Web</h1><h2 id="Headless"><a href="#Headless" class="headerlink" title="Headless"></a>Headless</h2><p><img src="https://hackmd.io/_uploads/BJl5FyL-1xx.png" alt="image"></p>
+<p><img src="https://hackmd.io/_uploads/BJltJUW1ee.png" alt="image"><br>&#x2F;robots.txt<br>連去<br>&#x2F;hum4n-0nly<br>code寫request.headers要&lt;&#x3D;1<br><img src="https://hackmd.io/_uploads/By8okUbJgl.png" alt="image"><br>送乾淨的request<br><img src="https://hackmd.io/_uploads/BJKTJIbJel.png" alt="image"><br><code>THJCC&#123;Rob0t_r=@lways_he@dl3ss...&#125;</code></p>
+<hr>
+<h2 id="Nothing-here"><a href="#Nothing-here" class="headerlink" title="Nothing here"></a>Nothing here</h2><p><img src="https://hackmd.io/_uploads/rkyeeL-ylg.png" alt="image"><br>連進去開F12，發現可疑字串<br><img src="https://hackmd.io/_uploads/rkxbgLbyeg.png" alt="image"><br>直接<br>base64<br><code>THJCC&#123;h4ve_f5n_1n_b4by_w3b_a5161cc22af2ab20&#125;</code></p>
+<hr>
+<h2 id="APPL3-STOR3"><a href="#APPL3-STOR3" class="headerlink" title="APPL3 STOR3"></a>APPL3 STOR3</h2><p><img src="https://hackmd.io/_uploads/SysHlIWygl.png" alt="image"><br>隨便點商品，觀察URL<br><img src="https://hackmd.io/_uploads/BJ7vlIZ1ee.png" alt="image"><br>找到Flag頁面<br><img src="https://hackmd.io/_uploads/S1WFlLZ1xg.png" alt="image"></p>
+<p>改cookie</p>
+<p><img src="https://hackmd.io/_uploads/H1nXlI-1xl.png" alt="image"><br>改掉FLAG的金額去購買<br><img src="https://hackmd.io/_uploads/HkANx8W1ll.png" alt="image"></p>
+<p><code>THJCC&#123;Appl3_st0r3_M45t3r&#125;</code></p>
+<hr>
+<h2 id="Lime-Ranger"><a href="#Lime-Ranger" class="headerlink" title="Lime Ranger"></a>Lime Ranger</h2><p><img src="https://hackmd.io/_uploads/S1Aym8ZJgg.png" alt="image"></p>
+<p><img src="https://hackmd.io/_uploads/SyvyXU-kll.png" alt="image"><br>右下角查原碼</p>
+<p><img src="https://hackmd.io/_uploads/HyF_mU-ylg.png" alt="image"><br>手寫序列化<code>a:2:&#123;s:2:&quot;UR&quot;;i:500000000;s:3:&quot;SSR&quot;;i:500000000000;&#125;</code><br>再<br>出售帳號<br><img src="https://hackmd.io/_uploads/B1JC7UWklg.png" alt="image"></p>
+<p><code>THJCC&#123;lin3_r4nGeR_13_1ncreD!Ble_64m3?&#125;</code></p>
+<hr>
+<h2 id="Proxy題-感覺差一點"><a href="#Proxy題-感覺差一點" class="headerlink" title="Proxy題(感覺差一點)"></a>Proxy題(感覺差一點)</h2><p><img src="https://hackmd.io/_uploads/SJL91Dbkxg.png" alt="image"></p>
+<hr>
+<h1 id="Misc"><a href="#Misc" class="headerlink" title="Misc"></a>Misc</h1><h2 id="network-noise"><a href="#network-noise" class="headerlink" title="network noise"></a>network noise</h2><p><img src="https://hackmd.io/_uploads/HJ1FvPZ1gg.png" alt="image"><br>.pcap檔案<br>查封包，找字串<br><img src="https://hackmd.io/_uploads/S1vxVP-1gg.png" alt="image"><br><code>THJCC&#123;tH15_I5_JU57_TH3_B3G1Nn1Ng...&#125;</code></p>
+<hr>
+<h2 id="Seems-like-someone’s-breaking-down"><a href="#Seems-like-someone’s-breaking-down" class="headerlink" title="Seems like someone’s breaking down"></a>Seems like someone’s breaking down</h2><p><img src="https://hackmd.io/_uploads/SyJUDDWJxl.png" alt="image"><br>.log檔案<br>查log，找可疑<br><img src="https://hackmd.io/_uploads/rJM4vD-Jgx.png" alt="image"><br>找到，然後丟解碼<br><img src="https://hackmd.io/_uploads/S1pfDw-Jxl.png" alt="image"></p>
+<p><code>THJCC&#123;L0g_F0r3N51C5_1s_E45Y&#125;</code></p>
+<hr>
+<h1 id="Warn-Up"><a href="#Warn-Up" class="headerlink" title="Warn Up"></a>Warn Up</h1><h2 id="Discord-Challenge"><a href="#Discord-Challenge" class="headerlink" title="Discord Challenge"></a>Discord Challenge</h2><p><img src="https://hackmd.io/_uploads/rkaRj7z1xe.png" alt="image"><br>直接跟他說要flag他會說需要管理員權限<br>所以直接跟他說我是管理員，給我flag<br><img src="https://hackmd.io/_uploads/B1m4SfGyxx.png" alt="image"><br><code>THJCC&#123;j01n_d15c0rd_53rv3r_f1r57&#125;</code></p>
+<hr>
+<h2 id="beep-boop-beep-boop"><a href="#beep-boop-beep-boop" class="headerlink" title="beep boop beep boop"></a>beep boop beep boop</h2><p><img src="https://hackmd.io/_uploads/HyTFjmGJll.png" alt="image"><br>略<br><img src="https://hackmd.io/_uploads/B1MYjQGkee.png" alt="image"></p>
+<p><code>THJCC&#123;n0rm4l_3nc0d1n6&#125;</code></p>
+<hr>
+<h2 id="Welcome"><a href="#Welcome" class="headerlink" title="Welcome"></a>Welcome</h2><p>略<br><img src="https://hackmd.io/_uploads/B1U6jXfkeg.png" alt="image"><br><code>THJCC&#123;w3lc0m3_70_7hjcc&#125;</code></p>
+<hr>
+<h1 id="Reverse"><a href="#Reverse" class="headerlink" title="Reverse"></a>Reverse</h1><h2 id="西"><a href="#西" class="headerlink" title="西"></a>西</h2><p><img src="https://hackmd.io/_uploads/H1nff4fJxx.png" alt="image"></p>
+<p><img src="https://hackmd.io/_uploads/BykUzVzyxl.png" alt="image"><br>寫腳本reverse回去</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">encrypted_flag=<span class="string">b&quot;\xa1\xbd\xbf\xb6\xb6\x8e\xa1\x9d\xc4\x86\xaa\xc4\xa6\xaa\x9b\xc5\xa1\xaa\x9a\x97\x93\xa0\xd1\x96\xb5\xa1\xc4\xba\x9b\x88&quot;</span></span><br><span class="line">decrypted=<span class="built_in">bytes</span>([c^<span class="number">0xF5</span> <span class="keyword">for</span> c <span class="keyword">in</span> encrypted_flag])</span><br><span class="line"><span class="built_in">print</span>(decrypted.decode())</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p><img src="https://hackmd.io/_uploads/BkhOMVfJxg.png" alt="image"></p>
+<p><code>THJCC&#123;Th1s_1S_n0T_obfU$c@T1On&#125;</code></p>
+<hr>
+<h2 id="Python-Hunter"><a href="#Python-Hunter" class="headerlink" title="Python Hunter"></a>Python Hunter</h2><p><img src="https://hackmd.io/_uploads/rk0CBUGJgg.png" alt="image"><br><img src="https://hackmd.io/_uploads/H1Le8Uf1xg.png" alt="image"></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># uncompyle6 version 3.9.2</span></span><br><span class="line"><span class="comment"># Python bytecode version base 3.8.0 (3413)</span></span><br><span class="line"><span class="comment"># Decompiled from: Python 3.10.12 (main, Feb  4 2025, 14:57:36) [GCC 11.4.0]</span></span><br><span class="line"><span class="comment"># Embedded file name: hunter.py</span></span><br><span class="line"><span class="comment"># Compiled at: 2025-03-24 19:52:35</span></span><br><span class="line"><span class="comment"># Size of source mod 2**32: 655 bytes</span></span><br><span class="line"><span class="keyword">import</span> sys <span class="keyword">as</span> s</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">qwe</span>(<span class="params">abc, xyz</span>):</span><br><span class="line">    r = []</span><br><span class="line">    l = <span class="built_in">len</span>(xyz)</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(abc)):</span><br><span class="line">        t = <span class="built_in">chr</span>(abc[i] ^ <span class="built_in">ord</span>(xyz[i % l]))</span><br><span class="line">        r.append(t)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;&quot;</span>.join(r)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">d = [<span class="number">48</span>, <span class="number">39</span>, <span class="number">37</span>, <span class="number">49</span>, <span class="number">28</span>, <span class="number">16</span>, <span class="number">82</span>, <span class="number">17</span>, <span class="number">87</span>, <span class="number">13</span>, <span class="number">92</span>, <span class="number">71</span>, <span class="number">104</span>, <span class="number">52</span>, <span class="number">21</span>, <span class="number">0</span>, <span class="number">83</span>, </span><br><span class="line"> <span class="number">7</span>, <span class="number">95</span>, <span class="number">28</span>, <span class="number">55</span>, <span class="number">30</span>, <span class="number">11</span>, <span class="number">78</span>, <span class="number">87</span>, <span class="number">29</span>, <span class="number">18</span>]</span><br><span class="line">k = <span class="string">&quot;door_key&quot;</span></span><br><span class="line">m = <span class="string">&quot;not_a_key&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">asd</span>(<span class="params">p</span>):</span><br><span class="line">    u = <span class="number">42</span></span><br><span class="line">    v = qwe(d, k)</span><br><span class="line">    w = qwe(d, p)</span><br><span class="line">    <span class="keyword">if</span> w == v:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">f&quot;Correct! <span class="subst">&#123;v&#125;</span>&quot;</span>)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;Wrong!&quot;</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">dummy</span>():</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">len</span>(d) * <span class="number">2</span> - <span class="number">1</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&quot;__main__&quot;</span>:</span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">len</span>(s.argv) &gt; <span class="number">1</span>:</span><br><span class="line">        asd(s.argv[<span class="number">1</span>])</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;Please provide a key as an argument.&quot;</span>)</span><br><span class="line">    dummy()</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p><code>THJCC&#123;7h3b357_py7h0nhun73r&#125;</code></p>
+<hr>
+<h1 id="Pwn-我不會pwn"><a href="#Pwn-我不會pwn" class="headerlink" title="Pwn (我不會pwn @@)"></a>Pwn (我不會pwn @@)</h1><h2 id="Flag-Shopping"><a href="#Flag-Shopping" class="headerlink" title="Flag Shopping"></a>Flag Shopping</h2><p><img src="https://hackmd.io/_uploads/SJKyzrzJxe.png" alt="image"></p>
+<p>overflow老題目了<br><img src="https://hackmd.io/_uploads/SyKaWHz1ee.png" alt="image"></p>
+<p><code>THJCC&#123;W0w_U_R_G0oD_at_SHoPplng&#125; </code></p>
+<hr>
+<h1 id="Crypto"><a href="#Crypto" class="headerlink" title="Crypto"></a>Crypto</h1><h2 id="Frequency-Freakout"><a href="#Frequency-Freakout" class="headerlink" title="Frequency Freakout"></a>Frequency Freakout</h2><p><img src="https://hackmd.io/_uploads/S1vqYBfylg.png" alt="image"></p>
+<p>給</p>
+<figure class="highlight txt"><table><tr><td class="code"><pre><span class="line">MW RUB LGSEC GN TEYDDMTYE TSZJRGASYJUZ, IYWZ BWRUFDMYDRD XBAMW LMRU DMIJEB DFXDRMRFRMGW TMJUBSD. RUBDB XYDMT RBTUWMHFBD CBIGWDRSYRB RUB VFEWBSYXMEMRZ GN EBRRBS NSBHFBWTZ YWC DUGL UGL TBSRYMW JYRRBSWD TYW SBVBYE UMCCBW IBDDYABD.</span><br><span class="line"></span><br><span class="line">GWB GN RUB IGDR BPTMRMWA BPBSTMDBD MW EBYSWMWA YXGFR TMJUBSD MD RSZMWA RG TGWDRSFTR ZGFS GLW YWC TUYEEBWAB GRUBSD RG XSBYQ MR. LUMEB IGCBSW BWTSZJRMGW IBRUGCD UYVB NYS DFSJYDDBC RUBDB RBTUWMHFBD MW TGIJEBPMRZ YWC DRSBWARU, RUB NFWCYIBWRYE MCBYD SBIYMW NYDTMWYRMWA.</span><br><span class="line"></span><br><span class="line">MN ZGF&#x27;SB FJ NGS Y JFOOEB, UBSB&#x27;D Y TUYEEBWAB: RUKTT&#123;DFXDR1R1GW_TMJU3S_1D_TGG1&#125; -K RUMD IMAUR EGGQ EMQB Y SYWCGI DRSMWA, XFR MR&#x27;D WGR. UMCCBW LMRUMW RUMD DBHFBWTB MD RUB QBZ RG FWCBSDRYWCMWA UGL DMIJEB EBRRBS DFXDRMRFRMGW TYW DRMEE DJYSQ TFSMGDMRZ YWC NFW.</span><br><span class="line"></span><br><span class="line">RSZ CBTGCMWA MR GS BIXBCCMWA MR LMRUMW ZGFS GLW TMJUBS. LUG QWGLD? ZGF IMAUR KFDR MWDJMSB DGIBGWB BEDB RG CMVB MWRG RUB LGSEC GN TSZJRYWYEZDMD.</span><br></pre></td></tr></table></figure>
+<p>去做頻率分析<br><img src="https://hackmd.io/_uploads/B1Eptrzkgx.png" alt="image"></p>
+<p><code>THJCC&#123;SUBST1T1ON_CIPH3R_1S_COO1&#125;</code></p>
+<hr>
+<h2 id="SNAKE"><a href="#SNAKE" class="headerlink" title="SNAKE"></a>SNAKE</h2><p><img src="https://hackmd.io/_uploads/BJDvcHMyll.png" alt="image"><br>題目給</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">SSSSS = input()</span><br><span class="line">print(&quot;&quot;.join([&quot;!@#$%^&amp;*()&#123;&#125;[]:;&quot;[int(x, 2)] for x in [&#x27;&#x27;.join(f&quot;&#123;ord(c):08b&#125;&quot; for c in SSSSS)[i:i+4] for i in range(0, len(SSSSS) * 8, 4)]]))</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight txt"><table><tr><td class="code"><pre><span class="line">^$&amp;:&amp;@&amp;&#125;&amp;^*$#!&amp;@*#&amp;^#!&amp;^&amp;[&amp;;&amp;:&amp;*&amp;@*%&amp;^&amp;%#!&amp;[&amp;)&amp;]&amp;#&amp;[&amp;^*$*$#!*#&amp;^*!*%&amp;)&amp;[&amp;^*$#!&amp;;&amp;&amp;#!*%&amp;(&amp;^#!*$*^&amp;#&amp;;*#&amp;%&amp;^*##!^$&amp;^*#*!&amp;^&amp;:*%&amp;^*$#:#!%$&amp;[&amp;@&amp;%&amp;)*$*%&amp;)&amp;$&amp;@&amp;[&amp;[*)#!*$*@*^&amp;@&amp;]&amp;@*%&amp;^*$#[#!*$&amp;:&amp;@&amp;&#125;&amp;^*$#!&amp;@*#&amp;^#!&amp;^&amp;$*%&amp;;*%&amp;(&amp;^*#&amp;]&amp;)&amp;$#[#!&amp;@&amp;]&amp;:&amp;)&amp;;*%&amp;^#!*&amp;&amp;^*#*%&amp;^&amp;#*#&amp;@*%&amp;^*$#!&amp;$&amp;;*&amp;&amp;^*#&amp;^&amp;%#!&amp;)&amp;:#!&amp;;*&amp;&amp;^*#&amp;[&amp;@*!*!&amp;)&amp;:&amp;*#!*$&amp;$&amp;@&amp;[&amp;^*$#!&amp;]*^&amp;$&amp;(#!&amp;[&amp;)&amp;&#125;&amp;^#!&amp;;*%&amp;(&amp;^*##!&amp;]&amp;^&amp;]&amp;#&amp;^*#*$#!&amp;;&amp;&amp;#!*%&amp;(&amp;^#!&amp;**#&amp;;*^*!#:#!%]&amp;@&amp;:*)#!*$*!&amp;^&amp;$&amp;)&amp;^*$#!&amp;;&amp;&amp;#!*$&amp;:&amp;@&amp;&#125;&amp;^*$#!&amp;(&amp;@*&amp;&amp;^#!*$&amp;&#125;*^&amp;[&amp;[*$#!**&amp;)*%&amp;(#!*$&amp;^*&amp;&amp;^*#&amp;@&amp;[#!&amp;]&amp;;*#&amp;^#!&amp;&#123;&amp;;&amp;)&amp;:*%*$#!*%&amp;(&amp;@&amp;:#!*%&amp;(&amp;^&amp;)*##!&amp;[&amp;)*&#123;&amp;@*#&amp;%#!&amp;@&amp;:&amp;$&amp;^*$*%&amp;;*#*$#!&amp;@&amp;:&amp;%#!*#&amp;^&amp;[&amp;@*%&amp;)*&amp;&amp;^*$#[#!&amp;^&amp;:&amp;@&amp;#&amp;[&amp;)&amp;:&amp;*#!*%&amp;(&amp;^&amp;]#!*%&amp;;#!*$**&amp;@&amp;[&amp;[&amp;;**#!*!*#&amp;^*)#!&amp;]*^&amp;$&amp;(#!&amp;[&amp;@*#&amp;*&amp;^*##!*%&amp;(&amp;@&amp;:#!*%&amp;(&amp;^&amp;)*##!&amp;(&amp;^&amp;@&amp;%*$#!#(&amp;$*#&amp;@&amp;:&amp;)&amp;@&amp;[#!&amp;&#125;&amp;)&amp;:&amp;^*$&amp;)*$#)#:#!^%&amp;;#!&amp;@&amp;$&amp;$&amp;;&amp;]&amp;]&amp;;&amp;%&amp;@*%&amp;^#!*%&amp;(&amp;^&amp;)*##!&amp;:&amp;@*#*#&amp;;**#!&amp;#&amp;;&amp;%&amp;)&amp;^*$#[#!*$&amp;:&amp;@&amp;&#125;&amp;^*$#*#!*!&amp;@&amp;)*#&amp;^&amp;%#!&amp;;*#&amp;*&amp;@&amp;:*$#!#(*$*^&amp;$&amp;(#!&amp;@*$#!&amp;&#125;&amp;)&amp;%&amp;:&amp;^*)*$#)#!&amp;@*!*!&amp;^&amp;@*##!&amp;;&amp;:&amp;^#!&amp;)&amp;:#!&amp;&amp;*#&amp;;&amp;:*%#!&amp;;&amp;&amp;#!*%&amp;(&amp;^#!&amp;;*%&amp;(&amp;^*##!&amp;)&amp;:*$*%&amp;^&amp;@&amp;%#!&amp;;&amp;&amp;#!*$&amp;)&amp;%&amp;^#!&amp;#*)#!*$&amp;)&amp;%&amp;^#[#!&amp;@&amp;:&amp;%#!&amp;]&amp;;*$*%#!&amp;;&amp;:&amp;[*)#!&amp;(&amp;@*&amp;&amp;^#!&amp;;&amp;:&amp;^#!&amp;&amp;*^&amp;:&amp;$*%&amp;)&amp;;&amp;:&amp;@&amp;[#!&amp;[*^&amp;:&amp;*#:#!^$&amp;;&amp;]&amp;^#!*$*!&amp;^&amp;$&amp;)&amp;^*$#!*#&amp;^*%&amp;@&amp;)&amp;:#!&amp;@#!*!&amp;^&amp;[*&amp;&amp;)&amp;$#!&amp;*&amp;)*#&amp;%&amp;[&amp;^#!**&amp;)*%&amp;(#!&amp;@#!*!&amp;@&amp;)*##!&amp;;&amp;&amp;#!*&amp;&amp;^*$*%&amp;)&amp;*&amp;)&amp;@&amp;[#!&amp;$&amp;[&amp;@***$#!&amp;;&amp;:#!&amp;^&amp;)*%&amp;(&amp;^*##!*$&amp;)&amp;%&amp;^#!&amp;;&amp;&amp;#!*%&amp;(&amp;^#!&amp;$&amp;[&amp;;&amp;@&amp;$&amp;@#:#!%[&amp;)*&#123;&amp;@*#&amp;%*$#!&amp;(&amp;@*&amp;&amp;^#!&amp;)&amp;:&amp;%&amp;^*!&amp;^&amp;:&amp;%&amp;^&amp;:*%&amp;[*)#!&amp;^*&amp;&amp;;&amp;[*&amp;&amp;^&amp;%#!&amp;^&amp;[&amp;;&amp;:&amp;*&amp;@*%&amp;^#!&amp;#&amp;;&amp;%&amp;)&amp;^*$#!**&amp;)*%&amp;(&amp;;*^*%#!&amp;[&amp;)&amp;]&amp;#*$#!&amp;;*##!**&amp;)*%&amp;(#!&amp;**#&amp;^&amp;@*%&amp;[*)#!*#&amp;^&amp;%*^&amp;$&amp;^&amp;%#!&amp;[&amp;)&amp;]&amp;#*$#!&amp;@*%#!&amp;[&amp;^&amp;@*$*%#!*%**&amp;^&amp;:*%*)#]&amp;&amp;&amp;)*&amp;&amp;^#!*%&amp;)&amp;]&amp;^*$#!*&amp;&amp;)&amp;@#!&amp;$&amp;;&amp;:*&amp;&amp;^*#&amp;*&amp;^&amp;:*%#!&amp;^*&amp;&amp;;&amp;[*^*%&amp;)&amp;;&amp;:#[#!&amp;[&amp;^&amp;@&amp;%&amp;)&amp;:&amp;*#!*%&amp;;#!&amp;]&amp;@&amp;:*)#!&amp;[&amp;)&amp;:&amp;^&amp;@&amp;*&amp;^*$#!&amp;;&amp;&amp;#!&amp;[&amp;^&amp;*&amp;[&amp;^*$*$#!&amp;[&amp;)*&#123;&amp;@*#&amp;%*$#:#!^%&amp;(&amp;^*$&amp;^#!*#&amp;^*$&amp;^&amp;]&amp;#&amp;[&amp;^#!*$&amp;:&amp;@&amp;&#125;&amp;^*$#[#!&amp;#*^*%#!*$&amp;^*&amp;&amp;^*#&amp;@&amp;[#!&amp;$&amp;;&amp;]&amp;]&amp;;&amp;:#!&amp;**#&amp;;*^*!*$#!&amp;;&amp;&amp;#!&amp;[&amp;^&amp;*&amp;[&amp;^*$*$#!&amp;[&amp;)*&#123;&amp;@*#&amp;%*$#!&amp;(&amp;@*&amp;&amp;^#!&amp;^*)&amp;^&amp;[&amp;)&amp;%*$#!&amp;@&amp;:&amp;%#!&amp;^*(*%&amp;^*#&amp;:&amp;@&amp;[#!&amp;^&amp;@*#*$#[#!**&amp;(&amp;)&amp;$&amp;(#!*$&amp;:&amp;@&amp;&#125;&amp;^*$#!&amp;[&amp;@&amp;$&amp;&#125;#[#!&amp;@&amp;[*%&amp;(&amp;;*^&amp;*&amp;(#!*%&amp;(&amp;)*$#!*#*^&amp;[&amp;^#!&amp;)*$#!&amp;:&amp;;*%#!*^&amp;:&amp;)*&amp;&amp;^*#*$&amp;@&amp;[#!#(*$&amp;^&amp;^#!%@&amp;]*!&amp;(&amp;)*$&amp;#&amp;@&amp;^&amp;:&amp;)&amp;@#[#!%%&amp;)&amp;#&amp;@&amp;]&amp;)&amp;%&amp;@&amp;^#[#!&amp;@&amp;:&amp;%#!^!*)&amp;*&amp;;*!&amp;;&amp;%&amp;)&amp;%&amp;@&amp;^#)#:#!&amp;#&amp;[&amp;@&amp;#&amp;[&amp;@&amp;#&amp;[&amp;@#!%(&amp;^*#&amp;^#!&amp;)*$#!*)&amp;;*^*##!&amp;&amp;&amp;[&amp;@&amp;*$&#123;#!^%%(%&#123;%$%$*&#125;^$%:%@%&#125;$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$*]</span><br></pre></td></tr></table></figure>
+
+<p>老樣子，寫腳本吧</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">ciphertext=<span class="string">&quot;&quot;&quot;^$&amp;:&amp;@&amp;&#125;&amp;^*$#!&amp;@*#&amp;^#!&amp;^&amp;[&amp;;&amp;:&amp;*&amp;@*%&amp;^&amp;%#!&amp;[&amp;)&amp;]&amp;#&amp;[&amp;^*$*$#!*#&amp;^*!*%&amp;)&amp;[&amp;^*$#!&amp;;&amp;&amp;#!*%&amp;(&amp;^#!*$*^&amp;#&amp;;*#&amp;%&amp;^*##!^$&amp;^*#*!&amp;^&amp;:*%&amp;^*$#:#!%$&amp;[&amp;@&amp;%&amp;)*$*%&amp;)&amp;$&amp;@&amp;[&amp;[*)#!*$*@*^&amp;@&amp;]&amp;@*%&amp;^*$#[#!*$&amp;:&amp;@&amp;&#125;&amp;^*$#!&amp;@*#&amp;^#!&amp;^&amp;$*%&amp;;*%&amp;(&amp;^*#&amp;]&amp;)&amp;$#[#!&amp;@&amp;]&amp;:&amp;)&amp;;*%&amp;^#!*&amp;&amp;^*#*%&amp;^&amp;#*#&amp;@*%&amp;^*$#!&amp;$&amp;;*&amp;&amp;^*#&amp;^&amp;%#!&amp;)&amp;:#!&amp;;*&amp;&amp;^*#&amp;[&amp;@*!*!&amp;)&amp;:&amp;*#!*$&amp;$&amp;@&amp;[&amp;^*$#!&amp;]*^&amp;$&amp;(#!&amp;[&amp;)&amp;&#125;&amp;^#!&amp;;*%&amp;(&amp;^*##!&amp;]&amp;^&amp;]&amp;#&amp;^*#*$#!&amp;;&amp;&amp;#!*%&amp;(&amp;^#!&amp;**#&amp;;*^*!#:#!%]&amp;@&amp;:*)#!*$*!&amp;^&amp;$&amp;)&amp;^*$#!&amp;;&amp;&amp;#!*$&amp;:&amp;@&amp;&#125;&amp;^*$#!&amp;(&amp;@*&amp;&amp;^#!*$&amp;&#125;*^&amp;[&amp;[*$#!**&amp;)*%&amp;(#!*$&amp;^*&amp;&amp;^*#&amp;@&amp;[#!&amp;]&amp;;*#&amp;^#!&amp;&#123;&amp;;&amp;)&amp;:*%*$#!*%&amp;(&amp;@&amp;:#!*%&amp;(&amp;^&amp;)*##!&amp;[&amp;)*&#123;&amp;@*#&amp;%#!&amp;@&amp;:&amp;$&amp;^*$*%&amp;;*#*$#!&amp;@&amp;:&amp;%#!*#&amp;^&amp;[&amp;@*%&amp;)*&amp;&amp;^*$#[#!&amp;^&amp;:&amp;@&amp;#&amp;[&amp;)&amp;:&amp;*#!*%&amp;(&amp;^&amp;]#!*%&amp;;#!*$**&amp;@&amp;[&amp;[&amp;;**#!*!*#&amp;^*)#!&amp;]*^&amp;$&amp;(#!&amp;[&amp;@*#&amp;*&amp;^*##!*%&amp;(&amp;@&amp;:#!*%&amp;(&amp;^&amp;)*##!&amp;(&amp;^&amp;@&amp;%*$#!#(&amp;$*#&amp;@&amp;:&amp;)&amp;@&amp;[#!&amp;&#125;&amp;)&amp;:&amp;^*$&amp;)*$#)#:#!^%&amp;;#!&amp;@&amp;$&amp;$&amp;;&amp;]&amp;]&amp;;&amp;%&amp;@*%&amp;^#!*%&amp;(&amp;^&amp;)*##!&amp;:&amp;@*#*#&amp;;**#!&amp;#&amp;;&amp;%&amp;)&amp;^*$#[#!*$&amp;:&amp;@&amp;&#125;&amp;^*$#*#!*!&amp;@&amp;)*#&amp;^&amp;%#!&amp;;*#&amp;*&amp;@&amp;:*$#!#(*$*^&amp;$&amp;(#!&amp;@*$#!&amp;&#125;&amp;)&amp;%&amp;:&amp;^*)*$#)#!&amp;@*!*!&amp;^&amp;@*##!&amp;;&amp;:&amp;^#!&amp;)&amp;:#!&amp;&amp;*#&amp;;&amp;:*%#!&amp;;&amp;&amp;#!*%&amp;(&amp;^#!&amp;;*%&amp;(&amp;^*##!&amp;)&amp;:*$*%&amp;^&amp;@&amp;%#!&amp;;&amp;&amp;#!*$&amp;)&amp;%&amp;^#!&amp;#*)#!*$&amp;)&amp;%&amp;^#[#!&amp;@&amp;:&amp;%#!&amp;]&amp;;*$*%#!&amp;;&amp;:&amp;[*)#!&amp;(&amp;@*&amp;&amp;^#!&amp;;&amp;:&amp;^#!&amp;&amp;*^&amp;:&amp;$*%&amp;)&amp;;&amp;:&amp;@&amp;[#!&amp;[*^&amp;:&amp;*#:#!^$&amp;;&amp;]&amp;^#!*$*!&amp;^&amp;$&amp;)&amp;^*$#!*#&amp;^*%&amp;@&amp;)&amp;:#!&amp;@#!*!&amp;^&amp;[*&amp;&amp;)&amp;$#!&amp;*&amp;)*#&amp;%&amp;[&amp;^#!**&amp;)*%&amp;(#!&amp;@#!*!&amp;@&amp;)*##!&amp;;&amp;&amp;#!*&amp;&amp;^*$*%&amp;)&amp;*&amp;)&amp;@&amp;[#!&amp;$&amp;[&amp;@***$#!&amp;;&amp;:#!&amp;^&amp;)*%&amp;(&amp;^*##!*$&amp;)&amp;%&amp;^#!&amp;;&amp;&amp;#!*%&amp;(&amp;^#!&amp;$&amp;[&amp;;&amp;@&amp;$&amp;@#:#!%[&amp;)*&#123;&amp;@*#&amp;%*$#!&amp;(&amp;@*&amp;&amp;^#!&amp;)&amp;:&amp;%&amp;^*!&amp;^&amp;:&amp;%&amp;^&amp;:*%&amp;[*)#!&amp;^*&amp;&amp;;&amp;[*&amp;&amp;^&amp;%#!&amp;^&amp;[&amp;;&amp;:&amp;*&amp;@*%&amp;^#!&amp;#&amp;;&amp;%&amp;)&amp;^*$#!**&amp;)*%&amp;(&amp;;*^*%#!&amp;[&amp;)&amp;]&amp;#*$#!&amp;;*##!**&amp;)*%&amp;(#!&amp;**#&amp;^&amp;@*%&amp;[*)#!*#&amp;^&amp;%*^&amp;$&amp;^&amp;%#!&amp;[&amp;)&amp;]&amp;#*$#!&amp;@*%#!&amp;[&amp;^&amp;@*$*%#!*%**&amp;^&amp;:*%*)#]&amp;&amp;&amp;)*&amp;&amp;^#!*%&amp;)&amp;]&amp;^*$#!*&amp;&amp;)&amp;@#!&amp;$&amp;;&amp;:*&amp;&amp;^*#&amp;*&amp;^&amp;:*%#!&amp;^*&amp;&amp;;&amp;[*^*%&amp;)&amp;;&amp;:#[#!&amp;[&amp;^&amp;@&amp;%&amp;)&amp;:&amp;*#!*%&amp;;#!&amp;]&amp;@&amp;:*)#!&amp;[&amp;)&amp;:&amp;^&amp;@&amp;*&amp;^*$#!&amp;;&amp;&amp;#!&amp;[&amp;^&amp;*&amp;[&amp;^*$*$#!&amp;[&amp;)*&#123;&amp;@*#&amp;%*$#:#!^%&amp;(&amp;^*$&amp;^#!*#&amp;^*$&amp;^&amp;]&amp;#&amp;[&amp;^#!*$&amp;:&amp;@&amp;&#125;&amp;^*$#[#!&amp;#*^*%#!*$&amp;^*&amp;&amp;^*#&amp;@&amp;[#!&amp;$&amp;;&amp;]&amp;]&amp;;&amp;:#!&amp;**#&amp;;*^*!*$#!&amp;;&amp;&amp;#!&amp;[&amp;^&amp;*&amp;[&amp;^*$*$#!&amp;[&amp;)*&#123;&amp;@*#&amp;%*$#!&amp;(&amp;@*&amp;&amp;^#!&amp;^*)&amp;^&amp;[&amp;)&amp;%*$#!&amp;@&amp;:&amp;%#!&amp;^*(*%&amp;^*#&amp;:&amp;@&amp;[#!&amp;^&amp;@*#*$#[#!**&amp;(&amp;)&amp;$&amp;(#!*$&amp;:&amp;@&amp;&#125;&amp;^*$#!&amp;[&amp;@&amp;$&amp;&#125;#[#!&amp;@&amp;[*%&amp;(&amp;;*^&amp;*&amp;(#!*%&amp;(&amp;)*$#!*#*^&amp;[&amp;^#!&amp;)*$#!&amp;:&amp;;*%#!*^&amp;:&amp;)*&amp;&amp;^*#*$&amp;@&amp;[#!#(*$&amp;^&amp;^#!%@&amp;]*!&amp;(&amp;)*$&amp;#&amp;@&amp;^&amp;:&amp;)&amp;@#[#!%%&amp;)&amp;#&amp;@&amp;]&amp;)&amp;%&amp;@&amp;^#[#!&amp;@&amp;:&amp;%#!^!*)&amp;*&amp;;*!&amp;;&amp;%&amp;)&amp;%&amp;@&amp;^#)#:#!&amp;#&amp;[&amp;@&amp;#&amp;[&amp;@&amp;#&amp;[&amp;@#!%(&amp;^*#&amp;^#!&amp;)*$#!*)&amp;;*^*##!&amp;&amp;&amp;[&amp;@&amp;*$&#123;#!^%%(%&#123;%$%$*&#125;^$%:%@%&#125;$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$*]&quot;&quot;&quot;</span></span><br><span class="line">mapping=<span class="string">&quot;!@#$%^&amp;*()&#123;&#125;[]:;&quot;</span></span><br><span class="line">rev_map=&#123;c:<span class="built_in">format</span>(i,<span class="string">&#x27;04b&#x27;</span>) <span class="keyword">for</span> i,c <span class="keyword">in</span> <span class="built_in">enumerate</span>(mapping)&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># Step 1: 將每個符號轉為 4-bit binary</span></span><br><span class="line">bits=<span class="string">&#x27;&#x27;</span>.join([rev_map[c] <span class="keyword">for</span> c <span class="keyword">in</span> ciphertext])</span><br><span class="line"></span><br><span class="line"><span class="comment"># Step 2: 每 8 位轉回字元</span></span><br><span class="line">plain=<span class="string">&#x27;&#x27;</span>.join([<span class="built_in">chr</span>(<span class="built_in">int</span>(bits[i:i+<span class="number">8</span>],<span class="number">2</span>)) <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">0</span>,<span class="built_in">len</span>(bits),<span class="number">8</span>)])</span><br><span class="line"><span class="built_in">print</span>(plain)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p><img src="https://hackmd.io/_uploads/S1Da5rfkeg.png" alt="image"></p>
+<p><code>THJCC&#123;SNAK3333333333333333&#125;</code></p>
+<hr>
+<h2 id="DAES"><a href="#DAES" class="headerlink" title="DAES"></a>DAES</h2><p><img src="https://hackmd.io/_uploads/B1q1hBf1ex.png" alt="image"></p>
+<p><img src="https://hackmd.io/_uploads/Bkx13HGyll.png" alt="image"><br>chal.py:</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/python3</span></span><br><span class="line"><span class="keyword">from</span> Crypto.Cipher <span class="keyword">import</span> AES</span><br><span class="line"><span class="keyword">from</span> secret <span class="keyword">import</span> FLAG</span><br><span class="line"><span class="keyword">import</span> random</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> signal</span><br><span class="line"></span><br><span class="line">TIMEOUT = <span class="number">120</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">timeout_handler</span>(<span class="params">signum, frame</span>):</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;\nTime&#x27;s up! No flag for u...&quot;</span>)</span><br><span class="line">    exit()</span><br><span class="line"></span><br><span class="line">signal.signal(signal.SIGALRM, timeout_handler)</span><br><span class="line">signal.alarm(TIMEOUT)</span><br><span class="line"></span><br><span class="line">target = os.urandom(<span class="number">16</span>)</span><br><span class="line"></span><br><span class="line">keys = [<span class="string">b&#x27;whalekey:&#x27;</span> + <span class="built_in">str</span>(random.randrange(<span class="number">1000000</span>, <span class="number">1999999</span>)).encode() <span class="keyword">for</span> _ <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">2</span>)]</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">enc</span>(<span class="params">key, msg</span>):</span><br><span class="line">    ecb = AES.new(key, AES.MODE_ECB)</span><br><span class="line">    <span class="keyword">return</span> ecb.encrypt(msg)</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">daes</span>(<span class="params">msg</span>):</span><br><span class="line">    tmp = enc(keys[<span class="number">0</span>], msg)</span><br><span class="line">    <span class="keyword">return</span> enc(keys[<span class="number">1</span>], tmp)</span><br><span class="line"></span><br><span class="line">test = <span class="string">b&#x27;you are my fire~&#x27;</span></span><br><span class="line"><span class="built_in">print</span>(daes(test).<span class="built_in">hex</span>())</span><br><span class="line"><span class="built_in">print</span>(daes(target).<span class="built_in">hex</span>())</span><br><span class="line"></span><br><span class="line">ans = <span class="built_in">input</span>(<span class="string">&quot;Ans:&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> ans == target.<span class="built_in">hex</span>():</span><br><span class="line">    <span class="built_in">print</span>(FLAG)</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;Nah, no flag for u...&quot;</span>)</span><br><span class="line"></span><br><span class="line">signal.alarm(<span class="number">0</span>)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>雙層AES-ECB<br><code>THJCC&#123;see_u_again_in_the_middle&#125;</code></li>
+</ul>
+<hr>
+<h2 id="Twins"><a href="#Twins" class="headerlink" title="Twins"></a>Twins</h2><p><img src="https://hackmd.io/_uploads/Skvf5Ufyge.png" alt="image"><br>RSA題<br><img src="https://hackmd.io/_uploads/rkJM5UG1xe.png" alt="image"></p>
+<p><code>THJCC&#123;7wIn_pR!me$_4RE_Too_L0VE1Y&#125;</code></p>
+]]></content>
+      <categories>
+        <category>資安</category>
+      </categories>
+  </entry>
+  <entry>
     <title>Local PII Extractor：支援中文的本地個資識別與匿名化工具</title>
     <url>/20250528/</url>
     <content><![CDATA[<h1 id="🛡️-Local-PII-Extractor：支援中文的本地個資識別與匿名化工具"><a href="#🛡️-Local-PII-Extractor：支援中文的本地個資識別與匿名化工具" class="headerlink" title="🛡️ Local PII Extractor：支援中文的本地個資識別與匿名化工具"></a>🛡️ Local PII Extractor：支援中文的本地個資識別與匿名化工具</h1><p>GitHub Repository：<a href="https://github.com/chewu-0319/Local_PII_Extractor">https://github.com/chewu-0319/Local_PII_Extractor</a></p>
@@ -498,34 +526,6 @@
 <li><strong>提升識別準確率</strong>：引入更先進的 NLP 模型，提升個資識別的準確性。</li>
 <li><strong>增加批次處理功能</strong>：允許使用者一次處理多個檔案，提高效率。</li>
 </ul>
-]]></content>
-      <categories>
-        <category>資安</category>
-      </categories>
-  </entry>
-  <entry>
-    <title>AIS3 2024 pre-exam</title>
-    <url>/AIS3pre-exam/</url>
-    <content><![CDATA[<h1 id="AIS3-2024-pre-exam-write-up"><a href="#AIS3-2024-pre-exam-write-up" class="headerlink" title="AIS3 2024 pre-exam write up"></a>AIS3 2024 pre-exam write up</h1><p>第一次寫write up :D</p>
-<h1 id="misc"><a href="#misc" class="headerlink" title="misc"></a>misc</h1><h2 id="welcome-100"><a href="#welcome-100" class="headerlink" title="welcome[100]"></a>welcome[100]</h2><p>略</p>
-<h2 id="Quantum-Nim-Heist-100"><a href="#Quantum-Nim-Heist-100" class="headerlink" title="Quantum Nim Heist[100]"></a>Quantum Nim Heist[100]</h2><p>一開始看code看很久都沒找到破綻，花超多時間在程式裡大海撈針，沒想到意外發現小漏洞，<br>反正就是讓值超出預期，但我其實不確定這做法的專有名詞(?<br>當他問which pile do you choose?的時候，<br>正常應該要回答是第幾pile，但如果什麼都不回答直接按enter或輸入-1，會發現可以直接跳過一回合，<br>直到最後一回合再記得把最後一個stones remove掉。</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">...</span><br><span class="line"></span><br><span class="line">it&#x27;s your turn to move! what do you choose?</span><br><span class="line">+--------------------- moved ---------------------+</span><br><span class="line">| you removed 2 stones from pile 1                |</span><br><span class="line">+---+-------------- stones info ------------------+</span><br><span class="line">| 0 | oo                                          |</span><br><span class="line">| 1 | oo                                          |</span><br><span class="line">+--------------------- moved ---------------------+</span><br><span class="line">| i removed 1 stones from pile 1                  |</span><br><span class="line">+---+-------------- stones info ------------------+</span><br><span class="line">| 0 | oo                                          |</span><br><span class="line">| 1 | o                                           |</span><br><span class="line">+---+--------------- game menu -------------------+</span><br><span class="line">| 0 | make a move                                 |</span><br><span class="line">| 1 | save the current game and leave             |</span><br><span class="line">| 2 | resign the game                             |</span><br><span class="line">+---+---------------------------------------------+</span><br><span class="line">it&#x27;s your turn to move! what do you choose?        </span><br><span class="line">+--------------------- moved ---------------------+</span><br><span class="line">| you removed 1 stones from pile 1                |</span><br><span class="line">+---+-------------- stones info ------------------+</span><br><span class="line">| 0 | oo                                          | </span><br><span class="line">| 1 | o                                           |</span><br><span class="line">+--------------------- moved ---------------------+</span><br><span class="line">| i removed 1 stones from pile 0                  | </span><br><span class="line">+---+-------------- stones info ------------------+</span><br><span class="line">| 0 | o                                           |</span><br><span class="line">| 1 | o                                           | </span><br><span class="line">+---+--------------- game menu -------------------+  </span><br><span class="line">| 0 | make a move                                 |   </span><br><span class="line">| 1 | save the current game and leave             |   </span><br><span class="line">| 2 | resign the game                             |   </span><br><span class="line">+---+---------------------------------------------+   </span><br><span class="line">it&#x27;s your turn to move! what do you choose?           </span><br><span class="line">+--------------------- moved ---------------------+   </span><br><span class="line">| you removed 1 stones from pile 0                |   </span><br><span class="line">+---+-------------- stones info ------------------+   </span><br><span class="line">| 0 | o                                           |    </span><br><span class="line">| 1 | o                                           |   </span><br><span class="line">+--------------------- moved ---------------------+   </span><br><span class="line">| i removed 1 stones from pile 0                  |   </span><br><span class="line">+---+-------------- stones info ------------------+   </span><br><span class="line">| 0 | o                                           |   </span><br><span class="line">+---+--------------- game menu -------------------+   </span><br><span class="line">| 0 | make a move                                 |   </span><br><span class="line">| 1 | save the current game and leave             |   </span><br><span class="line">| 2 | resign the game                             |  </span><br><span class="line">+---+---------------------------------------------+  </span><br><span class="line">it&#x27;s your turn to move! what do you choose? 0         </span><br><span class="line">which pile do you choose? 0                           </span><br><span class="line">how many stones do you remove? 1                      </span><br><span class="line">+---------------- congratulations ----------------+   </span><br><span class="line">| you are a true grandmaster of chess! here is    |   </span><br><span class="line">| the flag for you:                               |   </span><br><span class="line">| AIS3&#123;Ar3_y0u_a_N1m_ma57er_0r_a_Crypt0_ma57er?&#125;  |   </span><br><span class="line">+-------------------------------------------------+ </span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<h2 id="Three-Dimensional-Secret"><a href="#Three-Dimensional-Secret" class="headerlink" title="Three Dimensional Secret"></a>Three Dimensional Secret</h2><p>打開封包檔<br>看到很多Protocol&#x3D;TCP，隨機點一個<br><img src="/images/p9.png"></p>
-<p>選follow -&gt; TCP Stream<br><img src="/images/p10.png"></p>
-<p>打開後會出現很多同一格式的程式碼<br>拿去問chatgpt，得知這是G code<br><img src="/images/p11.png"></p>
-<p>上網找預覽器，找到<a href="https://nraynaud.github.io/webgcode/">https://nraynaud.github.io/webgcode/</a><br><img src="/images/p12.png"></p>
-<p>貼上code就看到flag了</p>
-<h1 id="crypto"><a href="#crypto" class="headerlink" title="crypto"></a>crypto</h1><h2 id="zkp"><a href="#zkp" class="headerlink" title="zkp"></a>zkp</h2><p>原本想說開暴力解，吃完飯發現還是沒結果，<br>上網找資料找到這個酷酷的函式庫叫sympy，大數字也可以快速解，<br>用sympy去計算離散對數r，再去算sk，<br>求得sk後丟long_to_bytes求回flag</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">!pip install sympy</span><br><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> inverse</span><br><span class="line"><span class="keyword">from</span> sympy.ntheory <span class="keyword">import</span> discrete_log</span><br><span class="line"></span><br><span class="line"><span class="comment"># 已知參數</span></span><br><span class="line">p = <span class="number">912963562570713895762123712634341582363191342435924527885311975797578046400116904692505817547350929619596093083745446525856149291591598712142696114753807416455553636357128701771057485027781550780145668058332461392878693207262984011086549089459904749465167095482671894984474035487400352761994560452501497000487</span></span><br><span class="line">g = <span class="number">5</span></span><br><span class="line">y = <span class="number">826538666839613533825164219540577914201103248283631882579415248247469603672292332561005185045449294103457059566058782307774879654805356212117148864755019033392691510181464751398765490686084806155442759849410837406192708511190585484331707794669398717997173649869228717077858848442336016926370038781486833717341</span></span><br><span class="line">a = <span class="number">837391429146716246298265649828833926553703307768263532882119633652369160923460038502759864396719595556822579283450060054716753545203402598089323793321805639129260667950080636462204135426887388899955615207806039627983773534304007953073586374003734715079722274887416433453079445822219423995951703135829496007286</span>        </span><br><span class="line">c = <span class="number">1</span> <span class="comment"># 這邊用1可以節省運算時間</span></span><br><span class="line">w = <span class="number">394811387946114683904252174454710537206578693342055809178279464013047561646863743919996435695718914181044539464633729592712968512748007403695056092396246866848389859706990642501065525104839776919236901735230456614618350145301893017979866181624159788935390202502224091369603614245766192646548573130781044536668</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 用sympy計算離散對數r</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">compute_r</span>(<span class="params">g, a, p</span>):</span><br><span class="line">    <span class="keyword">return</span> discrete_log(p, a, g)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 算sk</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">compute_sk</span>(<span class="params">p, g, y, a, w, c</span>):</span><br><span class="line">    r = compute_r(g, a, p)</span><br><span class="line">    p_minus_1 = p - <span class="number">1</span></span><br><span class="line">    c_inv = inverse(c, p_minus_1)</span><br><span class="line">    sk = (w - r) * c_inv % p_minus_1</span><br><span class="line">    <span class="keyword">return</span> sk</span><br><span class="line"></span><br><span class="line"><span class="comment"># 計算 輸出sk</span></span><br><span class="line">sk = compute_sk(p, g, y, a, w, c)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;Computed sk:&quot;</span>, sk)</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Requirement already satisfied: sympy in /usr/local/lib/python3.10/dist-packages (1.12)</span><br><span class="line">Requirement already satisfied: mpmath&gt;=0.19 in /usr/local/lib/python3.10/dist-packages (from sympy) (1.3.0)</span><br><span class="line">Computed sk: 796124238634205301132370159483254378466188675876173490569851599404569838177493188146821283009169954596409601313555455638014751336770403395328637</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> long_to_bytes</span><br><span class="line"></span><br><span class="line"><span class="comment"># 已知參數</span></span><br><span class="line">sk = <span class="number">796124238634205301132370159483254378466188675876173490569851599404569838177493188146821283009169954596409601313555455638014751336770403395328637</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 私鑰轉flag</span></span><br><span class="line">flag = long_to_bytes(sk)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;Flag:&quot;</span>, flag)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Flag: b&#x27;AIS3&#123;ToSolveADiscreteLogProblemWhithSmoothPIsSoEZZZZZZZZZZZ&#125;&#x27;</span><br></pre></td></tr></table></figure>
-
-<hr>
-<!-- Start of CuterCounter Code -->
-<p><a href="https://www.cutercounter.com/traditional-chinese-nn/" target="_blank" style="pointer-events: none;"><img src="https://www.cutercounter.com/hits.php?id=huexqdano&nd=6&style=11" border="0" alt="免費網站計數器"></a></p>
-<!-- End of CuterCounter Code -->
 ]]></content>
       <categories>
         <category>資安</category>
@@ -1071,6 +1071,32 @@ ABaB
       </categories>
   </entry>
   <entry>
+    <title>個人時間表</title>
+    <url>/personal_schedule/</url>
+    <content><![CDATA[<h1 id="此為-2024-10月-2025寒假前-日程表"><a href="#此為-2024-10月-2025寒假前-日程表" class="headerlink" title="此為 2024&#x2F;10月-2025寒假前 日程表"></a>此為 2024&#x2F;10月-2025寒假前 日程表</h1><p><img src="/images/sch.png"></p>
+<ul>
+<li>藍色: 在學校</li>
+<li>綠色: 在家裡忙</li>
+<li>紫色: 社團</li>
+<li>灰色: 空閒</li>
+</ul>
+<p>聯絡方式:</p>
+<ul>
+<li>email: <a href="mailto:dylan.jc2222@gmail.com" title="吳昕哲">吳昕哲</a></li>
+<li>discord: <a href="https://discordapp.com/users/768889520280043561" title="che哲#4541">che哲#4541</a></li>
+<li>instagram: <a href="https://www.instagram.com/che._.wu/" title="che._.wu">che._.wu</a></li>
+</ul>
+<hr>
+<!-- Start of CuterCounter Code -->
+<p><a href="https://www.cutercounter.com/traditional-chinese-nn/" target="_blank" style="pointer-events: none;"><img src="https://www.cutercounter.com/hits.php?id=hxqxdco&nd=6&style=11" border="0" alt="免費網站計數器"></a></p>
+<!-- End of CuterCounter Code -->
+
+]]></content>
+      <categories>
+        <category>個人時間表</category>
+      </categories>
+  </entry>
+  <entry>
     <title>特殊選才</title>
     <url>/interview/</url>
     <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>嗨嗨 我是che，成功用特殊選材上岸啦!! <a href="https://chewu-0319.github.io/personal/about/">這裡</a> 有較詳細的個人經歷。</p>
@@ -1343,29 +1369,72 @@ ABaB
       </categories>
   </entry>
   <entry>
-    <title>個人時間表</title>
-    <url>/personal_schedule/</url>
-    <content><![CDATA[<h1 id="此為-2024-10月-2025寒假前-日程表"><a href="#此為-2024-10月-2025寒假前-日程表" class="headerlink" title="此為 2024&#x2F;10月-2025寒假前 日程表"></a>此為 2024&#x2F;10月-2025寒假前 日程表</h1><p><img src="/images/sch.png"></p>
+    <title>電資類競賽分享</title>
+    <url>/sources-share/</url>
+    <content><![CDATA[<h2 id="主要競賽-具指標性"><a href="#主要競賽-具指標性" class="headerlink" title="主要競賽(具指標性):"></a>主要競賽(具指標性):</h2><p>競程類</p>
 <ul>
-<li>藍色: 在學校</li>
-<li>綠色: 在家裡忙</li>
-<li>紫色: 社團</li>
-<li>灰色: 空閒</li>
+<li><a href="https://apcs.csie.ntnu.edu.tw/" style="color: #0066CC;">⭐APCS</a></li>
+<li><a href="https://tpmso.org/toi/" style="color: #0066CC;">⭐TOI</a></li>
+<li><a href="https://contest.cc.ntu.edu.tw/npsc2023/index.html" style="color: #0066CC;">NPSC</a></li>
+<li><a href="https://cpe.cse.nsysu.edu.tw/" style="color: #0066CC;">⭐CPE</a></li>
+<li><a href="https://www.tw-ytp.org/" style="color: #0066CC;">YTP</a></li>
+<li>⭐資訊學科能力競賽<ul>
+<li>校內初賽前2名可參加複賽</li>
+<li>複賽前幾名可參加全國賽(決賽)</li>
 </ul>
-<p>聯絡方式:</p>
+</li>
+<li><a href="https://e-tutor.itsa.org.tw/e-Tutor/" style="color: #0066CC;">ITSA</a></li>
+<li><a href="https://issc.csroc.org.tw/" style="color: #0066CC;">ISSC</a></li>
+<li><a href="https://www.hpcodewars.com.tw/" style="color: #0066CC;">HP CodeWars</a></li>
+<li><a href="https://hspc.csie.ncku.edu.tw/" style="color: #0066CC;">HSPC(成大暑期程式邀請賽)</a></li>
+</ul>
+<p>資安類</p>
 <ul>
-<li>email: <a href="mailto:dylan.jc2222@gmail.com" title="吳昕哲">吳昕哲</a></li>
-<li>discord: <a href="https://discordapp.com/users/768889520280043561" title="che哲#4541">che哲#4541</a></li>
-<li>instagram: <a href="https://www.instagram.com/che._.wu/" title="che._.wu">che._.wu</a></li>
+<li><a href="https://csc.nics.nat.gov.tw/" style="color: #0066CC;">⭐金盾獎</a></li>
+<li><a href="https://tcat2023.twisc.ncku.edu.tw/" style="color: #0066CC;">T貓盃</a></li>
+<li><a href="https://ais3.org/eof/" style="color: #0066CC;">⭐AIS3 EOF</a></li>
+<li><a href="https://gics.tw/" style="color: #0066CC;">尋找資安女婕思</a></li>
+<li><a href="https://ais3.org/mfctf/" style="color: #0066CC;">MyFirstCTF</a></li>
+<li><a href="https://ais3.org/" style="color: #0066CC;">⭐AIS3</a></li>
+</ul>
+<p>AI類</p>
+<ul>
+<li><a href="https://www.aicup.tw/" style="color: #0066CC;">AI CUP</a></li>
+</ul>
+<hr>
+<p>年會</p>
+<ul>
+<li><p><a href="https://sitcon.org/2024/" style="color: #0066CC;">SITCON 學生計算機年會</a></p>
+</li>
+<li><p><a href="https://hitcon.org/2024/CMT/" style="color: #0066CC;">HITCON 台灣駭客年會</a></p>
+</li>
+<li><p><a href="https://coscup.org/2024/zh-TW/landing" style="color: #0066CC;">COSCUP 開源人年會</a></p>
+</li>
+<li><p><a href="https://summit.g0v.tw/2024/" style="color: #0066CC;">g0v summit 零時政府雙年會</a></p>
+</li>
+<li><p><a href="https://summit.g0v.tw/2024/" style="color: #0066CC;">g0v summit 零時政府雙年會</a></p>
+</li>
+</ul>
+<p>社群</p>
+<ul>
+<li><a href="https://discord.gg/3fah53Bj46" style="color: #0066CC;">SCINT 北台灣學生資訊社群(北電)</a></li>
+<li><a href="https://discord.gg/R7uguV73tC" style="color: #0066CC;">SCAICT 中電會(中電)</a></li>
+<li><a href="https://discord.gg/g6qfD4Wk9j" style="color: #0066CC;">SCIST (南電)</a></li>
+</ul>
+<hr>
+<h2 id="其他資料"><a href="#其他資料" class="headerlink" title="其他資料:"></a>其他資料:</h2><ul>
+<li><a href="https://hackmd.io/@cube/rJ3o-G1mF" style="color: #0066CC;">程式設計競賽網路資源</a></li>
+<li><a href="https://github.com/goodjack/awesome-cs-training" style="color: #0066CC;">資訊培訓相關資源彙整</a></li>
+<li><a href="https://hackmd.io/@nehs-iced-7th/Skut4WffY" style="color: #0066CC;">實中資研整理</a></li>
+<li><a href="https://hackmd.io/@yuan-tw/SJHj8Xano" style="color: #0066CC;">電資資源整理(不定期更新)</a></li>
+<li><a href="https://github.com/Ice1187/TW-Security-and-CTF-Resource" style="color: #0066CC;">台灣資安 &#x2F; CTF 學習資源整理</a></li>
 </ul>
 <hr>
 <!-- Start of CuterCounter Code -->
-<p><a href="https://www.cutercounter.com/traditional-chinese-nn/" target="_blank" style="pointer-events: none;"><img src="https://www.cutercounter.com/hits.php?id=hxqxdco&nd=6&style=11" border="0" alt="免費網站計數器"></a></p>
-<!-- End of CuterCounter Code -->
-
-]]></content>
+<p><a href="https://www.cutercounter.com/traditional-chinese-nn/" target="_blank" style="pointer-events: none;"><img src="https://www.cutercounter.com/hits.php?id=hrvxocncc&nd=6&style=11" border="0" alt="免費網站計數器"></a></p>
+<!-- End of CuterCounter Code -->]]></content>
       <categories>
-        <category>個人時間表</category>
+        <category>資源分享</category>
       </categories>
   </entry>
   <entry>
@@ -1379,7 +1448,7 @@ ABaB
 <li>Neither the title nor the URL includes any sensitive keywords.</li>
 <li>It’s very unlikely for someone to find this post via Google or other search engines.</li>
 </ul>
-<h2 id="If-you-are-a-member-of-the-pwn-college-team-and-would-prefer-this-post-to-be-taken-down-please-contact-me-at-100-x79-x6c-x61-110-x2e-x6a-99-x32-x32-x32-50-64-103-109-x61-105-x6c-x2e-99-x6f-109-—-I-will-remove-it-promptly-upon-request-To-any-readers-who-happen-to-find-this-post-please-refrain-from-widely-sharing-it-with-others-Thanks-for-your-understanding"><a href="#If-you-are-a-member-of-the-pwn-college-team-and-would-prefer-this-post-to-be-taken-down-please-contact-me-at-100-x79-x6c-x61-110-x2e-x6a-99-x32-x32-x32-50-64-103-109-x61-105-x6c-x2e-99-x6f-109-—-I-will-remove-it-promptly-upon-request-To-any-readers-who-happen-to-find-this-post-please-refrain-from-widely-sharing-it-with-others-Thanks-for-your-understanding" class="headerlink" title="If you are a member of the pwn.college team and would prefer this post to be taken down, please contact me at &#100;&#x79;&#x6c;&#x61;&#110;&#x2e;&#x6a;&#99;&#x32;&#x32;&#x32;&#50;&#64;&#103;&#109;&#x61;&#105;&#x6c;&#x2e;&#99;&#x6f;&#109; — I will remove it promptly upon request.To any readers who happen to find this post, please refrain from widely sharing it with others. Thanks for your understanding!"></a>If you are a member of the pwn.college team and would prefer this post to be taken down, please contact me at <a href="mailto:&#100;&#x79;&#x6c;&#x61;&#110;&#x2e;&#x6a;&#99;&#x32;&#x32;&#x32;&#50;&#64;&#103;&#109;&#x61;&#105;&#x6c;&#x2e;&#99;&#x6f;&#109;">&#100;&#x79;&#x6c;&#x61;&#110;&#x2e;&#x6a;&#99;&#x32;&#x32;&#x32;&#50;&#64;&#103;&#109;&#x61;&#105;&#x6c;&#x2e;&#99;&#x6f;&#109;</a> — I will remove it promptly upon request.<br>To any readers who happen to find this post, please refrain from widely sharing it with others. Thanks for your understanding!</h2><h1 id="解說"><a href="#解說" class="headerlink" title="解說"></a>解說</h1><p>平台上的題目跟一般的CTF不太一樣，一般CTF是連去指定的ip做操作，但是這平台上的題目是會開啟虛擬機並讓你以一般使用者的帳號，通過web去取得&#x2F;flag的檔案，而他給的web都是用root權限的，也就是說，你必須透過自行啟用web的python檔案，並在這個web上透過漏洞而以root身分取得&#x2F;flag的檔案。</p>
+<h2 id="If-you-are-a-member-of-the-pwn-college-team-and-would-prefer-this-post-to-be-taken-down-please-contact-me-at-100-x79-108-x61-110-x2e-106-99-50-x32-x32-x32-64-103-x6d-x61-x69-x6c-x2e-99-x6f-109-—-I-will-remove-it-promptly-upon-request-To-any-readers-who-happen-to-find-this-post-please-refrain-from-widely-sharing-it-with-others-Thanks-for-your-understanding"><a href="#If-you-are-a-member-of-the-pwn-college-team-and-would-prefer-this-post-to-be-taken-down-please-contact-me-at-100-x79-108-x61-110-x2e-106-99-50-x32-x32-x32-64-103-x6d-x61-x69-x6c-x2e-99-x6f-109-—-I-will-remove-it-promptly-upon-request-To-any-readers-who-happen-to-find-this-post-please-refrain-from-widely-sharing-it-with-others-Thanks-for-your-understanding" class="headerlink" title="If you are a member of the pwn.college team and would prefer this post to be taken down, please contact me at &#100;&#x79;&#108;&#x61;&#110;&#x2e;&#106;&#99;&#50;&#x32;&#x32;&#x32;&#64;&#103;&#x6d;&#x61;&#x69;&#x6c;&#x2e;&#99;&#x6f;&#109; — I will remove it promptly upon request.To any readers who happen to find this post, please refrain from widely sharing it with others. Thanks for your understanding!"></a>If you are a member of the pwn.college team and would prefer this post to be taken down, please contact me at <a href="mailto:&#100;&#x79;&#108;&#x61;&#110;&#x2e;&#106;&#99;&#50;&#x32;&#x32;&#x32;&#64;&#103;&#x6d;&#x61;&#x69;&#x6c;&#x2e;&#99;&#x6f;&#109;">&#100;&#x79;&#108;&#x61;&#110;&#x2e;&#106;&#99;&#50;&#x32;&#x32;&#x32;&#64;&#103;&#x6d;&#x61;&#x69;&#x6c;&#x2e;&#99;&#x6f;&#109;</a> — I will remove it promptly upon request.<br>To any readers who happen to find this post, please refrain from widely sharing it with others. Thanks for your understanding!</h2><h1 id="解說"><a href="#解說" class="headerlink" title="解說"></a>解說</h1><p>平台上的題目跟一般的CTF不太一樣，一般CTF是連去指定的ip做操作，但是這平台上的題目是會開啟虛擬機並讓你以一般使用者的帳號，通過web去取得&#x2F;flag的檔案，而他給的web都是用root權限的，也就是說，你必須透過自行啟用web的python檔案，並在這個web上透過漏洞而以root身分取得&#x2F;flag的檔案。</p>
 <h1 id="補充"><a href="#補充" class="headerlink" title="補充"></a>補充</h1><p>pwn.college網路上都找不到write up，花了很多時間在深入研究bypass，但也學到很多xd，以下進入正題。</p>
 <hr>
 <h1 id="Path-Traversal-1"><a href="#Path-Traversal-1" class="headerlink" title="Path Traversal 1"></a>Path Traversal 1</h1><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">This level will explore the intersection of Linux path resolution, when done naively, and unexpected web requests from an attacker. We&#x27;ve implemented a simple web server for you --- it will serve up files from /challenge/files over HTTP. Can you trick it into giving you the flag?</span><br><span class="line"></span><br><span class="line">The webserver program is /challenge/server. You can run it just like any other challenge, then talk to it over HTTP (using a different terminal or a web browser). We recommend reading through its code to understand what it is doing and to find the weakness!</span><br><span class="line"></span><br><span class="line">HINT: If you&#x27;re wondering why your solution isn&#x27;t working, make sure what you&#x27;re trying to query is what is actually being received by the server! curl -v [url] can show you the exact bytes that curl is sending over.</span><br></pre></td></tr></table></figure>
@@ -1733,197 +1802,6 @@ ABaB
       </categories>
   </entry>
   <entry>
-    <title>電資類競賽分享</title>
-    <url>/sources-share/</url>
-    <content><![CDATA[<h2 id="主要競賽-具指標性"><a href="#主要競賽-具指標性" class="headerlink" title="主要競賽(具指標性):"></a>主要競賽(具指標性):</h2><p>競程類</p>
-<ul>
-<li><a href="https://apcs.csie.ntnu.edu.tw/" style="color: #0066CC;">⭐APCS</a></li>
-<li><a href="https://tpmso.org/toi/" style="color: #0066CC;">⭐TOI</a></li>
-<li><a href="https://contest.cc.ntu.edu.tw/npsc2023/index.html" style="color: #0066CC;">NPSC</a></li>
-<li><a href="https://cpe.cse.nsysu.edu.tw/" style="color: #0066CC;">⭐CPE</a></li>
-<li><a href="https://www.tw-ytp.org/" style="color: #0066CC;">YTP</a></li>
-<li>⭐資訊學科能力競賽<ul>
-<li>校內初賽前2名可參加複賽</li>
-<li>複賽前幾名可參加全國賽(決賽)</li>
-</ul>
-</li>
-<li><a href="https://e-tutor.itsa.org.tw/e-Tutor/" style="color: #0066CC;">ITSA</a></li>
-<li><a href="https://issc.csroc.org.tw/" style="color: #0066CC;">ISSC</a></li>
-<li><a href="https://www.hpcodewars.com.tw/" style="color: #0066CC;">HP CodeWars</a></li>
-<li><a href="https://hspc.csie.ncku.edu.tw/" style="color: #0066CC;">HSPC(成大暑期程式邀請賽)</a></li>
-</ul>
-<p>資安類</p>
-<ul>
-<li><a href="https://csc.nics.nat.gov.tw/" style="color: #0066CC;">⭐金盾獎</a></li>
-<li><a href="https://tcat2023.twisc.ncku.edu.tw/" style="color: #0066CC;">T貓盃</a></li>
-<li><a href="https://ais3.org/eof/" style="color: #0066CC;">⭐AIS3 EOF</a></li>
-<li><a href="https://gics.tw/" style="color: #0066CC;">尋找資安女婕思</a></li>
-<li><a href="https://ais3.org/mfctf/" style="color: #0066CC;">MyFirstCTF</a></li>
-<li><a href="https://ais3.org/" style="color: #0066CC;">⭐AIS3</a></li>
-</ul>
-<p>AI類</p>
-<ul>
-<li><a href="https://www.aicup.tw/" style="color: #0066CC;">AI CUP</a></li>
-</ul>
-<hr>
-<p>年會</p>
-<ul>
-<li><p><a href="https://sitcon.org/2024/" style="color: #0066CC;">SITCON 學生計算機年會</a></p>
-</li>
-<li><p><a href="https://hitcon.org/2024/CMT/" style="color: #0066CC;">HITCON 台灣駭客年會</a></p>
-</li>
-<li><p><a href="https://coscup.org/2024/zh-TW/landing" style="color: #0066CC;">COSCUP 開源人年會</a></p>
-</li>
-<li><p><a href="https://summit.g0v.tw/2024/" style="color: #0066CC;">g0v summit 零時政府雙年會</a></p>
-</li>
-<li><p><a href="https://summit.g0v.tw/2024/" style="color: #0066CC;">g0v summit 零時政府雙年會</a></p>
-</li>
-</ul>
-<p>社群</p>
-<ul>
-<li><a href="https://discord.gg/3fah53Bj46" style="color: #0066CC;">SCINT 北台灣學生資訊社群(北電)</a></li>
-<li><a href="https://discord.gg/R7uguV73tC" style="color: #0066CC;">SCAICT 中電會(中電)</a></li>
-<li><a href="https://discord.gg/g6qfD4Wk9j" style="color: #0066CC;">SCIST (南電)</a></li>
-</ul>
-<hr>
-<h2 id="其他資料"><a href="#其他資料" class="headerlink" title="其他資料:"></a>其他資料:</h2><ul>
-<li><a href="https://hackmd.io/@cube/rJ3o-G1mF" style="color: #0066CC;">程式設計競賽網路資源</a></li>
-<li><a href="https://github.com/goodjack/awesome-cs-training" style="color: #0066CC;">資訊培訓相關資源彙整</a></li>
-<li><a href="https://hackmd.io/@nehs-iced-7th/Skut4WffY" style="color: #0066CC;">實中資研整理</a></li>
-<li><a href="https://hackmd.io/@yuan-tw/SJHj8Xano" style="color: #0066CC;">電資資源整理(不定期更新)</a></li>
-<li><a href="https://github.com/Ice1187/TW-Security-and-CTF-Resource" style="color: #0066CC;">台灣資安 &#x2F; CTF 學習資源整理</a></li>
-</ul>
-<hr>
-<!-- Start of CuterCounter Code -->
-<p><a href="https://www.cutercounter.com/traditional-chinese-nn/" target="_blank" style="pointer-events: none;"><img src="https://www.cutercounter.com/hits.php?id=hrvxocncc&nd=6&style=11" border="0" alt="免費網站計數器"></a></p>
-<!-- End of CuterCounter Code -->]]></content>
-      <categories>
-        <category>資源分享</category>
-      </categories>
-  </entry>
-  <entry>
-    <title>漏洞紀錄</title>
-    <url>/vulnerability/</url>
-    <content><![CDATA[<h1 id="漏洞"><a href="#漏洞" class="headerlink" title="漏洞"></a>漏洞</h1><table>
-<thead>
-<tr>
-<th>編號+連結</th>
-<th>單位+漏洞</th>
-<th>外泄內容</th>
-<th>風險</th>
-</tr>
-</thead>
-<tbody><tr>
-<td><a href="https://zeroday.hitcon.org/vulnerability/ZD-2024-00899" title="ZD-2024-00899">ZD-2024-00899</a></td>
-<td>中原大學SQLi</td>
-<td>多位學生+教職員工個資</td>
-<td>高</td>
-</tr>
-<tr>
-<td><a href="https://zeroday.hitcon.org/vulnerability/ZD-2024-00900" title="ZD-2024-00900">ZD-2024-00900</a></td>
-<td>台中教育大學SQLi</td>
-<td>個資(內容不公開)</td>
-<td>嚴重</td>
-</tr>
-<tr>
-<td><a href="https://zeroday.hitcon.org/vulnerability/ZD-2024-00902" title="ZD-2024-00902">ZD-2024-00902</a></td>
-<td>國家華語測驗推動工作委員會SQLi</td>
-<td>管理員帳密</td>
-<td>高</td>
-</tr>
-<tr>
-<td><a href="https://zeroday.hitcon.org/vulnerability/ZD-2024-00910" title="ZD-2024-00910">ZD-2024-00910</a></td>
-<td>臺北醫學大學SQLi</td>
-<td>多個databases</td>
-<td>中</td>
-</tr>
-<tr>
-<td><a href="https://zeroday.hitcon.org/vulnerability/ZD-2024-00917" title="ZD-2024-00917">ZD-2024-00917</a></td>
-<td>低調資訊有限公司SQLi</td>
-<td>line token外洩</td>
-<td>高</td>
-</tr>
-<tr>
-<td><a href="https://zeroday.hitcon.org/vulnerability/ZD-2024-00918" title="ZD-2024-00918">ZD-2024-00918</a></td>
-<td>中原大學SQLi</td>
-<td>個資</td>
-<td>高</td>
-</tr>
-<tr>
-<td><a href="https://zeroday.hitcon.org/vulnerability/ZD-2024-01060" title="ZD-2024-01060">ZD-2024-01060</a></td>
-<td>泰禾國際實業有限公司RXSS</td>
-<td>(XSS)</td>
-<td>低</td>
-</tr>
-<tr>
-<td><a href="https://zeroday.hitcon.org/vulnerability/ZD-2024-01061" title="ZD-2024-01061">ZD-2024-01061</a></td>
-<td>奧斯華德色技有限公司SQLi</td>
-<td>多個tables</td>
-<td>高</td>
-</tr>
-<tr>
-<td><a href="https://zeroday.hitcon.org/vulnerability/ZD-2024-01062" title="ZD-2024-01062">ZD-2024-01062</a></td>
-<td>台中精美無聊科技SQLi to login + RXSS + SXSS + ckfinder後臺未關閉</td>
-<td>管理員帳密 + Broken Access Control</td>
-<td>嚴重</td>
-</tr>
-<tr>
-<td><a href="https://zeroday.hitcon.org/vulnerability/ZD-2024-01064" title="ZD-2024-01064">ZD-2024-01064</a></td>
-<td>達特楊美學診所SQLi to login + XSS + ckfinder後臺未關閉</td>
-<td>管理員帳密 + Broken Access Control</td>
-<td>高</td>
-</tr>
-<tr>
-<td><a href="https://zeroday.hitcon.org/vulnerability/ZD-2024-01083" title="ZD-2024-01083">ZD-2024-01083</a></td>
-<td>TKB甄戰學習顧問中心RXSS</td>
-<td>(XSS)</td>
-<td>低</td>
-</tr>
-<tr>
-<td><a href="https://zeroday.hitcon.org/vulnerability/ZD-2024-01084" title="ZD-2024-01084">ZD-2024-01084</a></td>
-<td>文山美學診所SQLi to login + XSS + ckfinder後臺未關閉</td>
-<td>管理員帳密 + Broken Access Control</td>
-<td>高</td>
-</tr>
-<tr>
-<td><a href="https://zeroday.hitcon.org/vulnerability/ZD-2024-01085" title="ZD-2024-01085">ZD-2024-01085</a></td>
-<td>牧丘銅鑼燒SQLi to login</td>
-<td>管理員帳密</td>
-<td>高</td>
-</tr>
-<tr>
-<td><a href="https://zeroday.hitcon.org/vulnerability/ZD-2024-01086" title="ZD-2024-01086">ZD-2024-01086</a></td>
-<td>黑傑克整形外科診所SQLi to login + ckfinder後臺未關閉</td>
-<td>管理員帳密</td>
-<td>高</td>
-</tr>
-<tr>
-<td><a href="https://zeroday.hitcon.org/vulnerability/ZD-2024-01087" title="ZD-2024-01087">ZD-2024-01087</a></td>
-<td>勝林五金SQLi to login + ckfinder後臺未關閉</td>
-<td>管理員帳密</td>
-<td>高</td>
-</tr>
-<tr>
-<td><a href="https://zeroday.hitcon.org/vulnerability/ZD-2024-01088" title="ZD-2024-01088">ZD-2024-01088</a></td>
-<td>瀚升精密科技有限公司SQLi to login + ckfinder後臺未關閉</td>
-<td>管理員帳密</td>
-<td>高</td>
-</tr>
-</tbody></table>
-<p>目前累計:</p>
-<ul>
-<li>低風險: 2</li>
-<li>中風險: 1</li>
-<li>高風險: 11</li>
-<li>嚴重風險: 2</li>
-</ul>
-<p>總計: 16</p>
-]]></content>
-      <categories>
-        <category>資安</category>
-      </categories>
-  </entry>
-  <entry>
     <title>程式週記</title>
     <url>/weekly-diary/</url>
     <content><![CDATA[<h1 id="Week-1-3-17-3-23"><a href="#Week-1-3-17-3-23" class="headerlink" title="Week 1 (3&#x2F;17~3&#x2F;23)"></a>Week 1 (3&#x2F;17~3&#x2F;23)</h1><ul>
@@ -2169,6 +2047,128 @@ ABaB
 <!-- End of CuterCounter Code -->]]></content>
       <categories>
         <category>紀錄</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>漏洞紀錄</title>
+    <url>/vulnerability/</url>
+    <content><![CDATA[<h1 id="漏洞"><a href="#漏洞" class="headerlink" title="漏洞"></a>漏洞</h1><table>
+<thead>
+<tr>
+<th>編號+連結</th>
+<th>單位+漏洞</th>
+<th>外泄內容</th>
+<th>風險</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><a href="https://zeroday.hitcon.org/vulnerability/ZD-2024-00899" title="ZD-2024-00899">ZD-2024-00899</a></td>
+<td>中原大學SQLi</td>
+<td>多位學生+教職員工個資</td>
+<td>高</td>
+</tr>
+<tr>
+<td><a href="https://zeroday.hitcon.org/vulnerability/ZD-2024-00900" title="ZD-2024-00900">ZD-2024-00900</a></td>
+<td>台中教育大學SQLi</td>
+<td>個資(內容不公開)</td>
+<td>嚴重</td>
+</tr>
+<tr>
+<td><a href="https://zeroday.hitcon.org/vulnerability/ZD-2024-00902" title="ZD-2024-00902">ZD-2024-00902</a></td>
+<td>國家華語測驗推動工作委員會SQLi</td>
+<td>管理員帳密</td>
+<td>高</td>
+</tr>
+<tr>
+<td><a href="https://zeroday.hitcon.org/vulnerability/ZD-2024-00910" title="ZD-2024-00910">ZD-2024-00910</a></td>
+<td>臺北醫學大學SQLi</td>
+<td>多個databases</td>
+<td>中</td>
+</tr>
+<tr>
+<td><a href="https://zeroday.hitcon.org/vulnerability/ZD-2024-00917" title="ZD-2024-00917">ZD-2024-00917</a></td>
+<td>低調資訊有限公司SQLi</td>
+<td>line token外洩</td>
+<td>高</td>
+</tr>
+<tr>
+<td><a href="https://zeroday.hitcon.org/vulnerability/ZD-2024-00918" title="ZD-2024-00918">ZD-2024-00918</a></td>
+<td>中原大學SQLi</td>
+<td>個資</td>
+<td>高</td>
+</tr>
+<tr>
+<td><a href="https://zeroday.hitcon.org/vulnerability/ZD-2024-01060" title="ZD-2024-01060">ZD-2024-01060</a></td>
+<td>泰禾國際實業有限公司RXSS</td>
+<td>(XSS)</td>
+<td>低</td>
+</tr>
+<tr>
+<td><a href="https://zeroday.hitcon.org/vulnerability/ZD-2024-01061" title="ZD-2024-01061">ZD-2024-01061</a></td>
+<td>奧斯華德色技有限公司SQLi</td>
+<td>多個tables</td>
+<td>高</td>
+</tr>
+<tr>
+<td><a href="https://zeroday.hitcon.org/vulnerability/ZD-2024-01062" title="ZD-2024-01062">ZD-2024-01062</a></td>
+<td>台中精美無聊科技SQLi to login + RXSS + SXSS + ckfinder後臺未關閉</td>
+<td>管理員帳密 + Broken Access Control</td>
+<td>嚴重</td>
+</tr>
+<tr>
+<td><a href="https://zeroday.hitcon.org/vulnerability/ZD-2024-01064" title="ZD-2024-01064">ZD-2024-01064</a></td>
+<td>達特楊美學診所SQLi to login + XSS + ckfinder後臺未關閉</td>
+<td>管理員帳密 + Broken Access Control</td>
+<td>高</td>
+</tr>
+<tr>
+<td><a href="https://zeroday.hitcon.org/vulnerability/ZD-2024-01083" title="ZD-2024-01083">ZD-2024-01083</a></td>
+<td>TKB甄戰學習顧問中心RXSS</td>
+<td>(XSS)</td>
+<td>低</td>
+</tr>
+<tr>
+<td><a href="https://zeroday.hitcon.org/vulnerability/ZD-2024-01084" title="ZD-2024-01084">ZD-2024-01084</a></td>
+<td>文山美學診所SQLi to login + XSS + ckfinder後臺未關閉</td>
+<td>管理員帳密 + Broken Access Control</td>
+<td>高</td>
+</tr>
+<tr>
+<td><a href="https://zeroday.hitcon.org/vulnerability/ZD-2024-01085" title="ZD-2024-01085">ZD-2024-01085</a></td>
+<td>牧丘銅鑼燒SQLi to login</td>
+<td>管理員帳密</td>
+<td>高</td>
+</tr>
+<tr>
+<td><a href="https://zeroday.hitcon.org/vulnerability/ZD-2024-01086" title="ZD-2024-01086">ZD-2024-01086</a></td>
+<td>黑傑克整形外科診所SQLi to login + ckfinder後臺未關閉</td>
+<td>管理員帳密</td>
+<td>高</td>
+</tr>
+<tr>
+<td><a href="https://zeroday.hitcon.org/vulnerability/ZD-2024-01087" title="ZD-2024-01087">ZD-2024-01087</a></td>
+<td>勝林五金SQLi to login + ckfinder後臺未關閉</td>
+<td>管理員帳密</td>
+<td>高</td>
+</tr>
+<tr>
+<td><a href="https://zeroday.hitcon.org/vulnerability/ZD-2024-01088" title="ZD-2024-01088">ZD-2024-01088</a></td>
+<td>瀚升精密科技有限公司SQLi to login + ckfinder後臺未關閉</td>
+<td>管理員帳密</td>
+<td>高</td>
+</tr>
+</tbody></table>
+<p>目前累計:</p>
+<ul>
+<li>低風險: 2</li>
+<li>中風險: 1</li>
+<li>高風險: 11</li>
+<li>嚴重風險: 2</li>
+</ul>
+<p>總計: 16</p>
+]]></content>
+      <categories>
+        <category>資安</category>
       </categories>
   </entry>
   <entry>
