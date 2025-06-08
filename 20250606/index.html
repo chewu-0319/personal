@@ -46,7 +46,7 @@
 <meta property="og:description" content="sort整理(bubble, selection, quick, merge, inserrtion sort)">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2025-06-08T12:06:58.423Z">
-<meta property="article:modified_time" content="2025-06-08T12:14:36.266Z">
+<meta property="article:modified_time" content="2025-06-08T12:17:54.419Z">
 <meta property="article:author" content="che">
 <meta property="article:tag" content="吳昕哲, 昕哲, chewu, che, 程式, 資工, 資訊, 資訊社, 吳○哲, 光復資訊研究社, 資安, AI, NLP">
 <meta name="twitter:card" content="summary">
@@ -226,7 +226,7 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2025-06-08 20:06:58 / Modified: 20:14:36" itemprop="dateCreated datePublished" datetime="2025-06-08T20:06:58+08:00">2025-06-08</time>
+              <time title="Created: 2025-06-08 20:06:58 / Modified: 20:17:54" itemprop="dateCreated datePublished" datetime="2025-06-08T20:06:58+08:00">2025-06-08</time>
             </span>
 
           <br>
@@ -255,7 +255,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h1 id="排序"><a href="#排序" class="headerlink" title="排序"></a>排序</h1><p>常見排序法<br><images src="\images\BYBK9Bh.png" width="100%" height="100%" /><br>排序前必要條件:<br>所有值必須丟到一個array或vector裡</p>
+        <h1 id="排序"><a href="#排序" class="headerlink" title="排序"></a>排序</h1><p>常見排序法<br><images src="/images/BYBK9Bh.png" width="100%" height="100%" /><br>排序前必要條件:<br>所有值必須丟到一個array或vector裡</p>
 <h2 id="1-泡沫排序法-bubble-sort"><a href="#1-泡沫排序法-bubble-sort" class="headerlink" title="1. 泡沫排序法 (bubble sort)"></a>1. 泡沫排序法 (bubble sort)</h2><h3 id="基本上就是兩層迴圈下去跑，只要前面的比後面大就交換。"><a href="#基本上就是兩層迴圈下去跑，只要前面的比後面大就交換。" class="headerlink" title="基本上就是兩層迴圈下去跑，只要前面的比後面大就交換。"></a>基本上就是兩層迴圈下去跑，只要前面的比後面大就交換。</h3><p>時間複雜度 O(n²)</p>
 <p>基本架構:</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;n<span class="number">-1</span>;i++) &#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> j=<span class="number">0</span>;j&lt;n-i<span class="number">-1</span>;j++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (arr[j]&gt;arr[j<span class="number">+1</span>]) &#123;</span><br><span class="line">            <span class="built_in">swap</span>(arr[j],arr[j<span class="number">+1</span>]);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -263,10 +263,10 @@
 <p>gif圖示:</p>
 <div style="display: flex; justify-content: space-between;">
     <div style="width: 50%; height: 50%;">
-        <images src="\images\Bubble-sort-example-300px.gif" style="width: 120%; height: 120%;" />
+        <images src="/images/Bubble-sort-example-300px.gif" style="width: 120%; height: 120%;" />
     </div>
     <div style="width: 50%; height: 40%;">
-        <images src="\images\Sorting_bubblesort_anim.gif" style="width: 90%; height: 80%;" />
+        <images src="/images/Sorting_bubblesort_anim.gif" style="width: 90%; height: 80%;" />
     </div>
 </div>
 圖源自維基百科
@@ -277,10 +277,10 @@
 <p>gif圖示:</p>
 <div style="display: flex; justify-content: space-between;">
     <div style="width: 50%; height: 50%;">
-        <images src="\images\1_bmfRxyIQZEK0Iu5T6YV1sw.gif" style="width: 120%; height: 120%;" />
+        <images src="/images/1_bmfRxyIQZEK0Iu5T6YV1sw.gif" style="width: 120%; height: 120%;" />
     </div>
     <div style="width: 50%; height: 50%;">
-        <images src="\images\Sorting_selection_sort_anim.gif" style="width: 90%; height: 80%;" />
+        <images src="/images/Sorting_selection_sort_anim.gif" style="width: 90%; height: 80%;" />
     </div>
 </div>
 圖源自維基百科
@@ -293,10 +293,10 @@
 <p>gif圖示:</p>
 <div style="display: flex; justify-content: space-between;">
     <div style="width: 50%; height: 50%;">
-        <images src="\images\Insertion-sort-example.gif" style="width: 120%; height: 120%;" />
+        <images src="/images/Insertion-sort-example.gif" style="width: 120%; height: 120%;" />
     </div>
     <div style="width: 50%; height: 50%;">
-        <images src="\images\Sorting_insertion_sort_anim.gif" style="width: 90%; height: 80%;" />
+        <images src="/images/Sorting_insertion_sort_anim.gif" style="width: 90%; height: 80%;" />
     </div>
 </div>
 圖源自維基百科
@@ -306,10 +306,10 @@
 <p>gif圖示:</p>
 <div style="display: flex; justify-content: space-between;">
     <div style="width: 50%; height: 50%;">
-        <images src="\images\Merge-sort-example-300px.gif" style="width: 120%; height: 120%;" />
+        <images src="/images/Merge-sort-example-300px.gif" style="width: 120%; height: 120%;" />
     </div>
     <div style="width: 50%; height: 50%;">
-        <images src="\images\merge_sort.gif" style="width: 90%; height: 80%;" />
+        <images src="/images/merge_sort.gif" style="width: 90%; height: 80%;" />
     </div>
 </div>
 圖源自維基百科, emre.me
@@ -325,10 +325,10 @@
 <p>gif圖示:</p>
 <div style="display: flex; justify-content: space-between;">
     <div style="width: 50%; height: 50%;">
-        <images src="\images\Quicksort-example.gif" style="width: 120%; height: 120%;" />
+        <images src="/images/Quicksort-example.gif" style="width: 120%; height: 120%;" />
     </div>
     <div style="width: 50%; height: 50%;">
-        <images src="\images\Sorting_quicksort_anim.gif" style="width: 90%; height: 80%;" />
+        <images src="/images/Sorting_quicksort_anim.gif" style="width: 90%; height: 80%;" />
     </div>
 </div>
 圖源自維基百科

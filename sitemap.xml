@@ -198,13 +198,6 @@
   </url>
   
   <url>
-    <loc>https://chewu.tw/categories/APCS/</loc>
-    <lastmod>2025-06-08</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://chewu.tw/categories/%E7%B4%80%E9%8C%84/</loc>
     <lastmod>2025-06-08</lastmod>
     <changefreq>weekly</changefreq>
@@ -212,14 +205,21 @@
   </url>
   
   <url>
-    <loc>https://chewu.tw/categories/%E5%80%8B%E4%BA%BA%E6%99%82%E9%96%93%E8%A1%A8/</loc>
+    <loc>https://chewu.tw/categories/%E7%89%B9%E6%AE%8A%E9%81%B8%E6%89%8D/</loc>
     <lastmod>2025-06-08</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://chewu.tw/categories/%E7%89%B9%E6%AE%8A%E9%81%B8%E6%89%8D/</loc>
+    <loc>https://chewu.tw/categories/APCS/</loc>
+    <lastmod>2025-06-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://chewu.tw/categories/%E5%80%8B%E4%BA%BA%E6%99%82%E9%96%93%E8%A1%A8/</loc>
     <lastmod>2025-06-08</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
